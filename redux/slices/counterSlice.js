@@ -1,11 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { normalizeRepeatedSlashes } from "next/dist/shared/lib/utils";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
+  characters:[],
   value: 0,
 };
 
+
 export const getData = createAsyncThunk("get data", async () => {
+
+  console.log("change -- test= " )
   const response = await apiClient({
     data: {
       query: `query{
@@ -37,7 +42,12 @@ export const getData = createAsyncThunk("get data", async () => {
           `,
     },
   });
-  return response.data.data.characters;
+  console.log("change -- test 2= " )
+  console.log("change = " , response.data.data.characters)
+  // console.log("inside the function----------",res.data.data.characters);
+  // return response.data.data.characters;
+  // return ({})
+  return response.data.data.characters
 });
 
 export const counterSlice = createSlice({
@@ -55,19 +65,22 @@ export const counterSlice = createSlice({
     //       console.log(err);
     //     });
     // },
-    // decrement: (state) => {
-    //   state.value -= 1;
-    // },
+    decrement: (state) => {
+      state.value -= 1;
+    },
     // incrementByAmount: (state, action) => {
     //   state.value += action.payload;
     // },
-    extraReducers: {
-      [getData.increment]: (state) =>{
-        state.value += 1;
-      }
-    }
   },
+    extraReducers: {
+      [getData.fulfilled]: (state, action) =>{
+        state.value += 1;
+        state.characters.push(action.payload.results)
+        // console.log("payload - counterSlice = ",payload);
+      }
+    },
+  
 });
 
-export const { increment } = counterSlice.actions;
+export const { increment, decrement } = counterSlice.actions;
 export default counterSlice.reducer;
