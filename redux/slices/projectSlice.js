@@ -3,8 +3,8 @@ import apiClient from "../../pages/api/axios";
 
 const initialState = {
   
-    _id: "62b98a094e8d090004e80b8f",
-    tagName: "s_project2",
+    _id: "",
+    tagName: "",
     dates: {
       kickOff: null,
       complition: null,
