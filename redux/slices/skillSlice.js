@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
-  _id: "62b98cdb4e8d090004e80baf",
-  tagName: "coding",
+  _id: "",
+  tagName: "",
   members: [],
 };
 

@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
-  _id: "62adbd7ca569ad00044c4fd9",
-  discordName: "BluePanda",
-  discordID: "908392557258604544",
-  tweets: ["recuVtMbNAeoKFTT4"],
+  _id: "",
+  discordName: "",
+  discordID: "",
+  tweets: [""],
   skills: [],
   projects: []
 };
