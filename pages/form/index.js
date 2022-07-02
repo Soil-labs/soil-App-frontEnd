@@ -3,7 +3,6 @@ import { useState } from "react";
 
 function Form() {
   const [phase, setPhase] = useState(0);
-  const [replyValue, setReplyValue] = useState("");
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -18,35 +17,29 @@ function Form() {
     },
   ]);
 
-  const changePhase = () => {
-    if (questions.length - 2 >= phase) {
-      setPhase((phase += 1));
+  const changePhase = (phaseNow) => {
+    if (questions.length - 2 >= phaseNow) {
+      setPhase((phaseNow += 1));
     } else {
       return;
     }
   };
 
-  const handleChange = (e) => {
-    setReplyValue(e.target.value);
-  };
-
-  const updateReply = () => {
+  const handleChange = (e, phaseNow) => {
     let newArr = [...questions];
-    console.log(phase);
-    newArr[phase].reply = replyValue;
+
+    newArr[phaseNow].reply = e.target.value;
+
     setQuestions(newArr);
-    console.log(questions);
-    setReplyValue(" ");
   };
 
   return (
     <>
       <FormComponent
         handleChange={handleChange}
-        updateReply={updateReply}
-        setReplyValue={setReplyValue}
         changePhase={changePhase}
         questions={questions[phase]}
+        phase={phase}
       />
       {/* <FormComponent changePhase={changePhase} questions={questions[phase]} /> */}
     </>

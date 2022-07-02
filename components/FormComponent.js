@@ -1,8 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 
 export default function FormComponent(props) {
+
+
   return (
     <div className=" h-screen w-screen m-auto content-center ">
+      <p> The phase is {props.phase}</p>
       <main className="lg:relative lg:flex lg:justify-center  ">
         {/* Secondary image */}
         <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
@@ -26,8 +29,8 @@ export default function FormComponent(props) {
             <div className="mt-20">
               <div className="mt-1 border-b border-black focus-within:border-indigo-600">
                 <input
-                  value={props.replyValue}
-                  onChange={props.handleChange}
+                  value={props.questions.reply}
+                  onChange={(e) => props.handleChange(e,props.phase)}
                   type="text"
                   name="name"
                   id="name"
@@ -37,8 +40,7 @@ export default function FormComponent(props) {
               {/* Button */}
               <button
                 onClick={() => {
-                  props.updateReply();
-                  props.changePhase();
+                  props.changePhase(props.phase);
                 }}
                 type="button"
                 className=" mt-2 inline-flex mt- items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
