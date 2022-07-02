@@ -26,18 +26,17 @@ function Form() {
     }
   };
 
-
   const handleChange = (e) => {
     setReplyValue(e.target.value);
   };
 
   const updateReply = () => {
     let newArr = [...questions];
-    console.log(phase)
+    console.log(phase);
     newArr[phase].reply = replyValue;
     setQuestions(newArr);
     console.log(questions);
-    setReplyValue(" ")
+    setReplyValue(" ");
   };
 
   return (
