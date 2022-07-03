@@ -22,7 +22,13 @@ function Form() {
         "Key info on what will make the filling curcial: for ex - great titles are  short & descriptive bla bla",
       reply: "",
     },
-    {},
+    {
+      title: "BUDGET APPLICATION",
+      budget: "",
+      kickoffDate: "",
+      wrapUpDate: "",
+      notesAndJust: "",
+    },
   ]);
 
   const DisplayForm = () => {
