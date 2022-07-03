@@ -34,14 +34,6 @@ export const projectSlice = createSlice({
   name: "project",
   initialState,
   reducers: {
-    // addReply: (state, action) => {
-    //   const projectData = {
-    //     questions: action.payload,
-    //   };
-    //   console.log("this is from the slice ------>>>>", projectData);
-    //   state.title = projectData.questions[0].reply
-    //   state.description = projectData.questions[1].reply
-    // },
     },
     extraReducers: {
       [createNewProject.fulfilled]: (state,{payload}) => {
