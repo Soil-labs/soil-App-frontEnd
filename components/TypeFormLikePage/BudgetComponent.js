@@ -9,10 +9,10 @@ import Image from "next/image";
 
 const GreenBudgetForm = () => {
   return (
-    <div className="w-[679px] h-[896px] bg-soilGreen-50 rounded-2xl">
+    <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">
         {/* Title */}
-        <div className="w-[590px] h-[70px] bg-white mt-20 text-4xl rounded-2xl flex items-center justify-center">
+        <div className="w-[590px] h-[70px] bg-white mt-20 text-4xl shadow-md rounded-2xl flex items-center justify-center">
           <p className="">BUDGET APPLICATION</p>
         </div>
         {/* Budget input fields + TokenInfo */}
@@ -25,7 +25,7 @@ const GreenBudgetForm = () => {
                 Budget
               </label>
 
-              <div className="mt-1 relative rounded-2xl shadow-sm">
+              <div className="mt-1 relative rounded-2xl shadow-md">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <CurrencyDollarIcon
                     className="h-5 w-5 text-gray-400"
@@ -46,7 +46,7 @@ const GreenBudgetForm = () => {
                 Kickoff Date
               </label>
 
-              <div className="mt-1 relative rounded-2xl shadow-sm">
+              <div className="mt-1 relative rounded-2xl shadow-md">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <TrendingUpIcon
                     className="h-5 w-5 text-gray-400"
@@ -67,7 +67,7 @@ const GreenBudgetForm = () => {
                 Whrap up date
               </label>
 
-              <div className="mt-1 relative rounded-2xl shadow-sm">
+              <div className="mt-1 relative rounded-2xl shadow-md">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <TrendingDownIcon
                     className="h-5 w-5 text-gray-400"
@@ -84,7 +84,7 @@ const GreenBudgetForm = () => {
             </div>
           </div>
           {/* Token info */}
-          <div className="w-[190px] h-[186px] rounded-2xl bg-white text-center ">
+          <div className="w-[190px] h-[186px] rounded-2xl bg-white shadow-md text-center ">
             <p className="mt-2">TOKEN INFO </p>
           </div>
         </div>
@@ -102,7 +102,7 @@ const GreenBudgetForm = () => {
                 rows={10}
                 name="comment"
                 id="comment"
-                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-2xl"
+                className="shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-2xl"
                 defaultValue={""}
               />
             </div>
