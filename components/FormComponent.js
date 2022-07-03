@@ -41,6 +41,7 @@ export default function FormComponent(props) {
               <button
                 onClick={() => {
                   props.changePhase(props.phase);
+                  // props.submitReply()
                 }}
                 type="button"
                 className=" mt-2 inline-flex mt- items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

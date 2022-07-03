@@ -6,7 +6,8 @@ import axios from "axios";
 //   ? process.env.REACT_APP_DOMAIN_NAME + "/graphql"
 //   : "http://localhost:5001/graphql";
 
- const baseURL = "https://rickandmortyapi.com/graphql"
+ const baseURL = "https://oasis-bot-test-deploy.herokuapp.com/graphql"
+//  const baseURL = "https://rickandmortyapi.com/graphql"
 
 
 

@@ -1,5 +1,7 @@
 import FormComponent from "../../components/FormComponent";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getData, addReply, createNewProject } from "../../redux/slices/projectSlice";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -18,12 +20,18 @@ function Form() {
   ]);
 
   const changePhase = (phaseNow) => {
-    if (questions.length - 2 >= phaseNow) {
+
+    console.log("questions.length > phaseNow = " , questions.length, phaseNow)
+    if (questions.length  - 1> phaseNow) {
       setPhase((phaseNow += 1));
     } else {
-      return;
+      submitReply()
     }
   };
+
+  const project = useSelector((state) => state.project);
+  const dispatch = useDispatch();
+  
 
   const handleChange = (e, phaseNow) => {
     let newArr = [...questions];
@@ -31,7 +39,20 @@ function Form() {
     newArr[phaseNow].reply = e.target.value;
 
     setQuestions(newArr);
+    console.log(questions)
   };
+
+  const submitReply = () => {
+    console.log("we are at the end of the FORM!! = ",questions[0].reply,questions[1].reply )
+
+    const feild = {
+      title: questions[0].reply,
+      description: questions[1].reply,
+    }
+    dispatch(createNewProject(feild));
+    // dispatch(createNewProject(questions[0].reply,questions[1].reply));
+    // dispatch(addReply(questions));
+  }
 
   return (
     <>
@@ -40,6 +61,7 @@ function Form() {
         changePhase={changePhase}
         questions={questions[phase]}
         phase={phase}
+        submitReply ={submitReply}
       />
       {/* <FormComponent changePhase={changePhase} questions={questions[phase]} /> */}
     </>

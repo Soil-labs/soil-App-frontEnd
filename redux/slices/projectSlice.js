@@ -2,32 +2,58 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
-  
-    _id: "62b98a094e8d090004e80b8f",
-    tagName: "s_project2",
-    dates: {
-      kickOff: null,
-      complition: null,
-    },
-
+  title: "",
+  description: "",
 };
 
-export const getData = createAsyncThunk("get data", async () => {
+export const createNewProject = createAsyncThunk("createNewProject", async (feild) => {
+
+  console.log("title,description = " , feild.title,feild.description)
   const response = await apiClient({
-    data: {},
+    data: {
+      query: `mutation{
+      updateProject(fields:{
+        tagName: "${feild.title}"
+        title: "${feild.title}"
+        description: "${feild.description}"
+      }){
+        tagName
+        title
+        description
+      }
+    }`,
+    },
   });
 
-  return response;
+  console.log("response.date.data = " , response.data.data.updateProject)
+
+  return response.data.data.updateProject;
 });
 
 export const projectSlice = createSlice({
   name: "project",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [getData.fulfilled]: (state) => {},
+  reducers: {
+    // addReply: (state, action) => {
+    //   const projectData = {
+    //     questions: action.payload,
+    //   };
+    //   console.log("this is from the slice ------>>>>", projectData);
+    //   state.title = projectData.questions[0].reply
+    //   state.description = projectData.questions[1].reply
+    // },
+    },
+    extraReducers: {
+      [createNewProject.fulfilled]: (state,{payload}) => {
+        console.log("reducerWorks - state= " , state)
+        console.log("reducerWorks2 - payload = " , payload)
+
+        state.title = payload.title;
+        state.description = payload.description;
+
+      },
   },
 });
 
-// export const {} = counterSlice.actions;
+export const { addReply } = projectSlice.actions;
 export default projectSlice.reducer;
