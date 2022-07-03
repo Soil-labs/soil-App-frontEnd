@@ -47,7 +47,6 @@ export const findProject = createAsyncThunk("findProject", async (field) => {
       }`,
     },
   });
-  console.log("response.date.data = ", response.data.data.findProject);
 
   return response.data.data.findProject;
 });
@@ -58,15 +57,10 @@ export const projectSlice = createSlice({
   reducers: {},
   extraReducers: {
     [createNewProject.fulfilled]: (state, { payload }) => {
-      // console.log("reducerWorks - state= ", state);
-      // console.log("reducerWorks2 - payload = ", payload);
-
       state.title = payload.title;
       state.description = payload.description;
     },
     [findProject.fulfilled]: (state, { payload }) => {
-      console.log("reducerWorks - state= ", state);
-      console.log("reducerWorks2 - payload = ", payload);
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;

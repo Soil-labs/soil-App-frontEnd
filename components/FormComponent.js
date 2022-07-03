@@ -1,8 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 
 export default function FormComponent(props) {
-
-
   return (
     <div className=" h-screen w-screen m-auto content-center ">
       <p> The phase is {props.phase}</p>
@@ -30,7 +28,7 @@ export default function FormComponent(props) {
               <div className="mt-1 border-b border-black focus-within:border-indigo-600">
                 <input
                   value={props.questions.reply}
-                  onChange={(e) => props.handleChange(e,props.phase)}
+                  onChange={(e) => props.handleChange(e, props.phase)}
                   type="text"
                   name="name"
                   id="name"

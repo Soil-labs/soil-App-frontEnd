@@ -53,26 +53,18 @@ function Form() {
     dispatch(createNewProject(feild));
   };
 
-  // const lookForProject = () => {
-  //   const field = {
-  //     _id: "62a47e56020ea30004c1f231"
+  // useEffect(() => {
+  //   const lookForProject = () => {
+  //     const field = {
+  //       _id: "62c0dac5a38139000437e607"
+  //     };
+
+  //     console.log("this is the _id in the form ============>>>>>>>>",field._id)
+  //     dispatch(findProject(field))
   //   }
-  //   dispatch()
-  // }
+  //   lookForProject()
+  // }, [phase])
 
-  useEffect(() => {
-    const lookForProject = () => {
-      const field = {
-        _id: "62c0dac5a38139000437e607"
-      };
-
-      console.log("this is the _id in the form ============>>>>>>>>",field._id)
-      dispatch(findProject(field))
-    }
-    lookForProject()
-  }, [phase])
-  
- 
   return (
     <>
       <FormComponent
