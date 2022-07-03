@@ -5,6 +5,7 @@ import {
   TrendingDownIcon,
   ChevronDoubleDownIcon,
 } from "@heroicons/react/solid";
+import Image from "next/image";
 
 const GreenBudgetForm = () => {
   return (
@@ -111,13 +112,14 @@ const GreenBudgetForm = () => {
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
         </button>
       </div>
+     
     </div>
   );
 };
 function BudgetComponent() {
   return (
     <>
-      <div class="grid h-screen place-items-center">
+      <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
         <GreenBudgetForm  />
       </div>
     </>

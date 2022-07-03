@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'onion': "url('/public/vercel.svg')",
+      },
       colors: {
         soilGreen: {
           50: "#ACCEA0",
