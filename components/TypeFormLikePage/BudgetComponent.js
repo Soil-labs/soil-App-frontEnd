@@ -6,6 +6,7 @@ import {
   ChevronDoubleDownIcon,
 } from "@heroicons/react/solid";
 
+
 const GreenBudgetForm = () => {
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
@@ -111,6 +112,7 @@ const GreenBudgetForm = () => {
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
         </button>
       </div>
+     
     </div>
   );
 };
@@ -118,7 +120,7 @@ function BudgetComponent() {
   return (
     <>
       <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <GreenBudgetForm />
+        <GreenBudgetForm  />
       </div>
     </>
   );

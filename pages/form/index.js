@@ -1,11 +1,7 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getData,
-  addReply,
-  createNewProject,
-} from "../../redux/slices/projectSlice";
+import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import BudgetComponent from "../../components/TypeFormLikePage/BudgetComponent";
 
 function Form() {
@@ -74,20 +70,28 @@ function Form() {
       questions[0].reply,
       questions[1].reply
     );
-
     const feild = {
       title: questions[0].reply,
       description: questions[1].reply,
     };
     dispatch(createNewProject(feild));
-    // dispatch(createNewProject(questions[0].reply,questions[1].reply));
-    // dispatch(addReply(questions));
   };
+
+  // useEffect(() => {
+  //   const lookForProject = () => {
+  //     const field = {
+  //       _id: "62c0dac5a38139000437e607"
+  //     };
+
+  //     console.log("this is the _id in the form ============>>>>>>>>",field._id)
+  //     dispatch(findProject(field))
+  //   }
+  //   lookForProject()
+  // }, [phase])
 
   return (
     <>
-      {/* <DisplayForm /> */}
-      <BudgetComponent/>
+      <DisplayForm />
     </>
   );
 }

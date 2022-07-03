@@ -4,14 +4,16 @@ import apiClient from "../../pages/api/axios";
 const initialState = {
   title: "",
   description: "",
+  _id: "",
 };
 
-export const createNewProject = createAsyncThunk("createNewProject", async (feild) => {
-
-  console.log("title,description = " , feild.title,feild.description)
-  const response = await apiClient({
-    data: {
-      query: `mutation{
+export const createNewProject = createAsyncThunk(
+  "createNewProject",
+  async (feild) => {
+    console.log("title,description = ", feild.title, feild.description);
+    const response = await apiClient({
+      data: {
+        query: `mutation{
       updateProject(fields:{
         tagName: "${feild.title}"
         title: "${feild.title}"
@@ -22,36 +24,47 @@ export const createNewProject = createAsyncThunk("createNewProject", async (feil
         description
       }
     }`,
+      },
+    });
+
+    console.log("response.date.data = ", response.data.data.updateProject);
+
+    return response.data.data.updateProject;
+  }
+);
+
+export const findProject = createAsyncThunk("findProject", async (field) => {
+  const response = await apiClient({
+    data: {
+      query: `query{
+        findProject(fields:{
+          _id: "${field._id}"
+        }){
+          _id
+          title
+          description
+        }
+      }`,
     },
   });
 
-  console.log("response.date.data = " , response.data.data.updateProject)
-
-  return response.data.data.updateProject;
+  return response.data.data.findProject;
 });
 
 export const projectSlice = createSlice({
   name: "project",
   initialState,
-  reducers: {
-    // addReply: (state, action) => {
-    //   const projectData = {
-    //     questions: action.payload,
-    //   };
-    //   console.log("this is from the slice ------>>>>", projectData);
-    //   state.title = projectData.questions[0].reply
-    //   state.description = projectData.questions[1].reply
-    // },
+  reducers: {},
+  extraReducers: {
+    [createNewProject.fulfilled]: (state, { payload }) => {
+      state.title = payload.title;
+      state.description = payload.description;
     },
-    extraReducers: {
-      [createNewProject.fulfilled]: (state,{payload}) => {
-        console.log("reducerWorks - state= " , state)
-        console.log("reducerWorks2 - payload = " , payload)
-
-        state.title = payload.title;
-        state.description = payload.description;
-
-      },
+    [findProject.fulfilled]: (state, { payload }) => {
+      state._id = payload._id;
+      state.title = payload.title;
+      state.description = payload.description;
+    },
   },
 });
 
