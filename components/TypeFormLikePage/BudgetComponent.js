@@ -6,8 +6,7 @@ import {
   ChevronDoubleDownIcon,
 } from "@heroicons/react/solid";
 
-
-const GreenBudgetForm = () => {
+const GreenBudgetForm = (props) => {
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">
@@ -33,6 +32,9 @@ const GreenBudgetForm = () => {
                   />
                 </div>
                 <input
+                  value={props.questions}
+                  // onChange={(e) => props.handleChange(e, props.phase)}
+                  onChange={(e) => console.log(props.phase)}
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -112,7 +114,6 @@ const GreenBudgetForm = () => {
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
         </button>
       </div>
-     
     </div>
   );
 };
@@ -120,7 +121,7 @@ function BudgetComponent() {
   return (
     <>
       <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <GreenBudgetForm  />
+        <GreenBudgetForm />
       </div>
     </>
   );

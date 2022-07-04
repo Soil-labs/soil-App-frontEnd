@@ -27,21 +27,29 @@ function Form() {
     },
   ]);
 
-  const DisplayForm = () => {
-    if (phase <= 1) {
-      return (
-        <FormComponent
-          handleChange={handleChange}
-          changePhase={changePhase}
-          questions={questions[phase]}
-          phase={phase}
-          submitReply={submitReply}
-        />
-      );
-    } else {
-      return <BudgetComponent />;
-    }
-  };
+  // const DisplayForm = () => {
+  //   if (phase <= 1) {
+  //     return (
+  //       <FormComponent
+  //         handleChange={handleChange}
+  //         changePhase={changePhase}
+  //         questions={questions[phase]}
+  //         phase={phase}
+  //         submitReply={submitReply}
+  //       />
+  //     );
+  //   } else {
+  //     return (
+  //       <BudgetComponent
+  //         handleChange={handleChange}
+  //         changePhase={changePhase}
+  //         questions={questions[phase]}
+  //         phase={phase}
+  //         submitReply={submitReply}
+  //       />
+  //     );
+  //   }
+  // };
 
   const changePhase = (phaseNow) => {
     console.log("questions.length > phaseNow = ", questions.length, phaseNow);
@@ -59,6 +67,8 @@ function Form() {
     let newArr = [...questions];
 
     newArr[phaseNow].reply = e.target.value;
+    //
+    newArr[phaseNow].budget = e.target.value;
 
     setQuestions(newArr);
     console.log(questions);
@@ -73,6 +83,8 @@ function Form() {
     const feild = {
       title: questions[0].reply,
       description: questions[1].reply,
+      //
+      budget: questions[2].budget,
     };
     dispatch(createNewProject(feild));
   };
@@ -91,7 +103,14 @@ function Form() {
 
   return (
     <>
-      <DisplayForm />
+      {/* <DisplayForm /> */}
+      <BudgetComponent
+        handleChange={handleChange}
+        changePhase={changePhase}
+        questions={questions[phase]}
+        phase={phase}
+        submitReply={submitReply}
+      />
     </>
   );
 }
