@@ -2,31 +2,45 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
+  tagName: "",
+  _id: "",
   title: "",
   description: "",
-  _id: "",
+  budget: "" ,
+  dates: {
+    kickoffDate: "" ,
+    wrapUpDate: "",
+  },
+  notesAndJustification: "",
 };
 
 export const createNewProject = createAsyncThunk(
   "createNewProject",
   async (feild) => {
-    console.log("title,description = ", feild.title, feild.description);
+    console.log('feild = ',feild)
     const response = await apiClient({
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "${feild.title}"
+        tagName: "s_project27"
         title: "${feild.title}"
         description: "${feild.description}"
+        dates: {
+          kickOff: "${feild.kickoffDate}"
+          complition: "${feild.wrapUpDate}"
+        }
       }){
         tagName
         title
         description
+        dates{
+          kickOff
+          complition
+        }
       }
     }`,
       },
     });
-
     console.log("response.date.data = ", response.data.data.updateProject);
 
     return response.data.data.updateProject;
@@ -59,6 +73,13 @@ export const projectSlice = createSlice({
     [createNewProject.fulfilled]: (state, { payload }) => {
       state.title = payload.title;
       state.description = payload.description;
+      state.budget = payload.budget;
+      state.dates.kickoffDate = payload.dates.kickOff;
+      state.dates.wrapUpDate = payload.dates.complition;
+      state.notesAndJustification = payload.notesAndJustification;
+      console.log('This is payload ==>>>>', payload)
+      console.log('This is payload.dates ==>>>>', payload.dates)
+      console.log('This is payload.dates.kickoffDate ==>>>>', payload.dates.kickOff)
     },
     [findProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;

@@ -28,7 +28,7 @@ export default function FormComponent(props) {
               <div className="mt-1 border-b border-black focus-within:border-indigo-600">
                 <input
                   value={props.questions.reply}
-                  onChange={(e) => props.handleChange(e, props.phase)}
+                  onChange={(e) => props.handleChange(e, props.phase, "reply")}
                   type="text"
                   name="name"
                   id="name"

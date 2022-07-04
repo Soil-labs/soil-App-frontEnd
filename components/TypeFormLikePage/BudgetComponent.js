@@ -32,13 +32,13 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  value={props.questions}
-                  // onChange={(e) => props.handleChange(e, props.phase)}
-                  onChange={(e) => console.log(props.phase)}
+                  value={props.questions.budget}
+                  onChange={(e) => props.handleChange(e, props.phase, "budget")}
+                  // onChange={(e) => console.log('e.target.value----->>>>>',e.target.value)}
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"
-                  // placeholder="BUDGET"
+                  // placeholder=""
                 />
               </div>
             </div>
@@ -56,6 +56,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
+                  onChange={(e) =>
+                    props.handleChange(e, props.phase, "kickoffDate")
+                  }
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
                        pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -77,6 +80,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
+                  onChange={(e) =>
+                    props.handleChange(e, props.phase, "wrapUpDate")
+                  }
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
      pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -103,25 +109,41 @@ const GreenBudgetForm = (props) => {
               <textarea
                 rows={10}
                 name="comment"
+                onChange={(e) =>
+                  props.handleChange(e, props.phase, "notesAndJustification")
+                }
                 id="comment"
                 className="shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-2xl"
                 defaultValue={""}
+                placeholder="Write text here .........................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................"
               />
             </div>
           </div>
         </div>
-        <button>
+        <button
+          onClick={() => {
+            props.changePhase(props.phase);
+          }}
+        >
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
         </button>
       </div>
     </div>
   );
 };
-function BudgetComponent() {
+function BudgetComponent(props) {
   return (
     <>
       <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <GreenBudgetForm />
+        <GreenBudgetForm {...props} />
       </div>
     </>
   );

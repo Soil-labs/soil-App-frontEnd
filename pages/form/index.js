@@ -1,16 +1,18 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
-import BudgetComponent from "../../components/TypeFormLikePage/BudgetComponent";
+import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 
 function Form() {
-  const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
       description: "description 1",
       reply: "",
+      render: "",
     },
     {
       title: "Description of the new project?",
@@ -23,7 +25,7 @@ function Form() {
       budget: "",
       kickoffDate: "",
       wrapUpDate: "",
-      notesAndJust: "",
+      notesAndJustification: "",
     },
   ]);
 
@@ -40,7 +42,7 @@ function Form() {
   //     );
   //   } else {
   //     return (
-  //       <BudgetComponent
+  //       <GreenBudgetForm
   //         handleChange={handleChange}
   //         changePhase={changePhase}
   //         questions={questions[phase]}
@@ -52,7 +54,6 @@ function Form() {
   // };
 
   const changePhase = (phaseNow) => {
-    console.log("questions.length > phaseNow = ", questions.length, phaseNow);
     if (questions.length - 1 > phaseNow) {
       setPhase((phaseNow += 1));
     } else {
@@ -60,31 +61,22 @@ function Form() {
     }
   };
 
-  const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
 
-  const handleChange = (e, phaseNow) => {
+  const handleChange = (e, phaseNow, changeField) => {
     let newArr = [...questions];
-
-    newArr[phaseNow].reply = e.target.value;
-    //
-    newArr[phaseNow].budget = e.target.value;
-
+    newArr[phaseNow][changeField] = e.target.value;
     setQuestions(newArr);
-    console.log(questions);
   };
 
   const submitReply = () => {
-    console.log(
-      "we are at the end of the FORM!! = ",
-      questions[0].reply,
-      questions[1].reply
-    );
     const feild = {
       title: questions[0].reply,
       description: questions[1].reply,
-      //
-      budget: questions[2].budget,
+      // budget: questions[2].budget,
+      kickoffDate: questions[2].kickoffDate,
+      wrapUpDate: questions[2].wrapUpDate,
+      // notesAndJustification: questions[2].notesAndJustification,
     };
     dispatch(createNewProject(feild));
   };
@@ -103,14 +95,23 @@ function Form() {
 
   return (
     <>
-      {/* <DisplayForm /> */}
-      <BudgetComponent
+      {/* <DisplayForm
+      /> */}
+      <GreenBudgetForm
         handleChange={handleChange}
         changePhase={changePhase}
         questions={questions[phase]}
         phase={phase}
         submitReply={submitReply}
       />
+
+      {/* <FormComponent
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        /> */}
     </>
   );
 }
