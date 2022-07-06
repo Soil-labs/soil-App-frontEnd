@@ -21,7 +21,7 @@ const GreenBudgetForm = (props) => {
             {/* Budget Input Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Budget
+                Total Budget
               </label>
 
               <div className="mt-1 relative rounded-2xl shadow-md">
@@ -32,8 +32,8 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  value={props.questions.budget}
-                  onChange={(e) => props.handleChange(e, props.phase, "budget")}
+                  value={props.questions.totalBudget}
+                  onChange={(e) => props.handleChange(e, props.phase, "totalBudget")}
                   // onChange={(e) => console.log('e.target.value----->>>>>',e.target.value)}
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48

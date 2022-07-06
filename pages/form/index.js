@@ -5,7 +5,8 @@ import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 
 function Form() {
-  const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -21,7 +22,7 @@ function Form() {
     },
     {
       title: "BUDGET APPLICATION",
-      budget: "",
+      totalBudget: "",
       kickoffDate: "",
       wrapUpDate: "",
       notesAndJustification: "",
@@ -69,15 +70,15 @@ function Form() {
   };
 
   const submitReply = () => {
-    const feild = {
+    const field = {
       title: questions[0].reply,
       description: questions[1].reply,
-      // budget: questions[2].budget,
+      totalBudget: questions[2].totalBudget,
       kickoffDate: questions[2].kickoffDate,
       wrapUpDate: questions[2].wrapUpDate,
       // notesAndJustification: questions[2].notesAndJustification,
     };
-    dispatch(createNewProject(feild));
+    dispatch(createNewProject(field));
   };
 
   // useEffect(() => {

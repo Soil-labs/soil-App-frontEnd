@@ -6,9 +6,11 @@ const initialState = {
   _id: "",
   title: "",
   description: "",
-  budget: "" ,
+  budget: {
+    totalBudget: "",
+  },
   dates: {
-    kickoffDate: "" ,
+    kickoffDate: "",
     wrapUpDate: "",
   },
   notesAndJustification: "",
@@ -16,19 +18,24 @@ const initialState = {
 
 export const createNewProject = createAsyncThunk(
   "createNewProject",
-  async (feild) => {
-    console.log('feild = ',feild)
+  async (field) => {
+    console.log("field", field);
+    console.log("field.totalBudget", field.totalBudget);
     const response = await apiClient({
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "s_project28"
-        title: "${feild.title}"
-        description: "${feild.description}"
+        tagName: "s_project30"
+        title: "${field.title}"
+        description: "${field.description}"
         dates: {
-          kickOff: "${feild.kickoffDate}"
-          complition: "${feild.wrapUpDate}"
+          kickOff: "${field.kickoffDate}"
+          complition: "${field.wrapUpDate}"
         }
+        budget: {
+          totalBudget: "${field.totalBudget}"
+        }
+        
       }){
         tagName
         title
@@ -36,6 +43,9 @@ export const createNewProject = createAsyncThunk(
         dates{
           kickOff
           complition
+        }
+        budget{
+          totalBudget
         }
       }
     }`,
@@ -72,7 +82,10 @@ export const projectSlice = createSlice({
     [createNewProject.fulfilled]: (state, { payload }) => {
       state.title = payload.title;
       state.description = payload.description;
-      state.budget = payload.budget;
+      console.log("payload", payload);
+      console.log("payload.budget", payload.budget);
+      console.log("payload.budget.totalBudget", payload.budget.totalBudget);
+      state.budget.totalBudget = payload.budget.totalBudget;
       state.dates.kickoffDate = payload.dates.kickOff;
       state.dates.wrapUpDate = payload.dates.complition;
       state.notesAndJustification = payload.notesAndJustification;
