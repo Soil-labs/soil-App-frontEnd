@@ -5,8 +5,8 @@ import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 
 function Form() {
-  // const [phase, setPhase] = useState(0);
-  const [phase, setPhase] = useState(2);
+  const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -95,23 +95,24 @@ function Form() {
 
   return (
     <>
-      {/* <DisplayForm
-      /> */}
-      <GreenBudgetForm
-        handleChange={handleChange}
-        changePhase={changePhase}
-        questions={questions[phase]}
-        phase={phase}
-        submitReply={submitReply}
-      />
-
-      {/* <FormComponent
+      {phase <= 1 ? (
+        <FormComponent
           handleChange={handleChange}
           changePhase={changePhase}
           questions={questions[phase]}
           phase={phase}
           submitReply={submitReply}
-        /> */}
+        />
+      ) : (
+        <GreenBudgetForm
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        />
+      )}
+      
     </>
   );
 }
