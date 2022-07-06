@@ -41,7 +41,6 @@ export const createNewProject = createAsyncThunk(
     }`,
       },
     });
-    console.log("response.date.data = ", response.data.data.updateProject);
 
     return response.data.data.updateProject;
   }
@@ -77,9 +76,6 @@ export const projectSlice = createSlice({
       state.dates.kickoffDate = payload.dates.kickOff;
       state.dates.wrapUpDate = payload.dates.complition;
       state.notesAndJustification = payload.notesAndJustification;
-      console.log('This is payload ==>>>>', payload)
-      console.log('This is payload.dates ==>>>>', payload.dates)
-      console.log('This is payload.dates.kickoffDate ==>>>>', payload.dates.kickOff)
     },
     [findProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;

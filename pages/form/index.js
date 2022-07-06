@@ -6,7 +6,6 @@ import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
-  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
