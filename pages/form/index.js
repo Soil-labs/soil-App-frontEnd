@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
+import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
+import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 
 function Form() {
   // const [phase, setPhase] = useState(0);
@@ -95,7 +97,7 @@ function Form() {
 
   return (
     <>
-      {phase <= 1 ? (
+      {/* {phase <= 1 ? (
         <FormComponent
           handleChange={handleChange}
           changePhase={changePhase}
@@ -111,7 +113,10 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
-      )}
+      )} */}
+
+      <ScopeRolesComponent/>
+      {/* <GeneralGreenFromComponent/> */}
     </>
   );
 }
