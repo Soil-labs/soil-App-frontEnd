@@ -4,7 +4,7 @@ import WhatIsSoil from "./WhatIsSoil";
 
 export default function Header() {
   return (
-    <header className="px-3 pt-3">
+    <header className="px-3 pt-2 mb-4">
       <nav
         className="relative bg-white max-w-7xl px-4 h-16 sm:px-5 lg:px-6 rounded-full flex items-center justify-between"
         aria-label="Top"
