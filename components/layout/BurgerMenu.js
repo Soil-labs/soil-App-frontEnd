@@ -25,7 +25,7 @@ export default function BurgerMenu() {
   return (
     <Popover className="flex justify-end">
       <div className="max-w-7xl">
-        <Popover.Button className="border border-gray-200 rounded-full p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+        <Popover.Button className="border border-gray-200 rounded-full w-8 h-8 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
           <span className="sr-only">Open menu</span>
           <MenuIcon className="h-5 w-5" aria-hidden="true" />
         </Popover.Button>
@@ -44,7 +44,7 @@ export default function BurgerMenu() {
           focus
           className="absolute w-52 top-16 right-0 transition transform origin-top-right drop-shadow-[0px_4px_30px_rgba(0,0,0,0.2)]"
         >
-          <div className="absolute w-4 h-4 right-8 -top-2 bg-white rotate-45"></div>
+          <div className="absolute w-4 h-4 right-7 -top-2 bg-white rotate-45"></div>
           <div className="rounded-lg bg-white">
             <div className="px-3 py-1 divide-y">
               {resources.map((item) => (

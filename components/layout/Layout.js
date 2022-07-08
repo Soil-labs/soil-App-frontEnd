@@ -4,7 +4,7 @@ function Layout({ children }) {
   return (
     <section className="bg-bgGrey min-h-screen">
       <div className="w-full max-w-screen-lg mx-auto">
-        <Header></Header>
+        <Header />
         <div>
           <main>{children}</main>
         </div>
