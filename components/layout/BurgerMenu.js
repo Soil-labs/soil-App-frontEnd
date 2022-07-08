@@ -42,7 +42,7 @@ export default function BurgerMenu() {
       >
         <Popover.Panel
           focus
-          className="absolute w-52 top-16 right-0 transition transform origin-top-right drop-shadow-[0px_4px_30px_rgba(0,0,0,0.2)]"
+          className="absolute w-52 top-16 right-0 transition transform origin-top-right drop-shadow-[0px_4px_30px_rgba(0,0,0,0.2)] z-30"
         >
           <div className="absolute w-4 h-4 right-7 -top-2 bg-white rotate-45"></div>
           <div className="rounded-lg bg-white">
