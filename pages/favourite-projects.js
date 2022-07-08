@@ -16,6 +16,32 @@ const mockData = {
       number: 2,
     },
   ],
+
+  howToApply: {
+    title: "How to apply?",
+    steps: [
+      {
+        text: "Express interest by adding project to favourites",
+        emoji: "❤️",
+        color: "rgb(254 226 226)",
+      },
+      {
+        text: "Apply throught Magic Application",
+        emoji: "📮",
+        color: "rgb(254 249 195)",
+      },
+      {
+        text: "Confirm we’ve got all your information right & sign the application.",
+        emoji: "📝",
+        color: "rgb(254 202 202)",
+      },
+      {
+        text: "Keep track of your application status in the magic application list",
+        emoji: "🎊",
+        color: "rgb(255 237 213)",
+      },
+    ],
+  },
 };
 //Redux
 const getData = () => {
@@ -96,8 +122,42 @@ export default function FavouriteProjects() {
         </main>
 
         {/* How to apply column */}
-        <section className="col-span-1 bg-white rounded-lg">
-          <div className="w-full p-6"></div>
+        <section className="col-span-1 bg-white rounded-lg px-2 py-3">
+          <span className="ml-1 text-slate-500">
+            {mockData.howToApply.title}
+          </span>
+          <ul className="relative mb-2 mt-3">
+            {mockData.howToApply.steps.map((item, index) => (
+              <>
+                <li className="relative flex items-center mb-1" key={index}>
+                  <div className="mr-2">
+                    <div
+                      className={`rounded-full w-14 h-14 flex justify-center items-center`}
+                      style={{ backgroundColor: item.color }}
+                    >
+                      <span className="block text-lg">{item.emoji}</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-500 text-xs leading-tight h-14">
+                    {item.text}
+                  </p>
+                </li>
+                {index + 1 < mockData.howToApply.steps.length && (
+                  <div className="w-14 flex justify-center mb-2">
+                    <div
+                      className="w-1 h-10"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(0deg, transparent, transparent 50%, #fff 50%, #fff 100%), linear-gradient(0deg, #D900A9, #004AD9);",
+                        backgroundSize: "3px 10px, 3px 100%",
+                      }}
+                      aria-hidden="true"
+                    />
+                  </div>
+                )}
+              </>
+            ))}
+          </ul>
         </section>
       </div>
     </>
