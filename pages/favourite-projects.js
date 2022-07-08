@@ -62,7 +62,8 @@ const getData = () => {
 export default function FavouriteProjects() {
   return (
     <>
-      <ul role="list" className="grid grid-cols-1 gap-3 md:grid-cols-5">
+      <div role="list" className="grid grid-cols-1 gap-3 md:grid-cols-5">
+        {/* User column */}
         <section className="col-span-1 bg-white rounded-lg px-2 py-3">
           <div className="w-full flex items-center mb-3">
             <div className="w-1/3">
@@ -88,13 +89,17 @@ export default function FavouriteProjects() {
             </div>
           ))}
         </section>
+
+        {/* Main column */}
         <main className="col-span-3 bg-white rounded-lg">
           <div className="w-full p-6"></div>
         </main>
+
+        {/* How to apply column */}
         <section className="col-span-1 bg-white rounded-lg">
           <div className="w-full p-6"></div>
         </section>
-      </ul>
+      </div>
     </>
   );
 }
