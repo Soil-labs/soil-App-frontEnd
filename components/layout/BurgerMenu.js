@@ -25,7 +25,7 @@ export default function BurgerMenu() {
   return (
     <Popover className="flex justify-end">
       <div className="max-w-7xl">
-        <Popover.Button className="border border-gray-200 rounded-full w-8 h-8 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+        <Popover.Button className="border border-gray-200 bg-white rounded-full w-8 h-8 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none drop-shadow-[0px_2px_7px_rgba(0,74,217,0.09)]">
           <span className="sr-only">Open menu</span>
           <MenuIcon className="h-5 w-5" aria-hidden="true" />
         </Popover.Button>

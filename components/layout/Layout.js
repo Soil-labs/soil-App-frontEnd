@@ -3,7 +3,7 @@ import Header from "./Header";
 function Layout({ children }) {
   return (
     <section className="bg-bgGrey min-h-screen">
-      <div className="w-full max-w-screen-lg mx-auto">
+      <div className="w-full max-w-screen-xl mx-auto">
         <Header />
         <div className="relative mx-6">
           <main>{children}</main>
