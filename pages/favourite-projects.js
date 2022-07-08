@@ -1,16 +1,23 @@
-import Contacts from "../components/Contacts";
-import { Counter } from "../components/counter";
-import CTA from "../components/CTA";
-import Features from "../components/Features";
-import Footer from "../components/Footer";
-import HeroSection from "../components/HeroSection";
-import Layout from "../components/layout/Layout";
-import Navbar from "../components/Navbar";
-import Stats from "../components/Stats";
-import Testimonials from "../components/Testimonials";
 import apiClient from "./api/axios";
-//Redux
+import Avatar from "../components/Avatar";
 
+const mockData = {
+  address: "exwhyzeeasdasdasd.eth",
+
+  projectTypes: [
+    {
+      type: "Apply",
+      title: "Active applications",
+      number: 6,
+    },
+    {
+      type: "Ongoing",
+      title: "Active applications",
+      number: 2,
+    },
+  ],
+};
+//Redux
 const getData = () => {
   return () => {
     apiClient({
@@ -53,5 +60,41 @@ const getData = () => {
 };
 
 export default function FavouriteProjects() {
-  return <></>;
+  return (
+    <>
+      <ul role="list" className="grid grid-cols-1 gap-3 md:grid-cols-5">
+        <section className="col-span-1 bg-white rounded-lg px-2 py-3">
+          <div className="w-full flex items-center mb-3">
+            <div className="w-1/3">
+              <Avatar />
+            </div>
+            <div className="w-2/3 overflow-x-scroll">
+              <span className="text-xs">Good Morning</span>
+              <div className="overflow-x-scroll">
+                <span className="font-bold">{mockData.address}</span>
+              </div>
+            </div>
+          </div>
+          <hr className="w-2/3 mx-auto mb-3"></hr>
+          {mockData.projectTypes.map((item, index) => (
+            <div className="ml-1 mb-3 overflow-hidden" key={index}>
+              <span className="text-slate-500 text-sm">{item.type}</span>
+              <div className="relative col-span-1 bg-white border border-gray-200 rounded-md px-2 py-1 mt-1 shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
+                <span className="text-sm">{item.title}</span>
+                <div className="absolute top-1 right-1 bg-blue-100 rounded-full w-6 h-6 flex justify-center items-center">
+                  <span className="text-sm">{item.number}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </section>
+        <main className="col-span-3 bg-white rounded-lg">
+          <div className="w-full p-6"></div>
+        </main>
+        <section className="col-span-1 bg-white rounded-lg">
+          <div className="w-full p-6"></div>
+        </section>
+      </ul>
+    </>
+  );
 }
