@@ -8,7 +8,7 @@ import {
 function ScopeRolesComponent(props) {
   // const [roleList, setRoleList] = useState([
   //   {
-  //     roleType: "hhhh",
+  //     roleType: "",
   //     availbitly: "",
   //     description: "",
   //     skills: "",
@@ -22,11 +22,10 @@ function ScopeRolesComponent(props) {
   // ]);
   const [roleList, setRoleList] = useState([
     {
-      roleType: ""
-  
+      roleType: "",
     },
     {
-      roleType: ""
+      roleType: "",
     },
   ]);
 
@@ -40,13 +39,18 @@ function ScopeRolesComponent(props) {
   };
 
   const handleAddInput = () => {
-    setRoleList([...roleList, {
-      roleType: "",
-      // availbitly: "",
-      // description: "",
-      // skills: "",
-    }, ])
-  }
+    if (roleList.length <= 5) {
+      setRoleList([
+        ...roleList,
+        {
+          roleType: "",
+          // availbitly: "",
+          // description: "",
+          // skills: "",
+        },
+      ]);
+    }
+  };
 
   return (
     <>
@@ -71,7 +75,7 @@ function ScopeRolesComponent(props) {
                         />
                       </div>
                       <input
-                        onChange={e =>handleChange(e,i)}
+                        onChange={(e) => handleChange(e, i)}
                         type="text"
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-[303px] h-[60px]
                        pl-16 sm:text-sm border-gray-300  rounded-3xl"
@@ -85,9 +89,9 @@ function ScopeRolesComponent(props) {
                 <button
                   type="button"
                   className="inline-flex items-center p-1.5 border border-transparent rounded-full shadow-sm text-black bg-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleAddInput} >
+                  onClick={handleAddInput}
+                >
                   <PlusSmIconSolid className="w-5 h-5" aria-hidden="true" />
-                  
                 </button>
               </div>
             </div>
