@@ -139,6 +139,16 @@ export default function FavouriteProjects() {
   function handleTabClick(index) {
     setCurrentTab(index);
   }
+
+  function calculateTabZindex(index) {
+    if (currentTab == index) {
+      return 50;
+    } else if (currentTab > index) {
+      return 30 + index;
+    } else {
+      return 40 - index;
+    }
+  }
   return (
     <>
       <div
@@ -178,36 +188,50 @@ export default function FavouriteProjects() {
         <main className="col-span-3 relative">
           <div className="flex">
             {mockData.tabs.map((tab, index) => (
-              <div className="relative w-1/4 h-10 cursor-pointer" key={index}>
-                {!!index && currentTab >= index && (
+              <div
+                style={{ zIndex: calculateTabZindex(index) }}
+                className={`relative h-10 cursor-pointer ${
+                  currentTab == index ? "z-50" : "bg-slate-100"
+                }`}
+                key={index}
+              >
+                {index != 0 && index - 1 != currentTab && (
                   <div
-                    className={`absolute bg-white border-l top-3 -left-8 w-14 h-14 rotate-45 z-40 ${
-                      currentTab == index ? "" : "bg-slate-100 z-20"
+                    className={`absolute fill-slate-100 -left-10 top-0 stroke-slate-200 ${
+                      currentTab == index ? "fill-white" : ""
                     }`}
-                    onClick={() => handleTabClick(index)}
-                  ></div>
+                    style={{ strokeDasharray: "0,0,57,100" }}
+                  >
+                    <svg height="40" width="40">
+                      <polygon points="40,0 0,40 40,40" />
+                    </svg>
+                  </div>
                 )}
                 <div
-                  className={`absolute bg-white w-full h-full pt-2 text-center border-t ${
+                  className={`relative bg-white h-full pt-2 px-2 text-center border-t ${
                     !index ? "border-l" : ""
-                  } ${currentTab == index ? "z-40" : "z-30 bg-slate-100"}`}
+                  } ${currentTab == index ? "" : "bg-slate-100"}`}
                   key={index}
                   onClick={() => handleTabClick(index)}
                 >
-                  <span className="z-50">{tab.title}</span>
+                  <span>{tab.title}</span>
                 </div>
-                {currentTab <= index && (
+                {index != currentTab - 1 && (
                   <div
-                    className={`absolute bg-white border-t top-3 -right-8 w-14 h-14 rotate-45 z-40 ${
-                      currentTab == index ? "" : "bg-slate-100"
+                    className={`absolute fill-slate-100 -right-10 top-0 stroke-slate-200 ${
+                      currentTab == index ? "fill-white" : ""
                     }`}
-                    onClick={() => handleTabClick(index)}
-                  ></div>
+                    style={{ strokeDasharray: "0,81,100" }}
+                  >
+                    <svg height="40" width="40">
+                      <polygon points="0,0 0,40 40,40" />
+                    </svg>
+                  </div>
                 )}
               </div>
             ))}
           </div>
-          <div className="absolute col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
+          <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
             <div className="w-full p-6 px-2 md:px-6">
               {!mockData.tabs[currentTab].projects.length && (
                 <p className="text-center text-slate-500">
