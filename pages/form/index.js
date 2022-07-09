@@ -7,8 +7,8 @@ import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesCom
 import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 
 function Form() {
-  // const [phase, setPhase] = useState(0);
-  const [phase, setPhase] = useState(2);
+  const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -30,30 +30,6 @@ function Form() {
       notesAndJustification: "",
     },
   ]);
-
-  // const DisplayForm = () => {
-  //   if (phase <= 1) {
-  //     return (
-  //       <FormComponent
-  //         handleChange={handleChange}
-  //         changePhase={changePhase}
-  //         questions={questions[phase]}
-  //         phase={phase}
-  //         submitReply={submitReply}
-  //       />
-  //     );
-  //   } else {
-  //     return (
-  //       <GreenBudgetForm
-  //         handleChange={handleChange}
-  //         changePhase={changePhase}
-  //         questions={questions[phase]}
-  //         phase={phase}
-  //         submitReply={submitReply}
-  //       />
-  //     );
-  //   }
-  // };
 
   const changePhase = (phaseNow) => {
     if (questions.length - 1 > phaseNow) {
@@ -97,7 +73,7 @@ function Form() {
 
   return (
     <>
-      {/* {phase <= 1 ? (
+      {phase <= 1 ? (
         <FormComponent
           handleChange={handleChange}
           changePhase={changePhase}
@@ -113,9 +89,9 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
-      )} */}
+      )}
 
-      <ScopeRolesComponent/>
+      {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
     </>
   );

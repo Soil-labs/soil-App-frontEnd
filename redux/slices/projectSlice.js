@@ -19,13 +19,13 @@ const initialState = {
 export const createNewProject = createAsyncThunk(
   "createNewProject",
   async (field) => {
-    console.log("field", field);
+    console.log("field - createNewProject", field);
     console.log("field.totalBudget", field.totalBudget);
     const response = await apiClient({
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "s_project30"
+        tagName: "${field.title.replace(" ","_")}"
         title: "${field.title}"
         description: "${field.description}"
         dates: {
@@ -52,6 +52,7 @@ export const createNewProject = createAsyncThunk(
       },
     });
 
+    console.log("response.data.data.updateProject - projectSlice= " , response.data.data.updateProject)
     return response.data.data.updateProject;
   }
 );

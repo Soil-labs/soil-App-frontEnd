@@ -8,13 +8,13 @@ import {
 function ScopeRolesComponent(props) {
   // const [roleList, setRoleList] = useState([
   //   {
-  //     roleType: "hhhh",
+  //     name: "hhhh",
   //     availbitly: "",
   //     description: "",
   //     skills: "",
   //   },
   //   {
-  //     roleType: "",
+  //     name: "",
   //     availbitly: "",
   //     description: "",
   //     skills: "",
@@ -22,31 +22,39 @@ function ScopeRolesComponent(props) {
   // ]);
   const [roleList, setRoleList] = useState([
     {
-      roleType: ""
-  
+      name: "",
     },
     {
-      roleType: ""
+      name: "",
     },
   ]);
 
   const handleChange = (e, index) => {
-    const { role, value } = e.target;
+    const { value } = e.target;
 
     const list = [...roleList];
-    list[index][role] = value;
+
+    list[index].name = value;
     setRoleList(list);
-    console.log(roleList[0].roleType);
   };
 
   const handleAddInput = () => {
-    setRoleList([...roleList, {
-      roleType: "",
-      // availbitly: "",
-      // description: "",
-      // skills: "",
-    }, ])
-  }
+    if (roleList.length < 6) {
+      setRoleList([
+        ...roleList,
+        {
+          name: "",
+          // availbitly: "",
+          // description: "",
+          // skills: "",
+        },
+      ]);
+    }
+
+    console.log("roleList - handleAddInput = ", roleList);
+  };
+
+  // console.log("roleList = " , roleList)
 
   return (
     <>
@@ -71,13 +79,13 @@ function ScopeRolesComponent(props) {
                         />
                       </div>
                       <input
-                        onChange={e =>handleChange(e,i)}
+                        onChange={(e) => handleChange(e, i)}
                         type="text"
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-[303px] h-[60px]
                        pl-16 sm:text-sm border-gray-300  rounded-3xl"
                         placeholder="TYPE THE DESIRED ROLE"
-                        value={item.roleType}
-                        name="roleType"
+                        value={item.name}
+                        name="name"
                       />
                     </div>
                   );
@@ -85,9 +93,9 @@ function ScopeRolesComponent(props) {
                 <button
                   type="button"
                   className="inline-flex items-center p-1.5 border border-transparent rounded-full shadow-sm text-black bg-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  onClick={handleAddInput} >
+                  onClick={handleAddInput}
+                >
                   <PlusSmIconSolid className="w-5 h-5" aria-hidden="true" />
-                  
                 </button>
               </div>
             </div>
@@ -101,7 +109,7 @@ function ScopeRolesComponent(props) {
             </button>
           </div>
 
-          <pre>{JSON.stringify(roleList, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(roleList, null, 2)}</pre> */}
         </div>
       </div>
     </>
