@@ -1,16 +1,20 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
-import BudgetComponent from "../../components/TypeFormLikePage/BudgetComponent";
+import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
+import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
+import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
       description: "description 1",
       reply: "",
+      render: "",
     },
     {
       title: "Description of the new project?",
@@ -20,31 +24,14 @@ function Form() {
     },
     {
       title: "BUDGET APPLICATION",
-      budget: "",
+      totalBudget: "",
       kickoffDate: "",
       wrapUpDate: "",
-      notesAndJust: "",
+      notesAndJustification: "",
     },
   ]);
 
-  const DisplayForm = () => {
-    if (phase <= 1) {
-      return (
-        <FormComponent
-          handleChange={handleChange}
-          changePhase={changePhase}
-          questions={questions[phase]}
-          phase={phase}
-          submitReply={submitReply}
-        />
-      );
-    } else {
-      return <BudgetComponent />;
-    }
-  };
-
   const changePhase = (phaseNow) => {
-    console.log("questions.length > phaseNow = ", questions.length, phaseNow);
     if (questions.length - 1 > phaseNow) {
       setPhase((phaseNow += 1));
     } else {
@@ -52,29 +39,24 @@ function Form() {
     }
   };
 
-  const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
 
-  const handleChange = (e, phaseNow) => {
+  const handleChange = (e, phaseNow, changeField) => {
     let newArr = [...questions];
-
-    newArr[phaseNow].reply = e.target.value;
-
+    newArr[phaseNow][changeField] = e.target.value;
     setQuestions(newArr);
-    console.log(questions);
   };
 
   const submitReply = () => {
-    console.log(
-      "we are at the end of the FORM!! = ",
-      questions[0].reply,
-      questions[1].reply
-    );
-    const feild = {
+    const field = {
       title: questions[0].reply,
       description: questions[1].reply,
+      totalBudget: questions[2].totalBudget,
+      kickoffDate: questions[2].kickoffDate,
+      wrapUpDate: questions[2].wrapUpDate,
+      // notesAndJustification: questions[2].notesAndJustification,
     };
-    dispatch(createNewProject(feild));
+    dispatch(createNewProject(field));
   };
 
   // useEffect(() => {
@@ -91,7 +73,26 @@ function Form() {
 
   return (
     <>
-      <DisplayForm />
+      {phase <= 1 ? (
+        <FormComponent
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        />
+      ) : (
+        <GreenBudgetForm
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        />
+      )}
+
+      {/* <ScopeRolesComponent/> */}
+      {/* <GeneralGreenFromComponent/> */}
     </>
   );
 }

@@ -2,33 +2,57 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
+  tagName: "",
+  _id: "",
   title: "",
   description: "",
-  _id: "",
+  budget: {
+    totalBudget: "",
+  },
+  dates: {
+    kickoffDate: "",
+    wrapUpDate: "",
+  },
+  notesAndJustification: "",
 };
 
 export const createNewProject = createAsyncThunk(
   "createNewProject",
-  async (feild) => {
-    console.log("title,description = ", feild.title, feild.description);
+  async (field) => {
+    console.log("field - createNewProject", field);
+    console.log("field.totalBudget", field.totalBudget);
     const response = await apiClient({
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "${feild.title}"
-        title: "${feild.title}"
-        description: "${feild.description}"
+        tagName: "${field.title.replace(" ","_")}"
+        title: "${field.title}"
+        description: "${field.description}"
+        dates: {
+          kickOff: "${field.kickoffDate}"
+          complition: "${field.wrapUpDate}"
+        }
+        budget: {
+          totalBudget: "${field.totalBudget}"
+        }
+        
       }){
         tagName
         title
         description
+        dates{
+          kickOff
+          complition
+        }
+        budget{
+          totalBudget
+        }
       }
     }`,
       },
     });
 
-    console.log("response.date.data = ", response.data.data.updateProject);
-
+    console.log("response.data.data.updateProject - projectSlice= " , response.data.data.updateProject)
     return response.data.data.updateProject;
   }
 );
@@ -59,6 +83,13 @@ export const projectSlice = createSlice({
     [createNewProject.fulfilled]: (state, { payload }) => {
       state.title = payload.title;
       state.description = payload.description;
+      console.log("payload", payload);
+      console.log("payload.budget", payload.budget);
+      console.log("payload.budget.totalBudget", payload.budget.totalBudget);
+      state.budget.totalBudget = payload.budget.totalBudget;
+      state.dates.kickoffDate = payload.dates.kickOff;
+      state.dates.wrapUpDate = payload.dates.complition;
+      state.notesAndJustification = payload.notesAndJustification;
     },
     [findProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;
