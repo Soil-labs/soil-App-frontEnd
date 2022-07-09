@@ -25,7 +25,7 @@ export const createNewProject = createAsyncThunk(
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "${field.title.replace(" ","_")}"
+        tagName: "${field.title.replace(" ","_").replace(" ","_").replace(" ","_").replace(" ","_")}"
         title: "${field.title}"
         description: "${field.description}"
         dates: {
