@@ -1,7 +1,12 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { findMember } from "../../redux/slices/memberSlice";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
+import { findAllProjects } from "../../redux/slices/projectsSlice";
+import { findSkill } from "../../redux/slices/skillSlice";
+import { findUser } from "../../redux/slices/userInspectSlice";
+import { findAllUsers } from "../../redux/slices/usersInspectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
 import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
@@ -70,6 +75,39 @@ function Form() {
   //   }
   //   lookForProject()
   // }, [phase])
+
+  useEffect(() => {
+
+      let field
+      
+      field = {
+        _id: "908392557258604544"
+      };
+
+      // dispatch(findMember(field))
+      console.log("we are in the useEffect")
+
+      // field = {
+      //   tagName: "coding"
+      // };
+
+      // console.log("findSkill = ",field )
+
+      // dispatch(findSkill(field))
+
+      field = {
+        _id: "908392557258604544"
+      };
+
+      console.log("field = ",field )
+
+      dispatch(findUser(field))
+
+      // dispatch(findAllUsers(field))
+
+      
+  }, [])
+
 
   return (
     <>
