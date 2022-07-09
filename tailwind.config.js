@@ -17,6 +17,8 @@ module.exports = {
           100: "#268A02",
         },
         bgGrey: "#F1F6F7",
+        gradientBlue: "#D900A9",
+        gradientViolet: "#004AD9",
       },
     },
   },
