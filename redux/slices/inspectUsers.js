@@ -20,8 +20,7 @@ async function fetchMembers(tagName) {
                   discordName
                   discordAvatar
                   discriminator
-                }
-                  
+                }     
               }
             }`,
         },
