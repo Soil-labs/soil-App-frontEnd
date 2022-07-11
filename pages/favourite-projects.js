@@ -1,9 +1,12 @@
 import apiClient from "./api/axios";
 import Avatar from "../components/Avatar";
 import HowToApply from "../components/HowToApply";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { findMember } from "../redux/slices/memberSlice";
+import { findProjects } from "../redux/slices/projectsSlice";
 
 const mockData = {
   address: "exwhyzeeasdasdasd.eth",
@@ -16,7 +19,7 @@ const mockData = {
     },
     {
       type: "Ongoing",
-      title: "Active applications",
+      title: "Active projects",
       number: 2,
     },
   ],
@@ -46,51 +49,6 @@ const mockData = {
       },
     ],
   },
-
-  tabs: [
-    {
-      title: "All projects",
-      fullTitle: "All projects",
-      projects: [
-        {
-          title: "Soil 🌱 Talent Coordination App",
-          img: "https://placeimg.com/640/480/nature",
-          match: 57,
-        },
-        {
-          title: "Developer DAO Website",
-          img: "https://placeimg.com/640/480/nature",
-          match: 39,
-        },
-      ],
-    },
-    {
-      title: "Recommended",
-      fullTitle: "Recommended",
-      projects: [
-        {
-          title: "Soil 🌱 Talent Coordination App",
-          img: "https://placeimg.com/640/480/nature",
-          match: 57,
-        },
-        {
-          title: "Developer DAO Website",
-          img: "https://placeimg.com/640/480/nature",
-          match: 39,
-        },
-        {
-          title: "Polygon DAO",
-          img: "https://placeimg.com/640/480/nature",
-          match: 46,
-        },
-      ],
-    },
-    {
-      title: "Favourite",
-      fullTitle: "Favourite",
-      projects: [],
-    },
-  ],
 };
 //Redux
 const getData = () => {
@@ -134,8 +92,42 @@ const getData = () => {
   };
 };
 
+const tabs = [
+  {
+    title: "All projects",
+    fullTitle: "All projects",
+    projects: [],
+  },
+  {
+    title: "Recommended",
+    fullTitle: "Recommended",
+    projects: [],
+  },
+  {
+    title: "Favourite",
+    fullTitle: "Favourite",
+    projects: [],
+  },
+];
+
 export default function FavouriteProjects() {
   const [currentTab, setCurrentTab] = useState(1);
+
+  const member = {};
+  member.discordName = useSelector((state) => state.member.discordName);
+
+  tabs[1].projects = useSelector((state) => state.projects.allProjects);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const field = {
+      id: "995604464469803048",
+    };
+
+    dispatch(findMember(field));
+    dispatch(findProjects());
+  }, [dispatch]);
 
   function handleTabClick(index) {
     setCurrentTab(index);
@@ -166,7 +158,7 @@ export default function FavouriteProjects() {
               <div className="w-2/3 overflow-x-scroll">
                 <span className="text-xs">Good Morning</span>
                 <div className="overflow-x-scroll">
-                  <span className="font-bold">{mockData.address}</span>
+                  <span className="font-bold">{member.discordName}</span>
                 </div>
               </div>
             </div>
@@ -188,7 +180,7 @@ export default function FavouriteProjects() {
         {/* Main column */}
         <main className="col-span-3 relative">
           <div className="flex">
-            {mockData.tabs.map((tab, index) => (
+            {tabs.map((tab, index) => (
               <div
                 style={{ zIndex: calculateTabZindex(index) }}
                 className={`relative h-10 cursor-pointer ${
@@ -234,13 +226,13 @@ export default function FavouriteProjects() {
           </div>
           <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
             <div className="w-full p-6 px-2 md:px-6">
-              {!mockData.tabs[currentTab].projects.length && (
+              {!tabs[currentTab].projects.length && (
                 <p className="text-center text-slate-500">
                   There are no projects
                 </p>
               )}
-              {!!mockData.tabs[currentTab].projects.length &&
-                mockData.tabs[currentTab].projects.map((project, index) => (
+              {!!tabs[currentTab].projects.length &&
+                tabs[currentTab].projects.map((project, index) => (
                   <div
                     key={index}
                     className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_7px_rgba(0,48,142,0.1)]"
@@ -253,7 +245,7 @@ export default function FavouriteProjects() {
                       }}
                     >
                       <Image
-                        src={project.img}
+                        src={"https://placeimg.com/480/480/nature"}
                         alt="placeholder image"
                         width={80}
                         height={80}
@@ -267,9 +259,7 @@ export default function FavouriteProjects() {
                           ⚡️ Match:
                         </span>
                         <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                          <span className="font-bold text-2xl">
-                            {project.match}%
-                          </span>
+                          <span className="font-bold text-2xl">{75}%</span>
                         </div>
                       </div>
                     </div>
@@ -281,7 +271,7 @@ export default function FavouriteProjects() {
                         <span className="mr-2">Apply Now</span>
                         <span>{">"}</span>
                       </button>
-                      <Link href="#">
+                      <Link href={`/projects/${project._id}`}>
                         <a className="underline text-sm text-center text-slate-600 hover:text-slate-400">
                           More info
                         </a>
@@ -292,7 +282,6 @@ export default function FavouriteProjects() {
             </div>
           </div>
         </main>
-
         {/* How to apply column */}
         <section className="col-span-1">
           <HowToApply data={mockData.howToApply} />
