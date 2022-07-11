@@ -129,8 +129,35 @@ export default function FavouriteProjects() {
     dispatch(findProjects());
   }, [dispatch]);
 
-  function handleTabClick(index) {
-    setCurrentTab(index);
+  function isCurrentTab(e, sideCorner) {
+    const cornerSize = 40;
+    const clickX = e.clientX - e.target.getBoundingClientRect().left;
+    const clickY = e.clientY - e.target.getBoundingClientRect().top;
+    let middleY;
+    if (sideCorner === "right") {
+      middleY = clickX; // y = x
+    } else {
+      middleY = cornerSize - clickX; // y = cornerSize - x
+    }
+    return clickY > middleY;
+  }
+
+  function handleTabClick(e, index, sideCorner = "") {
+    if (
+      sideCorner === "right" &&
+      index < tabs.length - 1 &&
+      !isCurrentTab(e, sideCorner)
+    ) {
+      setCurrentTab(index + 1);
+    } else if (
+      sideCorner === "left" &&
+      currentTab > 0 &&
+      !isCurrentTab(e, sideCorner)
+    ) {
+      setCurrentTab(index - 1);
+    } else {
+      setCurrentTab(index);
+    }
   }
 
   function calculateTabZindex(index) {
@@ -194,6 +221,7 @@ export default function FavouriteProjects() {
                       currentTab == index ? "fill-white" : ""
                     }`}
                     style={{ strokeDasharray: "0,0,57,100" }}
+                    onClick={(e) => handleTabClick(e, index, "left")}
                   >
                     <svg height="40" width="40">
                       <polygon points="40,0 0,40 40,40" />
@@ -205,7 +233,7 @@ export default function FavouriteProjects() {
                     !index ? "border-l" : ""
                   } ${currentTab == index ? "" : "bg-slate-100"}`}
                   key={index}
-                  onClick={() => handleTabClick(index)}
+                  onClick={(e) => handleTabClick(e, index)}
                 >
                   <span>{tab.title}</span>
                 </div>
@@ -215,6 +243,7 @@ export default function FavouriteProjects() {
                       currentTab == index ? "fill-white" : ""
                     }`}
                     style={{ strokeDasharray: "0,81,100" }}
+                    onClick={(e) => handleTabClick(e, index, "right")}
                   >
                     <svg height="40" width="40">
                       <polygon points="0,0 0,40 40,40" />
