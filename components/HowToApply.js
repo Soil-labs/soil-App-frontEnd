@@ -1,11 +1,13 @@
+import { Fragment } from "react";
+
 export default function HowToApply({ data }) {
   return (
     <div className="bg-white rounded-lg px-2 py-3 md:mb-4">
       <span className="ml-1 text-slate-500">{data.title}</span>
       <ul className="relative mb-2 mt-3">
         {data.steps.map((item, index) => (
-          <>
-            <li className="relative flex items-center mb-1" key={index}>
+          <Fragment key={index}>
+            <li className="relative flex items-center mb-1">
               <div className="mr-2">
                 <div
                   className={`rounded-full w-14 h-14 flex justify-center items-center`}
@@ -31,7 +33,7 @@ export default function HowToApply({ data }) {
                 />
               </div>
             )}
-          </>
+          </Fragment>
         ))}
       </ul>
     </div>
