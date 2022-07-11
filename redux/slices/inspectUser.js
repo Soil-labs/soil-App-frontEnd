@@ -64,6 +64,4 @@ export const inspectUserSlice = createSlice({
     },
 });
 
-export const selectMemberInfo = (state) => state.inspectUser.memberInfo;
-export const selectLoadingMember = (state) => state.inspectUser.loading;
 export default inspectUserSlice.reducer;

@@ -6,6 +6,7 @@ import axios from "axios";
 //   : "http://localhost:5001/graphql";
 
 const baseURL = "https://oasis-bot-test-deploy.herokuapp.com/graphql";
+//  const baseURL = "https://rickandmortyapi.com/graphql"
 
 const apiClient = axios.create({
     baseURL,

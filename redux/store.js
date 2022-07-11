@@ -1,16 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./slices/counterSlice";
-import inspectUserReducer from "./slices/inspectUser";
+// import counterReducer from "./slices/counterSlice";
 import memberReducer from "./slices/memberSlice";
 import projectReducer from "./slices/projectSlice";
-import inspectUsersReducer from "./slices/inspectUsers";
+import skillReducer from "./slices/skillSlice";
+import projectsReducer from "./slices/projectsSlice";
+import userInspectReducer from "./slices/userInspectSlice";
+import usersInspectReducer from "./slices/usersInspectSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
         member: memberReducer,
+        userInspect: userInspectReducer,
+        usersInspect: usersInspectReducer,
+
         project: projectReducer,
-        inspectUsers: inspectUsersReducer,
-        inspectUser: inspectUserReducer,
+        projects: projectsReducer,
+
+        skill: skillReducer,
     },
 });

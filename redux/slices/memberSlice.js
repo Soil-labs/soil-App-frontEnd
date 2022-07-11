@@ -2,20 +2,56 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
 const initialState = {
-  _id: "62adbd7ca569ad00044c4fd9",
-  discordName: "BluePanda",
-  discordID: "908392557258604544",
-  tweets: ["recuVtMbNAeoKFTT4"],
+  isDataAvailable: false,
+  _id: "",
+  discordName: "",
+  discordAvatar:"",
+  discriminator:"",
+  bio: "",
   skills: [],
-  projects: []
+  projects: [],
 };
 
-export const getData = createAsyncThunk("get data", async () => {
+export const findMember = createAsyncThunk("get data", async () => {
+
+  console.log("findMember - memberSlice = " )
+
   const response = await apiClient({
-    data: {},
+    data: {
+      query: `query{
+        findMember(fields:{
+          _id: "908392557258604544"
+        }){
+          _id
+          discordName
+          discordAvatar
+          discriminator
+          bio
+        
+          skills {
+            tagName
+            authors{
+              discordName
+            }
+          }
+          projects {
+            project {
+              tagName
+            }
+            role {
+              title
+              description
+            }
+            champion
+          }    
+        }
+      }`,
+    },
   });
 
-  return response;
+  console.log("response.data.data.findMember = " , response.data.data.findMember)
+
+  return response.data.data.findMember;
 });
 
 export const memberSlice = createSlice({
@@ -23,9 +59,19 @@ export const memberSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getData.fulfilled]: (state) => {},
+    [findMember.fulfilled]: (state, {payload}) => {
+      console.log("payload", payload)
+      state.isDataAvailable = true;
+      state._id = payload._id;
+      state.discordName = payload.discordName;
+      state.discriminator = payload.discriminator;
+      state.bio = payload.bio;
+      state.skills = payload.skills;
+      state.projects = payload.projects;
+
+    },
   },
 });
 
-// export const {} = counterSlice.actions;
+
 export default memberSlice.reducer;

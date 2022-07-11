@@ -42,14 +42,14 @@ import {
     findSkill,
     selectLoadingMembers,
     selectMembers,
-} from "../../redux/slices/inspectUsers";
+} from "../../redux/slices/usersInspectSlice";
 import InspectUserShimmer from "../../components/Shimmers/InspectUserShimmer";
 import InspectUsersListShimmer from "../../components/Shimmers/InspectUsersListShimmer";
 import {
     findMember,
     selectLoadingMember,
     selectMemberInfo,
-} from "../../redux/slices/inspectUser";
+} from "../../redux/slices/userInspectSlice";
 import CoverImageShimmer from "../../components/Shimmers/CoverImageShimmer";
 import ProfilePictureShimmer from "../../components/Shimmers/ProfilePictureShimmer";
 
@@ -389,16 +389,17 @@ function RoleInspection() {
 
     useEffect(() => {
         (async () => {
-            const membersInfo = await dispatch(findSkill("coding")).unwrap();
+            const id = "62ca8b6f536e11000427f065"; // TODO: make dynamic later
+            const membersInfo = await dispatch(findSkill(id)).unwrap();
+            console.log(membersInfo);
         })();
     }, []);
 
     useEffect(() => {
         if (selectedUserId) {
             (async () => {
-                console.log(selectedUserId);
-                console.log(selectedUserLoading);
                 const memberInfo = await dispatch(findMember(selectedUserId));
+                console.log(selectedUser);
             })();
         }
     }, [selectedUserId]);
@@ -727,7 +728,7 @@ function RoleInspection() {
                                                                                             >
                                                                                                 <span>
                                                                                                     {
-                                                                                                        skill.tagName
+                                                                                                        skill.name
                                                                                                     }
                                                                                                 </span>
                                                                                             </div>
