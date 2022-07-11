@@ -21,11 +21,14 @@ export const getMember = createAsyncThunk("getMember", async (id) => {
           _id
           discordName
           discordAvatar
+          bio
           skills {
-            tagName
+            name
           }
           projects {
-            tagName
+            info {
+              title
+            }
           }
           network {
             discordName
@@ -47,7 +50,7 @@ export const memberSlice = createSlice({
       state._id = payload._id;
       state.discordName = payload.discordName;
       state.discordID = payload._id;
-      state.bio = null;
+      state.bio = payload.bio;
       state.skills = payload.skills;
       state.projects = payload.projects;
       state.network = payload.network;
