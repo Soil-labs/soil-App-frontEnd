@@ -12,11 +12,21 @@ function MemberPage({ id }) {
   useEffect(() => {
     dispatch(getMember(id));
   }, [id, dispatch]);
+
   let networks = member.network.map((n) => n.discordName);
-  let projects = member.projects.map((p) => p.tagName);
+  // let projects = member.projects.map((p) => p.info.title);
+
+  let projects;
+  if (member.projects) {
+    projects = member.projects.map((p) => {
+      if (p && p.info) {
+        return p.info.title;
+      }
+    });
+  }
 
   useEffect(() => {
-    setSkills(member.skills.map((s) => s.tagName));
+    setSkills(member.skills.map((s) => s.name));
   }, [member.skills]);
 
   return (

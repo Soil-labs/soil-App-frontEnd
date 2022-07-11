@@ -58,5 +58,4 @@ export const memberSlice = createSlice({
   },
 });
 
-// export const {} = counterSlice.actions;
 export default memberSlice.reducer;
