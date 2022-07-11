@@ -10,6 +10,7 @@ import { findAllUsers } from "../../redux/slices/usersInspectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
 import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
+import RoleComponent from "../../components/TypeFormLikePage/RoleComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -64,6 +65,8 @@ function Form() {
     dispatch(createNewProject(field));
   };
 
+          //Testing\\
+
   // useEffect(() => {
   //   const lookForProject = () => {
   //     const field = {
@@ -76,42 +79,40 @@ function Form() {
   //   lookForProject()
   // }, [phase])
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   let field;
 
-      let field
-      
-      field = {
-        _id: "908392557258604544"
-      };
+  //   field = {
+  //     _id: "908392557258604544",
+  //   };
 
-      // dispatch(findMember(field))
-      console.log("we are in the useEffect")
+  //   // dispatch(findMember(field))
+  //   console.log("we are in the useEffect");
 
-      // field = {
-      //   tagName: "coding"
-      // };
+  //   // field = {
+  //   //   tagName: "coding"
+  //   // };
 
-      // console.log("findSkill = ",field )
+  //   // console.log("findSkill = ",field )
 
-      // dispatch(findSkill(field))
+  //   // dispatch(findSkill(field))
 
-      field = {
-        _id: "908392557258604544"
-      };
+  //   field = {
+  //     _id: "908392557258604544",
+  //   };
 
-      console.log("field = ",field )
+  //   console.log("field = ", field);
 
-      dispatch(findUser(field))
+  //   dispatch(findUser(field));
 
-      // dispatch(findAllUsers(field))
+  //   // dispatch(findAllUsers(field))
+  // }, []);
 
-      
-  }, [])
-
+         //Testing\\
 
   return (
     <>
-      {phase <= 1 ? (
+      {/* {phase <= 1 ? (
         <FormComponent
           handleChange={handleChange}
           changePhase={changePhase}
@@ -127,10 +128,11 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
-      )}
+      )} */}
 
       {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
+      <RoleComponent/>
     </>
   );
 }
