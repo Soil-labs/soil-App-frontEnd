@@ -30,10 +30,10 @@ function RoleComponent(props) {
 
               <div className="flex items-end space-x-14">
                 {/* Avatar + Roletype(dynamic) */}
-                <div className=" flex items-center space-x-4">
-                  <span className="inline-block h-14 w-14 rounded-full overflow-hidden bg-gray-100">
+                <div className="flex items-center space-x-4 ">
+                  <span className="inline-block overflow-hidden bg-gray-100 rounded-full h-14 w-14">
                     <svg
-                      className="h-full w-full text-gray-300"
+                      className="w-full h-full text-gray-300"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -41,7 +41,7 @@ function RoleComponent(props) {
                     </svg>
                   </span>
                   <div className="rounded-2xl bg-white w-[187px] h-[48px] items-center flex justify-center">
-                    <p className="text-center text-gray-500 text-xl">
+                    <p className="text-xl text-center text-gray-500">
                       ROLETYPE
                     </p>
                   </div>
@@ -52,6 +52,36 @@ function RoleComponent(props) {
                   <DropdownPerComponent />
                 </div>
               </div>
+              {/* Role desciption input field */}
+              <div className="w-[590px] mt-20">
+                <div>
+                  <div className="mt-1">
+                    <textarea
+                      rows={10}
+                      name="comment"
+                      // onChange={(e) =>
+                      //   props.handleChange(e, props.phase, "notesAndJustification")
+                      //}
+                      id="comment"
+                      className="block w-full border-gray-300 shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-2xl"
+                      defaultValue={""}
+                      placeholder="Role Description .........................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 mt-8 ">
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+              </div>
 
               {/* The Meat of the page goes here */}
               {/* <button
@@ -59,7 +89,7 @@ function RoleComponent(props) {
                   props.changePhase(props.phase);
                 }}
               >
-                <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
+                <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
               </button> */}
             </div>
           </div>
