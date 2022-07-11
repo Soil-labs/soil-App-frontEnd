@@ -201,7 +201,7 @@ export default function FavouriteProjects() {
                   </div>
                 )}
                 <div
-                  className={`relative bg-white h-full pt-2 px-2 text-center border-t ${
+                  className={`relative bg-white h-full pt-2 px-7 text-center border-t ${
                     !index ? "border-l" : ""
                   } ${currentTab == index ? "" : "bg-slate-100"}`}
                   key={index}
