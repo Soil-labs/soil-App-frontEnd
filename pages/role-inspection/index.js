@@ -875,46 +875,7 @@ function RoleInspection() {
                                                                         </h2>
                                                                         <div className="flex flex-col flex-1 gap-y-4 border p-4 rounded-md border-gray-200">
                                                                             <p className="italic">
-                                                                                "I've
-                                                                                searched
-                                                                                my
-                                                                                entire
-                                                                                life
-                                                                                for
-                                                                                a
-                                                                                t-shirt
-                                                                                that
-                                                                                reflects
-                                                                                every
-                                                                                color
-                                                                                in
-                                                                                the
-                                                                                visible
-                                                                                spectrum.
-                                                                                Scientists
-                                                                                said
-                                                                                it
-                                                                                couldn't
-                                                                                be
-                                                                                done,
-                                                                                but
-                                                                                when
-                                                                                I
-                                                                                look
-                                                                                at
-                                                                                this
-                                                                                shirt,
-                                                                                I
-                                                                                see
-                                                                                white
-                                                                                light
-                                                                                bouncing
-                                                                                right
-                                                                                back
-                                                                                into
-                                                                                my
-                                                                                eyes.
-                                                                                Incredible!"
+                                                                                random
                                                                             </p>
                                                                             <div className="flex space-x-3 items-center">
                                                                                 <div className="shrink-0">
