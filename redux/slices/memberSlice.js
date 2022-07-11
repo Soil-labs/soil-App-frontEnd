@@ -7,15 +7,24 @@ const initialState = {
   discordID: "908392557258604544",
   tweets: ["recuVtMbNAeoKFTT4"],
   skills: [],
-  projects: []
+  projects: [],
 };
 
-export const getData = createAsyncThunk("get data", async () => {
+export const findMember = createAsyncThunk("findMember", async (field) => {
   const response = await apiClient({
-    data: {},
+    data: {
+      query: `query{
+        findMember(fields:{
+          _id: "${field.id}"
+        }){
+          _id
+          discordName
+        }
+      }`,
+    },
   });
 
-  return response;
+  return response.data.data.findMember;
 });
 
 export const memberSlice = createSlice({
@@ -23,9 +32,12 @@ export const memberSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getData.fulfilled]: (state) => {},
+    [findMember.fulfilled]: (state, { payload }) => {
+      state._id = payload._id;
+      state.discordName = payload.discordName;
+    },
   },
 });
 
-// export const {} = counterSlice.actions;
+export const { addReply } = memberSlice.actions;
 export default memberSlice.reducer;
