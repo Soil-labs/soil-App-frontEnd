@@ -1,0 +1,6 @@
+query findMemberQuery($_id: ID!) {
+  findMember(fields: { _id: $_id }) {
+    _id
+    discordName
+  }
+}

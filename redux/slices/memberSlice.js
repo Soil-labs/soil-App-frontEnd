@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 
+import findMemberQuery from "./queries/member/findMember.graphql";
+import { print } from "graphql/language/printer";
+
 const initialState = {
-  _id: "62adbd7ca569ad00044c4fd9",
-  discordName: "BluePanda",
-  discordID: "908392557258604544",
-  tweets: ["recuVtMbNAeoKFTT4"],
+  _id: "",
+  discordName: "",
+  discordID: "",
+  tweets: [""],
   skills: [],
   projects: [],
 };
@@ -13,14 +16,10 @@ const initialState = {
 export const findMember = createAsyncThunk("findMember", async (field) => {
   const response = await apiClient({
     data: {
-      query: `query{
-        findMember(fields:{
-          _id: "${field.id}"
-        }){
-          _id
-          discordName
-        }
-      }`,
+      query: print(findMemberQuery),
+      variables: {
+        _id: field.id,
+      },
     },
   });
 
