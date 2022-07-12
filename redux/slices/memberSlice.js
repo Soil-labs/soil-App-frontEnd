@@ -10,19 +10,8 @@ const initialState = {
   projects: [],
 };
 
-export const findMember = createAsyncThunk("findMember", async (field) => {
-  const response = await apiClient({
-    data: {
-      query: `query{
-        findMember(fields:{
-          _id: "${field.id}"
-        }){
-          _id
-          discordName
-        }
-      }`,
-    },
-  });
+export const findMember = createAsyncThunk("findMember", async (fields) => {
+  const response = await apiClient(findMemberQuery(fields));
 
   return response.data.data.findMember;
 });

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { findMember } from "../redux/slices/memberSlice";
 import { findProjects } from "../redux/slices/projectsSlice";
+import { updateProject } from "../redux/slices/projectSlice";
 
 const mockData = {
   address: "exwhyzeeasdasdasd.eth",
@@ -127,6 +128,21 @@ export default function FavouriteProjects() {
 
     dispatch(findMember(field));
     dispatch(findProjects());
+
+    // dispatch(
+    //   updateProject({
+    //     _id: "62ca6f5e0ad9f858dfdfc691",
+    //     title: "eloi test2",
+    //     budget: {
+    //       totalBudget: "1000000",
+    //     },
+    //     role: {
+    //       _id: "62c65f508b9ea4cd95b88dd5",
+    //       title: "king",
+    //       description: "pingu",
+    //     },
+    //   })
+    // );
   }, [dispatch]);
 
   function isCurrentTab(e, sideCorner) {

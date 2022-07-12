@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import updateProjectMutation from "./graphql/project/mutations/updateProject";
 
 const initialState = {
   title: "",
@@ -51,6 +52,15 @@ export const findProject = createAsyncThunk("findProject", async (field) => {
   return response.data.data.findProject;
 });
 
+export const updateProject = createAsyncThunk(
+  "updateProject",
+  async (fields) => {
+    const response = await apiClient(updateProjectMutation(fields));
+
+    return response.data.data.updateProject;
+  }
+);
+
 export const projectSlice = createSlice({
   name: "project",
   initialState,
@@ -61,6 +71,11 @@ export const projectSlice = createSlice({
       state.description = payload.description;
     },
     [findProject.fulfilled]: (state, { payload }) => {
+      state._id = payload._id;
+      state.title = payload.title;
+      state.description = payload.description;
+    },
+    [updateProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
