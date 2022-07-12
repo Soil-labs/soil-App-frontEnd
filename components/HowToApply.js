@@ -26,7 +26,7 @@ export default function HowToApply({ data }) {
                   className="w-1 h-10"
                   style={{
                     backgroundImage:
-                      "linear-gradient(0deg, transparent, transparent 50%, #fff 50%, #fff 100%), linear-gradient(0deg, #D900A9, #004AD9);",
+                      "linear-gradient(0deg, transparent, transparent 50%, #fff 50%, #fff 100%), linear-gradient(0deg, #D900A9, #004AD9)",
                     backgroundSize: "3px 10px, 3px 100%",
                   }}
                   aria-hidden="true"
