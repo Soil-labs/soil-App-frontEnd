@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/solid";
 import DropdownHoursComponent from "../DropdownHoursComponent";
 import DropdownPerComponent from "../DropdownPerComponent";
+import Toggle from "../Toggle";
 
 function RoleComponent(props) {
   return (
@@ -77,10 +78,19 @@ function RoleComponent(props) {
               </div>
 
               <div className="grid grid-cols-2 gap-3 mt-8 ">
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl">
+                  <div className="flex flex-col items-end mt-4 space-y-8 mr-8">
+                    <Toggle />
+                    <Toggle />
+                    <Toggle />
+                  </div>
+                </div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
-                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
-                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+                <div className="space-y-4 w-[297px]">
+                  <div className="w-[297px] h-[49px] bg-white rounded-2xl"></div>
+                  <div className="w-[297px] h-[133px] bg-white rounded-2xl"></div>
+                </div>
               </div>
 
               {/* The Meat of the page goes here */}
