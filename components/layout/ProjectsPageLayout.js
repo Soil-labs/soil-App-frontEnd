@@ -1,122 +1,8 @@
-import apiClient from "./api/axios";
-import Avatar from "../components/Avatar";
-import HowToApply from "../components/HowToApply";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { findMember } from "../redux/slices/memberSlice";
-import { findProjects } from "../redux/slices/projectsSlice";
+import UserCard from "../UserCard";
 
-const mockData = {
-  address: "exwhyzeeasdasdasd.eth",
-
-  projectTypes: [
-    {
-      type: "Apply",
-      title: "Active applications",
-      number: 6,
-    },
-    {
-      type: "Ongoing",
-      title: "Active projects",
-      number: 2,
-    },
-  ],
-
-  howToApply: {
-    title: "How to apply?",
-    steps: [
-      {
-        text: "Express interest by adding project to favourites",
-        emoji: "❤️",
-        color: "rgb(254 226 226)",
-      },
-      {
-        text: "Apply throught Magic Application",
-        emoji: "📮",
-        color: "rgb(254 249 195)",
-      },
-      {
-        text: "Confirm we’ve got all your information right & sign the application.",
-        emoji: "📝",
-        color: "rgb(254 202 202)",
-      },
-      {
-        text: "Keep track of your application status in the magic application list",
-        emoji: "🎊",
-        color: "rgb(255 237 213)",
-      },
-    ],
-  },
-};
-//Redux
-const getData = () => {
-  return () => {
-    apiClient({
-      data: {
-        query: `query{
-          characters(page: 1){
-            info{
-              count
-              pages
-            }
-            results{
-              name
-              id
-              location{
-                id
-                name
-              }
-              origin{
-                id
-                name
-              }
-              episode{
-                id
-                episode
-                air_date
-              }
-              image
-            }
-          }
-        }`,
-      },
-    })
-      .then((res) => {
-        console.log(res.data.data.characters);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
-
-const tabs = [
-  {
-    title: "All projects",
-    fullTitle: "All projects",
-    projects: [],
-  },
-  {
-    title: "Recommended",
-    fullTitle: "Recommended",
-    projects: [],
-  },
-  {
-    title: "Favourite",
-    fullTitle: "Favourite",
-    projects: [],
-  },
-];
-
-export default function FavouriteProjects() {
-  const [currentTab, setCurrentTab] = useState(1);
-
+function ProjectsPageLayout({ children }) {
   const member = {};
   member.discordName = useSelector((state) => state.member.discordName);
-
-  tabs[1].projects = useSelector((state) => state.projects.allProjects);
 
   const dispatch = useDispatch();
 
@@ -126,49 +12,8 @@ export default function FavouriteProjects() {
     };
 
     dispatch(findMember(field));
-    dispatch(findProjects());
   }, [dispatch]);
 
-  function isCurrentTab(e, sideCorner) {
-    const cornerSize = 40;
-    const clickX = e.clientX - e.target.getBoundingClientRect().left;
-    const clickY = e.clientY - e.target.getBoundingClientRect().top;
-    let middleY;
-    if (sideCorner === "right") {
-      middleY = clickX; // y = x
-    } else {
-      middleY = cornerSize - clickX; // y = cornerSize - x
-    }
-    return clickY > middleY;
-  }
-
-  function handleTabClick(e, index, sideCorner = "") {
-    if (
-      sideCorner === "right" &&
-      index < tabs.length - 1 &&
-      !isCurrentTab(e, sideCorner)
-    ) {
-      setCurrentTab(index + 1);
-    } else if (
-      sideCorner === "left" &&
-      currentTab > 0 &&
-      !isCurrentTab(e, sideCorner)
-    ) {
-      setCurrentTab(index - 1);
-    } else {
-      setCurrentTab(index);
-    }
-  }
-
-  function calculateTabZindex(index) {
-    if (currentTab == index) {
-      return 50;
-    } else if (currentTab > index) {
-      return 30 + index;
-    } else {
-      return 40 - index;
-    }
-  }
   return (
     <>
       <div
@@ -176,37 +21,11 @@ export default function FavouriteProjects() {
         className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5"
       >
         {/* User column */}
-        <section className="col-span-1">
-          <div className="col-span-1 bg-white rounded-lg px-2 py-3 md:mb-4">
-            <div className="w-full flex items-center mb-3">
-              <div className="w-1/3">
-                <Avatar />
-              </div>
-              <div className="w-2/3 overflow-x-scroll">
-                <span className="text-xs">Good Morning</span>
-                <div className="overflow-x-scroll">
-                  <span className="font-bold">{member.discordName}</span>
-                </div>
-              </div>
-            </div>
-            <hr className="w-2/3 mx-auto mb-3"></hr>
-            {mockData.projectTypes.map((item, index) => (
-              <div className="ml-1 mb-3 overflow-hidden" key={index}>
-                <span className="text-slate-500 text-sm">{item.type}</span>
-                <div className="relative col-span-1 bg-white border border-gray-200 rounded-md px-2 py-1 mt-1 shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
-                  <span className="text-sm">{item.title}</span>
-                  <div className="absolute top-1 right-1 bg-blue-100 rounded-full w-6 h-6 flex justify-center items-center">
-                    <span className="text-sm">{item.number}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <UserCard member={member} />
 
         {/* Main column */}
         <main className="col-span-3 relative">
-          <div className="flex">
+          {/* <div className="flex">
             {tabs.map((tab, index) => (
               <div
                 style={{ zIndex: calculateTabZindex(index) }}
@@ -309,13 +128,15 @@ export default function FavouriteProjects() {
                   </div>
                 ))}
             </div>
-          </div>
+          </div> */}
         </main>
         {/* How to apply column */}
         <section className="col-span-1">
-          <HowToApply data={mockData.howToApply} />
+          {/* <HowToApply data={mockData.howToApply} /> */}
         </section>
       </div>
     </>
   );
 }
+
+export default ProjectsPageLayout;
