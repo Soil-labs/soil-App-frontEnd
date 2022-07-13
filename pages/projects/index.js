@@ -1,5 +1,3 @@
-import apiClient from "../api/axios";
-import Avatar from "../../components/Avatar";
 import HowToApply from "../../components/HowToApply";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
@@ -54,17 +52,13 @@ const tabs = [
 ];
 
 export default function FavouriteProjects() {
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(0);
 
   tabs[0].projects = useSelector((state) => state.projects.projects);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const field = {
-      id: "995604464469803048",
-    };
-
     dispatch(findAllProjects());
   }, [dispatch]);
 
