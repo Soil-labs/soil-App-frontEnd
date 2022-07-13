@@ -8,7 +8,7 @@ function Layout({ children }) {
   const [isProjectsPage, setIsProjectsPage] = useState(false);
 
   useEffect(() => {
-    if (checkIsProjectsPage(router.route.split("/"))) {
+    if (checkIsProjectsPage(router.route.split("/")[1])) {
       setIsProjectsPage(true);
     } else {
       setIsProjectsPage(false);
@@ -24,9 +24,9 @@ function Layout({ children }) {
         <Header />
         <div className="relative mx-6">
           {isProjectsPage ? (
-            <ProjectsPageLayout>
-              <main>{children}</main>
-            </ProjectsPageLayout>
+            <main>
+              <ProjectsPageLayout>{children}</ProjectsPageLayout>
+            </main>
           ) : (
             <main>{children}</main>
           )}

@@ -1,7 +1,21 @@
 import Avatar from "./Avatar";
 
+const mockData = {
+  projectTypes: [
+    {
+      type: "Apply",
+      title: "Active applications",
+      number: 6,
+    },
+    {
+      type: "Ongoing",
+      title: "Active projects",
+      number: 2,
+    },
+  ],
+};
+
 export default function UserCard({ member }) {
-  //   const member = member;
   return (
     <section className="col-span-1">
       <div className="col-span-1 bg-white rounded-lg px-2 py-3 md:mb-4">
