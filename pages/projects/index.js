@@ -5,23 +5,9 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { findMember } from "../../redux/slices/memberSlice";
 import { findProjects } from "../../redux/slices/projectsSlice";
 
 const mockData = {
-  projectTypes: [
-    {
-      type: "Apply",
-      title: "Active applications",
-      number: 6,
-    },
-    {
-      type: "Ongoing",
-      title: "Active projects",
-      number: 2,
-    },
-  ],
-
   howToApply: {
     title: "How to apply?",
     steps: [
@@ -70,9 +56,6 @@ const tabs = [
 export default function FavouriteProjects() {
   const [currentTab, setCurrentTab] = useState(1);
 
-  const member = {};
-  member.discordName = useSelector((state) => state.member.discordName);
-
   tabs[1].projects = useSelector((state) => state.projects.allProjects);
 
   const dispatch = useDispatch();
@@ -82,7 +65,6 @@ export default function FavouriteProjects() {
       id: "995604464469803048",
     };
 
-    dispatch(findMember(field));
     dispatch(findProjects());
   }, [dispatch]);
 
@@ -235,6 +217,7 @@ export default function FavouriteProjects() {
           </div>
         </div>
       </main>
+
       {/* How to apply column */}
       <section className="col-span-1">
         <HowToApply data={mockData.howToApply} />

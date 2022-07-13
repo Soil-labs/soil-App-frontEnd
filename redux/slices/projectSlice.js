@@ -33,12 +33,12 @@ export const createNewProject = createAsyncThunk(
   }
 );
 
-export const findProject = createAsyncThunk("findProject", async (field) => {
+export const findProject = createAsyncThunk("findProject", async (fields) => {
   const response = await apiClient({
     data: {
       query: `query{
         findProject(fields:{
-          _id: "${field._id}"
+          _id: "${fields._id}"
         }){
           _id
           title

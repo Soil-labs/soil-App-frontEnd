@@ -1,7 +1,9 @@
-export default function Avatar() {
+export default function Avatar({ size = 12 }) {
   return (
     <div className="mr-2 flex justify-center items-center drop-shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
-      <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+      <span
+        className={`inline-block h-${size} w-${size} rounded-full overflow-hidden bg-gray-100`}
+      >
         <svg
           className="h-full w-full text-gray-300"
           fill="currentColor"
