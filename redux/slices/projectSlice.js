@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import updateProjectMutation from "./graphql/project/mutations/updateProject";
 
 const initialState = {
   isDataAvailable: false,
@@ -58,12 +59,12 @@ export const createNewProject = createAsyncThunk(
   }
 );
 
-export const findProject = createAsyncThunk("findProject", async (field) => {
+export const findProject = createAsyncThunk("findProject", async (fields) => {
   const response = await apiClient({
     data: {
       query: `query{
         findProject(fields:{
-          _id: "${field._id}"
+          _id: "${fields._id}"
         }){
           _id
           title
@@ -75,6 +76,15 @@ export const findProject = createAsyncThunk("findProject", async (field) => {
 
   return response.data.data.findProject;
 });
+
+export const updateProject = createAsyncThunk(
+  "updateProject",
+  async (fields) => {
+    const response = await apiClient(updateProjectMutation(fields));
+
+    return response.data.data.updateProject;
+  }
+);
 
 export const projectSlice = createSlice({
   name: "project",
@@ -93,6 +103,11 @@ export const projectSlice = createSlice({
       state.notesAndJustification = payload.notesAndJustification;
     },
     [findProject.fulfilled]: (state, { payload }) => {
+      state._id = payload._id;
+      state.title = payload.title;
+      state.description = payload.description;
+    },
+    [updateProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
