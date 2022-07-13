@@ -5,22 +5,36 @@ const initialState = {
   _id: "62adbd7ca569ad00044c4fd9",
   discordName: "BluePanda",
   discordID: "908392557258604544",
-  tweets: ["recuVtMbNAeoKFTT4"],
-  skills: [],
-  projects: [],
+  bio: null,
+  skills: ["scrum master", "react"],
+  projects: ["soil"],
+  network: ["Miral", "sbelka"],
 };
 
-export const findMember = createAsyncThunk("findMember", async (field) => {
+export const getMember = createAsyncThunk("getMember", async (id) => {
   const response = await apiClient({
     data: {
       query: `query{
-        findMember(fields:{
-          _id: "${field.id}"
+        findMember(fields: {
+          _id: "${id}"
         }){
           _id
           discordName
-        }
-      }`,
+          discordAvatar
+          bio
+          skills {
+            name
+          }
+          projects {
+            info {
+              title
+            }
+          }
+          network {
+            discordName
+          }
+      }
+    }`,
     },
   });
 
@@ -32,12 +46,16 @@ export const memberSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [findMember.fulfilled]: (state, { payload }) => {
+    [getMember.fulfilled]: (state, { payload }) => {
       state._id = payload._id;
       state.discordName = payload.discordName;
+      state.discordID = payload._id;
+      state.bio = payload.bio;
+      state.skills = payload.skills;
+      state.projects = payload.projects;
+      state.network = payload.network;
     },
   },
 });
 
-export const { addReply } = memberSlice.actions;
 export default memberSlice.reducer;

@@ -6,8 +6,7 @@ import {
   ChevronDoubleDownIcon,
 } from "@heroicons/react/solid";
 
-
-const GreenBudgetForm = () => {
+const GreenBudgetForm = (props) => {
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">
@@ -22,7 +21,7 @@ const GreenBudgetForm = () => {
             {/* Budget Input Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Budget
+                Total Budget
               </label>
 
               <div className="mt-1 relative rounded-2xl shadow-md">
@@ -33,10 +32,15 @@ const GreenBudgetForm = () => {
                   />
                 </div>
                 <input
+                  value={props.questions.totalBudget}
+                  onChange={(e) =>
+                    props.handleChange(e, props.phase, "totalBudget")
+                  }
+                  
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"
-                  // placeholder="BUDGET"
+                  // placeholder=""
                 />
               </div>
             </div>
@@ -54,6 +58,9 @@ const GreenBudgetForm = () => {
                   />
                 </div>
                 <input
+                  onChange={(e) =>
+                    props.handleChange(e, props.phase, "kickoffDate")
+                  }
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
                        pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -75,6 +82,9 @@ const GreenBudgetForm = () => {
                   />
                 </div>
                 <input
+                  onChange={(e) =>
+                    props.handleChange(e, props.phase, "wrapUpDate")
+                  }
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
      pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -101,26 +111,41 @@ const GreenBudgetForm = () => {
               <textarea
                 rows={10}
                 name="comment"
+                onChange={(e) =>
+                  props.handleChange(e, props.phase, "notesAndJustification")
+                }
                 id="comment"
                 className="shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-2xl"
                 defaultValue={""}
+                placeholder="Write text here .........................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................
+                ........................................................................................................................................................................................"
               />
             </div>
           </div>
         </div>
-        <button>
+        <button
+          onClick={() => {
+            props.changePhase(props.phase);
+          }}
+        >
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
         </button>
       </div>
-     
     </div>
   );
 };
-function BudgetComponent() {
+function BudgetComponent(props) {
   return (
     <>
       <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <GreenBudgetForm  />
+        <GreenBudgetForm {...props} />
       </div>
     </>
   );

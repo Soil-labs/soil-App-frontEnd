@@ -1,16 +1,25 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { findMember } from "../../redux/slices/memberSlice";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
-import BudgetComponent from "../../components/TypeFormLikePage/BudgetComponent";
+import { findAllProjects } from "../../redux/slices/projectsSlice";
+import { findSkill } from "../../redux/slices/skillSlice";
+import { findUser } from "../../redux/slices/userInspectSlice";
+import { findAllUsers } from "../../redux/slices/usersInspectSlice";
+import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
+import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
+import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
+  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
       description: "description 1",
       reply: "",
+      render: "",
     },
     {
       title: "Description of the new project?",
@@ -20,31 +29,14 @@ function Form() {
     },
     {
       title: "BUDGET APPLICATION",
-      budget: "",
+      totalBudget: "",
       kickoffDate: "",
       wrapUpDate: "",
-      notesAndJust: "",
+      notesAndJustification: "",
     },
   ]);
 
-  const DisplayForm = () => {
-    if (phase <= 1) {
-      return (
-        <FormComponent
-          handleChange={handleChange}
-          changePhase={changePhase}
-          questions={questions[phase]}
-          phase={phase}
-          submitReply={submitReply}
-        />
-      );
-    } else {
-      return <BudgetComponent />;
-    }
-  };
-
   const changePhase = (phaseNow) => {
-    console.log("questions.length > phaseNow = ", questions.length, phaseNow);
     if (questions.length - 1 > phaseNow) {
       setPhase((phaseNow += 1));
     } else {
@@ -52,29 +44,24 @@ function Form() {
     }
   };
 
-  const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
 
-  const handleChange = (e, phaseNow) => {
+  const handleChange = (e, phaseNow, changeField) => {
     let newArr = [...questions];
-
-    newArr[phaseNow].reply = e.target.value;
-
+    newArr[phaseNow][changeField] = e.target.value;
     setQuestions(newArr);
-    console.log(questions);
   };
 
   const submitReply = () => {
-    console.log(
-      "we are at the end of the FORM!! = ",
-      questions[0].reply,
-      questions[1].reply
-    );
-    const feild = {
+    const field = {
       title: questions[0].reply,
       description: questions[1].reply,
+      totalBudget: questions[2].totalBudget,
+      kickoffDate: questions[2].kickoffDate,
+      wrapUpDate: questions[2].wrapUpDate,
+      // notesAndJustification: questions[2].notesAndJustification,
     };
-    dispatch(createNewProject(feild));
+    dispatch(createNewProject(field));
   };
 
   // useEffect(() => {
@@ -83,17 +70,70 @@ function Form() {
   //       _id: "62c0dac5a38139000437e607"
   //     };
 
-  //     console.log("this is the _id in the form ============>>>>>>>>",field._id)
   //     dispatch(findProject(field))
   //   }
   //   lookForProject()
   // }, [phase])
 
+  useEffect(() => {
+
+      let field
+      
+      field = {
+        _id: "908392557258604544"
+      };
+
+      // dispatch(findMember(field))
+      console.log("we are in the useEffect")
+
+      // field = {
+      //   tagName: "coding"
+      // };
+
+      // console.log("findSkill = ",field )
+
+      // dispatch(findSkill(field))
+
+      field = {
+        _id: "908392557258604544"
+      };
+
+      console.log("field = ",field )
+
+      dispatch(findUser(field))
+
+      // dispatch(findAllUsers(field))
+
+      
+  }, [])
+
+
   return (
     <>
-      <DisplayForm />
+      {phase <= 1 ? (
+        <FormComponent
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        />
+      ) : (
+        <GreenBudgetForm
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          submitReply={submitReply}
+        />
+      )}
+
+      {/* <ScopeRolesComponent/> */}
+      {/* <GeneralGreenFromComponent/> */}
     </>
   );
 }
 
 export default Form;
+
+// bash gitBash/
