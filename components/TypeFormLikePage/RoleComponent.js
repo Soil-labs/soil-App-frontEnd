@@ -75,9 +75,7 @@ function RoleComponent(props) {
 
               <div className="grid grid-cols-2 gap-3 mt-8 ">
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div className="flex flex-col items-end mt-4 space-y-8 mr-8">
-        
-                  </div>
+                  <div className="flex flex-col items-end mt-4 mr-8 space-y-8"></div>
                 </div>
                 <div className="w-[297px] h-[171px] space-y-4 flex flex-col items-center ">
                   {/* Dropdowns for hours per... */}
@@ -90,16 +88,38 @@ function RoleComponent(props) {
                     <DropdownHoursComponent />
                     <DropdownPerComponent />
                   </div>
-                
+
                   <div className="rounded-2xl bg-white w-[297px] h-[48px] items-center flex justify-center">
-                    <p className="text-xl text-center text-gray-500">
-                    
-                    </p>
+                    <p className="text-xl text-center text-gray-500"></p>
                   </div>
                 </div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                
+                  <div>
+                    <div className="flex items-center ">
+                      <div className="w-20 mt-1">
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          className="block w-full px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          placeholder="0,0"
+                        />
+                      </div>
+                      <div>
+                        <span>-</span>
+                      </div>
+                      <div className="w-20 mt-1">
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          className="block w-full px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          placeholder="9,999"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -115,7 +135,7 @@ function RoleComponent(props) {
           </div>
 
           <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
-            <ComboBoxSkillsComponent/>
+            <ComboBoxSkillsComponent />
           </div>
         </div>
       </div>
