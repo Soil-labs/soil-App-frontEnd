@@ -17,7 +17,6 @@ export const findAllProjects = createAsyncThunk(
                 
             }){
               _id
-              tagName
               title
               description
               dates{
