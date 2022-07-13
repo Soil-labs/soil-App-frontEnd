@@ -8,6 +8,7 @@ import {
 import DropdownHoursComponent from "../DropdownHoursComponent";
 import DropdownPerComponent from "../DropdownPerComponent";
 import Toggle from "../Toggle";
+import ComboBoxSkillsComponent from "../ComboBoxSkillsComponent";
 
 function RoleComponent(props) {
   return (
@@ -47,11 +48,6 @@ function RoleComponent(props) {
                     </p>
                   </div>
                 </div>
-                {/* Dropdowns for hours per... */}
-                <div className="flex space-x-6">
-                  <DropdownHoursComponent />
-                  <DropdownPerComponent />
-                </div>
               </div>
               {/* Role desciption input field */}
               <div className="w-[590px] mt-20">
@@ -80,16 +76,30 @@ function RoleComponent(props) {
               <div className="grid grid-cols-2 gap-3 mt-8 ">
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
                   <div className="flex flex-col items-end mt-4 space-y-8 mr-8">
-                    <Toggle />
-                    <Toggle />
-                    <Toggle />
+        
+                  </div>
+                </div>
+                <div className="w-[297px] h-[171px] space-y-4 flex flex-col items-center ">
+                  {/* Dropdowns for hours per... */}
+                  <div className="rounded-2xl bg-white w-[297px] h-[48px] items-center flex justify-center">
+                    <p className="text-xl text-center text-gray-500">
+                      LIFECYCLE
+                    </p>
+                  </div>
+                  <div className="flex space-x-6">
+                    <DropdownHoursComponent />
+                    <DropdownPerComponent />
+                  </div>
+                
+                  <div className="rounded-2xl bg-white w-[297px] h-[48px] items-center flex justify-center">
+                    <p className="text-xl text-center text-gray-500">
+                    
+                    </p>
                   </div>
                 </div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
-                <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
-                <div className="space-y-4 w-[297px]">
-                  <div className="w-[297px] h-[49px] bg-white rounded-2xl"></div>
-                  <div className="w-[297px] h-[133px] bg-white rounded-2xl"></div>
+                <div className="w-[297px] h-[171px] bg-white rounded-2xl">
+                
                 </div>
               </div>
 
@@ -104,7 +114,9 @@ function RoleComponent(props) {
             </div>
           </div>
 
-          <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl"></div>
+          <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
+            <ComboBoxSkillsComponent/>
+          </div>
         </div>
       </div>
     </>

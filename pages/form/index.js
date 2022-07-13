@@ -20,7 +20,6 @@ function Form() {
       title: "What’s the tilte of the new project?",
       description: "description 1",
       reply: "",
-      render: "",
     },
     {
       title: "Description of the new project?",
@@ -101,7 +100,7 @@ function Form() {
   //     _id: "908392557258604544",
   //   };
 
-  //   console.log("field = ", field);
+  //   console.log("field = ", field);z
 
   //   dispatch(findUser(field));
 
