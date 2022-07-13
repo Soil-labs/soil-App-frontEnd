@@ -1,6 +1,7 @@
 import Avatar from "../../components/Avatar";
 import SideCard from "../../components/SideCard";
 import RoleCard from "../../components/RoleCard";
+import FavButton from "../../components/FavButton";
 import NumberCircle from "../../components/NumberCircle";
 import { useEffect, useState, Fragment } from "react";
 import Image from "next/image";
@@ -115,7 +116,7 @@ export default function ProjectDetail() {
       {/* Main column */}
       <main className="col-span-4 relative">
         <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
-          <div className="w-full p-6 px-2 md:px-6">
+          <div className="">
             {!!project && (
               <div className="bg-white rounded-lg px-3 py-3 mb-4 shadow-[0px_2px_7px_rgba(0,48,142,0.1)]">
                 <div className="w-full flex justify-between mb-2">
@@ -135,7 +136,7 @@ export default function ProjectDetail() {
                     />
                   </div>
                   <div className="flex flex-col items-end justify-between">
-                    <button>fav</button>
+                    <FavButton />
                     <div className="ml-auto flex justify-center">
                       <button
                         type="button"
