@@ -1,4 +1,5 @@
 import Avatar from "./Avatar";
+import NumberCircle from "./NumberCircle";
 
 const mockData = {
   projectTypes: [
@@ -36,8 +37,8 @@ export default function UserCard({ member }) {
             <span className="text-slate-500 text-sm">{item.type}</span>
             <div className="relative col-span-1 bg-white border border-gray-200 rounded-md px-2 py-1 mt-1 shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
               <span className="text-sm">{item.title}</span>
-              <div className="absolute top-1 right-1 bg-blue-100 rounded-full w-6 h-6 flex justify-center items-center">
-                <span className="text-sm">{item.number}</span>
+              <div className="absolute top-1 right-1">
+                <NumberCircle number={item.number} />
               </div>
             </div>
           </div>

@@ -1,11 +1,100 @@
 import Avatar from "../../components/Avatar";
 import SideCard from "../../components/SideCard";
+import RoleCard from "../../components/RoleCard";
+import NumberCircle from "../../components/NumberCircle";
 import { useEffect, useState, Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { findProject } from "../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
+
+const roles = [
+  {
+    title: "Backend Engineer",
+    duration: "10 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 2,
+    link: "#",
+  },
+  {
+    title: "QA Engineer",
+    duration: "20 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Team Lead",
+    duration: "7 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Backend Engineer",
+    duration: "10 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 2,
+    link: "#",
+  },
+  {
+    title: "QA Engineer",
+    duration: "20 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Team Lead",
+    duration: "7 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Backend Engineer",
+    duration: "10 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 2,
+    link: "#",
+  },
+  {
+    title: "QA Engineer",
+    duration: "20 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Team Lead",
+    duration: "7 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Backend Engineer",
+    duration: "10 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 2,
+    link: "#",
+  },
+  {
+    title: "QA Engineer",
+    duration: "20 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+  {
+    title: "Team Lead",
+    duration: "7 weeks",
+    experience: "Minimum 2 years in software development",
+    number: 1,
+    link: "#",
+  },
+];
 
 export default function ProjectDetail() {
   const router = useRouter();
@@ -67,14 +156,14 @@ export default function ProjectDetail() {
                 </div>
                 <div className="w-full grid grid-cols-4 gap-y-3">
                   <div className="ml-2 col-span-3">
-                    <h3 className="font-bold text-lg">{project.title}</h3>
+                    <h3 className="font-bold text-lg mb-1">{project.title}</h3>
                     <p className="text-slate-500 text-sm">
                       {project.description}
                     </p>
                   </div>
                   <div className="col-span-1">
                     <SideCard icon="🏆" header="Champion">
-                      <div className="w-full flex items-center mb-1">
+                      <div className="w-full flex items-center mb-1 mt-1">
                         <div>
                           <Avatar size="8" />
                         </div>
@@ -87,26 +176,45 @@ export default function ProjectDetail() {
                         </div>
                       </div>
                     </SideCard>
-                    <SideCard icon="🏆" header="Champion">
-                      <p>
-                        <span className="text-slate-500 text-xs mr-1">
-                          Kickoff:
-                        </span>
-                        <span className="text-slate-700 text-xs font-bold mr-1">
-                          {/* {project.kickoff} */}
-                          Jun 18 2022
-                        </span>
-                      </p>
-                      <p>
-                        <span className="text-slate-500 text-xs mr-1">
-                          Completion:
-                        </span>
-                        <span className="text-slate-700 text-xs font-bold mr-1">
-                          {/* {project.completion} */}
-                          Dec 18 2023
-                        </span>
-                      </p>
+                    <SideCard icon="📅" header="Key dates">
+                      <div className="mb-1">
+                        <p>
+                          <span className="text-slate-500 text-xs mr-1">
+                            Kickoff:
+                          </span>
+                          <span className="text-slate-700 text-xs font-bold mr-1">
+                            {/* {project.kickoff} */}
+                            Jun 18 2022
+                          </span>
+                        </p>
+                        <p>
+                          <span className="text-slate-500 text-xs mr-1">
+                            Completion:
+                          </span>
+                          <span className="text-slate-700 text-xs font-bold mr-1">
+                            {/* {project.completion} */}
+                            Dec 18 2023
+                          </span>
+                        </p>
+                      </div>
                     </SideCard>
+                  </div>
+                </div>
+                <div className="w-full">
+                  <div className="w-full">
+                    <div className="ml-2 mb-3">
+                      <h4 className="flex text-lg items-center">
+                        <span>Open roles</span>
+                        <span className="ml-2">
+                          <NumberCircle number={roles.length} />
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="w-11/12 flex overflow-x-scroll">
+                    {roles.map((role, index) => (
+                      <RoleCard role={role} key={index} />
+                    ))}
                   </div>
                 </div>
               </div>
