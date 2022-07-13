@@ -95,14 +95,15 @@ function RoleComponent(props) {
                 </div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div>
-                    <div className="flex items-center ">
+                  <div className="pt-2 pl-6 space-y-1">
+                    <p className ="ml-1">SALARY RANGE</p>
+                    <div className="flex items-center space-x-3 ">
                       <div className="w-20 mt-1">
                         <input
                           type="text"
                           name="name"
                           id="name"
-                          className="block w-full px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full h-6 px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="0,0"
                         />
                       </div>
@@ -114,7 +115,7 @@ function RoleComponent(props) {
                           type="text"
                           name="name"
                           id="name"
-                          className="block w-full px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full h-6 px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="9,999"
                         />
                       </div>
