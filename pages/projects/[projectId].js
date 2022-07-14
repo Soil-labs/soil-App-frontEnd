@@ -147,7 +147,7 @@ export default function ProjectDetail() {
                           <Button
                             color="amber-400"
                             hoverColor="amber-300"
-                            hasChevron={true}
+                            hasChevron
                           >
                             Project Update
                           </Button>
@@ -155,7 +155,7 @@ export default function ProjectDetail() {
                       </Link>
                       <Link href="#">
                         <a>
-                          <Button hasChevron={true}>Apply to Project</Button>
+                          <Button hasChevron>Apply to Project</Button>
                         </a>
                       </Link>
                     </div>

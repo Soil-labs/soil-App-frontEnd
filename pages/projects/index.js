@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { findAllProjects } from "../../redux/slices/projectsSlice";
+import Button from "../../components/Button";
 
 const mockData = {
   howToApply: {
@@ -193,15 +194,9 @@ export default function FavouriteProjects() {
                     </div>
                   </div>
                   <div className="ml-auto flex flex-col justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-3 py-2 mb-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      <span className="mr-2">Apply Now</span>
-                      <span>{">"}</span>
-                    </button>
+                    <Button hasChevron>Apply Now</Button>
                     <Link href={`/projects/${project._id}`}>
-                      <a className="underline text-sm text-center text-slate-600 hover:text-slate-400">
+                      <a className="underline mt-2 text-sm text-center text-slate-600 hover:text-slate-400">
                         More info
                       </a>
                     </Link>
