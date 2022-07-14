@@ -1,9 +1,8 @@
 import UserCard from "../UserCard";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMember } from "../../redux/slices/memberSlice";
+import Layout from "./Layout";
 
 function ProjectsPageLayout({ children }) {
   const member = {};
@@ -18,7 +17,7 @@ function ProjectsPageLayout({ children }) {
   }, [dispatch]);
 
   return (
-    <>
+    <Layout>
       <div
         role="list"
         className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5"
@@ -29,7 +28,7 @@ function ProjectsPageLayout({ children }) {
         {/* Main column */}
         {children}
       </div>
-    </>
+    </Layout>
   );
 }
 
