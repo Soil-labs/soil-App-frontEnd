@@ -143,16 +143,20 @@ export default function ProjectDetail() {
                       <div className="hidden bg-amber-400 hover:bg-amber-300"></div>
                       {/* ------ */}
                       <Link href="#">
-                        <Button
-                          color="amber-400"
-                          hoverColor="amber-300"
-                          hasChevron={true}
-                        >
-                          Project Update
-                        </Button>
+                        <a>
+                          <Button
+                            color="amber-400"
+                            hoverColor="amber-300"
+                            hasChevron={true}
+                          >
+                            Project Update
+                          </Button>
+                        </a>
                       </Link>
                       <Link href="#">
-                        <Button hasChevron={true}>Apply to Project</Button>
+                        <a>
+                          <Button hasChevron={true}>Apply to Project</Button>
+                        </a>
                       </Link>
                     </div>
                   </div>
