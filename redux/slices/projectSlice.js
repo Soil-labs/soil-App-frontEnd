@@ -12,10 +12,11 @@ const initialState = {
     totalBudget: "",
   },
   dates: {
-    kickoffDate: "",
-    wrapUpDate: "",
+    kickOff: "",
+    complition: "",
   },
   notesAndJustification: "",
+  champion: {},
 };
 
 export const createNewProject = createAsyncThunk(
@@ -27,7 +28,11 @@ export const createNewProject = createAsyncThunk(
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "${field.title.replace(" ","_").replace(" ","_").replace(" ","_").replace(" ","_")}"
+        tagName: "${field.title
+          .replace(" ", "_")
+          .replace(" ", "_")
+          .replace(" ", "_")
+          .replace(" ", "_")}"
         title: "${field.title}"
         description: "${field.description}"
         dates: {
@@ -54,7 +59,10 @@ export const createNewProject = createAsyncThunk(
       },
     });
 
-    console.log("response.data.data.updateProject - projectSlice= " , response.data.data.updateProject)
+    console.log(
+      "response.data.data.updateProject - projectSlice= ",
+      response.data.data.updateProject
+    );
     return response.data.data.updateProject;
   }
 );
@@ -69,6 +77,14 @@ export const findProject = createAsyncThunk("findProject", async (fields) => {
           _id
           title
           description
+          champion {
+            _id
+            discordName
+          }
+          dates{
+            kickOff
+            complition
+          }
         }
       }`,
     },
@@ -106,6 +122,8 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.champion = payload.champion;
+      state.dates = payload.dates;
     },
     [updateProject.fulfilled]: (state, { payload }) => {
       state._id = payload._id;

@@ -2,11 +2,13 @@ import Avatar from "../../components/Avatar";
 import SideCard from "../../components/SideCard";
 import RoleCard from "../../components/RoleCard";
 import FavButton from "../../components/FavButton";
+import Button from "../../components/Button";
 import NumberCircle from "../../components/NumberCircle";
 import { useEffect, Fragment } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { findProject } from "../../redux/slices/projectSlice";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 const roles = [
@@ -137,20 +139,21 @@ export default function ProjectDetail() {
                   <div className="flex flex-col items-end justify-between">
                     <FavButton />
                     <div className="ml-auto flex justify-center">
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-3 py-2 ml-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        <span className="mr-2">Apply Now</span>
-                        <span>{">"}</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-3 py-2 ml-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      >
-                        <span className="mr-2">Apply Now</span>
-                        <span>{">"}</span>
-                      </button>
+                      {/* this is div is to preload some conditional classes in button */}
+                      <div className="hidden bg-amber-400 hover:bg-amber-300"></div>
+                      {/* ------ */}
+                      <Link href="#">
+                        <Button
+                          color="amber-400"
+                          hoverColor="amber-300"
+                          hasChevron={true}
+                        >
+                          Project Update
+                        </Button>
+                      </Link>
+                      <Link href="#">
+                        <Button hasChevron={true}>Apply to Project</Button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -170,8 +173,7 @@ export default function ProjectDetail() {
 
                         <div className="overflow-x-scroll">
                           <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                            {/* {member.discordName} */}
-                            discordName
+                            {project.champion.discordName}
                           </span>
                         </div>
                       </div>
@@ -183,8 +185,10 @@ export default function ProjectDetail() {
                             Kickoff:
                           </span>
                           <span className="text-slate-700 text-xs font-bold mr-1">
-                            {/* {project.kickoff} */}
-                            Jun 18 2022
+                            {project.dates.kickOff &&
+                              new Date(
+                                project.dates.kickOff * 1000
+                              ).toLocaleDateString()}
                           </span>
                         </p>
                         <p>
@@ -192,8 +196,10 @@ export default function ProjectDetail() {
                             Completion:
                           </span>
                           <span className="text-slate-700 text-xs font-bold mr-1">
-                            {/* {project.completion} */}
-                            Dec 18 2023
+                            {project.dates.complition &&
+                              new Date(
+                                project.dates.complition * 1000
+                              ).toLocaleDateString()}
                           </span>
                         </p>
                       </div>
