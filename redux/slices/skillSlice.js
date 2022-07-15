@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import createSkillMutation from "./graphql/skill/mutations/createSkill";
 import findSkill from "./graphql/skill/queries/findSkill";
-
 
 const initialState = {
   loading: true,
@@ -12,13 +12,19 @@ const initialState = {
   members: [],
 };
 
+export const findSkill_red = createAsyncThunk(
+  "findSkill_red",
+  async (params) => {
+    const response = await apiClient(findSkill(params));
 
-export const findSkill_red = createAsyncThunk("findSkill_red", async (params) => {
+    return response.data.data.findSkill;
+  }
+);
 
-  
-  const response = await apiClient(findSkill(params));
+export const createSkill = createAsyncThunk("createSkill", async (params) => {
+  const response = await apiClient(createSkillMutation(params));
 
-  return response.data.data.findSkill;
+  return response.data.data.createSkill;
 });
 
 export const skillSlice = createSlice({
@@ -27,16 +33,15 @@ export const skillSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findSkill_red.pending]: (state) => {
-        state.loading = true;
+      state.loading = true;
     },
-    [findSkill_red.fulfilled]: (state, {payload}) => {
+    [findSkill_red.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.isDataAvailable = true
+      state.isDataAvailable = true;
 
       state._id = payload._id;
       state.name = payload.name;
       state.members = payload.members;
-
     },
   },
 });
