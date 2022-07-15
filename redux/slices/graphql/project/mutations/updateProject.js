@@ -1,33 +1,40 @@
-export default function updateProjectMutation(fields) {
+export default function updateProject(params) {
   return {
     data: {
       query: `mutation{
 				updateProject(fields:{
-					_id: "${fields._id}"
-					title: "${fields.title}"
+					${params._id?`_id: "${params._id}"`:``}
+					${params.title?`title: "${params.title}"`:``}
+					${params.description?`description: "${params.description}"`:``}
+
 			
-					budget: {
-						totalBudget: "${fields.budget.totalBudget}"
-					}
-			
-					role:[{
-						_id: "${fields.role._id}",
-						title: "${fields.role.title}"
-						description:"${fields.role.description}"
-					}]
+					${params.budget?`budget: ${params.budget}`:``}
+
+					${params.role?`role: ${params.role}`:``}
+	
 			
 				}){
 					_id
 					title
+					description
 			
-					role{
+					
+					${params.returnRole?
+					`role{
 						title
 						skills{
 							skill{
 								name
 							}
 						}
-					}
+					}`:``}
+
+
+					${params.returnBudget?
+					`budget{
+						totalBudget
+						token
+					}`:``}
 			
 				}
 			}`,

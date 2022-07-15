@@ -39,9 +39,7 @@ import {
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    findSkill,
-    selectLoadingMembers,
-    selectMembers,
+    findMembers_withSkill_red,
 } from "../../redux/slices/usersInspectSlice";
 import InspectUserShimmer from "../../components/Shimmers/InspectUserShimmer";
 import InspectUsersListShimmer from "../../components/Shimmers/InspectUsersListShimmer";
@@ -379,25 +377,33 @@ function classNames(...classes) {
 
 function RoleInspection() {
     const dispatch = useDispatch();
-    const loadingMembers = useSelector(selectLoadingMembers);
-    const members = useSelector(selectMembers);
+    const loadingMembers = useSelector((state) => state.usersInspect.loading);
+    // const members = useSelector(selectMembers);
+    const members = useSelector((state) => state.usersInspect.members);
+
     const selectedUser = useSelector(selectMemberInfo);
     const selectedUserLoading = useSelector(selectLoadingMember);
     const [selectedUserId, setSelectedUserId] = useState(undefined);
 
-    console.log(selectedUser);
 
     useEffect(() => {
         (async () => {
             const id = "62ca8b6f536e11000427f065"; // TODO: make dynamic later
-            const membersInfo = await dispatch(findSkill(id)).unwrap();
-            console.log(membersInfo);
+            const params = {
+                _id: "62ca8b6f536e11000427f065",
+          
+                returnMembers: true,
+            }
+            await dispatch(findMembers_withSkill_red(params))
+            // const membersInfo = await dispatch(findMembers_withSkill_redux(id)).unwrap();
+            
         })();
     }, []);
 
     useEffect(() => {
         if (selectedUserId) {
             (async () => {
+                console.log("change = " )
                 const memberInfo = await dispatch(findMember(selectedUserId));
                 console.log(selectedUser);
             })();

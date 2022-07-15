@@ -1,20 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
-import getMemberQuery from "./graphql/member/queries/getMember";
+import findMember from "./graphql/member/queries/findMember";
 
 const initialState = {
-  _id: "62adbd7ca569ad00044c4fd9",
-  discordName: "BluePanda",
-  discordID: "908392557258604544",
-  bio: null,
-  skills: ["scrum master", "react"],
-  projects: ["soil"],
-  network: ["Miral", "sbelka"],
+  loading: true,
+  isDataAvailable: false,
+
+  _id: "",
+  discordName: "",
+  bio: "",
+  skills: [],
+  projects: [],
+  network: [],
 };
 
-export const getMember = createAsyncThunk("getMember", async (id) => {
-  const response = await apiClient(getMemberQuery(id));
-
+export const findMember_red = createAsyncThunk("findMember_red", async (params) => {
+  const response = await apiClient(findMember(params));
+  
   return response.data.data.findMember;
 });
 
@@ -23,7 +25,13 @@ export const memberSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getMember.fulfilled]: (state, { payload }) => {
+    [findMember_red.pending]: (state) => {
+        state.loading = true;
+    },
+    [findMember_red.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isDataAvailable = true
+
       state._id = payload._id;
       state.discordName = payload.discordName;
       state.discordID = payload._id;

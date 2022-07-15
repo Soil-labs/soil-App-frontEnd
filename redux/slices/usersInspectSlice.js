@@ -1,60 +1,66 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import findMembers from "./graphql/member/queries/findMembers";
+import findSkill from "./graphql/skill/queries/findSkill";
+import {arrayToString} from "../tools/transformations";
+
 
 const initialState = {
     members: [],
     loading: true,
+    isDataAvailable: false,
 };
 
-async function fetchMembers(field) {
-    try {
-        let result = await apiClient({
-            data: {
-                query: `query{
-                    findSkill(fields:{
-                    _id:"${field._id}"
-                    }){
-                    _id
-                    name
-                    members {
-                        _id
-                        discordName
-                        discordAvatar
-                        discriminator
-                    }     
-                    }
-                }`,
-            },
-        });
-        return result.data.data.findSkill;
-    } catch (err) {
-        console.log("error on graphQL request - findSkill = ", err);
-    }
-}
 
-export const findSkill = createAsyncThunk("findSkill", async (id) => {
-    const field = {
-        _id: id,
-    };
-    const response = await fetchMembers(field);
-    return response;
+
+export const findMembers_withSkill_red = createAsyncThunk("findMembers_withSkill_red", async (params) => {
+
+    const response = await apiClient(findSkill(params));
+
+    return response.data.data.findSkill;
 });
+
+
+export const findMembers_red = createAsyncThunk("findMembers_red", async (params) => {
+
+    if (params._id) {
+        params = {
+            ...params,
+            _id: arrayToString(params._id),
+        };
+    }
+
+    const response = await apiClient(findMembers(params));
+
+  
+    return response.data.data.findMembers;
+});
+  
 
 export const inspectUsers = createSlice({
     name: "inspectUsers",
     initialState,
     reducers: {},
     extraReducers: {
-        [findSkill.pending]: (state) => {
+        [findMembers_withSkill_red.pending]: (state) => {
             state.loading = true;
         },
-        [findSkill.fulfilled]: (state, action) => {
+        [findMembers_withSkill_red.fulfilled]: (state, action) => {
             state.loading = false;
-            state.members = action.payload.members;
+            state.isDataAvailable = true;
+            if (action.payload) {
+                state.members = action.payload.members;
+            }
+        },
+        [findMembers_red.pending]: (state) => {
+            state.loading = true;
+        },
+        [findMembers_red.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.isDataAvailable = true;
+            state.members = action.payload;
         },
     },
 });
 
-export const selectMembers = (state) => state.usersInspect.members;
-export const selectLoadingMembers = (state) => state.usersInspect.loading;
 export default inspectUsers.reducer;
