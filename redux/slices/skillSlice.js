@@ -1,29 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import findSkill from "./graphql/skill/queries/findSkill";
+
 
 const initialState = {
+  loading: true,
+  isDataAvailable: false,
+
   _id: "",
-  tagName: "",
+  name: "",
   members: [],
 };
 
-export const findSkill = createAsyncThunk("get data", async (field) => {
-  // console.log("findSkill - field= " , field)
-  const response = await apiClient({
-    data: {
-      query: `query{
-        findSkill(fields:{
-          tagName: "${field.tagName}"
-        }){
-          _id
-          tagName
-          members {
-            discordName
-          }
-        }
-      }`,
-    },
-  });
+
+export const findSkill_red = createAsyncThunk("findSkill_red", async (params) => {
+
+  
+  const response = await apiClient(findSkill(params));
 
   return response.data.data.findSkill;
 });
@@ -33,14 +26,16 @@ export const skillSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [findSkill.fulfilled]: (state, {payload}) => {
-      // console.log("skill - payload", payload)
+    [findSkill_red.pending]: (state) => {
+        state.loading = true;
+    },
+    [findSkill_red.fulfilled]: (state, {payload}) => {
+      state.loading = false;
+      state.isDataAvailable = true
 
       state._id = payload._id;
-      state.tagName = payload.tagName;
+      state.name = payload.name;
       state.members = payload.members;
-
-      // console.log("skill - state", state)
 
     },
   },

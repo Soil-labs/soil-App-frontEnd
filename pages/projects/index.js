@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { findAllProjects } from "../../redux/slices/projectsSlice";
+import { findProjects_red } from "../../redux/slices/projectsSlice";
 
 const mockData = {
   howToApply: {
@@ -59,7 +59,12 @@ export default function FavouriteProjects() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findAllProjects());
+    const params = {
+      returnRole: true,
+      returnBudget: true,
+      returnTeam: true,
+    }
+    dispatch(findProjects_red(params));
   }, [dispatch]);
 
   function isCurrentTab(e, sideCorner) {

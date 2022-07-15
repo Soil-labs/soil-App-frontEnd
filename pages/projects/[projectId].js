@@ -6,7 +6,7 @@ import NumberCircle from "../../components/NumberCircle";
 import { useEffect, Fragment } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { findProject } from "../../redux/slices/projectSlice";
+import { findProject_red } from "../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
 
 const roles = [
@@ -98,16 +98,20 @@ const roles = [
 
 export default function ProjectDetail() {
   const router = useRouter();
-  const project = useSelector((state) => state.project);
+  const project = useSelector((state) => state.projectInspect);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!router.query.projectId) return;
 
-    const fields = {
+    
+    const params = {
       _id: router.query.projectId,
-    };
-    dispatch(findProject(fields));
+      
+      returnRole: true,
+      returnBudget: true,
+    }
+    dispatch(findProject_red(params));
   }, [dispatch, router.query.projectId]);
 
   return (
