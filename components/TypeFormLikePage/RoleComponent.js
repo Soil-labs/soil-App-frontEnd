@@ -6,8 +6,9 @@ import {
 } from "@heroicons/react/solid";
 import DropdownHoursComponent from "../DropdownHoursComponent";
 import DropdownPerComponent from "../DropdownPerComponent";
-import ComboBoxSkillsComponent from "../ComboBoxSkillsComponent";
+// import ComboBoxSkillsComponent from "../ComboBoxSkillsComponent";
 import DropdownTokenComponent from "../DropdownTokenComponent";
+import ReactSelectComponent from "../reactSelectComponent";
 
 function RoleComponent(props) {
   const [skills, setSkills] = useState([
@@ -90,11 +91,11 @@ function RoleComponent(props) {
               </div>
               <div className="grid grid-cols-2 gap-3 mt-8 ">
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div className="pt-10 pl-5 w-full h-full ">
+                  <div className="w-full h-full pt-10 pl-5 ">
                     {skills.map((skill,key) => {
                       return (
-                        <div key={key} className="inline-block text-xs bg-green-600  rounded-full  mb-2 mr-2  justify-center space-x-4">
-                          <div className="flex justify-between items-center py-1 pl-2 pr-1">
+                        <div key={key} className="justify-center inline-block mb-2 mr-2 space-x-4 text-xs bg-green-600 rounded-full">
+                          <div className="flex items-center justify-between py-1 pl-2 pr-1">
                             <span className="inline-block mr-[3px]">
                               {skill}
                             </span>
@@ -129,7 +130,7 @@ function RoleComponent(props) {
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
                 {/* Salary Range */}
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div className="pt-2 pl-4 space-y-2 mt-1">
+                  <div className="pt-2 pl-4 mt-1 space-y-2">
                     <p className="ml-1">SALARY RANGE</p>
                     <div className="flex items-center space-x-2 ">
                       <div className="w-20 mt-1">
@@ -137,7 +138,7 @@ function RoleComponent(props) {
                           type="text"
                           name="name"
                           id="name"
-                          className="block w-full h-6  border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full h-6 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="0,0"
                         />
                       </div>
@@ -149,14 +150,14 @@ function RoleComponent(props) {
                           type="number"
                           name="name"
                           id="name"
-                          className="block w-full h-6  border-gray-300 text-sm  rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full h-6 text-sm border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="999,999"
                         />
                       </div>
                       <DropdownTokenComponent />
                     </div>
                   </div>
-                  <div className="space-x-5 mt-6 ml-4">
+                  <div className="mt-6 ml-4 space-x-5">
                     <button
                       type="button"
                       className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -182,7 +183,8 @@ function RoleComponent(props) {
           </div>
 
           <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
-            <ComboBoxSkillsComponent />
+          <ReactSelectComponent/>
+
           </div>
         </div>
       </div>
