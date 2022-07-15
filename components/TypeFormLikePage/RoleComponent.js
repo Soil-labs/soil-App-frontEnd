@@ -1,16 +1,33 @@
-import React from "react";
+import { useState } from "react";
 import {
-  ChevronDoubleDownIcon,
   ArrowNarrowLeftIcon,
   ArrowNarrowRightIcon,
-  TrendingUpIcon,
+  XIcon,
 } from "@heroicons/react/solid";
 import DropdownHoursComponent from "../DropdownHoursComponent";
 import DropdownPerComponent from "../DropdownPerComponent";
-import Toggle from "../Toggle";
 import ComboBoxSkillsComponent from "../ComboBoxSkillsComponent";
+import DropdownTokenComponent from "../DropdownTokenComponent";
 
 function RoleComponent(props) {
+  const [skills, setSkills] = useState([
+    "Design",
+    "Figma",
+    "Solidity",
+    "Art",
+    "FrontEnd",
+    "3D",
+    "Machine Learning",
+  ]);
+
+  const removeSkill = (key) => {
+    let newArr = [...skills];
+    console.log("newArrBefore", newArr);
+    newArr.splice(key, 1);
+    setSkills(newArr);
+    console.log("newArrAfter", newArr);
+  };
+
   return (
     <>
       <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
@@ -29,7 +46,6 @@ function RoleComponent(props) {
                   <ArrowNarrowRightIcon className="h-[44px]" />
                 </button>
               </div>
-
               <div className="flex items-end space-x-14">
                 {/* Avatar + Roletype(dynamic) */}
                 <div className="flex items-center space-x-4 ">
@@ -72,10 +88,27 @@ function RoleComponent(props) {
                   </div>
                 </div>
               </div>
-
               <div className="grid grid-cols-2 gap-3 mt-8 ">
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div className="flex flex-col items-end mt-4 mr-8 space-y-8"></div>
+                  <div className="pt-10 pl-5 w-full h-full ">
+                    {skills.map((skill,key) => {
+                      return (
+                        <div key={key} className="inline-block text-xs bg-green-600  rounded-full  mb-2 mr-2  justify-center space-x-4">
+                          <div className="flex justify-between items-center py-1 pl-2 pr-1">
+                            <span className="inline-block mr-[3px]">
+                              {skill}
+                            </span>
+                            <button
+                              className="w-[14px] h-[14px] ml-2"
+                              onClick={() => removeSkill(key)}
+                            >
+                              <XIcon className="w-full h-full " />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
                 <div className="w-[297px] h-[171px] space-y-4 flex flex-col items-center ">
                   {/* Dropdowns for hours per... */}
@@ -94,16 +127,17 @@ function RoleComponent(props) {
                   </div>
                 </div>
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl"></div>
+                {/* Salary Range */}
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
-                  <div className="pt-2 pl-6 space-y-1">
-                    <p className ="ml-1">SALARY RANGE</p>
-                    <div className="flex items-center space-x-3 ">
+                  <div className="pt-2 pl-4 space-y-2 mt-1">
+                    <p className="ml-1">SALARY RANGE</p>
+                    <div className="flex items-center space-x-2 ">
                       <div className="w-20 mt-1">
                         <input
                           type="text"
                           name="name"
                           id="name"
-                          className="block w-full h-6 px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          className="block w-full h-6  border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="0,0"
                         />
                       </div>
@@ -112,26 +146,38 @@ function RoleComponent(props) {
                       </div>
                       <div className="w-20 mt-1">
                         <input
-                          type="text"
+                          type="number"
                           name="name"
                           id="name"
-                          className="block w-full h-6 px-4 border-gray-300 rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          placeholder="9,999"
+                          className="block w-full h-6  border-gray-300 text-sm  rounded-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                          placeholder="999,999"
                         />
                       </div>
+                      <DropdownTokenComponent />
                     </div>
+                  </div>
+                  <div className="space-x-5 mt-6 ml-4">
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Hourly
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      Milestone
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      On Delivery
+                    </button>
                   </div>
                 </div>
               </div>
-
-              {/* The Meat of the page goes here */}
-              {/* <button
-                onClick={() => {
-                  props.changePhase(props.phase);
-                }}
-              >
-                <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
-              </button> */}
             </div>
           </div>
 
