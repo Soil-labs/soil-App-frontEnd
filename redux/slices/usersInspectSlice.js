@@ -6,9 +6,9 @@ import {arrayToString} from "../tools/transformations";
 
 
 const initialState = {
-    members: [],
     loading: true,
     isDataAvailable: false,
+    members: [],
 };
 
 
