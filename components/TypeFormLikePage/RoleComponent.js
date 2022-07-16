@@ -21,6 +21,13 @@ function RoleComponent(props) {
     "Machine Learning",
   ]);
 
+  const addSkill = (skill) =>{
+    let newArr = [...skills]
+    newArr.push(skill)
+    setSkills(newArr);
+    console.log("skills from RoleComp", skills)
+  }
+
   const removeSkill = (key) => {
     let newArr = [...skills];
     console.log("newArrBefore", newArr);
@@ -92,9 +99,12 @@ function RoleComponent(props) {
               <div className="grid grid-cols-2 gap-3 mt-8 ">
                 <div className="w-[297px] h-[171px] bg-white rounded-2xl">
                   <div className="w-full h-full pt-10 pl-5 ">
-                    {skills.map((skill,key) => {
+                    {skills.map((skill, key) => {
                       return (
-                        <div key={key} className="justify-center inline-block mb-2 mr-2 space-x-4 text-xs bg-green-600 rounded-full">
+                        <div
+                          key={key}
+                          className="justify-center inline-block mb-2 mr-2 space-x-4 text-xs bg-green-600 rounded-full"
+                        >
                           <div className="flex items-center justify-between py-1 pl-2 pr-1">
                             <span className="inline-block mr-[3px]">
                               {skill}
@@ -183,8 +193,10 @@ function RoleComponent(props) {
           </div>
 
           <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
-          <ReactSelectComponent/>
-
+            <ReactSelectComponent
+            addSkill={addSkill}
+            skills={skills}
+            />
           </div>
         </div>
       </div>
