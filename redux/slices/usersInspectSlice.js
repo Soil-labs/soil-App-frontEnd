@@ -1,60 +1,64 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import findMembersQuery from "./graphql/member/queries/findMembers";
+import findSkill from "./graphql/skill/queries/findSkill";
+import { arrayToString } from "../tools/transformations";
 
 const initialState = {
-    members: [],
-    loading: true,
+  loading: true,
+  isDataAvailable: false,
+  members: [],
 };
 
-async function fetchMembers(field) {
-    try {
-        let result = await apiClient({
-            data: {
-                query: `query{
-                    findSkill(fields:{
-                    _id:"${field._id}"
-                    }){
-                    _id
-                    name
-                    members {
-                        _id
-                        discordName
-                        discordAvatar
-                        discriminator
-                    }     
-                    }
-                }`,
-            },
-        });
-        return result.data.data.findSkill;
-    } catch (err) {
-        console.log("error on graphQL request - findSkill = ", err);
-    }
-}
+export const findMembers_withSkill = createAsyncThunk(
+  "findMembers_withSkill",
+  async (params) => {
+    const response = await apiClient(findSkill(params));
 
-export const findSkill = createAsyncThunk("findSkill", async (id) => {
-    const field = {
-        _id: id,
+    return response.data.data.findSkill;
+  }
+);
+
+export const findMembers = createAsyncThunk("findMembers", async (params) => {
+  if (params._id) {
+    params = {
+      ...params,
+      _id: arrayToString(params._id),
     };
-    const response = await fetchMembers(field);
-    return response;
+  }
+
+  const response = await apiClient(findMembersQuery(params));
+
+  return response.data.data.findMembers;
 });
 
 export const inspectUsers = createSlice({
-    name: "inspectUsers",
-    initialState,
-    reducers: {},
-    extraReducers: {
-        [findSkill.pending]: (state) => {
-            state.loading = true;
-        },
-        [findSkill.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.members = action.payload.members;
-        },
+  name: "inspectUsers",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [findMembers_withSkill.pending]: (state) => {
+      state.loading = true;
     },
+    [findMembers_withSkill.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.loading = false;
+      state.isDataAvailable = true;
+      state.members = payload.members;
+    },
+    [findMembers.pending]: (state) => {
+      state.loading = true;
+    },
+    [findMembers.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.loading = false;
+      state.isDataAvailable = true;
+
+      state.members = payload;
+    },
+  },
 });
 
-export const selectMembers = (state) => state.usersInspect.members;
-export const selectLoadingMembers = (state) => state.usersInspect.loading;
 export default inspectUsers.reducer;
