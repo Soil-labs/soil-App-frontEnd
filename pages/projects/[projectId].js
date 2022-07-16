@@ -112,6 +112,7 @@ export default function ProjectDetail() {
       returnRole: true,
       returnChampion: true,
       returnBudget: true,
+      returnDates: true,
     };
     dispatch(findProject(params));
   }, [dispatch, router.query.projectId]);
@@ -193,9 +194,9 @@ export default function ProjectDetail() {
                             Kickoff:
                           </span>
                           <span className="text-slate-700 text-xs font-bold mr-1">
-                            {project.dates.kickOff &&
+                            {project.dates?.kickOff &&
                               new Date(
-                                project.dates.kickOff * 1000
+                                project.dates?.kickOff * 1000
                               ).toLocaleDateString()}
                           </span>
                         </p>
@@ -204,9 +205,9 @@ export default function ProjectDetail() {
                             Completion:
                           </span>
                           <span className="text-slate-700 text-xs font-bold mr-1">
-                            {project.dates.complition &&
+                            {project.dates?.complition &&
                               new Date(
-                                project.dates.complition * 1000
+                                project.dates?.complition * 1000
                               ).toLocaleDateString()}
                           </span>
                         </p>

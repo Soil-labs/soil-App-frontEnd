@@ -30,15 +30,23 @@ export default function findProjectQuery(params) {
                 : ``
             }
 
+            ${
+              params.returnDates
+                ? `dates{
+                kickOff
+                complition
+            }`
+                : ``
+            }
 
-              ${
-                params.returnBudget
-                  ? `budget{
-                  totalBudget
-                  token
-              }`
-                  : ``
-              }
+            ${
+              params.returnBudget
+                ? `budget{
+                totalBudget
+                token
+            }`
+                : ``
+            }
               
           }
         }`,
