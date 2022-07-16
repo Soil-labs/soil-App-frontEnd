@@ -22,64 +22,105 @@ export default function updateProject(params) {
 					_id
 					title
 					description
-			
 					
 					${
             params.returnRole
               ? `role{
-						title
-						skills{
-							skill{
-								name
-							}
-						}
-					}`
+									title
+									skills{
+										skill{
+											name
+										}
+									}
+								}`
               : ``
           }
-
-
 					${
             params.returnBudget
               ? `budget{
-						totalBudget
-						token
-					}`
+									totalBudget
+									token
+								}`
               : ``
           }
-
-					  
 					${
             params.returnTeam
               ? `team{
-						roleID
-						phase
-						memberInfo {
-						  _id
-						  discordName
-						}`
+									memberInfo{
+										_id
+										discordName
+									}
+									roleID
+									phase
+								}`
               : ``
           }
 
-
+					${
+            params.returnRole
+              ? `role{
+									_id
+									title
+									description
+									skills{
+										skill{
+											_id
+											name
+										}
+										level
+										numEndorsement
+										comment
+									}
+									archive
+									dateRangeStart
+									dateRangeEnd
+									hoursPerWeek
+									budget{
+										token
+										perHour
+										totalBudget
+									}
+						}`
+              : ``
+          }
 					${
             params.returnCollaborationLinks
               ? `collaborationLinks{
 								title
 								link
-						}`
+							}`
               : ``
           }
-
-
+					${
+            params.returnTweets
+              ? `tweets{
+								content
+								author{
+									_id
+									discordName
+								}
+								registeredAt
+							}`
+              : ``
+          }
+					${
+            params.returnBudget
+              ? `budget{
+								token
+								perHour
+								totalBudget
+							}`
+              : ``
+          }
+					
 					${
             params.returnDates
               ? `dates{
 								kickOff
 								complition
-						}`
+							}`
               : ``
           }
-			
 				}
 			}`,
     },
