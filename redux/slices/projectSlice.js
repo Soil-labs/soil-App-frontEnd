@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
-import updateProject from "./graphql/project/mutations/updateProject";
-import findProject from "./graphql/project/queries/findProject";
+import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import findProjectQuery from "./graphql/project/queries/findProject";
 import { jsonToString } from "../tools/transformations";
 
 const initialState = {
@@ -16,17 +16,14 @@ const initialState = {
   role: [],
 };
 
-export const findProject_red = createAsyncThunk(
-  "findProject_red",
-  async (params) => {
-    const response = await apiClient(findProject(params));
+export const findProject = createAsyncThunk("findProject", async (params) => {
+  const response = await apiClient(findProjectQuery(params));
 
-    return response.data.data.findProject;
-  }
-);
+  return response.data.data.findProject;
+});
 
-export const updateProject_red = createAsyncThunk(
-  "updateProject_red",
+export const updateProject = createAsyncThunk(
+  "updateProject",
   async (params) => {
     if (params.budget) {
       params.budget = jsonToString(params.budget);
@@ -50,21 +47,23 @@ export const updateProject_red = createAsyncThunk(
       params.collaborationLinks = jsonToString(params.team);
     }
 
-    const response = await apiClient(updateProject(params));
+    const response = await apiClient(updateProjectMutation(params));
 
     return response.data.data.updateProject;
   }
 );
 
 export const projectSlice = createSlice({
-  name: "project",
+  name: "projectIn",
   initialState,
   reducers: {},
   extraReducers: {
-    [updateProject_red.pending]: (state) => {
+    [updateProject.pending]: (state) => {
       state.loading = true;
     },
-    [updateProject_red.fulfilled]: (state, { payload }) => {
+    [updateProject.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
       state.isDataAvailable = true;
       state.loading = false;
       state._id = payload._id;
@@ -73,10 +72,12 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.budget = payload.budget;
     },
-    [findProject_red.pending]: (state) => {
+    [findProject.pending]: (state) => {
       state.loading = true;
     },
-    [findProject_red.fulfilled]: (state, { payload }) => {
+    [findProject.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
       state.isDataAvailable = true;
       state.loading = false;
 

@@ -15,17 +15,17 @@ export default function addSkillToMemberMutation(params) {
 						${
               params.returnMembers
                 ? `members {
-								_id
-								discordName
-						}`
+											_id
+											discordName
+									}`
                 : ``
             }
 						${
               params.returnAuthors
                 ? `authors {
-								_id
-								discordName
-						}`
+										_id
+										discordName
+								}`
                 : ``
             }
 						registeredAt

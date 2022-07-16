@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { findMember_red } from "../../redux/slices/memberSlice";
+import { findMember } from "../../redux/slices/memberSlice";
 
 function ProjectsPageLayout({ children }) {
   const member = {};
@@ -18,9 +18,9 @@ function ProjectsPageLayout({ children }) {
       returnSkills: true,
       returnProjects: true,
       returnNetwork: true,
-    }
+    };
 
-    dispatch(findMember_red(params));
+    dispatch(findMember(params));
   }, [dispatch]);
 
   return (

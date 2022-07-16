@@ -1,31 +1,40 @@
-export default function findMembers(params) {
+export default function findMembersQuery(params) {
   return {
     data: {
       query: `query{
         findMembers(fields: {
-          ${params._id?`_id: ${params._id}`:``}
+          ${params._id ? `_id: ${params._id}` : ``}
         }){
           _id
           discordName
           discordAvatar
           bio
 
-          ${params.returnSkills?
-          `skills{
+          ${
+            params.returnSkills
+              ? `skills{
             name
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnProjects?
-          `projects {
+          ${
+            params.returnProjects
+              ? `projects {
             info {
               title
             }
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnNetwork?
-          `network {
+          ${
+            params.returnNetwork
+              ? `network {
             discordName
-          }`:``}
+          }`
+              : ``
+          }
 
       }
     }`,

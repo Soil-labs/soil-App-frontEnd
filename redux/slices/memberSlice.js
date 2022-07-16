@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import addNewMemberMutation from "./graphql/member/mutations/addNewMember";
-import findMember from "./graphql/member/queries/findMember";
+import findMemberQuery from "./graphql/member/queries/findMember";
 
 const initialState = {
   loading: true,
@@ -15,33 +15,28 @@ const initialState = {
   network: [],
 };
 
-export const addNewMember_red = createAsyncThunk(
-  "addNewMember_red",
-  async (params) => {
-    const response = await apiClient(addNewMemberMutation(params));
+export const addNewMember = createAsyncThunk("addNewMember", async (params) => {
+  const response = await apiClient(addNewMemberMutation(params));
 
-    return response.data.data.addNewMember;
-  }
-);
-export const findMember_red = createAsyncThunk(
-  "findMember_red",
-  async (params) => {
-    const response = await apiClient(findMember(params));
+  return response.data.data.addNewMember;
+});
+export const findMember = createAsyncThunk("findMember", async (params) => {
+  const response = await apiClient(findMemberQuery(params));
 
-    return response.data.data.findMember;
-  }
-);
+  return response.data.data.findMember;
+});
 
 export const memberSlice = createSlice({
   name: "member",
   initialState,
   reducers: {},
   extraReducers: {
-    [findMember_red.pending]: (state) => {
+    [findMember.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;
     },
-    [findMember_red.fulfilled]: (state, { payload }) => {
+    [findMember.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
       state.loading = false;
       state.isDataAvailable = true;
 
@@ -53,11 +48,12 @@ export const memberSlice = createSlice({
       state.projects = payload.projects;
       state.network = payload.network;
     },
-    [addNewMember_red.pending]: (state) => {
+    [addNewMember.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;
     },
-    [addNewMember_red.fulfilled]: (state, { payload }) => {
+    [addNewMember.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
       state.loading = false;
       state.isDataAvailable = true;
 

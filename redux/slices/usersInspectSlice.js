@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
-import findMembers from "./graphql/member/queries/findMembers";
+import findMembersQuery from "./graphql/member/queries/findMembers";
 import findSkill from "./graphql/skill/queries/findSkill";
 import { arrayToString } from "../tools/transformations";
 
@@ -10,8 +10,8 @@ const initialState = {
   members: [],
 };
 
-export const findMembers_withSkill_red = createAsyncThunk(
-  "findMembers_withSkill_red",
+export const findMembers_withSkill = createAsyncThunk(
+  "findMembers_withSkill",
   async (params) => {
     const response = await apiClient(findSkill(params));
 
@@ -19,44 +19,44 @@ export const findMembers_withSkill_red = createAsyncThunk(
   }
 );
 
-export const findMembers_red = createAsyncThunk(
-  "findMembers_red",
-  async (params) => {
-    if (params._id) {
-      params = {
-        ...params,
-        _id: arrayToString(params._id),
-      };
-    }
-
-    const response = await apiClient(findMembers(params));
-
-    return response.data.data.findMembers;
+export const findMembers = createAsyncThunk("findMembers", async (params) => {
+  if (params._id) {
+    params = {
+      ...params,
+      _id: arrayToString(params._id),
+    };
   }
-);
+
+  const response = await apiClient(findMembersQuery(params));
+
+  return response.data.data.findMembers;
+});
 
 export const inspectUsers = createSlice({
   name: "inspectUsers",
   initialState,
   reducers: {},
   extraReducers: {
-    [findMembers_withSkill_red.pending]: (state) => {
+    [findMembers_withSkill.pending]: (state) => {
       state.loading = true;
     },
-    [findMembers_withSkill_red.fulfilled]: (state, action) => {
+    [findMembers_withSkill.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
       state.loading = false;
       state.isDataAvailable = true;
-      if (action.payload) {
-        state.members = action.payload.members;
-      }
+      state.members = payload.members;
     },
-    [findMembers_red.pending]: (state) => {
+    [findMembers.pending]: (state) => {
       state.loading = true;
     },
-    [findMembers_red.fulfilled]: (state, action) => {
+    [findMembers.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
       state.loading = false;
       state.isDataAvailable = true;
-      state.members = action.payload;
+
+      state.members = payload;
     },
   },
 });

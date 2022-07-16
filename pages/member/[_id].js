@@ -2,23 +2,20 @@
 import { getMember } from "../../redux/slices/memberSlice";
 
 import {
-  findMembers_red,
-  findMembers_withSkill_red,
+  findMembers,
+  findMembers_withSkill,
 } from "../../redux/slices/usersInspectSlice";
-import {
-  updateProject_red,
-  findProject_red,
-} from "../../redux/slices/projectSlice";
-import { findProjects_red } from "../../redux/slices/projectsSlice";
-import { createSkill, findSkill_red } from "../../redux/slices/skillSlice";
-import { findSkills_red } from "../../redux/slices/skillsSlice";
-import { findMember_red } from "../../redux/slices/memberSlice";
-import { addNewMember_red } from "../../redux/slices/memberSlice";
+import { updateProject, findProject } from "../../redux/slices/projectSlice";
+import { findProjects } from "../../redux/slices/projectsSlice";
+import { createSkill, findSkill } from "../../redux/slices/skillSlice";
+import { findSkills } from "../../redux/slices/skillsSlice";
+import { findMember } from "../../redux/slices/memberSlice";
+import { addNewMember } from "../../redux/slices/memberSlice";
 import { addSkillToMember } from "../../redux/slices/userInspectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { inpsectUser_red } from "../../redux/slices/userInspectSlice";
+import { inpsectUser } from "../../redux/slices/userInspectSlice";
 
 function MemberPage({ id }) {
   const [skills, setSkills] = useState([]);
@@ -29,14 +26,14 @@ function MemberPage({ id }) {
 
   useEffect(() => {
     let params = {
-      _id: id,
+      _id: "995604464469803048",
 
       returnSkills: true,
       returnProjects: true,
       returnNetwork: true,
     };
     // console.log("params = " , params)
-    dispatch(findMember_red(params));
+    dispatch(findMember(params));
   }, [id, dispatch]);
 
   let networks = member.network.map((n) => n.discordName);
@@ -54,7 +51,7 @@ function MemberPage({ id }) {
   useEffect(() => {
     setSkills(member.skills.map((s) => s.name));
 
-    // //  ------ findMembers_red DELETE------
+    // //  ------ findMembers DELETE------
     // const params = {
     //   // _id: "812526237074456577",
     //   // _id: ["995604464469803048"],
@@ -65,20 +62,20 @@ function MemberPage({ id }) {
     // returnNetwork: false,
     // }
 
-    // dispatch(findMembers_red(params));
-    // //  ------ findMembers_red DELETE------
+    // dispatch(findMembers(params));
+    // //  ------ findMembers DELETE------
 
-    // //  ------ findMembers_withSkill_red DELETE------
+    // //  ------ findMembers_withSkill DELETE------
     // const params = {
     //   _id: "62ca8b6f536e11000427f065",
 
     //   returnMembers: true,
     // }
 
-    // dispatch(findMembers_withSkill_red(params));
-    // //  ------ findMembers_withSkill_red DELETE------
+    // dispatch(findMembers_withSkill(params));
+    // //  ------ findMembers_withSkill DELETE------
 
-    // //  ------ updateProject_red DELETE------
+    // //  ------ updateProject DELETE------
     let params = {
       _id: "62ca8b6f536e11000427f065",
       title: "asdf",
@@ -111,10 +108,10 @@ function MemberPage({ id }) {
       returnDates: true,
     };
 
-    // dispatch(updateProject_red(params));
-    // //  ------ updateProject_red DELETE------
+    // dispatch(updateProject(params));
+    // //  ------ updateProject DELETE------
 
-    // //  ------ findProject_red DELETE------
+    // //  ------ findProject DELETE------
     // const params = {
     //   // _id: ["62ca8b6f536e11000427f065"],
     //   // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
@@ -125,10 +122,10 @@ function MemberPage({ id }) {
 
     // console.log("params 1= " , params)
 
-    // dispatch(findProjects_red(params));
-    // //  ------ findProject_red DELETE------
+    // dispatch(findProjects(params));
+    // //  ------ findProject DELETE------
 
-    // //  ------ findSkills_red DELETE------
+    // //  ------ findSkills DELETE------
     // const params = {
     //   // _id: ["62ca8b6f536e11000427f065"],
     //   // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
@@ -139,10 +136,10 @@ function MemberPage({ id }) {
 
     // console.log("params 1= " , params)
 
-    // dispatch(findSkill_red(params));
-    // //  ------ findSkills_red DELETE------
+    // dispatch(findSkill(params));
+    // //  ------ findSkills DELETE------
 
-    //  ------ findSkills_red DELETE------
+    //  ------ findSkills DELETE------
     params = {
       // _id: ["62ca8b6f536e11000427f065"],
       // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
@@ -153,8 +150,8 @@ function MemberPage({ id }) {
 
     console.log("params 1= ", params);
 
-    dispatch(findSkills_red(params));
-    //  ------ findSkills_red DELETE------
+    dispatch(findSkills(params));
+    //  ------ findSkills DELETE------
   }, [member.skills]);
 
   useEffect(() => {
@@ -196,7 +193,7 @@ function MemberPage({ id }) {
       returnArchiveProjects: true,
       returnNetwork: true,
     };
-    dispatch(addNewMember_red(params));
+    dispatch(addNewMember(params));
   }, [dispatch]);
 
   return (

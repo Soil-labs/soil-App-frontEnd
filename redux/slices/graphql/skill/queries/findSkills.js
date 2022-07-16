@@ -1,5 +1,5 @@
-export default function findProjects(params) {
-  console.log("change 3= " ,)
+export default function findSkillsQuery(params) {
+  console.log("change 3= ");
   return {
     data: {
       query: `query{

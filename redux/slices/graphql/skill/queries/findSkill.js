@@ -1,4 +1,4 @@
-export default function findSkill(params) {
+export default function findSkillQuery(params) {
   return {
     data: {
       query: `query{

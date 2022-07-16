@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
-import findProjects from "./graphql/project/queries/findProjects";
-import {arrayToString} from "../tools/transformations";
-
+import findProjectsQuery from "./graphql/project/queries/findProjects";
+import { arrayToString } from "../tools/transformations";
 
 const initialState = {
   isDataAvailable: false,
@@ -11,34 +10,32 @@ const initialState = {
   projectsInfo: [],
 };
 
-
-
-export const findProjects_red = createAsyncThunk("findProjects_red", async (params) => {
-
+export const findProjects = createAsyncThunk("findProjects", async (params) => {
   if (params._id) {
-      params = {
-          ...params,
-          _id: arrayToString(params._id),
-      };
+    params = {
+      ...params,
+      _id: arrayToString(params._id),
+    };
   }
-  
-  const response = await apiClient(findProjects(params));
+
+  const response = await apiClient(findProjectsQuery(params));
 
   return response.data.data.findProjects;
 });
 
 export const projectsSlice = createSlice({
-  name: "projects",
+  name: "projectsInspect",
   initialState,
   reducers: {},
   extraReducers: {
-    [findProjects_red.pending]: (state) => {
+    [findProjects.pending]: (state) => {
       state.loading = true;
     },
-    [findProjects_red.fulfilled]: (state, { payload }) => {
+    [findProjects.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
       state.isDataAvailable = true;
       state.loading = false;
-      
+
       state.numberOfProjects = payload.length;
       state.projectsInfo = payload;
     },

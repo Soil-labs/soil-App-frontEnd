@@ -1,7 +1,7 @@
-export default function findProject(params) {
-    return {
-      data: {
-        query: `query{
+export default function findProjectQuery(params) {
+  return {
+    data: {
+      query: `query{
           findProject(fields:{
             _id: "${params._id}"
           }){
@@ -9,26 +9,31 @@ export default function findProject(params) {
             title
             description
 
-            ${params.returnRole?
-              `role{
+            ${
+              params.returnRole
+                ? `role{
                   title
                   skills{
                       skill{
                           name
                       }
                   }
-              }`:``}
+              }`
+                : ``
+            }
 
 
-              ${params.returnBudget?
-              `budget{
+              ${
+                params.returnBudget
+                  ? `budget{
                   totalBudget
                   token
-              }`:``}
+              }`
+                  : ``
+              }
               
           }
         }`,
-      },
-    };
-  }
-  
+    },
+  };
+}

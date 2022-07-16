@@ -1,4 +1,4 @@
-export default function updateProject(params) {
+export default function updateProjectMutation(params) {
   return {
     data: {
       query: `mutation{

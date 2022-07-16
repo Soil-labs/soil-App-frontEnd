@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
-import findMember from "./graphql/member/queries/findMember";
+import findMemberQuery from "./graphql/member/queries/findMember";
 
 const initialState = {
   loading: true,
@@ -14,16 +14,13 @@ const initialState = {
   network: [],
 };
 
-export const inpsectUser_red = createAsyncThunk(
-  "inpsectUser_red",
-  async (params) => {
-    const response = await apiClient(findMember(params));
+export const inpsectUser = createAsyncThunk("inpsectUser", async (params) => {
+  const response = await apiClient(findMemberQuery(params));
 
-    console.log("response.data.data.findMember = ", response);
+  console.log("response.data.data.findMember = ", response);
 
-    return response.data.data.findMember;
-  }
-);
+  return response.data.data.findMember;
+});
 
 export const addSkillToMember = createAsyncThunk(
   "addSkillToMember",
@@ -35,14 +32,14 @@ export const addSkillToMember = createAsyncThunk(
 );
 
 export const userInspectSlice = createSlice({
-  name: "member",
+  name: "userInspect",
   initialState,
   reducers: {},
   extraReducers: {
-    [inpsectUser_red.pending]: (state) => {
+    [inpsectUser.pending]: (state) => {
       state.loading = true;
     },
-    [inpsectUser_red.fulfilled]: (state, { payload }) => {
+    [inpsectUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.isDataAvailable = true;
 
@@ -60,6 +57,7 @@ export const userInspectSlice = createSlice({
       state.loading = true;
     },
     [addSkillToMember.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
       state.loading = false;
       state.isDataAvailable = true;
 
