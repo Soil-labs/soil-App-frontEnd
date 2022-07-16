@@ -98,16 +98,19 @@ const roles = [
 
 export default function ProjectDetail() {
   const router = useRouter();
-  const project = useSelector((state) => state.project);
+  const project = useSelector((state) => state.projectInspect);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!router.query.projectId) return;
 
-    const fields = {
+    const params = {
       _id: router.query.projectId,
+
+      returnRole: true,
+      returnBudget: true,
     };
-    dispatch(findProject(fields));
+    dispatch(findProject(params));
   }, [dispatch, router.query.projectId]);
 
   return (
