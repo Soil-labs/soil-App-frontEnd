@@ -9,11 +9,13 @@ export default function updateProject(params) {
 					${params.champion ? `champion: "${params.champion}"` : ``}
 					${params.team ? `team: "${params.team}"` : ``}
 					${params.role ? `role: ${params.role}` : ``}
+
 					${
             params.collaborationLinks
               ? `collaborationLinks: ${params.collaborationLinks}`
               : ``
           }
+					
 					${params.budget ? `budget: ${params.budget}` : ``}
 					${params.dates ? `dates: ${params.dates}` : ``}
 	
@@ -24,63 +26,43 @@ export default function updateProject(params) {
 					description
 					
 					${
-            params.returnRole
-              ? `role{
-									title
-									skills{
-										skill{
-											name
-										}
-									}
-								}`
-              : ``
-          }
-					${
-            params.returnBudget
-              ? `budget{
-									totalBudget
-									token
-								}`
-              : ``
-          }
-					${
             params.returnTeam
               ? `team{
-									memberInfo{
-										_id
-										discordName
-									}
-									roleID
-									phase
-								}`
+								memberInfo{
+									_id
+									discordName
+								}
+								roleID
+								phase
+							}`
               : ``
           }
 
 					${
             params.returnRole
               ? `role{
-									_id
-									title
-									description
-									skills{
-										skill{
-											_id
-											name
-										}
-										level
-										numEndorsement
-										comment
+								_id
+								title
+								description
+								skills{
+									skill{
+										_id
+										name
 									}
-									archive
-									dateRangeStart
-									dateRangeEnd
-									hoursPerWeek
-									budget{
-										token
-										perHour
-										totalBudget
-									}
-						}`
+									level
+									numEndorsement
+									comment
+								}
+								archive
+								dateRangeStart
+								dateRangeEnd
+								hoursPerWeek
+								budget{
+									token
+									perHour
+									totalBudget
+								}
+							}`
               : ``
           }
 					${
@@ -121,6 +103,7 @@ export default function updateProject(params) {
 							}`
               : ``
           }
+
 				}
 			}`,
     },

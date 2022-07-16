@@ -18,6 +18,8 @@ import { addSkillToMember } from "../../redux/slices/userInspectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { inpsectUser_red } from "../../redux/slices/userInspectSlice";
+
 function MemberPage({ id }) {
   const [skills, setSkills] = useState([]);
   const [bio, setBio] = useState([]);
@@ -34,7 +36,7 @@ function MemberPage({ id }) {
       returnNetwork: true,
     };
     // console.log("params = " , params)
-    // dispatch(findMember_red(params));
+    dispatch(findMember_red(params));
   }, [id, dispatch]);
 
   let networks = member.network.map((n) => n.discordName);
@@ -116,7 +118,6 @@ function MemberPage({ id }) {
     // const params = {
     //   // _id: ["62ca8b6f536e11000427f065"],
     //   // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
-
     //   returnRole: true,
     //   returnBudget: true,
     //   returnTeam: true,

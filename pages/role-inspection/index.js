@@ -47,6 +47,7 @@ import {
     findMember,
     selectLoadingMember,
     selectMemberInfo,
+    inpsectUser_red,
 } from "../../redux/slices/userInspectSlice";
 import CoverImageShimmer from "../../components/Shimmers/CoverImageShimmer";
 import ProfilePictureShimmer from "../../components/Shimmers/ProfilePictureShimmer";
@@ -381,8 +382,13 @@ function RoleInspection() {
     // const members = useSelector(selectMembers);
     const members = useSelector((state) => state.usersInspect.members);
 
-    const selectedUser = useSelector(selectMemberInfo);
-    const selectedUserLoading = useSelector(selectLoadingMember);
+    // const selectedUser = useSelector(selectMemberInfo);
+    const selectedUser = useSelector((state) => state.userInspect);
+
+    console.log("selectedUser = " , selectedUser)
+
+    // const selectedUserLoading = useSelector(selectLoadingMember);
+    const selectedUserLoading = useSelector((state) => state.loading);
     const [selectedUserId, setSelectedUserId] = useState(undefined);
 
 
@@ -403,8 +409,16 @@ function RoleInspection() {
     useEffect(() => {
         if (selectedUserId) {
             (async () => {
-                console.log("change = " )
-                const memberInfo = await dispatch(findMember(selectedUserId));
+                const params = {
+                    _id: selectedUserId,
+              
+                    returnSkills: true,
+                    returnProjects: true,
+                    returnNetwork: true,
+                  }
+
+                console.log("change = ",params )
+                const memberInfo = await dispatch(inpsectUser_red(params));
                 console.log(selectedUser);
             })();
         }

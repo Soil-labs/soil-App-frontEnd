@@ -47,7 +47,7 @@ export const updateProject_red = createAsyncThunk(
       params.dates = jsonToString(params.dates);
     }
     if (params.collaborationLinks) {
-      params.collaborationLinks = arrayToString(params.team);
+      params.collaborationLinks = jsonToString(params.team);
     }
 
     const response = await apiClient(updateProject(params));

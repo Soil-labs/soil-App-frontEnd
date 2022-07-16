@@ -38,6 +38,7 @@ export const memberSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findMember_red.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [findMember_red.fulfilled]: (state, { payload }) => {
@@ -53,6 +54,7 @@ export const memberSlice = createSlice({
       state.network = payload.network;
     },
     [addNewMember_red.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [addNewMember_red.fulfilled]: (state, { payload }) => {

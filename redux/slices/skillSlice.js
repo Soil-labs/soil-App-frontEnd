@@ -33,6 +33,7 @@ export const skillSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findSkill_red.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [findSkill_red.fulfilled]: (state, { payload }) => {
