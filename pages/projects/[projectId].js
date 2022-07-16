@@ -110,6 +110,7 @@ export default function ProjectDetail() {
       _id: router.query.projectId,
 
       returnRole: true,
+      returnChampion: true,
       returnBudget: true,
     };
     dispatch(findProject(params));
@@ -180,7 +181,7 @@ export default function ProjectDetail() {
 
                         <div className="overflow-x-scroll">
                           <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                            {project.champion.discordName}
+                            {project.champion?.discordName}
                           </span>
                         </div>
                       </div>

@@ -69,6 +69,7 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.champion = payload.champion;
       state.role = payload.role;
       state.budget = payload.budget;
     },
@@ -84,6 +85,7 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.champion = payload.champion;
       state.role = payload.role;
       state.budget = payload.budget;
     },

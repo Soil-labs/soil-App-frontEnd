@@ -1,4 +1,5 @@
 import HowToApply from "../../components/HowToApply";
+import Button from "../../components/Button";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";

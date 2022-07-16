@@ -8,7 +8,15 @@ export default function findProjectQuery(params) {
             _id
             title
             description
-
+            
+            ${
+              params.returnChampion
+                ? `champion{
+                _id
+                discordName
+            }`
+                : ``
+            }
             ${
               params.returnRole
                 ? `role{
