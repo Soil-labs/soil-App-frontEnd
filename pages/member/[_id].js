@@ -6,7 +6,10 @@ import {
   findMembers_withSkill,
 } from "../../redux/slices/usersInspectSlice";
 import { updateProject, findProject } from "../../redux/slices/projectSlice";
-import { findProjects } from "../../redux/slices/projectsSlice";
+import {
+  findProjects,
+  findProjects_fromMember,
+} from "../../redux/slices/projectsSlice";
 import { createSkill, findSkill } from "../../redux/slices/skillSlice";
 import { findSkills } from "../../redux/slices/skillsSlice";
 import { findMember } from "../../redux/slices/memberSlice";
