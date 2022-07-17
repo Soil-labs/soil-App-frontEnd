@@ -141,8 +141,8 @@ export default function FavouriteProjects() {
                 className={`relative bg-white h-full pt-2 px-3 text-center border-t ${
                   !index ? "border-l" : ""
                 } ${currentTab == index ? "" : "bg-slate-100"}
-                ${currentTab > index ? "pl-2 pr-9" : ""}
-                ${currentTab < index ? "pr-2 pl-9" : ""}
+                ${currentTab > index ? "pr-9" : ""}
+                ${currentTab < index ? "pl-9" : ""}
                 `}
                 key={index}
                 onClick={(e) => handleTabClick(e, index)}
