@@ -200,11 +200,12 @@ const ProjectBoard = ({
               text={new Date(parseInt(endDate) * 1000).toDateString()}
             />
           </div>
-          {devRoles.map((person, index) => {
-            if (person !== null) {
-              return <DevRoles Role={person} key={index} />;
-            }
-          })}
+          {devRoles &&
+            devRoles.map((person, index) => {
+              if (person !== null) {
+                return <DevRoles Role={person} key={index} />;
+              }
+            })}
         </div>
       </div>
     </div>

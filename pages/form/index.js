@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { findMember } from "../../redux/slices/memberSlice";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
-import { findAllProjects } from "../../redux/slices/projectsSlice";
 import { findSkill } from "../../redux/slices/skillSlice";
 import { findUser } from "../../redux/slices/userInspectSlice";
 import { findAllUsers } from "../../redux/slices/usersInspectSlice";
@@ -76,37 +75,33 @@ function Form() {
   // }, [phase])
 
   useEffect(() => {
+    let field;
 
-      let field
-      
-      field = {
-        _id: "908392557258604544"
-      };
+    field = {
+      _id: "908392557258604544",
+    };
 
-      // dispatch(findMember(field))
-      console.log("we are in the useEffect")
+    // dispatch(findMember(field))
+    console.log("we are in the useEffect");
 
-      // field = {
-      //   tagName: "coding"
-      // };
+    // field = {
+    //   tagName: "coding"
+    // };
 
-      // console.log("findSkill = ",field )
+    // console.log("findSkill = ",field )
 
-      // dispatch(findSkill(field))
+    // dispatch(findSkill(field))
 
-      field = {
-        _id: "908392557258604544"
-      };
+    field = {
+      _id: "908392557258604544",
+    };
 
-      console.log("field = ",field )
+    console.log("field = ", field);
 
-      dispatch(findUser(field))
+    dispatch(findUser(field));
 
-      // dispatch(findAllUsers(field))
-
-      
-  }, [])
-
+    // dispatch(findAllUsers(field))
+  }, []);
 
   return (
     <>

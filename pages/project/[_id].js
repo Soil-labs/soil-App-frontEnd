@@ -5,25 +5,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { findProject } from "../../redux/slices/projectSlice";
 
 function Project({ id }) {
-  const project = useSelector((state) => state.project);
+  const project = useSelector((state) => state.projectInspect);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findProject(id));
+    const params = {
+      _id: id,
+
+      returnRole: true,
+      returnBudget: true,
+      returnTeam: true,
+      returnChampion: true,
+    };
+    console.log("params = ", params);
+    dispatch(findProject(params));
+    // dispatch(findProject(id));
   }, [id, dispatch]);
 
-  let skillsArray = project.skills.map((s) => s.skills);
-  let skillArray = skillsArray.map((s) => s.map((s) => s.skill.name));
+  let skillsArray = project.role.map((s) => s.skills);
+  let skillArray = skillsArray.map((s) => s.map((s) => s.skillData.name));
   let skill = skillArray.flat();
-  let roles = project.roles.map((r) => r.title);
+  let roles = project.role.map((r) => r.title);
+
+  // console.log("roles = ", roles);
 
   useEffect(() => {
-    console.log("project: ", project);
-    console.log("skills: ", skillsArray);
-    console.log(
-      "roles: ",
-      project.roles.map((r) => r.title)
-    );
+    // console.log("project: ", project);
+    // console.log("skills: ", skillsArray);
+    // console.log(
+    //   "roles: ",
+    //   project.roles.map((r) => r.title)
+    // );
   }, [project]);
 
   return (
@@ -35,16 +47,16 @@ function Project({ id }) {
       />
       <ProjectBoard
         projectTitle={project.title}
-        championName={project.championName}
-        discordName={project.championName}
-        kickOffDate={project.dates.kickoffDate}
-        endDate={project.dates.wrapUpDate}
+        championName={project.champion.discordName}
+        discordName={project.champion.discordName}
+        // kickOffDate={project.dates.kickoffDate}
+        // endDate={project.dates.wrapUpDate}
         totalBudget={project.budget.totalBudget}
         description={project.description}
         budget={project.budget.totalBudget}
         skills={skill}
         devRoles={roles}
-        avatar={project.championAvatar}
+        avatar={project.champion.discordAvatar}
       />
     </div>
   );
