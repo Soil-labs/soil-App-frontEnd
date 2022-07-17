@@ -6,7 +6,7 @@ import {
   findMembers_withSkill,
 } from "../../redux/slices/usersInspectSlice";
 import { updateProject, findProject } from "../../redux/slices/projectSlice";
-import { findProjects } from "../../redux/slices/projectsSlice";
+import { findProjects,findProjects_fromMember } from "../../redux/slices/projectsSlice";
 import { createSkill, findSkill } from "../../redux/slices/skillSlice";
 import { findSkills } from "../../redux/slices/skillsSlice";
 import { findMember } from "../../redux/slices/memberSlice";
@@ -75,41 +75,41 @@ function MemberPage({ id }) {
     // dispatch(findMembers_withSkill(params));
     // //  ------ findMembers_withSkill DELETE------
 
-    // //  ------ updateProject DELETE------
-    let params = {
-      _id: "62ca8b6f536e11000427f065",
-      title: "asdf",
-      description: "heeeeeey",
-      budget: {
-        totalBudget: "1134",
-        token: "d",
-      },
-      role: [
-        {
-          _id: "62c65f508b9ea4cd95b88dd5",
-          title: "Developers",
-          description: "tina",
-          skills: {
-            skill: "62ca8b55536e11000427f05f",
-          },
-        },
-        {
-          _id: "62c65f508b9ea4cd95b28dd5",
-          title: "FrontEnd",
-          description: "developing website",
-        },
-      ],
+    // // //  ------ updateProject DELETE------
+    // let params = {
+    //   _id: "62ca8b6f536e11000427f065",
+    //   title: "asdf",
+    //   description: "heeeeeey",
+    //   budget: {
+    //     totalBudget: "1134",
+    //     token: "d",
+    //   },
+    //   role: [
+    //     {
+    //       _id: "62c65f508b9ea4cd95b88dd5",
+    //       title: "Developers",
+    //       description: "tina",
+    //       skills: {
+    //         skill: "62ca8b55536e11000427f05f",
+    //       },
+    //     },
+    //     {
+    //       _id: "62c65f508b9ea4cd95b28dd5",
+    //       title: "FrontEnd",
+    //       description: "developing website",
+    //     },
+    //   ],
 
-      returnRole: true,
-      returnBudget: true,
-      returnTeam: true,
-      returnCollaborationLinks: true,
-      returnTweets: true,
-      returnDates: true,
-    };
+    //   returnRole: true,
+    //   returnBudget: true,
+    //   returnTeam: true,
+    //   returnCollaborationLinks: true,
+    //   returnTweets: true,
+    //   returnDates: true,
+    // };
 
     // dispatch(updateProject(params));
-    // //  ------ updateProject DELETE------
+    // // //  ------ updateProject DELETE------
 
     // //  ------ findProject DELETE------
     // const params = {
@@ -139,61 +139,73 @@ function MemberPage({ id }) {
     // dispatch(findSkill(params));
     // //  ------ findSkills DELETE------
 
-    //  ------ findSkills DELETE------
-    params = {
-      // _id: ["62ca8b6f536e11000427f065"],
-      // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
-      _id: "62ca8b55536e11000427f05f",
+    // //  ------ findSkills DELETE------
+    // params = {
+    //   // _id: ["62ca8b6f536e11000427f065"],
+    //   // _id: ["62ca8b6f536e11000427f065","62ca6f5e0ad9f858dfdfa691"],
+    //   _id: "62ca8b55536e11000427f05f",
 
-      returnMembers: true,
+    //   returnMembers: true,
+    // };
+
+    // console.log("params 1= ", params);
+
+    // dispatch(findSkills(params));
+    // //  ------ findSkills DELETE------
+
+    //  ------ findProjects_fromMember DELETE------
+    let params = {
+      _id: "995604464469803048",
+      onlyChampions:true,
     };
 
     console.log("params 1= ", params);
 
-    dispatch(findSkills(params));
-    //  ------ findSkills DELETE------
+    dispatch(findProjects_fromMember(params));
+    //  ------ findProjects_fromMember DELETE------
+
   }, [member.skills]);
 
   useEffect(() => {
-    let params = {
-      skillID: "62cb0fa2e52852000489ce78",
-      memberID: "871719727901323304",
-      authorID: "812526237074456577",
-      returnTweets: true,
-      returnMembers: true,
-      returnAuthors: true,
-    };
-    console.log(
-      "dispatching addSkillToMember",
-      params.skillID,
-      params.memberID,
-      params.authorID
-    );
-    dispatch(addSkillToMember(params));
-    params = {
-      name: "xyz's new fren",
-      returnTweets: true,
-      returnMembers: true,
-      returnAuthors: true,
-    };
-    dispatch(createSkill(params));
-    params = {
-      _id: "1231231234",
-      discordName: "eloigil2",
-      discordAvatar: "fakeavatar.png",
-      discriminator: "",
-      bio: "bio-hazard",
-      hoursPerWeek: 20,
-      returnDiscriminator: true,
-      returnBio: true,
-      returnHoursPerWeek: true,
-      returnTweets: true,
-      returnSkills: true,
-      returnProjects: true,
-      returnArchiveProjects: true,
-      returnNetwork: true,
-    };
-    dispatch(addNewMember(params));
+    // let params = {
+    //   skillID: "62cb0fa2e52852000489ce78",
+    //   memberID: "871719727901323304",
+    //   authorID: "812526237074456577",
+    //   returnTweets: true,
+    //   returnMembers: true,
+    //   returnAuthors: true,
+    // };
+    // console.log(
+    //   "dispatching addSkillToMember",
+    //   params.skillID,
+    //   params.memberID,
+    //   params.authorID
+    // );
+    // dispatch(addSkillToMember(params));
+    // params = {
+    //   name: "xyz's new fren",
+    //   returnTweets: true,
+    //   returnMembers: true,
+    //   returnAuthors: true,
+    // };
+    // dispatch(createSkill(params));
+    // params = {
+    //   _id: "1231231234",
+    //   discordName: "eloigil2",
+    //   discordAvatar: "fakeavatar.png",
+    //   discriminator: "",
+    //   bio: "bio-hazard",
+    //   hoursPerWeek: 20,
+    //   returnDiscriminator: true,
+    //   returnBio: true,
+    //   returnHoursPerWeek: true,
+    //   returnTweets: true,
+    //   returnSkills: true,
+    //   returnProjects: true,
+    //   returnArchiveProjects: true,
+    //   returnNetwork: true,
+    // };
+    // dispatch(addNewMember(params));
   }, [dispatch]);
 
   return (

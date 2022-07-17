@@ -18,8 +18,16 @@ export default function getMemberQuery(params) {
 
           ${params.returnProjects?
           `projects {
+            champion
             info {
+              _id
               title
+              team {
+                memberInfo{
+                  discordName
+                }
+                phase
+              }
             }
           }`:``}
 
