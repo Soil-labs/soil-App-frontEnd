@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { findProject } from "../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
+import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
 
 const roles = [
   {
@@ -96,7 +97,7 @@ const roles = [
   },
 ];
 
-export default function ProjectDetail() {
+function ProjectDetail() {
   const router = useRouter();
   const project = useSelector((state) => state.projectInspect);
   const dispatch = useDispatch();
@@ -228,3 +229,9 @@ export default function ProjectDetail() {
     </Fragment>
   );
 }
+
+ProjectDetail.getLayout = function getLayout(page) {
+  return <ProjectsPageLayout>{page}</ProjectsPageLayout>;
+};
+
+export default ProjectDetail;
