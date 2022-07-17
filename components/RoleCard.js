@@ -17,16 +17,18 @@ export default function RoleCard({ role }) {
             </div>
           </div>
         )}
-        <div className="flex mb-1">
-          <div>
-            <span className="block w-6">🧳</span>
+        {role.description && (
+          <div className="flex mb-1">
+            <div>
+              <span className="block w-6">🧳</span>
+            </div>
+            <div className="pt-1">
+              <p className="text-slate-600 text-xs leading-tight">
+                {role.description}
+              </p>
+            </div>
           </div>
-          <div className="pt-1">
-            <p className="text-slate-600 text-xs leading-tight">
-              {role.description}
-            </p>
-          </div>
-        </div>
+        )}
         <div className="-ml-1 -mr-1">
           {!!role.skills.length &&
             role.skills.map((skill, index) => (
@@ -35,7 +37,7 @@ export default function RoleCard({ role }) {
                 key={index}
               >
                 <div className="w-full h-full text-xs flex -mt-px">
-                  {skill.skill.name.toLowerCase()}
+                  {skill.skillData.name.toLowerCase()}
                 </div>
               </div>
             ))}
