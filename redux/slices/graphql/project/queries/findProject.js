@@ -24,8 +24,9 @@ export default function findProjectQuery(params) {
                   title
                   description
                   skills{
-                    skill{
-                        name
+                    skillData{
+                      _id
+                      name
                     }
                   }
                   archive

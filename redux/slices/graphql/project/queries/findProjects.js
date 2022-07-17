@@ -25,11 +25,12 @@ export default function findProjectsQuery(params) {
               ? `role{
                 title
                 skills{
-                    skill{
-                        name
-                    }
+                  skillData{
+                    _id
+                    name
+                  }
                 }
-            }`
+              }`
               : ``
           }
 

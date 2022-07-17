@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { findProject } from "../../redux/slices/projectSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
 
-export default function ProjectDetail() {
+function ProjectDetail() {
   const router = useRouter();
   const project = useSelector((state) => state.projectInspect);
   const dispatch = useDispatch();
@@ -156,3 +157,9 @@ export default function ProjectDetail() {
     </Fragment>
   );
 }
+
+ProjectDetail.getLayout = function getLayout(page) {
+  return <ProjectsPageLayout>{page}</ProjectsPageLayout>;
+};
+
+export default ProjectDetail;

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { findProjects } from "../../redux/slices/projectsSlice";
+import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
 
 const mockData = {
   howToApply: {
@@ -52,7 +53,7 @@ const tabs = [
   },
 ];
 
-export default function FavouriteProjects() {
+function FavouriteProjects() {
   const [currentTab, setCurrentTab] = useState(0);
 
   tabs[0].projects = useSelector((state) => {
@@ -225,3 +226,9 @@ export default function FavouriteProjects() {
     </Fragment>
   );
 }
+
+FavouriteProjects.getLayout = function getLayout(page) {
+  return <ProjectsPageLayout>{page}</ProjectsPageLayout>;
+};
+
+export default FavouriteProjects;
