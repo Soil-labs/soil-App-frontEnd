@@ -138,9 +138,12 @@ export default function FavouriteProjects() {
                 </div>
               )}
               <div
-                className={`relative bg-white h-full pt-2 px-7 text-center border-t ${
+                className={`relative bg-white h-full pt-2 px-3 text-center border-t ${
                   !index ? "border-l" : ""
-                } ${currentTab == index ? "" : "bg-slate-100"}`}
+                } ${currentTab == index ? "" : "bg-slate-100"}
+                ${currentTab > index ? "pl-2 pr-9" : ""}
+                ${currentTab < index ? "pr-2 pl-9" : ""}
+                `}
                 key={index}
                 onClick={(e) => handleTabClick(e, index)}
               >
@@ -173,7 +176,7 @@ export default function FavouriteProjects() {
               tabs[currentTab].projects.map((project, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_7px_rgba(0,48,142,0.1)]"
+                  className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
                 >
                   <div
                     className="rounded-lg overflow-hidden mr-4"
