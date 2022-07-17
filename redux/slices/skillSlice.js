@@ -5,6 +5,7 @@ const initialState = {
   _id: "",
   tagName: "",
   members: [],
+  nameOfSkills: [],
 };
 
 export const findSkill = createAsyncThunk("get data", async (field) => {
@@ -28,12 +29,31 @@ export const findSkill = createAsyncThunk("get data", async (field) => {
   return response.data.data.findSkill;
 });
 
+export const findAllSkillNames = createAsyncThunk(
+  "Find all skill names",
+  async () => {
+    const response = await apiClient({
+      data: {
+        query: `query{
+        findSkills(fields:{
+        }){
+          name
+        }
+      }`,
+      },
+    });
+    console.log(" return response.data.data.findSkill ...", response.data.data.findSkills)
+    return response.data.data.findSkills;
+    
+  }
+);
+
 export const skillSlice = createSlice({
   name: "skill",
   initialState,
   reducers: {},
   extraReducers: {
-    [findSkill.fulfilled]: (state, {payload}) => {
+    [findSkill.fulfilled]: (state, { payload }) => {
       // console.log("skill - payload", payload)
 
       state._id = payload._id;
@@ -41,10 +61,16 @@ export const skillSlice = createSlice({
       state.members = payload.members;
 
       // console.log("skill - state", state)
+    },
 
+    [findAllSkillNames.fulfilled]: (state, { payload }) => {
+      state.nameOfSkills = payload;
+      console.log("payload[0].name", payload[0].name)
     },
   },
 });
 
 // export const {} = counterSlice.actions;
+export const skillNames = (state) => state.nameOfSkills
+
 export default skillSlice.reducer;

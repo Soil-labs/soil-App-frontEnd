@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { findMember } from "../../redux/slices/memberSlice";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import { findAllProjects } from "../../redux/slices/projectsSlice";
-import { findSkill } from "../../redux/slices/skillSlice";
+import { findSkill, findAllSkillNames } from "../../redux/slices/skillSlice";
 import { findUser } from "../../redux/slices/userInspectSlice";
 import { findAllUsers } from "../../redux/slices/usersInspectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
@@ -64,7 +64,14 @@ function Form() {
     dispatch(createNewProject(field));
   };
 
-          //Testing\\
+  //Testing\\
+
+  useEffect(() => {
+    const lookForProject = () => {
+      dispatch(findAllSkillNames());
+    };
+    lookForProject();
+  }, []);
 
   // useEffect(() => {
   //   const lookForProject = () => {
@@ -107,7 +114,7 @@ function Form() {
   //   // dispatch(findAllUsers(field))
   // }, []);
 
-         //Testing\\
+  //Testing\\
 
   return (
     <>
@@ -131,7 +138,7 @@ function Form() {
 
       {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
-      <RoleComponent/>
+      <RoleComponent />
     </>
   );
 }
