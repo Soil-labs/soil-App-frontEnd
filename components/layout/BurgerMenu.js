@@ -12,7 +12,7 @@ const resources = [
   {
     name: "🤝 Join a Project",
     description: "",
-    href: "#",
+    href: "/projects",
   },
   {
     name: "👤 Edit Profile",
