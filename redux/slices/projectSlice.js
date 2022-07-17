@@ -14,11 +14,14 @@ const initialState = {
   budget: {},
   dates: {},
   role: [],
+  champion: {},
 };
 
 export const findProject = createAsyncThunk("findProject", async (params) => {
+  // console.log("change = 223");
   const response = await apiClient(findProjectQuery(params));
 
+  // console.log("response = ", response);
   return response.data.data.findProject;
 });
 
@@ -86,6 +89,7 @@ export const projectSlice = createSlice({
       state.description = payload.description;
       state.role = payload.role;
       state.budget = payload.budget;
+      state.champion = payload.champion;
     },
   },
 });

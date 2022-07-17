@@ -32,6 +32,15 @@ export default function findProjectQuery(params) {
               }`
                   : ``
               }
+
+              ${
+                params.returnChampion
+                  ? `champion{
+                    discordName
+                    discordAvatar
+                  }`
+                  : ``
+              }
               
           }
         }`,
