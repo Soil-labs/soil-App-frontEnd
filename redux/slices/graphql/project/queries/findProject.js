@@ -20,13 +20,24 @@ export default function findProjectQuery(params) {
             ${
               params.returnRole
                 ? `role{
+                  _id
                   title
+                  description
                   skills{
-                      skill{
-                          name
-                      }
+                    skill{
+                        name
+                    }
                   }
-              }`
+                  archive
+                  dateRangeStart
+                  dateRangeEnd
+                  hoursPerWeek
+                  budget{
+                    token
+                    perHour
+                    totalBudget
+                  }
+                }`
                 : ``
             }
 

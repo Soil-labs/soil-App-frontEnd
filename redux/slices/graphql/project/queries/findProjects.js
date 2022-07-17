@@ -36,7 +36,7 @@ export default function findProjectsQuery(params) {
 
           ${
             params.returnBudget
-              ? `dates{
+              ? `budget{
               totalBudget
               token
           }`
@@ -45,7 +45,7 @@ export default function findProjectsQuery(params) {
 
           ${
             params.returnDates
-              ? `budget{
+              ? `dates{
               kickOff
               complition
           }`
