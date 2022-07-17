@@ -6,10 +6,14 @@ const initialState = {
   tagName: "",
   _id: "",
   title: "",
+  championName: "",
+  championAvatar: "",
   description: "",
+  skills: [],
   budget: {
     totalBudget: "",
   },
+  roles: [],
   dates: {
     kickoffDate: "",
     wrapUpDate: "",
@@ -26,7 +30,11 @@ export const createNewProject = createAsyncThunk(
       data: {
         query: `mutation{
       updateProject(fields:{
-        tagName: "${field.title.replace(" ","_").replace(" ","_").replace(" ","_").replace(" ","_")}"
+        tagName: "${field.title
+          .replace(" ", "_")
+          .replace(" ", "_")
+          .replace(" ", "_")
+          .replace(" ", "_")}"
         title: "${field.title}"
         description: "${field.description}"
         dates: {
@@ -53,21 +61,50 @@ export const createNewProject = createAsyncThunk(
       },
     });
 
-    console.log("response.data.data.updateProject - projectSlice= " , response.data.data.updateProject)
+    console.log(
+      "response.data.data.updateProject - projectSlice= ",
+      response.data.data.updateProject
+    );
     return response.data.data.updateProject;
   }
 );
 
-export const findProject = createAsyncThunk("findProject", async (field) => {
+export const findProject = createAsyncThunk("findProject", async (id) => {
   const response = await apiClient({
     data: {
       query: `query{
         findProject(fields:{
-          _id: "${field._id}"
+              _id: "${id}"
         }){
           _id
           title
           description
+          team{
+            memberInfo{
+              discordName
+            }
+          }
+          champion{
+            discordName
+            discordAvatar
+          }
+          role{
+            title
+            skills{
+              skill{
+                _id
+                name
+              }
+            }
+          }
+          dates{
+            kickOff
+            complition
+          }
+          budget{
+            totalBudget
+          }
+            
         }
       }`,
     },
@@ -96,6 +133,13 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.championName = payload.champion.discordName;
+      state.championAvatar = payload.champion.discordAvatar;
+      state.dates.kickoffDate = payload.dates.kickOff;
+      state.dates.wrapUpDate = payload.dates.complition;
+      state.budget.totalBudget = payload.budget.totalBudget;
+      state.skills = payload.role;
+      state.roles = payload.role;
     },
   },
 });
