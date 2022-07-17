@@ -221,13 +221,13 @@ export default function ProjectDetail() {
                       <h4 className="flex text-lg items-center">
                         <span>Open roles</span>
                         <span className="ml-2">
-                          <NumberCircle number={roles.length} />
+                          <NumberCircle number={project.role.length} />
                         </span>
                       </h4>
                     </div>
                   </div>
                   <div className="w-11/12 flex overflow-x-scroll">
-                    {roles.map((role, index) => (
+                    {project.role.map((role, index) => (
                       <RoleCard role={role} key={index} />
                     ))}
                   </div>
