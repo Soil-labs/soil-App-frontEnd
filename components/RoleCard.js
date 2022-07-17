@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from "@heroicons/react/solid";
 import projectSlice from "../redux/slices/projectSlice";
 
 export default function RoleCard({ role }) {
@@ -44,8 +45,9 @@ export default function RoleCard({ role }) {
         </div>
       </div>
       <div className="w-48 bg-slate-100 hover:bg-slate-200 border border-t-0 rounded-b-md border-gray-200">
-        <p className="text-center text-xs py-2 text-slate-800 hover:text-slate-600 cursor-pointer">
-          Apply Now {">"}
+        <p className="text-center text-xs py-2 text-slate-800 hover:text-slate-600 cursor-pointer flex justify-center">
+          <span>Apply Now</span>
+          <ChevronRightIcon width={16} className="ml-1 -mr-1" />
         </p>
       </div>
     </div>
