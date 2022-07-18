@@ -30,7 +30,7 @@ export const findSkill = createAsyncThunk("get data", async (field) => {
 });
 
 export const findAllSkillNames = createAsyncThunk(
-  "Find all skill names",
+  "findSkills",
   async () => {
     const response = await apiClient({
       data: {
@@ -66,6 +66,7 @@ export const skillSlice = createSlice({
     [findAllSkillNames.fulfilled]: (state, { payload }) => {
       state.nameOfSkills = payload;
       console.log("payload[0].name", payload[0].name)
+      console.log("state.nameOfSkills", state.nameOfSkills)
     },
   },
 });
