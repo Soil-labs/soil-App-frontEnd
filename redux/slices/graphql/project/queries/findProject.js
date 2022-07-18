@@ -51,14 +51,23 @@ export default function findProjectQuery(params) {
                 : ``
             }
 
-            ${
-              params.returnBudget
-                ? `budget{
-                totalBudget
-                token
-            }`
-                : ``
-            }
+              ${
+                params.returnBudget
+                  ? `budget{
+                  totalBudget
+                  token
+              }`
+                  : ``
+              }
+
+              ${
+                params.returnChampion
+                  ? `champion{
+                    discordName
+                    discordAvatar
+                  }`
+                  : ``
+              }
               
           }
         }`,
