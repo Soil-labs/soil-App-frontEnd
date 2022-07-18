@@ -4,7 +4,10 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { findProjects } from "../../redux/slices/projectsSlice";
+import {
+  findProjects,
+  findProjects_RecommendedToUser,
+} from "../../redux/slices/projectsSlice";
 import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
 
 const mockData = {
@@ -39,38 +42,56 @@ const tabs = [
   {
     title: "All projects",
     fullTitle: "All projects",
-    projects: [],
   },
   {
     title: "Recommended",
     fullTitle: "Recommended",
-    projects: [],
   },
   {
     title: "Favourite",
     fullTitle: "Favourite",
-    projects: [],
   },
 ];
 
 function FavouriteProjects() {
   const [currentTab, setCurrentTab] = useState(0);
 
-  tabs[0].projects = useSelector((state) => {
+  const projects = useSelector((state) => {
     console.log(state);
     return state.projectsInspect.projectsInfo;
   });
 
+  const member = {};
+  member._id = useSelector((state) => state.member._id);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const params = {
-      returnRole: true,
-      returnBudget: true,
-      returnTeam: true,
-    };
-    dispatch(findProjects(params));
-  }, [dispatch]);
+    let params;
+    switch (currentTab) {
+      case 0:
+        params = {
+          returnRole: true,
+          returnBudget: true,
+          returnTeam: true,
+        };
+        dispatch(findProjects(params));
+        break;
+      case 1:
+        params = {
+          memberID: member._id,
+          returnRole: true,
+          returnBudget: true,
+          returnTeam: true,
+        };
+        dispatch(findProjects_RecommendedToUser(params));
+        break;
+      case 2:
+        break;
+      default:
+        return;
+    }
+  }, [dispatch, currentTab, member._id]);
 
   function isCurrentTab(e, sideCorner) {
     const cornerSize = 40;
@@ -168,13 +189,13 @@ function FavouriteProjects() {
         </div>
         <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
           <div className="w-full p-6 px-2 md:px-6">
-            {!tabs[currentTab].projects.length && (
+            {!projects.length && (
               <p className="text-center text-slate-500">
                 There are no projects
               </p>
             )}
-            {!!tabs[currentTab].projects.length &&
-              tabs[currentTab].projects.map((project, index) => (
+            {!!projects.length &&
+              projects.map((project, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
@@ -196,14 +217,18 @@ function FavouriteProjects() {
                   </div>
                   <div className="flex flex-col justify-between">
                     <h3 className="font-bold">{project.title}</h3>
-                    <div>
-                      <span className="text-xs text-slate-500 mr-1">
-                        ⚡️ Match:
-                      </span>
-                      <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                        <span className="font-bold text-2xl">{75}%</span>
+                    {project.matchPersentage && (
+                      <div>
+                        <span className="text-xs text-slate-500 mr-1">
+                          ⚡️ Match:
+                        </span>
+                        <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
+                          <span className="font-bold text-2xl">
+                            {project.matchPersentage}%
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="ml-auto flex flex-col justify-center">
                     <Button hasChevron>Apply Now</Button>

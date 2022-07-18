@@ -3,6 +3,7 @@ import apiClient from "../../pages/api/axios";
 import findProjectsQuery from "./graphql/project/queries/findProjects";
 import findMemberQuery from "./graphql/member/queries/findMember";
 import { arrayToString } from "../tools/transformations";
+import findProjects_RecommendedToUserQuery from "./graphql/project/queries/findProjects_RecommendedToUser";
 
 const initialState = {
   isDataAvailable: false,
@@ -24,28 +25,52 @@ export const findProjects = createAsyncThunk("findProjects", async (params) => {
   return response.data.data.findProjects;
 });
 
-export const findProjects_fromMember = createAsyncThunk("findProjects_fromMember", async (params) => {
-  
-  console.log("params = " , params)
-  params = {
-    ...params,
-    returnProjects: true, // we only need projects 
-    returnSkills: false,
-    returnNetwork: false,
+export const findProjects_fromMember = createAsyncThunk(
+  "findProjects_fromMember",
+  async (params) => {
+    console.log("params = ", params);
+    params = {
+      ...params,
+      returnProjects: true, // we only need projects
+      returnSkills: false,
+      returnNetwork: false,
+    };
+
+    const response = await apiClient(findMemberQuery(params));
+
+    console.log(
+      "response.data.data.findProjects = ",
+      response.data.data.findMember
+    );
+
+    if (params.onlyChampions) {
+      response.data.data.findMember.projects =
+        response.data.data.findMember.projects.filter(
+          (project) => project.champion == true
+        );
+    }
+
+    return response.data.data.findMember;
   }
+);
 
-  const response = await apiClient(findMemberQuery(params));
+export const findProjects_RecommendedToUser = createAsyncThunk(
+  "findProjects_RecommendedToUser",
+  async (params) => {
+    console.log("params = ", params);
 
-  console.log("response.data.data.findProjects = " , response.data.data.findMember)
+    const response = await apiClient(
+      findProjects_RecommendedToUserQuery(params)
+    );
 
-  if (params.onlyChampions){
-    response.data.data.findMember.projects = response.data.data.findMember.projects.filter(project =>  project.champion ==true )
+    console.log(
+      "response.data.data.findProjects_RecommendedToUser = ",
+      response.data.data.findProjects_RecommendedToUser
+    );
+
+    return response.data.data.findProjects_RecommendedToUser;
   }
-
-  return response.data.data.findMember;
-});
-
-
+);
 
 export const projectsSlice = createSlice({
   name: "projectsInspect",
@@ -53,6 +78,10 @@ export const projectsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [findProjects.pending]: (state) => {
+      state.isDataAvailable = false;
+      state.loading = true;
+      state.numberOfProjects = 0;
+      state.projectsInfo = [];
       state.loading = true;
     },
     [findProjects.fulfilled]: (state, { payload }) => {
@@ -64,6 +93,10 @@ export const projectsSlice = createSlice({
       state.projectsInfo = payload;
     },
     [findProjects_fromMember.pending]: (state) => {
+      state.isDataAvailable = false;
+      state.loading = true;
+      state.numberOfProjects = 0;
+      state.projectsInfo = [];
       state.loading = true;
     },
     [findProjects_fromMember.fulfilled]: (state, { payload }) => {
@@ -71,10 +104,32 @@ export const projectsSlice = createSlice({
       state.isDataAvailable = true;
       state.loading = false;
 
-      if (payload.projects){
+      if (payload.projects) {
         state.numberOfProjects = payload.projects.length;
         state.projectsInfo = payload.projects;
       }
+    },
+    [findProjects_RecommendedToUser.pending]: (state) => {
+      state.isDataAvailable = false;
+      state.loading = true;
+      state.numberOfProjects = 0;
+      state.projectsInfo = [];
+      state.loading = true;
+    },
+    [findProjects_RecommendedToUser.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+      state.isDataAvailable = true;
+      state.loading = false;
+
+      const projects = payload.map((project) => {
+        const projectWithPercentage = project.projectData;
+        projectWithPercentage.matchPersentage = Math.round(
+          project.matchPersentage
+        );
+        return projectWithPercentage;
+      });
+
+      state.projectsInfo = projects;
     },
   },
 });
