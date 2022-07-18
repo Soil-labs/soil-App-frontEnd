@@ -1,9 +1,14 @@
 import HowToApply from "../../components/HowToApply";
+import Button from "../../components/Button";
 import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { findAllProjects } from "../../redux/slices/projectsSlice";
+import {
+  findProjects,
+  findProjects_RecommendedToUser,
+} from "../../redux/slices/projectsSlice";
+import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
 
 const mockData = {
   howToApply: {
@@ -37,30 +42,56 @@ const tabs = [
   {
     title: "All projects",
     fullTitle: "All projects",
-    projects: [],
   },
   {
     title: "Recommended",
     fullTitle: "Recommended",
-    projects: [],
   },
   {
     title: "Favourite",
     fullTitle: "Favourite",
-    projects: [],
   },
 ];
 
-export default function FavouriteProjects() {
+function FavouriteProjects() {
   const [currentTab, setCurrentTab] = useState(0);
 
-  tabs[0].projects = useSelector((state) => state.projects.projects);
+  const projects = useSelector((state) => {
+    console.log(state);
+    return state.projectsInspect.projectsInfo;
+  });
+
+  const member = {};
+  member._id = useSelector((state) => state.member._id);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findAllProjects());
-  }, [dispatch]);
+    let params;
+    switch (currentTab) {
+      case 0:
+        params = {
+          returnRole: true,
+          returnBudget: true,
+          returnTeam: true,
+        };
+        dispatch(findProjects(params));
+        break;
+      case 1:
+        params = {
+          memberID: member._id,
+          returnRole: true,
+          returnBudget: true,
+          returnTeam: true,
+        };
+        dispatch(findProjects_RecommendedToUser(params));
+        break;
+      case 2:
+        break;
+      default:
+        return;
+    }
+  }, [dispatch, currentTab, member._id]);
 
   function isCurrentTab(e, sideCorner) {
     const cornerSize = 40;
@@ -129,9 +160,12 @@ export default function FavouriteProjects() {
                 </div>
               )}
               <div
-                className={`relative bg-white h-full pt-2 px-7 text-center border-t ${
+                className={`relative bg-white h-full pt-2 px-3 text-center border-t ${
                   !index ? "border-l" : ""
-                } ${currentTab == index ? "" : "bg-slate-100"}`}
+                } ${currentTab == index ? "" : "bg-slate-100"}
+                ${currentTab > index ? "pr-9" : ""}
+                ${currentTab < index ? "pl-9" : ""}
+                `}
                 key={index}
                 onClick={(e) => handleTabClick(e, index)}
               >
@@ -155,16 +189,16 @@ export default function FavouriteProjects() {
         </div>
         <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
           <div className="w-full p-6 px-2 md:px-6">
-            {!tabs[currentTab].projects.length && (
+            {!projects.length && (
               <p className="text-center text-slate-500">
                 There are no projects
               </p>
             )}
-            {!!tabs[currentTab].projects.length &&
-              tabs[currentTab].projects.map((project, index) => (
+            {!!projects.length &&
+              projects.map((project, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_7px_rgba(0,48,142,0.1)]"
+                  className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
                 >
                   <div
                     className="rounded-lg overflow-hidden mr-4"
@@ -183,25 +217,23 @@ export default function FavouriteProjects() {
                   </div>
                   <div className="flex flex-col justify-between">
                     <h3 className="font-bold">{project.title}</h3>
-                    <div>
-                      <span className="text-xs text-slate-500 mr-1">
-                        ⚡️ Match:
-                      </span>
-                      <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                        <span className="font-bold text-2xl">{75}%</span>
+                    {project.matchPersentage && (
+                      <div>
+                        <span className="text-xs text-slate-500 mr-1">
+                          ⚡️ Match:
+                        </span>
+                        <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
+                          <span className="font-bold text-2xl">
+                            {project.matchPersentage}%
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="ml-auto flex flex-col justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-3 py-2 mb-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      <span className="mr-2">Apply Now</span>
-                      <span>{">"}</span>
-                    </button>
+                    <Button hasChevron>Apply Now</Button>
                     <Link href={`/projects/${project._id}`}>
-                      <a className="underline text-sm text-center text-slate-600 hover:text-slate-400">
+                      <a className="underline mt-2 text-sm text-center text-slate-600 hover:text-slate-400">
                         More info
                       </a>
                     </Link>
@@ -219,3 +251,9 @@ export default function FavouriteProjects() {
     </Fragment>
   );
 }
+
+FavouriteProjects.getLayout = function getLayout(page) {
+  return <ProjectsPageLayout>{page}</ProjectsPageLayout>;
+};
+
+export default FavouriteProjects;

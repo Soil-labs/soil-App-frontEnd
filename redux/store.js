@@ -4,6 +4,7 @@ import memberReducer from "./slices/memberSlice";
 import projectReducer from "./slices/projectSlice";
 import projectsReducer from "./slices/projectsSlice";
 import skillReducer from "./slices/skillSlice";
+import skillsReducer from "./slices/skillsSlice";
 import userInspectReducer from "./slices/userInspectSlice";
 import usersInspectReducer from "./slices/usersInspectSlice";
 
@@ -13,9 +14,10 @@ export const store = configureStore({
     userInspect: userInspectReducer,
     usersInspect: usersInspectReducer,
 
-    project: projectReducer,
-    projects: projectsReducer,
+    projectInspect: projectReducer,
+    projectsInspect: projectsReducer,
 
-    skill: skillReducer,
+    skillInspect: skillReducer,
+    skillsInspect: skillsReducer,
   },
 });

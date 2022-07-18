@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMember } from "../../redux/slices/memberSlice";
+import { findMember } from "../../redux/slices/memberSlice";
+import Layout from "./Layout";
 
 function ProjectsPageLayout({ children }) {
   const member = {};
@@ -12,13 +13,19 @@ function ProjectsPageLayout({ children }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const id = "995604464469803048";
+    const params = {
+      _id: "908392557258604544",
 
-    dispatch(getMember(id));
+      returnSkills: true,
+      returnProjects: true,
+      returnNetwork: true,
+    };
+
+    dispatch(findMember(params));
   }, [dispatch]);
 
   return (
-    <>
+    <Layout>
       <div
         role="list"
         className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5"
@@ -29,7 +36,7 @@ function ProjectsPageLayout({ children }) {
         {/* Main column */}
         {children}
       </div>
-    </>
+    </Layout>
   );
 }
 
