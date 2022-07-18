@@ -96,7 +96,7 @@ function ProjectDetail() {
                             <Avatar size="8" />
                           </div>
 
-                          <div className="overflow-x-scroll">
+                          <div className="">
                             <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
                               {project.champion?.discordName}
                             </span>

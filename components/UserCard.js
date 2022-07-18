@@ -24,9 +24,9 @@ export default function UserCard({ member }) {
           <div className="w-1/3">
             <Avatar />
           </div>
-          <div className="w-2/3 overflow-x-scroll">
+          <div className="w-2/3">
             <span className="text-xs">Good Morning</span>
-            <div className="overflow-x-scroll">
+            <div className="">
               <span className="font-bold">{member.discordName}</span>
             </div>
           </div>
