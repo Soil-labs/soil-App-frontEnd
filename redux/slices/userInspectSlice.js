@@ -1,71 +1,68 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import findMemberQuery from "./graphql/member/queries/findMember";
 
 const initialState = {
-    isDataAvailable: false,
-    _id: "",
-    discordName: "",
-    discordAvatar:"",
-    discriminator:"",
-    bio: "",
-    skills: [],
-    projects: [],
+  loading: true,
+  isDataAvailable: false,
+
+  _id: "",
+  discordName: "",
+  bio: "",
+  skills: [],
+  projects: [],
+  network: [],
 };
 
-export const findUser = createAsyncThunk("get data", async (field) => {
-  const response = await apiClient({
-    data: {
-      query: `query{
-        findMember(fields:{
-          _id: "908392557258604544"
-        }){
-          _id
-          discordName
-          discordAvatar
-          discriminator
-          bio
-          skills {
-            tagName
-            authors{
-              discordName
-            }
-          }
-          projects {
-            project {
-              tagName
-            }
-            role {
-              title
-              description
-            }
-            champion
-          } 
-        }
-      }`,
-    },
-  });
+export const inpsectUser = createAsyncThunk("inpsectUser", async (params) => {
+  const response = await apiClient(findMemberQuery(params));
 
-  console.log("response.data.data.findMember = " , response.data.data.findMember)
+  console.log("response.data.data.findMember = ", response);
 
   return response.data.data.findMember;
 });
 
+export const addSkillToMember = createAsyncThunk(
+  "addSkillToMember",
+  async (params) => {
+    const response = await apiClient(addSkillToMemberMutation(params));
+
+    return response.data.data.addSkillToMember;
+  }
+);
+
 export const userInspectSlice = createSlice({
-  name: "member",
+  name: "userInspect",
   initialState,
   reducers: {},
   extraReducers: {
-    [findUser.fulfilled]: (state, {payload}) => {
-        console.log("payload in userSlice", payload)
-        state.isDataAvailable = payload.isDataAvailable
-        state._id = payload._id
-        state.discordName = payload.discordName
-        state.discordAvatar = payload.discordAvatar
-        state.discriminator = payload.discriminator
-        state.bio = payload.bio
-        state.skills = payload.skills
-        state.projects = payload.projects
+    [inpsectUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [inpsectUser.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.isDataAvailable = true;
 
+      if (payload) {
+        state._id = payload._id;
+        state.discordName = payload.discordName;
+        state.discordID = payload._id;
+        state.bio = payload.bio;
+        state.skills = payload.skills;
+        state.projects = payload.projects;
+        state.network = payload.network;
+      }
+    },
+    [addSkillToMember.pending]: (state) => {
+      state.loading = true;
+    },
+    [addSkillToMember.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+      state.loading = false;
+      state.isDataAvailable = true;
+
+      state.discordName = payload.discordName;
+      state.memberInfo.skills = payload.skills;
     },
   },
 });

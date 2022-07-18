@@ -1,45 +1,64 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import findMembersQuery from "./graphql/member/queries/findMembers";
+import findSkill from "./graphql/skill/queries/findSkill";
+import { arrayToString } from "../tools/transformations";
 
 const initialState = {
+  loading: true,
   isDataAvailable: false,
-  numberOfUsers: -1,
-  users: [],
+  members: [],
 };
 
-export const findAllUsers = createAsyncThunk(
-  "find all users",
-  async (field) => {
-    const response = await apiClient({
-      data: {
-        query: `query{
-            findMembers(fields:{
+export const findMembers_withSkill = createAsyncThunk(
+  "findMembers_withSkill",
+  async (params) => {
+    const response = await apiClient(findSkill(params));
 
-            }){
-              _id
-              discordName
-              discordAvatar
-              discriminator
-              bio
-            }
-          }`,
-      },
-    });
-    return response.data.data.findMembers;
+    return response.data.data.findSkill;
   }
 );
 
-export const projectsSlice = createSlice({
-  name: "projects",
+export const findMembers = createAsyncThunk("findMembers", async (params) => {
+  if (params._id) {
+    params = {
+      ...params,
+      _id: arrayToString(params._id),
+    };
+  }
+
+  const response = await apiClient(findMembersQuery(params));
+
+  return response.data.data.findMembers;
+});
+
+export const inspectUsers = createSlice({
+  name: "inspectUsers",
   initialState,
   reducers: {},
   extraReducers: {
-    [findAllUsers.fulfilled]: (state, { payload }) => {
+    [findMembers_withSkill.pending]: (state) => {
+      state.loading = true;
+    },
+    [findMembers_withSkill.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.loading = false;
       state.isDataAvailable = true;
-      state.numberOfUsers = payload.length;
-      state.users = payload;
+      state.members = payload.members;
+    },
+    [findMembers.pending]: (state) => {
+      state.loading = true;
+    },
+    [findMembers.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.loading = false;
+      state.isDataAvailable = true;
+
+      state.members = payload;
     },
   },
 });
 
-export default projectsSlice.reducer;
+export default inspectUsers.reducer;

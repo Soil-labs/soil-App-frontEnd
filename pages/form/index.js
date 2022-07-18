@@ -1,10 +1,11 @@
 import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { findMember } from "../../redux/slices/memberSlice";
 import { createNewProject, findProject } from "../../redux/slices/projectSlice";
 import { findAllProjects } from "../../redux/slices/projectsSlice";
 import { findSkill, findAllSkillNames } from "../../redux/slices/skillSlice";
+import { findSkills } from "../../redux/slices/skillsSlice";
 import { findUser } from "../../redux/slices/userInspectSlice";
 import { findAllUsers } from "../../redux/slices/usersInspectSlice";
 import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
@@ -44,6 +45,11 @@ function Form() {
     }
   };
 
+  const skills = useSelector((state) => state.skillsInspect.skillsInfo);
+
+  console.log("skills = " , skills)
+
+
   const dispatch = useDispatch();
 
   const handleChange = (e, phaseNow, changeField) => {
@@ -67,10 +73,11 @@ function Form() {
   //Testing\\
 
   useEffect(() => {
-    const lookForProject = () => {
-      dispatch(findAllSkillNames());
-    };
-    lookForProject();
+    const params = {
+      returnMembers: false,
+    }
+    
+    dispatch(findSkills(params));
   }, []);
 
   // useEffect(() => {
@@ -79,7 +86,6 @@ function Form() {
   //       _id: "62c0dac5a38139000437e607"
   //     };
 
-  //     console.log("this is the _id in the form ============>>>>>>>>",field._id)
   //     dispatch(findProject(field))
   //   }
   //   lookForProject()
@@ -107,14 +113,12 @@ function Form() {
   //     _id: "908392557258604544",
   //   };
 
-  //   console.log("field = ", field);z
+  //   console.log("field = ", field);
 
-  //   dispatch(findUser(field));
+  //   // dispatch(findUser(field));
 
   //   // dispatch(findAllUsers(field))
   // }, []);
-
-  //Testing\\
 
   return (
     <>

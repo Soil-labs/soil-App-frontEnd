@@ -1,99 +1,95 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import findProjectQuery from "./graphql/project/queries/findProject";
+import { jsonToString } from "../tools/transformations";
 
 const initialState = {
   isDataAvailable: false,
-  tagName: "",
+  loading: true,
+
   _id: "",
   title: "",
   description: "",
-  budget: {
-    totalBudget: "",
-  },
-  dates: {
-    kickoffDate: "",
-    wrapUpDate: "",
-  },
-  notesAndJustification: "",
+  budget: {},
+  dates: {},
+  role: [],
+  champion: {},
 };
 
-export const createNewProject = createAsyncThunk(
-  "createNewProject",
-  async (field) => {
-    console.log("field - createNewProject", field);
-    console.log("field.totalBudget", field.totalBudget);
-    const response = await apiClient({
-      data: {
-        query: `mutation{
-      updateProject(fields:{
-        title: "${field.title}"
-        description: "${field.description}"
-        dates: {
-          kickOff: "${field.kickoffDate}"
-          complition: "${field.wrapUpDate}"
-        }
-        budget: {
-          totalBudget: "${field.totalBudget}"
-        }
-        
-      }){
-        title
-        description
-        dates{
-          kickOff
-          complition
-        }
-        budget{
-          totalBudget
-        }
-      }
-    }`,
-      },
-    });
+export const findProject = createAsyncThunk("findProject", async (params) => {
+  // console.log("change = 223");
+  const response = await apiClient(findProjectQuery(params));
 
-    console.log("response.data.data.updateProject - projectSlice= " , response.data.data.updateProject)
+  // console.log("response = ", response);
+  return response.data.data.findProject;
+});
+
+export const updateProject = createAsyncThunk(
+  "updateProject",
+  async (params) => {
+    if (params.budget) {
+      params.budget = jsonToString(params.budget);
+    }
+    if (params.role) {
+      params.role = jsonToString(params.role);
+    }
+    if (params.champion) {
+      params.champion = jsonToString(params.champion);
+    }
+    if (params.team) {
+      params.team = jsonToString(params.team);
+    }
+    if (params.budget) {
+      params.budget = jsonToString(params.budget);
+    }
+    if (params.dates) {
+      params.dates = jsonToString(params.dates);
+    }
+    if (params.collaborationLinks) {
+      params.collaborationLinks = jsonToString(params.team);
+    }
+
+    const response = await apiClient(updateProjectMutation(params));
+
     return response.data.data.updateProject;
   }
 );
 
-export const findProject = createAsyncThunk("findProject", async (field) => {
-  const response = await apiClient({
-    data: {
-      query: `query{
-        findProject(fields:{
-          _id: "${field._id}"
-        }){
-          _id
-          title
-          description
-        }
-      }`,
-    },
-  });
-
-  return response.data.data.findProject;
-});
-
 export const projectSlice = createSlice({
-  name: "project",
+  name: "projectIn",
   initialState,
   reducers: {},
   extraReducers: {
-    [createNewProject.fulfilled]: (state, { payload }) => {
-      state.title = payload.title;
-      state.description = payload.description;
-      console.log("payload", payload);
-      console.log("payload.budget", payload.budget);
-      console.log("payload.budget.totalBudget", payload.budget.totalBudget);
-      state.budget.totalBudget = payload.budget.totalBudget;
-      state.dates.kickoffDate = payload.dates.kickOff;
-      state.dates.wrapUpDate = payload.dates.complition;
-      state.notesAndJustification = payload.notesAndJustification;
+    [updateProject.pending]: (state) => {
+      state.loading = true;
     },
-    [findProject.fulfilled]: (state, { payload }) => {
+    [updateProject.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.isDataAvailable = true;
+      state.loading = false;
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.role = payload.role;
+      state.budget = payload.budget;
+    },
+    [findProject.pending]: (state) => {
+      state.loading = true;
+    },
+    [findProject.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.isDataAvailable = true;
+      state.loading = false;
+
+      state._id = payload._id;
+      state.title = payload.title;
+      state.description = payload.description;
+      state.role = payload.role;
+      state.budget = payload.budget;
+      state.champion = payload.champion;
     },
   },
 });

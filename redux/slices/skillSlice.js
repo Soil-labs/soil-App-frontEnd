@@ -1,72 +1,47 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
+import createSkillMutation from "./graphql/skill/mutations/createSkill";
+import findSkillQuery from "./graphql/skill/queries/findSkill";
 
 const initialState = {
+  loading: true,
+  isDataAvailable: false,
+
   _id: "",
-  tagName: "",
+  name: "",
   members: [],
   nameOfSkills: [],
 };
 
-export const findSkill = createAsyncThunk("get data", async (field) => {
-  // console.log("findSkill - field= " , field)
-  const response = await apiClient({
-    data: {
-      query: `query{
-        findSkill(fields:{
-          tagName: "${field.tagName}"
-        }){
-          _id
-          tagName
-          members {
-            discordName
-          }
-        }
-      }`,
-    },
-  });
+export const findSkill = createAsyncThunk("findSkill", async (params) => {
+  const response = await apiClient(findSkillQuery(params));
 
   return response.data.data.findSkill;
 });
 
-export const findAllSkillNames = createAsyncThunk(
-  "findSkills",
-  async () => {
-    const response = await apiClient({
-      data: {
-        query: `query{
-        findSkills(fields:{
-        }){
-          name
-        }
-      }`,
-      },
-    });
-    console.log(" return response.data.data.findSkill ...", response.data.data.findSkills)
-    return response.data.data.findSkills;
-    
-  }
-);
+export const createSkill = createAsyncThunk("createSkill", async (params) => {
+  const response = await apiClient(createSkillMutation(params));
+
+  return response.data.data.createSkill;
+});
 
 export const skillSlice = createSlice({
-  name: "skill",
+  name: "skillInspect",
   initialState,
   reducers: {},
   extraReducers: {
+    [findSkill.pending]: (state) => {
+      state.isDataAvailable = false;
+      state.loading = true;
+    },
     [findSkill.fulfilled]: (state, { payload }) => {
-      // console.log("skill - payload", payload)
+      if (!payload) return;
+      state.loading = false;
+      state.isDataAvailable = true;
 
       state._id = payload._id;
-      state.tagName = payload.tagName;
+      state.name = payload.name;
       state.members = payload.members;
-
-      // console.log("skill - state", state)
-    },
-
-    [findAllSkillNames.fulfilled]: (state, { payload }) => {
-      state.nameOfSkills = payload;
-      console.log("payload[0].name", payload[0].name)
-      console.log("state.nameOfSkills", state.nameOfSkills)
     },
   },
 });

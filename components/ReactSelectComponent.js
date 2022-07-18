@@ -14,7 +14,7 @@ const ReactSelectComponent = (props) => {
 
   useEffect(() => {
     const lookForProject = async () => {
-      dispatch(findAllSkillNames);
+      // dispatch(findAllSkillNames);
     };
     lookForProject();
     console.log("getSkillNames",  getSkillNames);
