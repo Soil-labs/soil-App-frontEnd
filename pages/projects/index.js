@@ -160,9 +160,9 @@ function FavouriteProjects() {
                 </div>
               )}
               <div
-                className={`relative bg-white h-full pt-2 px-3 text-center border-t ${
+                className={`relative h-full pt-2 px-3 text-center border-t ${
                   !index ? "border-l" : ""
-                } ${currentTab == index ? "" : "bg-slate-100"}
+                } ${currentTab == index ? "bg-white" : "bg-slate-100"}
                 ${currentTab > index ? "pr-9" : ""}
                 ${currentTab < index ? "pl-9" : ""}
                 `}
