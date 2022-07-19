@@ -16,17 +16,14 @@ const Project = () => {
     projectsInspect: { isDataAvailable, projectsInfo },
   } = useSelector((state) => state);
 
-  console.log(isDataAvailable);
-
   const [project] = projectsInfo.filter((p) => p.info._id === _id);
-  console.log(project);
 
   return (
     <>
       <main className="col-span-3">
         <div className="px-4 sm:px-0">
           {!isDataAvailable && "Fetching data..."}
-          {isDataAvailable && (
+          {isDataAvailable && project && (
             <>
               <h2 className="p-8 text-2xl font-bold text-gray-900">
                 {project.info.title}
