@@ -1,16 +1,16 @@
-import Avatar from "../../components/Avatar";
-import SideCard from "../../components/SideCard";
-import RoleCard from "../../components/RoleCard";
-import FavButton from "../../components/FavButton";
-import Button from "../../components/Button";
-import NumberCircle from "../../components/NumberCircle";
+import Avatar from "../../../components/Avatar";
+import SideCard from "../../../components/SideCard";
+import RoleCard from "../../../components/RoleCard";
+import FavButton from "../../../components/FavButton";
+import Button from "../../../components/Button";
+import NumberCircle from "../../../components/NumberCircle";
 import { useEffect, Fragment } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { findProject } from "../../redux/slices/projectSlice";
+import { findProject } from "../../../redux/slices/projectSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ProjectsPageLayout from "../../components/layout/ProjectsPageLayout";
+import ProjectsPageLayout from "../../../components/layout/ProjectsPageLayout";
 
 function ProjectDetail() {
   const router = useRouter();
