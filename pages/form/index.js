@@ -142,7 +142,9 @@ function Form() {
 
       {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
-      <RoleComponent />
+      <RoleComponent
+      skills = {skills}
+       />
     </>
   );
 }

@@ -1,35 +1,24 @@
-import { useEffect } from "react";
-import Select from "react-select";
-import { useSelector, useDispatch } from "react-redux";
-import { findAllSkillNames, skillNames } from "../redux/slices/skillSlice";
+import Async, { useAsync } from 'react-select/async';
 const ReactSelectComponent = (props) => {
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
+    { value: props.skills[0], label: props.skills[0]}
   ];
 
-  const dispatch = useDispatch();
-  const getSkillNames = useSelector(skillNames);
-
-  useEffect(() => {
-    const lookForProject = async () => {
-      // dispatch(findAllSkillNames);
-    };
-    lookForProject();
-    console.log("getSkillNames",  getSkillNames);
-
-  }, []);
+  
 
   const handleChange = (selectedOption) => {
     if (selectedOption[0] !== undefined) {
       props.addSkill(String(selectedOption[selectedOption.length - 1].value));
+      console.log("skills from React Select",props.skills[0].name)
     }
   };
 
   return (
     <>
-    <Select
+    <Async
       className="w-96"
       options={options}
       controlShouldRenderValue={false}

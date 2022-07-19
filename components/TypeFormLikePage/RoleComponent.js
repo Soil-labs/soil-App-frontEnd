@@ -195,7 +195,7 @@ function RoleComponent(props) {
           <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
             <ReactSelectComponent
             addSkill={addSkill}
-            skills={skills}
+            skills={props.skills}
             />
           </div>
         </div>
