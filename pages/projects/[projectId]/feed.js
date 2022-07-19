@@ -1,7 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  findProjects,
+  findProjects_RecommendedToUser,
+} from "../../../redux/slices/projectsSlice";
 import ProjectsPageLayout from "../../../components/layout/ProjectsPageLayout";
 import Feed from "../../../components/feed/Feed";
-import SideCard from "../../../components/SideCard";
 
 const tweets = [
   {
