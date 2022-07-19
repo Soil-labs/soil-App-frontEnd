@@ -6,7 +6,6 @@ import placeholder_avatar from "./placeholder_avatar.png";
 import { classNames } from "../../util";
 
 const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
-  console.log(project);
   return (
     <Link href={`/champion-dashboard/${project.info._id}`}>
       <a

@@ -6,7 +6,6 @@ const ProjectsNavigation = () => {
   const router = useRouter();
   const { _id } = router.query;
   const { projectsInspect } = useSelector((state) => state);
-  console.log({ projectsInspect });
   const { isDataAvailable, projectsInfo } = projectsInspect;
   return (
     <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
