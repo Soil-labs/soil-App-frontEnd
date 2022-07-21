@@ -47,8 +47,6 @@ function Form() {
 
   const skills = useSelector((state) => state.skillsInspect.skillsInfo);
 
-  console.log("skills = " , skills)
-
 
   const dispatch = useDispatch();
 

@@ -12,28 +12,20 @@ import ReactSelectComponent from "../reactSelectComponent";
 
 function RoleComponent(props) {
   const [skills, setSkills] = useState([
-    "Design",
-    "Figma",
-    "Solidity",
-    "Art",
-    "FrontEnd",
-    "3D",
-    "Machine Learning",
+
   ]);
 
   const addSkill = (skill) =>{
     let newArr = [...skills]
     newArr.push(skill)
     setSkills(newArr);
-    console.log("skills from RoleComp", skills)
   }
 
   const removeSkill = (key) => {
     let newArr = [...skills];
-    console.log("newArrBefore", newArr);
     newArr.splice(key, 1);
     setSkills(newArr);
-    console.log("newArrAfter", newArr);
+    
   };
 
   return (

@@ -3,14 +3,7 @@ import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Combobox } from "@headlessui/react";
 
 const skills = [
-  { id: 1, name: "Solidity" },
-  { id: 2, name: "Tailwind" },
-  { id: 3, name: "Mental Health" },
-  { id: 4, name: "Zero-Knowledge Proofs" },
-  { id: 5, name: "Cario" },
-  { id: 6, name: "AAVE Smart Contracts" },
-
-  // More name...
+  
 ];
 
 function classNames(...classes) {

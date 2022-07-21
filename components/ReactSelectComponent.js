@@ -1,31 +1,44 @@
-import Async, { useAsync } from 'react-select/async';
-const ReactSelectComponent = (props) => {
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-    { value: props.skills[0], label: props.skills[0]}
-  ];
+import React, { useState } from "react";
+import AsyncSelect from "react-select/async";
+import Select from "react-select";
 
-  
+const ReactSelectComponent = (props) => {
+  const newSkillsArr = [];
+  props.skills.forEach((skill, index) => {
+    const obj = {};
+    obj.value = skill.name;
+    obj.label = skill.name;
+    newSkillsArr.push(obj);
+  });
 
   const handleChange = (selectedOption) => {
     if (selectedOption[0] !== undefined) {
       props.addSkill(String(selectedOption[selectedOption.length - 1].value));
-      console.log("skills from React Select",props.skills[0].name)
     }
   };
 
+
   return (
     <>
-    <Async
+      {/* <AsyncSelect
       className="w-96"
-      options={options}
+      loadOptions={props.skills}
       controlShouldRenderValue={false}
       onChange={handleChange}
       isMulti
-    />
+    /> */}
 
+      <Select
+        className="w-96"
+        options={newSkillsArr}
+        controlShouldRenderValue={false}
+        onChange={handleChange}
+        isMulti
+        placeholder={"Start Typing Your Skill"}
+      />
+      {/* <p>{options_temp[0].value}</p> */}
+
+      {/* <p>hey</p> */}
     </>
   );
 };

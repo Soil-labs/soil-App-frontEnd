@@ -6,20 +6,6 @@ import {
 } from "@heroicons/react/solid";
 
 function ScopeRolesComponent(props) {
-  // const [roleList, setRoleList] = useState([
-  //   {
-  //     name: "hhhh",
-  //     availbitly: "",
-  //     description: "",
-  //     skills: "",
-  //   },
-  //   {
-  //     name: "",
-  //     availbitly: "",
-  //     description: "",
-  //     skills: "",
-  //   },
-  // ]);
   const [roleList, setRoleList] = useState([
     {
       name: "",
