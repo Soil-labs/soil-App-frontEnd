@@ -11,63 +11,58 @@ const ReactSelectComponent = (props) => {
     newSkillsArr.push(obj);
   });
 
-  console.log("newSkillsArr = " , newSkillsArr)
+  console.log("props.skills_all er2= ", props.skills_all);
 
   // const handleChange = (selectedOption) => {
 
   //   console.log("selectedOption = " , selectedOption)
   //   console.log("newSkillsArr = " , newSkillsArr)
 
-    // if (selectedOption[0] !== undefined) {
-    //   props.addSkill(String(selectedOption[selectedOption.length - 1].value));
-    // }
+  // if (selectedOption[0] !== undefined) {
+  //   props.addSkill(String(selectedOption[selectedOption.length - 1].value));
+  // }
   // };
 
   // const options = [
   //   { value: 'blues', label: 'Blues' },
   //   { value: 'rock', label: 'Rock' },
   //   { value: 'jazz', label: 'Jazz' },
-  //   { value: 'orchestra', label: 'Orchestra' } 
+  //   { value: 'orchestra', label: 'Orchestra' }
   // ];
 
   const [options, setOptions] = useState([
-    { value: '0', label: 'Blues' },
-    { value: '1', label: 'Rock' },
-    { value: '2', label: 'Jazz' },
-    { value: '3', label: 'Orchestra' } 
+    { value: "0", label: "Blues" },
+    { value: "1", label: "Rock" },
+    { value: "2", label: "Jazz" },
+    { value: "3", label: "Orchestra" },
   ]);
-  
 
   // const [selectedOption, setSelectedOption] = useState(null);
   // state = {
   //   selectedOption: null,
   // }
   const handleChange = (selectedOption) => {
-
     // console.log("selectedOption = " , selectedOption)
     // setSelectedOption(selectedOption );
     // console.log(`Option selected:`, selectedOption);
 
-    let optionsN = [...options]
-    optionsN.splice(parseInt(selectedOption.value),1)
+    let optionsN = [...options];
+    optionsN.splice(parseInt(selectedOption.value), 1);
 
     // console.log("parseInt(selectedOption.value) = " ,optionsN)
     // console.log("optionsN = " , optionsN)
-    setOptions(optionsN)
+    setOptions(optionsN);
 
-
-    props.addSkill(selectedOption.label)
+    props.addSkill(selectedOption.label);
     // if (selectedOption[0] !== undefined) {
     //   props.addSkill(String(selectedOption[selectedOption.length - 1].value));
     // }
 
-    console.log("options = " , options)
-  }
+    console.log("options = ", options);
+  };
   // render(){
   //   const { selectedOption } = this.state;
   // }
-
-
 
   return (
     <>
@@ -89,11 +84,14 @@ const ReactSelectComponent = (props) => {
         placeholder={"Start Typing Your Skill"}
       /> */}
 
-      <Select 
-        onChange={handleChange}
-        options={options}
+      <Select
+        className="w-96"
+        onChange={props.handleChange_addSkillFromSearch}
+        options={props.skills_all}
+        placeholder={"Start Typing Your Skill"}
+
         // autoFocus={true}
-        />
+      />
 
       {/* <p>{options_temp[0].value}</p> */}
 
