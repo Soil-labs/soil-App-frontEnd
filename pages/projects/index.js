@@ -53,8 +53,9 @@ const tabs = [
   },
 ];
 
-function FavouriteProjects() {
+function Projects() {
   const [currentTab, setCurrentTab] = useState(0);
+  const [tabProjects, setTabProjects] = useState([]);
 
   const projects = useSelector((state) => {
     console.log(state);
@@ -63,8 +64,17 @@ function FavouriteProjects() {
 
   const member = {};
   member._id = useSelector((state) => state.member._id);
+  member.projects = useSelector((state) => state.member.projects);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentTab == 2) {
+      setTabProjects(member.projects.filter((proj) => proj.favorite));
+    } else {
+      setTabProjects(projects);
+    }
+  }, [currentTab, projects, member.projects]);
 
   useEffect(() => {
     let params;
@@ -189,13 +199,13 @@ function FavouriteProjects() {
         </div>
         <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
           <div className="w-full p-6 px-2 md:px-6">
-            {!projects.length && (
+            {!tabProjects.length && (
               <p className="text-center text-slate-500">
                 There are no projects
               </p>
             )}
-            {!!projects.length &&
-              projects.map((project, index) => (
+            {!!tabProjects.length &&
+              tabProjects.map((project, index) => (
                 <div
                   key={index}
                   className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
@@ -217,14 +227,14 @@ function FavouriteProjects() {
                   </div>
                   <div className="flex flex-col justify-between">
                     <h3 className="font-bold">{project.title}</h3>
-                    {project.matchPersentage && (
+                    {project.matchPercentage && (
                       <div>
                         <span className="text-xs text-slate-500 mr-1">
                           ⚡️ Match:
                         </span>
                         <div className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
                           <span className="font-bold text-2xl">
-                            {project.matchPersentage}%
+                            {project.matchPercentage}%
                           </span>
                         </div>
                       </div>
@@ -252,8 +262,8 @@ function FavouriteProjects() {
   );
 }
 
-FavouriteProjects.getLayout = function getLayout(page) {
+Projects.getLayout = function getLayout(page) {
   return <ProjectsPageLayout>{page}</ProjectsPageLayout>;
 };
 
-export default FavouriteProjects;
+export default Projects;
