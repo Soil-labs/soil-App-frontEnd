@@ -11,9 +11,17 @@ import DropdownTokenComponent from "../DropdownTokenComponent";
 import ReactSelectComponent from "../reactSelectComponent";
 
 function RoleComponent(props) {
+
   const [skills, setSkills] = useState([
 
   ]);
+
+  // const [skills_all, setSkills_all] = useState([...props.skills]);
+
+
+
+  // console.log("skills_all = " , skills_all)
+  
 
   const addSkill = (skill) =>{
     let newArr = [...skills]
@@ -27,6 +35,12 @@ function RoleComponent(props) {
     setSkills(newArr);
     
   };
+
+  const allSkills = () =>  {
+
+  }
+
+  // const role
 
   return (
     <>
