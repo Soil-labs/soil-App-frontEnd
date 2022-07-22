@@ -6,7 +6,7 @@ export default function findProjects_RecommendedToUserQuery(params) {
         findProjects_RecommendedToUser(fields:{
           ${params.memberID ? `memberID: ${params.memberID}` : ``}
         }){
-          matchPersentage
+          matchPercentage
           projectData {
             _id
             title
