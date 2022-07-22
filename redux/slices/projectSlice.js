@@ -15,6 +15,7 @@ const initialState = {
   dates: {},
   role: [],
   champion: {},
+  tweets: [],
 };
 
 export const findProject = createAsyncThunk("findProject", async (params) => {
@@ -75,6 +76,7 @@ export const projectSlice = createSlice({
       state.dates = payload.dates;
       state.champion = payload.champion;
       state.role = payload.role;
+      state.tweets = payload.tweets;
       state.budget = payload.budget;
     },
     [findProject.pending]: (state) => {
@@ -92,6 +94,7 @@ export const projectSlice = createSlice({
       state.dates = payload.dates;
       state.champion = payload.champion;
       state.role = payload.role;
+      state.tweets = payload.tweets;
       state.budget = payload.budget;
       state.champion = payload.champion;
     },

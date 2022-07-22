@@ -68,6 +68,21 @@ export default function findProjectQuery(params) {
                   }`
                   : ``
               }
+
+              ${
+                params.returnTweets
+                  ? `tweets{
+                    _id
+                    content
+                    author{
+                      _id
+                      discordName
+                    }
+                    registeredAt
+                    approved
+                  }`
+                  : ``
+              }
               
           }
         }`,
