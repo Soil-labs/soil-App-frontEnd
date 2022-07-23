@@ -1,7 +1,7 @@
 export default function Avatar({ size = 12, src }) {
   return (
     <div
-      className={`h-${size} w-${size} mr-3 flex justify-center items-center drop-shadow-[0px_2px_7px_rgba(0,48,142,0.09)]`}
+      className={`h-${size} w-${size} mr-2 flex justify-center items-center drop-shadow-[0px_2px_7px_rgba(0,48,142,0.09)]`}
     >
       <span
         className={`inline-block h-${size} w-${size} rounded-full overflow-hidden bg-gray-100`}
