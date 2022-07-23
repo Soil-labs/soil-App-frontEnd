@@ -32,7 +32,9 @@ function FavouriteProjects() {
       {/* Main column */}
       <main className="col-span-3 relative">
         <div className="flow-root">
-          {project.tweets && <Feed tweets={project.tweets} />}
+          {project.tweets && (
+            <Feed tweets={project.tweets.filter((tweet) => !!tweet.approved)} />
+          )}
         </div>
       </main>
 
@@ -53,22 +55,26 @@ function FavouriteProjects() {
             <h3 className="font-bold text-lg mb-1">{project.title}</h3>
             <p className="text-slate-500 text-sm">{project.description}</p>
           </div>
-          <hr className="w-2/3 mx-auto mb-3 mt-3"></hr>
-          <div className="w-full flex items-center mb-1">
-            <span className="text-slate-500 text-sm mr-1">🏆</span>
-            <span className="text-slate-500 text-xs">Champion</span>
-          </div>
-          <div className="w-full flex items-center mb-1 mt-1">
-            <div>
-              <Avatar size="8" src={`${project.champion.discordAvatar}`} />
-            </div>
+          {project.champion && (
+            <>
+              <hr className="w-2/3 mx-auto mb-3 mt-3"></hr>
+              <div className="w-full flex items-center mb-1">
+                <span className="text-slate-500 text-sm mr-1">🏆</span>
+                <span className="text-slate-500 text-xs">Champion</span>
+              </div>
+              <div className="w-full flex items-center mb-1 mt-1">
+                <div>
+                  <Avatar size="8" src={`${project.champion.discordAvatar}`} />
+                </div>
 
-            <div className="">
-              <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                {project.champion?.discordName}
-              </span>
-            </div>
-          </div>
+                <div className="">
+                  <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
+                    {project.champion?.discordName}
+                  </span>
+                </div>
+              </div>
+            </>
+          )}
           <hr className="w-2/3 mx-auto mb-3 mt-3"></hr>
           <div className="w-full flex items-center mb-1">
             <span className="text-slate-500 text-xs">Open roles</span>

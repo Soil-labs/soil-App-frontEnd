@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import approveTweetMutation from "./graphql/project/mutations/approveTweet";
 import findProjectQuery from "./graphql/project/queries/findProject";
 import { jsonToString } from "../tools/transformations";
 
@@ -58,6 +59,12 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const approveTweet = createAsyncThunk("approveTweet", async (params) => {
+  const response = await apiClient(approveTweetMutation(params));
+
+  return response.data.data.approveTweet;
+});
+
 export const projectSlice = createSlice({
   name: "projectIn",
   initialState,
@@ -80,6 +87,14 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.tweets = payload.tweets;
       state.budget = payload.budget;
+    },
+    [approveTweet.pending]: (state) => {
+      state.loading = true;
+    },
+    [approveTweet.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.tweets = payload.tweets;
     },
     [findProject.pending]: (state) => {
       state.loading = true;
