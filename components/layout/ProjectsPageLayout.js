@@ -7,8 +7,7 @@ import { findMember } from "../../redux/slices/memberSlice";
 import Layout from "./Layout";
 
 function ProjectsPageLayout({ children }) {
-  const member = {};
-  member.discordName = useSelector((state) => state.member.discordName);
+  const member = useSelector((state) => state.member);
 
   const dispatch = useDispatch();
 

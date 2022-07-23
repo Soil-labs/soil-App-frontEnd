@@ -10,6 +10,7 @@ const initialState = {
 
   _id: "",
   discordName: "",
+  discordAvatar: "",
   bio: "",
   skills: [],
   projects: [],
@@ -51,6 +52,7 @@ export const memberSlice = createSlice({
 
       state._id = payload._id;
       state.discordName = payload.discordName;
+      state.discordAvatar = payload.discordAvatar;
       state.discordID = payload._id;
       state.bio = payload.bio;
       state.skills = payload.skills;
@@ -68,6 +70,7 @@ export const memberSlice = createSlice({
 
       state._id = payload._id;
       state.discordName = payload.discordName;
+      state.discordAvatar = payload.discordAvatar;
       state.discordID = payload._id;
       state.bio = payload.bio;
       state.skills = payload.skills;
