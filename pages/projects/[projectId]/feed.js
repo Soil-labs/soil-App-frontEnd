@@ -32,8 +32,10 @@ function FavouriteProjects() {
       {/* Main column */}
       <main className="col-span-3 relative">
         <div className="flow-root">
-          {project.tweets && (
-            <Feed tweets={project.tweets.filter((tweet) => !!tweet.approved)} />
+          {project?.tweets && (
+            <Feed
+              tweets={project?.tweets.filter((tweet) => !!tweet.approved)}
+            />
           )}
         </div>
       </main>
@@ -52,10 +54,10 @@ function FavouriteProjects() {
           </div>
 
           <div className="col-span-3">
-            <h3 className="font-bold text-lg mb-1">{project.title}</h3>
-            <p className="text-slate-500 text-sm">{project.description}</p>
+            <h3 className="font-bold text-lg mb-1">{project?.title}</h3>
+            <p className="text-slate-500 text-sm">{project?.description}</p>
           </div>
-          {project.champion && (
+          {project?.champion && (
             <>
               <hr className="w-2/3 mx-auto mb-3 mt-3"></hr>
               <div className="w-full flex items-center mb-1">
@@ -64,12 +66,12 @@ function FavouriteProjects() {
               </div>
               <div className="w-full flex items-center mb-1 mt-1">
                 <div>
-                  <Avatar size="8" src={`${project.champion.discordAvatar}`} />
+                  <Avatar size="8" src={`${project?.champion.discordAvatar}`} />
                 </div>
 
                 <div className="">
                   <span className="font-bold text-sm bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                    {project.champion?.discordName}
+                    {project?.champion?.discordName}
                   </span>
                 </div>
               </div>
@@ -80,7 +82,7 @@ function FavouriteProjects() {
             <span className="text-slate-500 text-xs">Open roles</span>
           </div>
           <div className="relative">
-            {project.role?.map((role, index) => (
+            {project?.role?.map((role, index) => (
               <div className="w-10 h-12 inline-block" key={index}>
                 <div
                   className={`relative group text-xl w-12 h-full bg-soilGreen-20 flex justify-center items-center rounded-full border-white border-2`}
@@ -99,7 +101,7 @@ function FavouriteProjects() {
           <div className="w-full flex items-center mb-1">
             <span className="text-slate-500 text-xs">Top contributors</span>
           </div>
-          {project.team?.map((member, index) => (
+          {project?.team?.map((member, index) => (
             <div className="w-[28px] h-[34px] inline-block" key={index}>
               <div
                 className="relative group w-[34px] h-[34px] border-2 border-white rounded-full"

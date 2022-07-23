@@ -1,10 +1,17 @@
 import { XIcon } from "@heroicons/react/outline";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { approveTweet } from "../../redux/slices/projectSlice";
+import { useEffect, useState } from "react";
 export default function CommentTweet({ tweet, tweetIndex }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const member = useSelector((state) => state.member);
+  const [isTweetAuthor, setIsTweetAuthor] = useState(false);
+
+  useEffect(() => {
+    setIsTweetAuthor(tweet.author._id === member._id);
+  }, [tweet.author._id, member._id]);
 
   function handleDeleteClick() {
     const params = {
@@ -26,11 +33,13 @@ export default function CommentTweet({ tweet, tweetIndex }) {
         />
       </div>
       <div className="relative min-w-0 flex-1 bg-white rounded-lg px-5 py-4">
-        <XIcon
-          className="absolute right-3 top-3 h-4 w-4 text-slate-600 hover:text-slate-400 cursor-pointer"
-          aria-hidden="true"
-          onClick={handleDeleteClick}
-        />
+        {isTweetAuthor && (
+          <XIcon
+            className="absolute right-3 top-3 h-4 w-4 text-slate-600 hover:text-slate-400 cursor-pointer"
+            aria-hidden="true"
+            onClick={handleDeleteClick}
+          />
+        )}
         <div>
           <p className="text-xs text-gray-300">
             {new Date(Number(tweet.registeredAt)).toLocaleDateString()}
