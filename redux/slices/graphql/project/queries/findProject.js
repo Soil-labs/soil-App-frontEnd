@@ -18,6 +18,17 @@ export default function findProjectQuery(params) {
                 : ``
             }
             ${
+              params.returnTeam
+                ? `team{
+                  memberInfo{
+                    _id
+                    discordName
+                    discordAvatar
+                  }
+                }`
+                : ``
+            }
+            ${
               params.returnRole
                 ? `role{
                   _id

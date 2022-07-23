@@ -11,7 +11,7 @@ export default function FavButton({}) {
 
   function isFav() {
     return member.projects.find((proj) => proj.info._id === project._id)
-      .favorite;
+      ?.favorite;
   }
   useEffect(() => {
     setActive(isFav());

@@ -8,49 +8,6 @@ import SideCard from "../../../components/SideCard";
 import Feed from "../../../components/feed/Feed";
 import Avatar from "../../../components/Avatar";
 
-const tweets = [
-  {
-    id: 1,
-    type: "comment",
-    member: { name: "Eduardo Benz", _id: "908392557258604544" },
-    imageUrl:
-      "https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-    title: "DAO Launch!",
-    comment:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam. Scelerisque amet elit non sit ut tincidunt condimentum. Nisl ultrices eu venenatis diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam. Scelerisque amet elit non sit ut tincidunt condimentum. Nisl ultrices eu venenatis diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam. Scelerisque amet elit non sit ut tincidunt condimentum. Nisl ultrices eu venenatis diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam. Scelerisque amet elit non sit ut tincidunt condimentum. Nisl ultrices eu venenatis diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt nunc ipsum tempor purus vitae id. Morbi in vestibulum nec varius. Et diam cursus quis sed purus nam. Scelerisque amet elit non sit ut tincidunt condimentum. Nisl ultrices eu venenatis diam.",
-    date: "6d ago",
-  },
-  {
-    id: 4,
-    type: "comment",
-    member: { name: "Jason Meyers", _id: "908392557258604544" },
-    imageUrl:
-      "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80",
-    title: "Project setup!",
-    comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    date: "2h ago",
-  },
-];
-
-const openRoles = [
-  { role: "development", icon: "💻", color: "red-100" },
-  { role: "design", icon: "🎨", color: "blue-100" },
-  { role: "management", icon: "👥", color: "green-100" },
-  { role: "development", icon: "💻", color: "red-100" },
-  { role: "design", icon: "🎨", color: "blue-100" },
-  { role: "management", icon: "👥", color: "green-100" },
-  { role: "development", icon: "💻", color: "red-100" },
-  { role: "design", icon: "🎨", color: "blue-100" },
-  { role: "management", icon: "👥", color: "green-100" },
-];
-const contributors = [
-  { name: "eloi" },
-  { name: "eloi" },
-  { name: "eloi" },
-  { name: "eloi" },
-  { name: "eloi" },
-];
-
 function FavouriteProjects() {
   const router = useRouter();
   const project = useSelector((state) => state.projectInspect);
@@ -64,6 +21,7 @@ function FavouriteProjects() {
 
       returnRole: true,
       returnChampion: true,
+      returnTeam: true,
       returnTweets: true,
     };
     dispatch(findProject(params));
@@ -102,7 +60,7 @@ function FavouriteProjects() {
           </div>
           <div className="w-full flex items-center mb-1 mt-1">
             <div>
-              <Avatar size="8" />
+              <Avatar size="8" src={`${project.champion.discordAvatar}`} />
             </div>
 
             <div className="">
@@ -116,42 +74,41 @@ function FavouriteProjects() {
             <span className="text-slate-500 text-xs">Open roles</span>
           </div>
           <div className="relative">
-            {openRoles &&
-              openRoles.map((role, index) => (
-                <div className="w-10 h-12 inline-block" key={index}>
-                  <div
-                    className={`relative group text-xl w-12 h-full bg-${role.color} flex justify-center items-center rounded-full border-white border-2`}
-                    key={index}
-                  >
-                    {role.icon}
-                    <div className="z-20 absolute invisible group-hover:visible bg-slate-100 -top-4 text-xs px-2 py-1 rounded-md">
-                      <span className="z-20">{role.role}</span>
-                    </div>
-                    <div className="z-10 absolute w-2 h-2 invisible group-hover:visible left-4 top-1 bg-slate-100 rotate-45"></div>
+            {project.role?.map((role, index) => (
+              <div className="w-10 h-12 inline-block" key={index}>
+                <div
+                  className={`relative group text-xl w-12 h-full bg-soilGreen-20 flex justify-center items-center rounded-full border-white border-2`}
+                  key={index}
+                >
+                  💻
+                  <div className="z-20 absolute invisible group-hover:visible bg-slate-100 -top-4 text-xs px-2 py-1 rounded-md">
+                    <span className="z-20">{role.title}</span>
                   </div>
+                  <div className="z-10 absolute w-2 h-2 invisible group-hover:visible left-4 top-1 bg-slate-100 rotate-45"></div>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
           <hr className="w-2/3 mx-auto mb-3 mt-3"></hr>
           <div className="w-full flex items-center mb-1">
             <span className="text-slate-500 text-xs">Top contributors</span>
           </div>
-          {contributors.map((member, index) => (
+          {project.team?.map((member, index) => (
             <div className="w-[28px] h-[34px] inline-block" key={index}>
               <div
                 className="relative group w-[34px] h-[34px] border-2 border-white rounded-full"
                 key={index}
               >
                 <img
-                  src="https://placeimg.com/480/480/nature"
+                  src={`${member.memberInfo.discordAvatar}`}
                   width={34}
                   height={34}
                   className="rounded-full"
                 />
-                <div className="z-20 absolute invisible group-hover:visible bg-slate-100 -top-4 text-xs px-2 py-1 rounded-md">
-                  <span className="z-20">{member.name}</span>
+                <div className="z-20 absolute invisible group-hover:visible bg-slate-100 -top-5 text-xs px-2 py-1 rounded-md">
+                  <span className="z-20">{member.memberInfo.discordName}</span>
                 </div>
-                <div className="z-10 absolute w-2 h-2 invisible group-hover:visible left-4 top-1 bg-slate-100 rotate-45"></div>
+                <div className="z-10 absolute w-2 h-2 invisible group-hover:visible left-3 top-0 bg-slate-100 rotate-45"></div>
               </div>
             </div>
           ))}

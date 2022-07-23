@@ -15,6 +15,7 @@ const initialState = {
   dates: {},
   role: [],
   champion: {},
+  team: [],
   tweets: [],
 };
 
@@ -75,6 +76,7 @@ export const projectSlice = createSlice({
       state.description = payload.description;
       state.dates = payload.dates;
       state.champion = payload.champion;
+      state.team = payload.team;
       state.role = payload.role;
       state.tweets = payload.tweets;
       state.budget = payload.budget;
@@ -93,10 +95,10 @@ export const projectSlice = createSlice({
       state.description = payload.description;
       state.dates = payload.dates;
       state.champion = payload.champion;
+      state.team = payload.team;
       state.role = payload.role;
       state.tweets = payload.tweets;
       state.budget = payload.budget;
-      state.champion = payload.champion;
     },
   },
 });
