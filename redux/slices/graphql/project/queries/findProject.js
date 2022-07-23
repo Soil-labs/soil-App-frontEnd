@@ -18,6 +18,17 @@ export default function findProjectQuery(params) {
                 : ``
             }
             ${
+              params.returnTeam
+                ? `team{
+                  memberInfo{
+                    _id
+                    discordName
+                    discordAvatar
+                  }
+                }`
+                : ``
+            }
+            ${
               params.returnRole
                 ? `role{
                   _id
@@ -65,6 +76,22 @@ export default function findProjectQuery(params) {
                   ? `champion{
                     discordName
                     discordAvatar
+                  }`
+                  : ``
+              }
+
+              ${
+                params.returnTweets
+                  ? `tweets{
+                    _id
+                    content
+                    author{
+                      _id
+                      discordName
+                      discordAvatar
+                    }
+                    registeredAt
+                    approved
                   }`
                   : ``
               }

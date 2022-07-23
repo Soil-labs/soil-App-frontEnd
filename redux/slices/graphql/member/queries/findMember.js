@@ -11,14 +11,19 @@ export default function getMemberQuery(params) {
           bio
 
           
-          ${params.returnSkills?
-          `skills{
+          ${
+            params.returnSkills
+              ? `skills{
             name
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnProjects?
-          `projects {
+          ${
+            params.returnProjects
+              ? `projects {
             champion
+            favorite
             info {
               _id
               title
@@ -29,12 +34,17 @@ export default function getMemberQuery(params) {
                 phase
               }
             }
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnNetwork?
-          `network {
+          ${
+            params.returnNetwork
+              ? `network {
             discordName
-          }`:``}
+          }`
+              : ``
+          }
           
       }
     }`,

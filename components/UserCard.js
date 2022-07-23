@@ -22,7 +22,7 @@ export default function UserCard({ member }) {
       <div className="col-span-1 bg-white rounded-lg px-2 py-3 md:mb-4">
         <div className="w-full flex items-center mb-3">
           <div className="w-1/3">
-            <Avatar />
+            <Avatar size={12} src={member.discordAvatar} />
           </div>
           <div className="w-2/3">
             <span className="text-xs">Good Morning</span>

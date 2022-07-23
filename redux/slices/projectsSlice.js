@@ -123,8 +123,8 @@ export const projectsSlice = createSlice({
 
       const projects = payload.map((project) => {
         const projectWithPercentage = project.projectData;
-        projectWithPercentage.matchPersentage = Math.round(
-          project.matchPersentage
+        projectWithPercentage.matchPercentage = Math.round(
+          project.matchPercentage
         );
         return projectWithPercentage;
       });

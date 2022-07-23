@@ -38,7 +38,7 @@ export default function RoleCard({ role }) {
                 key={index}
               >
                 <div className="w-full h-full text-xs flex -mt-px">
-                  {skill.skillData.name.toLowerCase()}
+                  {skill?.skillData?.name?.toLowerCase()}
                 </div>
               </div>
             ))}
