@@ -14,7 +14,9 @@ const TeamMemberCard = ({ member }) => {
       {/* username & endorsments */}
       <div className="flex items-center grow">
         <div>
-          <div className="font-bold text-lg">@Username</div>
+          <div className="font-bold text-lg">
+            @{member.memberInfo.discordName}
+          </div>
           <div className="text-sm text-gray-600">20+ endorsements</div>
         </div>
       </div>
