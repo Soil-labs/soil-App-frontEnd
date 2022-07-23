@@ -72,7 +72,7 @@ function Projects() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(tab);
+    if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(Number(tab));
   }, [tab]);
 
   useEffect(() => {
