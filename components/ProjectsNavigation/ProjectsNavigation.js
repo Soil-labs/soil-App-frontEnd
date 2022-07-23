@@ -8,8 +8,12 @@ const ProjectsNavigation = () => {
   const { projectsInspect } = useSelector((state) => state);
   const { isDataAvailable, projectsInfo } = projectsInspect;
   return (
-    <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
-      <div className="pb-8 space-y-4">
+    <nav>
+      <div className="flex flex-col gap-8 py-6">
+        <div className="text-3xl">Hey there, Champion!</div>
+        <div className="text-3xl font-bold">YOUR PROJECTS</div>
+      </div>
+      <div className="sticky top-4 pb-8 space-y-4">
         {!isDataAvailable && "Fetching projects..."}
         {isDataAvailable &&
           projectsInfo.map((project, i) => (
