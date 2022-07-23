@@ -19,7 +19,7 @@ export const ChampionDashboardLayout = ({ children }) => {
       <div className="min-h-full">
         {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
         <div className="py-10">
-          <main className="mx-auto lg:max-w-7xl grid grid-cols-12 gap-x-3">
+          <main className="mx-auto lg:max-w-7xl grid grid-cols-12 gap-x-8">
             <div className="col-span-4">
               <ProjectsNavigation />
             </div>
