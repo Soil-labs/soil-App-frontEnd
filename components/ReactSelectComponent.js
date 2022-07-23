@@ -86,7 +86,7 @@ const ReactSelectComponent = (props) => {
 
       <Select
         className="w-96"
-        onChange={props.handleChange_addSkillFromSearch}
+        onChange={props.handleChange_onComboBox}
         options={props.skills_all}
         placeholder={"Start Typing Your Skill"}
 

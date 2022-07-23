@@ -20,7 +20,8 @@
     "react-redux": "^8.0.2",
     "react-select": "^5.4.0",
     "react-svg-radar-chart": "^1.4.0",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",

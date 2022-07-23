@@ -11,100 +11,67 @@ import DropdownTokenComponent from "../DropdownTokenComponent";
 import ReactSelectComponent from "../reactSelectComponent";
 
 function RoleComponent(props) {
+  //these are the skills that are chosen
+  const [skills, setSkills] = useState([]);
 
-  const [skills, setSkills] = useState([
-
-  ]);
-
+  //skills_all are the skills that come from graphQL
   const [skills_all, setSkills_all] = useState([]);
 
   useEffect(() => {
-    let newSkills = props.skills.map((skill,idx) => {
-      return ({
+    let newSkills = props.skills.map((skill, idx) => {
+      return {
         ...skill,
         value: skill._id,
-        label: skill.name
-      })
-    })
-    setSkills_all(newSkills)
+        label: skill.name,
+      };
+    });
+    setSkills_all(newSkills);
 
-    console.log("props.skills kp2 = " , props.skills)
-    console.log("skills_all = " , skills_all)
+    console.log("props.skills kp2 = ", props.skills);
+    console.log("skills_all = ", skills_all);
   }, [props.skills]);
 
-  const handleChange_addSkillFromSearch = (selectedOption) => { // TODO: change name
+  const handleChange_onComboBox= (selectedOption) => {
+   
 
+    console.log(
+      "selectedOption._id + selectedOption.name",
+      selectedOption._id,
+      selectedOption.name
+    );
 
-    console.log("selectedOption._id + selectedOption.name" ,selectedOption._id,selectedOption.name)
+    let skills_allN = [...skills_all];
 
-
-    //TODO: you need to do a for loop on the skills_allN
-    // you need to find the skill that have the same ID as the one on the selectedOption._id
-    // when you find it you need to keep the position
-    // then you need to use splice to this position after the for loop 
-    // good luck :) 
-
-
-    // also you need to keep the object 
-    // then you need to sent it on the addSkill
-    // then you need to change the UI of the skill and read the name of the object
-    // Good luck again :) 
-
-
-
-    let skills_allN = [...skills_all]
-    // console.log("skills_allN before", skills_allN)
-    // skills_allN.splice(selectedOption.value,1)
-    // console.log("skills_allN after", skills_allN)
     skills_allN.forEach((skill, index) => {
-      if(selectedOption._id === skill._id ) {
-        skills_allN.splice(index,1)
+      if (selectedOption._id === skill._id) {
+        skills_allN.splice(index, 1);
       }
-      // console.log("skill.name from forEach====",skill.name)
-      // console.log("index from forEach====",index)
-      // const obj = {};
-      // obj.value = skill.name;
-      // obj.label = skill.name;
-      // newSkillsArr.push(obj);
     });
-  
-    
-    
-    setSkills_all(skills_allN)
 
-    addSkill(selectedOption)
+    setSkills_all(skills_allN);
 
-  }
+    addSkill(selectedOption);
+  };
 
-//  const getAllSkills = () =>{
-//   // let newArr = [...props.skills]
-//   // console.log("newArr", newArr)
-//   // console.log("getAllSkills skills_all ",skills_all)
-//  }
-//  getAllSkills();
-  // console.log("skills_all " ,skills_all)
-  
-
-  const addSkill = (skill) =>{
-    let newArr = [...skills]
-    newArr.push(skill)
-    setSkills(newArr);
-  }
-
-  const removeSkill = (key) => {
-    console.log("key Miral style= " , key)
+  const addSkill = (skill) => {
     let newArr = [...skills];
-    let skills_allNewArr = [...skills_all]
-    skills_allNewArr.push(newArr[key])
-    setSkills_all(skills_allNewArr)
-    console.log('Skills_all from removeSkill  ', skills_all)
-    newArr.splice(key, 1);
-    console.log("newArr from removeSkill",newArr)
+    newArr.push(skill);
     setSkills(newArr);
   };
 
+  const removeSkill = (key) => {
+    console.log("key Miral style= ", key);
+    let newArr = [...skills];
+    let newArr_AllSkills = [...skills_all];
+    newArr_AllSkills.push(newArr[key]);
+    setSkills_all(newArr_AllSkills);
+    console.log("Skills_all from removeSkill  ", skills_all);
+    newArr.splice(key, 1);
+    console.log("newArr from removeSkill", newArr);
+    setSkills(newArr);
+  };
 
-  console.log("props.skills = " , props.skills)
+  console.log("props.skills = ", props.skills);
   // const role
 
   return (
@@ -265,10 +232,10 @@ function RoleComponent(props) {
 
           <div className="w-[546px] h-[516px] bg-opacity-80 bg-soilGreen-50 rounded-2xl flex flex-col items-center">
             <ReactSelectComponent
-            addSkill={addSkill}
-            skills={props.skills}
-            handleChange_addSkillFromSearch = {handleChange_addSkillFromSearch}
-            skills_all = {skills_all}
+              addSkill={addSkill}
+              skills={props.skills}
+              handleChange_onComboBox={handleChange_onComboBox}
+              skills_all={skills_all}
             />
           </div>
         </div>
