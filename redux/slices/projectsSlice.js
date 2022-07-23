@@ -80,9 +80,6 @@ export const projectsSlice = createSlice({
     [findProjects.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;
-      state.numberOfProjects = 0;
-      state.projectsInfo = [];
-      state.loading = true;
     },
     [findProjects.fulfilled]: (state, { payload }) => {
       if (!payload) return;
@@ -94,9 +91,6 @@ export const projectsSlice = createSlice({
     },
     [findProjects_fromMember.pending]: (state) => {
       state.isDataAvailable = false;
-      state.loading = true;
-      state.numberOfProjects = 0;
-      state.projectsInfo = [];
       state.loading = true;
     },
     [findProjects_fromMember.fulfilled]: (state, { payload }) => {
@@ -111,9 +105,6 @@ export const projectsSlice = createSlice({
     },
     [findProjects_RecommendedToUser.pending]: (state) => {
       state.isDataAvailable = false;
-      state.loading = true;
-      state.numberOfProjects = 0;
-      state.projectsInfo = [];
       state.loading = true;
     },
     [findProjects_RecommendedToUser.fulfilled]: (state, { payload }) => {

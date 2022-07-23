@@ -1,6 +1,7 @@
 import HowToApply from "../../components/HowToApply";
 import Button from "../../components/Button";
 import { Fragment, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,6 +55,8 @@ const tabs = [
 ];
 
 function Projects() {
+  const router = useRouter();
+  const { tab } = router.query;
   const [currentTab, setCurrentTab] = useState(0);
   const [tabProjects, setTabProjects] = useState([]);
 
@@ -67,6 +70,10 @@ function Projects() {
   member.projects = useSelector((state) => state.member.projects);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(tab);
+  }, [tab]);
 
   useEffect(() => {
     if (currentTab == 2) {
