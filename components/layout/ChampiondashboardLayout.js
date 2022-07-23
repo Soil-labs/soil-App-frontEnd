@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import HowToApply from "../HowToApply";
 
 import { findProjects_fromMember } from "../../redux/slices/projectsSlice";
-import ProjectsNavigation from "../ProjectsNavigationItem/ProjectsNavigation";
+import ProjectsNavigation from "../ProjectsNavigation/ProjectsNavigation";
 import Layout from "./Layout";
 
 const mockData = {
@@ -49,14 +49,11 @@ export const ChampionDashboardLayout = ({ children }) => {
       <div className="min-h-full">
         {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
         <div className="py-10">
-          <main className="mx-auto sm:px-6 lg:max-w-7xl lg:px-8 grid grid-cols-12 gap-x-3">
-            <div className="col-span-3">
+          <main className="mx-auto lg:max-w-7xl grid grid-cols-12 gap-x-3">
+            <div className="col-span-4">
               <ProjectsNavigation />
             </div>
-            <section className="col-span-6">{children}</section>
-            <section className="col-span-3">
-              <HowToApply data={mockData.howToApply} />
-            </section>
+            <section className="col-span-8">{children}</section>
           </main>
         </div>
       </div>
