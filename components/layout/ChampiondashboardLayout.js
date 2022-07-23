@@ -1,39 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import HowToApply from "../HowToApply";
-
 import { findProjects_fromMember } from "../../redux/slices/projectsSlice";
 import ProjectsNavigation from "../ProjectsNavigation/ProjectsNavigation";
 import Layout from "./Layout";
-
-const mockData = {
-  howToApply: {
-    title: "How to apply?",
-    steps: [
-      {
-        text: "Express interest by adding project to favourites",
-        emoji: "❤️",
-        color: "rgb(254 226 226)",
-      },
-      {
-        text: "Apply throught Magic Application",
-        emoji: "📮",
-        color: "rgb(254 249 195)",
-      },
-      {
-        text: "Confirm we’ve got all your information right & sign the application.",
-        emoji: "📝",
-        color: "rgb(254 202 202)",
-      },
-      {
-        text: "Keep track of your application status in the magic application list",
-        emoji: "🎊",
-        color: "rgb(255 237 213)",
-      },
-    ],
-  },
-};
 
 export const ChampionDashboardLayout = ({ children }) => {
   const { projectsInspect } = useSelector((state) => state);
