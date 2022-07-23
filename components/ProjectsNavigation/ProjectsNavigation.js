@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { ProjectsNavigationItem } from "./";
+import { ProjectsNavigationItem } from "./ProjectsNavigationItem";
 
 const ProjectsNavigation = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const ProjectsNavigation = () => {
   const { isDataAvailable, projectsInfo } = projectsInspect;
   return (
     <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
-      <div className="pb-8 space-y-1">
+      <div className="pb-8 space-y-4">
         {!isDataAvailable && "Fetching projects..."}
         {isDataAvailable &&
           projectsInfo.map((project, i) => (
