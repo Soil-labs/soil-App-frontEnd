@@ -77,6 +77,7 @@ export default function findProjectQuery(params) {
                     author{
                       _id
                       discordName
+                      discordAvatar
                     }
                     registeredAt
                     approved
