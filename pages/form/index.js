@@ -13,6 +13,7 @@ import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesCom
 import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 import RoleComponent from "../../components/TypeFormLikePage/RoleComponent";
 import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvComponent";
+import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -144,7 +145,8 @@ function Form() {
       {/* <RoleComponent
       skills = {skills}
        /> */}
-      <ColabEnvComponent/>
+      {/* <ColabEnvComponent/> */}
+      <StepsForOnboardComponent/>
     </>
   );
 }
