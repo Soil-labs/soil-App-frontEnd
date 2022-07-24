@@ -32,7 +32,7 @@ function RoleComponent(props) {
   }, [props.skills]);
 
   const handleChange_onComboBox= (selectedOption) => {
-   
+  
 
     console.log(
       "selectedOption._id + selectedOption.name",

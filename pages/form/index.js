@@ -138,11 +138,11 @@ function Form() {
         />
       )} */}
 
-      {/* <ScopeRolesComponent/> */}
+      <ScopeRolesComponent/>
       {/* <GeneralGreenFromComponent/> */}
-      <RoleComponent
+      {/* <RoleComponent
       skills = {skills}
-       />
+       /> */}
     </>
   );
 }
