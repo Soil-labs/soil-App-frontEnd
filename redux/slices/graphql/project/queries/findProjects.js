@@ -43,6 +43,17 @@ export default function findProjectsQuery(params) {
             }`
                 : ``
             }
+
+            ${
+              params.returnDates
+                ? `dates{
+                  kickOff
+                  complition
+                }`
+                : ``
+            }
+
+
             
         }
       }`,

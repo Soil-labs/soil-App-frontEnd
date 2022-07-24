@@ -1,4 +1,4 @@
-export default function getMemberQuery(params) {
+export default function findMemberQuery(params) {
   return {
     data: {
       query: `query{
@@ -11,13 +11,17 @@ export default function getMemberQuery(params) {
           bio
 
           
-          ${params.returnSkills?
-          `skills{
+          ${
+            params.returnSkills
+              ? `skills{
             name
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnProjects?
-          `projects {
+          ${
+            params.returnProjects
+              ? `projects {
             champion
             info {
               _id
@@ -25,16 +29,26 @@ export default function getMemberQuery(params) {
               team {
                 memberInfo{
                   discordName
+                  discordAvatar
                 }
                 phase
               }
+              dates{
+                kickOff
+                complition
+              }
             }
-          }`:``}
+          }`
+              : ``
+          }
 
-          ${params.returnNetwork?
-          `network {
+          ${
+            params.returnNetwork
+              ? `network {
             discordName
-          }`:``}
+          }`
+              : ``
+          }
           
       }
     }`,

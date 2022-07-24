@@ -24,28 +24,36 @@ export const findProjects = createAsyncThunk("findProjects", async (params) => {
   return response.data.data.findProjects;
 });
 
-export const findProjects_fromMember = createAsyncThunk("findProjects_fromMember", async (params) => {
-  
-  console.log("params = " , params)
-  params = {
-    ...params,
-    returnProjects: true, // we only need projects 
-    returnSkills: false,
-    returnNetwork: false,
+export const findProjects_fromMember = createAsyncThunk(
+  "findProjects_fromMember",
+  async (params) => {
+    console.log("params 2331 = ", params);
+    params = {
+      ...params,
+      returnProjects: true, // we only need projects
+      returnSkills: false,
+      returnNetwork: false,
+    };
+
+    // console.log("change = " , change)
+
+    const response = await apiClient(findMemberQuery(params));
+
+    console.log(
+      "response.data.data.findProjects = ",
+      response.data.data.findMember
+    );
+
+    if (params.onlyChampions) {
+      response.data.data.findMember.projects =
+        response.data.data.findMember.projects.filter(
+          (project) => project.champion == true
+        );
+    }
+
+    return response.data.data.findMember;
   }
-
-  const response = await apiClient(findMemberQuery(params));
-
-  console.log("response.data.data.findProjects = " , response.data.data.findMember)
-
-  if (params.onlyChampions){
-    response.data.data.findMember.projects = response.data.data.findMember.projects.filter(project =>  project.champion ==true )
-  }
-
-  return response.data.data.findMember;
-});
-
-
+);
 
 export const projectsSlice = createSlice({
   name: "projectsInspect",
@@ -71,7 +79,7 @@ export const projectsSlice = createSlice({
       state.isDataAvailable = true;
       state.loading = false;
 
-      if (payload.projects){
+      if (payload.projects) {
         state.numberOfProjects = payload.projects.length;
         state.projectsInfo = payload.projects;
       }
