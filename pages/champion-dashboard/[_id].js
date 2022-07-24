@@ -1,17 +1,16 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
+import {
+  EngagedTalent,
+  Shortlisted,
+  CommittedTeam,
+} from "../../components/ChampionDashboard";
 import { ChampionDashboardLayout } from "../../components/layout/ChampiondashboardLayout";
-import { TeamMemberCard } from "../../components/TeamMemberCard";
 import { classNames } from "../../util";
 
-const tabs = [
-  { name: "Overview", href: "#", current: true },
-  { name: "# engaged", href: "#", current: false },
-  { name: "# Committed", href: "#", current: false },
-];
-
 const ENGAGED_TAB = "ENGAGED";
+const SHORTLISTED_TAB = "SHORTLISTED";
 const COMMITTED_TAB = "COMMITTED";
 
 const Project = () => {
@@ -31,7 +30,7 @@ const Project = () => {
         {!isDataAvailable && "Fetching data..."}
         {isDataAvailable && project && (
           <section className="rounded-2xl overflow-hidden bg-[#8dc2204c]">
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-3">
               <button
                 className={classNames(
                   "px-6 py-3",
@@ -46,6 +45,17 @@ const Project = () => {
               <button
                 className={classNames(
                   "px-6 py-3",
+                  currentTab === SHORTLISTED_TAB
+                    ? "bg-transparant"
+                    : "bg-[#8dc22066]"
+                )}
+                onClick={() => setCurrentTab(SHORTLISTED_TAB)}
+              >
+                SHORTLISTED TALENT
+              </button>
+              <button
+                className={classNames(
+                  "px-6 py-3",
                   currentTab === COMMITTED_TAB
                     ? "bg-transparant"
                     : "bg-[#8dc22066]"
@@ -55,22 +65,23 @@ const Project = () => {
                 COMMITTED TEAM
               </button>
             </div>
-            <div className="p-8">
-              <div className="pt-6 pb-8">
-                Talent that engaged with your shortlist invitation shows up
-                here.
-              </div>
-              <div className="px-4 sm:px-0">
-                <div className="flex flex-col gap-8">
-                  {project.info.team.map((member, i) => (
-                    <TeamMemberCard
-                      key={`team-member-card_${i}`}
-                      member={member}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
+            {currentTab === ENGAGED_TAB && (
+              <EngagedTalent members={project.info.team} />
+            )}
+            {currentTab === SHORTLISTED_TAB && (
+              <Shortlisted
+                members={project.info.team.filter(
+                  (member) => member.phase === "shortlisted"
+                )}
+              />
+            )}
+            {currentTab === COMMITTED_TAB && (
+              <CommittedTeam
+                members={project.info.team.filter(
+                  (member) => member.phase === "committed"
+                )}
+              />
+            )}
           </section>
         )}
       </main>

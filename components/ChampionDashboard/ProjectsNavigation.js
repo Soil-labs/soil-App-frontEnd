@@ -1,10 +1,36 @@
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import Image from "next/image";
 import Link from "next/link";
 
+import { classNames } from "../../util";
+
 import placeholder_avatar from "./placeholder_avatar.png";
 
-import { classNames } from "../../../util";
-import DaysLeft from "./DaysLeft";
+const DaysLeft = ({ isCurrentPage }) => {
+  // need to calculate days left: (kickoff date - current date)
+
+  const totalDays = 23;
+  const daysLeft = 20;
+
+  return (
+    <div className="rounded-full overflow-hidden shadow-lg bg-[#e8e4e4] relative">
+      <div
+        className={classNames(
+          "px-3 py-1 ",
+          isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
+        )}
+        style={{ width: `${(daysLeft / totalDays) * 100}%` }}
+      >
+        <span
+        //  className="absolute left-0"
+        >
+          {daysLeft} days left
+        </span>
+      </div>
+    </div>
+  );
+};
 
 const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
   const numberEngaged = project.info.team.reduce((acc, member) => {
@@ -56,4 +82,31 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
     </Link>
   );
 };
-export default ProjectsNavigationItem;
+
+const ProjectsNavigation = () => {
+  const router = useRouter();
+  const { _id } = router.query;
+  const { projectsInspect } = useSelector((state) => state);
+  const { isDataAvailable, projectsInfo } = projectsInspect;
+  return (
+    <nav>
+      <div className="flex flex-col gap-8 py-6">
+        <div className="text-3xl">Hey there, Champion!</div>
+        <div className="text-3xl font-bold">YOUR PROJECTS</div>
+      </div>
+      <div className="sticky top-4 pb-8 space-y-4">
+        {!isDataAvailable && "Fetching projects..."}
+        {isDataAvailable &&
+          projectsInfo.map((project, i) => (
+            <ProjectsNavigationItem
+              key={`projects_navigation_item_${i}`}
+              project={project}
+              isCurrentPage={project.info._id === _id}
+            />
+          ))}
+      </div>
+    </nav>
+  );
+};
+
+export default ProjectsNavigation;
