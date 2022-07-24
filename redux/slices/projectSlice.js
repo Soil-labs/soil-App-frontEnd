@@ -65,7 +65,11 @@ export const approveTweet = createAsyncThunk("approveTweet", async (params) => {
   const currentTweet = state.projectInspect.tweets.find((tweet) => {
     return params.tweetID === tweet._id;
   });
-  if (state.member._id !== currentTweet.author._id) return;
+  if (
+    state.member._id !== currentTweet.author._id &&
+    state.member._id !== state.projectInspect.champion._id
+  )
+    return;
   const response = await apiClient(approveTweetMutation(params));
 
   return response.data.data.approveTweet;
