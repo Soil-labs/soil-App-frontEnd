@@ -7,10 +7,13 @@ export default function CommentTweet({ tweet, tweetIndex }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const member = useSelector((state) => state.member);
-  const [isTweetAuthor, setIsTweetAuthor] = useState(false);
+  const project = useSelector((state) => state.projectInspect);
+  const [isAuthorOrChampion, setIsAuthorOrChampion] = useState(false);
 
   useEffect(() => {
-    setIsTweetAuthor(tweet.author._id === member._id);
+    const isAuthor = tweet.author._id === member._id;
+    const isChampion = project.champion._id === member._id;
+    setIsAuthorOrChampion(isAuthor || isChampion);
   }, [tweet.author._id, member._id]);
 
   function handleDeleteClick() {
@@ -33,7 +36,7 @@ export default function CommentTweet({ tweet, tweetIndex }) {
         />
       </div>
       <div className="relative min-w-0 flex-1 bg-white rounded-lg px-5 py-4">
-        {isTweetAuthor && (
+        {isAuthorOrChampion && (
           <XIcon
             className="absolute right-3 top-3 h-4 w-4 text-slate-600 hover:text-slate-400 cursor-pointer"
             aria-hidden="true"
@@ -44,10 +47,11 @@ export default function CommentTweet({ tweet, tweetIndex }) {
           <p className="text-xs text-gray-300">
             {new Date(Number(tweet.registeredAt)).toLocaleDateString()}
           </p>
-          <div className="mb-1">
-            {/* <a className="text-gray-700">{tweet.title}</a> */}
-            <a className="text-gray-700">Tweet title</a>
-          </div>
+          {tweet.title && (
+            <div className="mb-1">
+              <span className="text-gray-700">{tweet.title}</span>
+            </div>
+          )}
         </div>
         <div className="text-xs text-gray-500">
           <p>{tweet.content}</p>
