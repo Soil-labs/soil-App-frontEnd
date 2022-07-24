@@ -2,16 +2,20 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { findProjects_fromMember } from "../../redux/slices/projectsSlice";
-import ProjectsNavigation from "../ProjectsNavigation/ProjectsNavigation";
+import ProjectsNavigation from "../ChampionDashboard/ProjectsNavigation";
 import Layout from "./Layout";
 
 export const ChampionDashboardLayout = ({ children }) => {
   const { projectsInspect } = useSelector((state) => state);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    console.log({ projectsInspect });
     if (projectsInspect.isDataAvailable) return;
-    dispatch(findProjects_fromMember({ _id: "995604464469803048" }));
+    dispatch(
+      findProjects_fromMember({
+        _id: "995604464469803048",
+        returnDates: true,
+      })
+    );
   }, [dispatch, projectsInspect]);
 
   return (
