@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { findProjects_fromMember } from "../../redux/slices/projectsSlice";
-import ProjectsNavigation from "../ChampionDashboard/ProjectsNavigation";
+import { ProjectsNavigation } from "../ChampionDashboard";
 import Layout from "./Layout";
 
 export const ChampionDashboardLayout = ({ children }) => {
