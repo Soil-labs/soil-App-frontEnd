@@ -15,9 +15,7 @@ function ScopeRolesComponent(props) {
       title: "",
       description: "",
       skills: [
-        {
-          skill: "",
-        },
+        
       ],
     },
     {
@@ -25,9 +23,7 @@ function ScopeRolesComponent(props) {
       title: "",
       description: "",
       skills: [
-        {
-          skill: "",
-        },
+        
       ],
     },
   ]);
@@ -54,9 +50,7 @@ function ScopeRolesComponent(props) {
           title: "",
           description: "",
           skills: [
-            {
-              skill: "",
-            },
+            
           ],
         },
       ]);

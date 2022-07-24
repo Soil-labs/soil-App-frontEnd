@@ -12,6 +12,7 @@ import GreenBudgetForm from "../../components/TypeFormLikePage/BudgetComponent";
 import ScopeRolesComponent from "../../components/TypeFormLikePage/ScopeRolesComponent";
 import GeneralGreenFromComponent from "../../components/GenralComponents/GeneralGreenFromComponent";
 import RoleComponent from "../../components/TypeFormLikePage/RoleComponent";
+import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -138,11 +139,12 @@ function Form() {
         />
       )} */}
 
-      <ScopeRolesComponent/>
+      {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
       {/* <RoleComponent
       skills = {skills}
        /> */}
+      <ColabEnvComponent/>
     </>
   );
 }
