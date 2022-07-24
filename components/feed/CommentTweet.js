@@ -28,12 +28,16 @@ export default function CommentTweet({ tweet, tweetIndex }) {
 
   return (
     <div className="relative flex items-start space-x-3">
-      <div className="relative border-2 border-gray-200 rounded-full">
+      <div className="group relative border-2 border-gray-200 rounded-full">
         <img
           className="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center border-2 border-white"
           src={`${tweet.author.discordAvatar}`}
           alt=""
         />
+        <div className="z-20 absolute invisible group-hover:visible bg-slate-100 -top-5 text-xs px-2 py-1 rounded-md">
+          <span className="z-20">{tweet.author.discordName}</span>
+        </div>
+        <div className="z-10 absolute w-2 h-2 invisible group-hover:visible left-3 top-0 bg-slate-100 rotate-45"></div>
       </div>
       <div className="relative min-w-0 flex-1 bg-white rounded-lg px-5 py-4">
         {isAuthorOrChampion && (
