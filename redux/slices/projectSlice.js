@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import changeTeamMember_Phase_ProjectMutation from "./graphql/project/mutations/changeTeamMember_Phase_Project";
 import findProjectQuery from "./graphql/project/queries/findProject";
 import { jsonToString } from "../tools/transformations";
 
@@ -56,6 +57,20 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const changeTeamMember_Phase_Project = createAsyncThunk(
+  "changeTeamMember_Phase_Project",
+  async (params) => {
+    console.log("changeTeamMember_Phase_Project = ");
+    const response = await apiClient(
+      changeTeamMember_Phase_ProjectMutation(params)
+    );
+
+    console.log("response.data.data = ", response.data.data);
+
+    return response.data.data.changeTeamMember_Phase_Project;
+  }
+);
+
 export const projectSlice = createSlice({
   name: "projectIn",
   initialState,
@@ -75,7 +90,22 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.budget = payload.budget;
     },
+    [changeTeamMember_Phase_Project.pending]: (state) => {
+      state.loading = true;
+    },
+    [changeTeamMember_Phase_Project.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      console.log("changeTeamMember_Phase_Project = ", payload);
+
+      state.isDataAvailable = true;
+      state.loading = false;
+      state._id = payload._id;
+      state.title = payload.title;
+      state.team = payload.team;
+    },
     [findProject.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [findProject.fulfilled]: (state, { payload }) => {
@@ -90,6 +120,7 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.budget = payload.budget;
       state.champion = payload.champion;
+      state.team = payload.team;
     },
   },
 });
