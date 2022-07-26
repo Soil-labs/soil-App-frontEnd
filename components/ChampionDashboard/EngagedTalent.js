@@ -1,9 +1,30 @@
 import Image from "next/image";
 
 import placeholder_avatar from "./placeholder_avatar.png";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTeamMember_Phase_Project } from "../../redux/slices/projectSlice";
+import { useRouter } from "next/router";
+import { classNames } from "../../util";
 
 const TeamMemberCard = ({ member }) => {
-  //   console.log("\n\n\navatar\n\n", member.memberInfo.discordAvatar);
+  const router = useRouter();
+  const { _id } = router.query;
+
+  const dispatch = useDispatch();
+
+  const handleAcceptClick = () => {
+    let params = {
+      projectID: _id,
+      memberID: member.memberInfo._id,
+      phase: "shortlisted",
+    };
+    dispatch(changeTeamMember_Phase_Project(params));
+  };
+
+  const {
+    projectInspect: { loading },
+  } = useSelector((state) => state);
+
   return (
     <article className="flex gap-8 px-8 py-6 border-2 border-[#8dc220a5] rounded-2xl">
       {/* avatar */}
@@ -38,8 +59,15 @@ const TeamMemberCard = ({ member }) => {
       </div>
       {/* accept button & reject button */}
       <div className="flex flex-col gap-2">
-        <button className="rounded-full text-white px-3 py-1 bg-[#8dc220a5]">
-          ACCEPT
+        <button
+          onClick={handleAcceptClick}
+          className={classNames(
+            "rounded-full text-white px-3 py-1 ",
+            loading ? "bg-gray-700" : "bg-[#8dc220a5]"
+          )}
+          disabled={loading}
+        >
+          {loading ? "submitting..." : "ACCEPT"}
         </button>
         <button className="rounded-full text-white px-3 py-1 bg-[#fc502ad8]">
           REJECT

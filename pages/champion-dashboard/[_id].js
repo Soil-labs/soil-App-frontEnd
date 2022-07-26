@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   EngagedTalent,
   Shortlisted,
   CommittedTeam,
 } from "../../components/ChampionDashboard";
 import { ChampionDashboardLayout } from "../../components/layout/ChampiondashboardLayout";
+import { findProject } from "../../redux/slices/projectSlice";
 import { classNames } from "../../util";
 
 const ENGAGED_TAB = "ENGAGED";
@@ -14,21 +15,27 @@ const SHORTLISTED_TAB = "SHORTLISTED";
 const COMMITTED_TAB = "COMMITTED";
 
 const Project = () => {
-  const [currentTab, setCurrentTab] = React.useState(ENGAGED_TAB);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { _id } = router.query;
 
-  const {
-    projectsInspect: { isDataAvailable, projectsInfo },
-  } = useSelector((state) => state);
+  const [currentTab, setCurrentTab] = React.useState(ENGAGED_TAB);
 
-  const [project] = projectsInfo.filter((p) => p.info._id === _id);
+  // const [project] = projectsInfo.filter((p) => p.info._id === _id);
+
+  React.useEffect(() => {
+    setCurrentTab(ENGAGED_TAB);
+    dispatch(findProject({ _id, team: true }));
+  }, [dispatch, _id]);
+
+  const {
+    projectInspect: { isDataAvailable, team },
+  } = useSelector((state) => state);
 
   return (
     <>
       <main className="col-span-3">
-        {!isDataAvailable && "Fetching data..."}
-        {isDataAvailable && project && (
+        {isDataAvailable && (
           <section className="rounded-2xl overflow-hidden bg-[#8dc2204c]">
             <div className="grid grid-cols-3">
               <button
@@ -66,20 +73,20 @@ const Project = () => {
               </button>
             </div>
             {currentTab === ENGAGED_TAB && (
-              <EngagedTalent members={project.info.team} />
+              <EngagedTalent
+                members={team.filter((member) => member.phase === "engaged")}
+              />
             )}
             {currentTab === SHORTLISTED_TAB && (
               <Shortlisted
-                members={project.info.team.filter(
+                members={team.filter(
                   (member) => member.phase === "shortlisted"
                 )}
               />
             )}
             {currentTab === COMMITTED_TAB && (
               <CommittedTeam
-                members={project.info.team.filter(
-                  (member) => member.phase === "committed"
-                )}
+                members={team.filter((member) => member.phase === "committed")}
               />
             )}
           </section>

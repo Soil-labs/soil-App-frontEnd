@@ -23,6 +23,29 @@ export default function findProjectQuery(params) {
                 : ``
             }
 
+            ${
+              params.team
+                ? `team {
+                  memberInfo{
+                    _id
+                    discordName
+                    discordAvatar
+                    attributes{
+                      Director
+                      Motivator
+                      Inspirer
+                      Helper
+                      Supporter
+                      Coordinator
+                      Observer
+                      Reformer
+                    }
+                  }
+                  phase
+                }`
+                : ``
+            }
+
 
               ${
                 params.returnBudget

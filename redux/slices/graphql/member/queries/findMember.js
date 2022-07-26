@@ -28,6 +28,7 @@ export default function findMemberQuery(params) {
               title
               team {
                 memberInfo{
+                  _id
                   discordName
                   discordAvatar
                 }
