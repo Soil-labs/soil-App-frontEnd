@@ -63,14 +63,54 @@ const Chart = ({ members }) => {
   );
 };
 
+const MemberAvatar = ({ memberInfo }) => (
+  <div>
+    <figure className="w-16 h-16 rounded-full border-2 border-white shadow-lg overflow-hidden">
+      <Image
+        src={
+          memberInfo.discordAvatar
+            ? memberInfo.discordAvatar
+            : placeholder_avatar
+        }
+        width="64px"
+        height="64px"
+        alt="discord avatar"
+      />
+    </figure>
+    <figcaption className="pt-1 text-center">
+      {memberInfo.discordName}
+    </figcaption>
+  </div>
+);
+
 const CommittedTeam = ({ members }) => {
   console.log("\n\nMEMBERS: ", members);
   return (
-    <div className="p-8">
+    <div className="p-16">
       {members.length > 0 && (
-        <div className="bg-white rounded-full p-16">
-          <Chart members={members} />
-        </div>
+        <>
+          <div className="w-full pb-12 flex gap-6 justify-center flex-wrap">
+            {members.map(({ memberInfo }, i) => (
+              <>
+                <MemberAvatar
+                  key={`committed_avatar_${i}`}
+                  memberInfo={memberInfo}
+                />
+              </>
+            ))}
+          </div>
+          <h3 className="pb-12 text-white font-bold text-2xl text-center">
+            OVERALL TEAM COMPOSITION
+          </h3>
+          <div className="bg-white rounded-full p-16">
+            <Chart members={members} />
+          </div>
+          <div className="flex justify-center pt-12">
+            <button className="py-2 px-4 rounded-lg bg-blue-600 text-white text-xl">
+              KICK OFF
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

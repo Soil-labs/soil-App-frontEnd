@@ -26,7 +26,7 @@ const TeamMemberCard = ({ member }) => {
           <div className="font-bold text-lg">
             @{member.memberInfo.discordName}
           </div>
-          <div className="text-sm text-gray-600">20+ endorsements</div>
+          <div className="text-sm text-gray-600">XX endorsements</div>
         </div>
       </div>
       {/* see application button */}
@@ -48,9 +48,6 @@ const TeamMemberCard = ({ member }) => {
 const Shortlisted = ({ members }) => {
   return (
     <div className="p-8">
-      <div className="pt-6 pb-8">
-        Talent that engaged with your shortlist invitation shows up here.
-      </div>
       <div className="px-4 sm:px-0">
         <div className="flex flex-col gap-8">
           {members.map((member, i) => (
