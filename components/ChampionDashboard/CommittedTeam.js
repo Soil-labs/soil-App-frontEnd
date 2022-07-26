@@ -1,55 +1,77 @@
 import Image from "next/image";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Radar } from "react-chartjs-2";
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 import placeholder_avatar from "./placeholder_avatar.png";
 
-// const TeamMemberCard = ({ member }) => {
-//   return (
-//     <article className="flex gap-8 px-8 py-6 border-2 border-[#8dc220a5] rounded-2xl">
-//       {/* avatar */}
-//       <div className="flex items-center">
-//         <div className="w-16 h-16 rounded-full border-2 border-white shadow-lg overflow-hidden">
-//           <Image src={placeholder_avatar} alt="placeholder_avatar" />
-//         </div>
-//       </div>
-//       {/* username & endorsments */}
-//       <div className="flex items-center grow">
-//         <div>
-//           <div className="font-bold text-lg">
-//             @{member.memberInfo.discordName}
-//           </div>
-//           <div className="text-sm text-gray-600">20+ endorsements</div>
-//         </div>
-//       </div>
-//       {/* see application button */}
-//       <div className="flex items-center">
-//         <button className="rounded-full text-white px-3 py-1 bg-[#8dc220a5]">
-//           SEE APPLICATION
-//         </button>
-//       </div>
-//       {/* accept button & reject button */}
-//       <div className="flex flex-col gap-2">
-//         <button className="rounded-full text-white px-3 py-1 bg-[#8dc220a5]">
-//           ACCEPT
-//         </button>
-//         <button className="rounded-full text-white px-3 py-1 bg-[#fc502ad8]">
-//           REJECT
-//         </button>
-//       </div>
-//     </article>
-//   );
-// };
+const colors = [
+  "#1abc9c60",
+  "#2ecc7160",
+  "#3498db60",
+  "#9b59b660",
+  "#34495e60",
+  "#f1c40f60",
+  "#e67e2260",
+  "#e74c3c60",
+  "#ecf0f160",
+  "#95a5a660",
+];
+
+const Chart = ({ members }) => {
+  const labels = Object.keys(members[0].memberInfo.attributes);
+  const datasets = members.map(({ memberInfo }, i) => {
+    return {
+      label: memberInfo.discordName,
+      data: Object.keys(memberInfo.attributes).map(
+        (key) => memberInfo.attributes[key]
+      ),
+      fill: true,
+      backgroundColor: colors[i],
+      borderColor: colors[i],
+      pointBackgroundColor: colors[i],
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: colors[i],
+    };
+  });
+  console.log({ labels });
+  console.log({ datasets });
+  return (
+    <Radar
+      data={{
+        labels,
+        datasets,
+      }}
+    />
+  );
+};
 
 const CommittedTeam = ({ members }) => {
+  console.log("\n\nMEMBERS: ", members);
   return (
     <div className="p-8">
-      <div className="pt-6 pb-8">Committed Team!</div>
-      {/* <div className="px-4 sm:px-0">
-        <div className="flex flex-col gap-8">
-          {members.map((member, i) => (
-            <TeamMemberCard key={`team-member-card_${i}`} member={member} />
-          ))}
+      {members.length > 0 && (
+        <div className="bg-white rounded-full p-16">
+          <Chart members={members} />
         </div>
-      </div> */}
+      )}
     </div>
   );
 };
