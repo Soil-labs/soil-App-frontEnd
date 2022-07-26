@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
 import changeTeamMember_Phase_ProjectMutation from "./graphql/project/mutations/changeTeamMember_Phase_Project";
+import approveTweetMutation from "./graphql/project/mutations/approveTweet";
 import findProjectQuery from "./graphql/project/queries/findProject";
 import { jsonToString } from "../tools/transformations";
+import { store } from "../store";
 
 const initialState = {
   isDataAvailable: false,
@@ -16,6 +18,8 @@ const initialState = {
   dates: {},
   role: [],
   champion: {},
+  team: [],
+  tweets: [],
 };
 
 export const findProject = createAsyncThunk("findProject", async (params) => {
@@ -71,6 +75,17 @@ export const changeTeamMember_Phase_Project = createAsyncThunk(
   }
 );
 
+export const approveTweet = createAsyncThunk("approveTweet", async (params) => {
+  const state = store.getState();
+  const currentTweet = state.projectInspect.tweets.find((tweet) => {
+    return params.tweetID === tweet._id;
+  });
+  if (state.member._id !== currentTweet.author._id) return;
+  const response = await apiClient(approveTweetMutation(params));
+
+  return response.data.data.approveTweet;
+});
+
 export const projectSlice = createSlice({
   name: "projectIn",
   initialState,
@@ -87,7 +102,11 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
+      state.dates = payload.dates;
+      state.champion = payload.champion;
+      state.team = payload.team;
       state.role = payload.role;
+      state.tweets = payload.tweets;
       state.budget = payload.budget;
     },
     [changeTeamMember_Phase_Project.pending]: (state) => {
@@ -104,6 +123,14 @@ export const projectSlice = createSlice({
       state.title = payload.title;
       state.team = payload.team;
     },
+    [approveTweet.pending]: (state) => {
+      state.loading = true;
+    },
+    [approveTweet.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      state.tweets = payload.tweets;
+    },
     [findProject.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;
@@ -117,10 +144,12 @@ export const projectSlice = createSlice({
       state._id = payload._id;
       state.title = payload.title;
       state.description = payload.description;
-      state.role = payload.role;
-      state.budget = payload.budget;
+      state.dates = payload.dates;
       state.champion = payload.champion;
       state.team = payload.team;
+      state.role = payload.role;
+      state.tweets = payload.tweets;
+      state.budget = payload.budget;
     },
   },
 });

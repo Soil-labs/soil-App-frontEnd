@@ -23,6 +23,7 @@ export default function findMemberQuery(params) {
             params.returnProjects
               ? `projects {
             champion
+            favorite
             info {
               _id
               title

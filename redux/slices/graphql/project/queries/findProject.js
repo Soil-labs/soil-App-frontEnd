@@ -8,16 +8,46 @@ export default function findProjectQuery(params) {
             _id
             title
             description
-
+            
+            ${
+              params.returnChampion
+                ? `champion{
+                _id
+                discordName
+            }`
+                : ``
+            }
+            ${
+              params.returnTeam
+                ? `team{
+                  memberInfo{
+                    _id
+                    discordName
+                    discordAvatar
+                  }
+                }`
+                : ``
+            }
             ${
               params.returnRole
                 ? `role{
+                  _id
                   title
+                  description
                   skills{
                     skillData{
                       _id
                       name
                     }
+                  }
+                  archive
+                  dateRangeStart
+                  dateRangeEnd
+                  hoursPerWeek
+                  budget{
+                    token
+                    perHour
+                    totalBudget
                   }
                 }`
                 : ``
@@ -46,6 +76,14 @@ export default function findProjectQuery(params) {
                 : ``
             }
 
+              ${
+                params.returnDates
+                  ? `dates{
+                kickOff
+                complition
+            }`
+                  : ``
+              }
 
               ${
                 params.returnBudget
@@ -61,6 +99,22 @@ export default function findProjectQuery(params) {
                   ? `champion{
                     discordName
                     discordAvatar
+                  }`
+                  : ``
+              }
+
+              ${
+                params.returnTweets
+                  ? `tweets{
+                    _id
+                    content
+                    author{
+                      _id
+                      discordName
+                      discordAvatar
+                    }
+                    registeredAt
+                    approved
                   }`
                   : ``
               }
