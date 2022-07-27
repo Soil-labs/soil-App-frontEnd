@@ -22,9 +22,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SkillSelector() {
+export default function SkillSelector({ setSkillsCallback }) {
   const [query, setQuery] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
+  const dispatch = useDispatch();
 
   const skills = useSelector(
     (state) =>
@@ -33,39 +34,42 @@ export default function SkillSelector() {
       ) || []
   );
 
-  const dispatch = useDispatch();
-
-  const approvedSkills =
-    query === ""
-      ? skills
-      : skills.filter((skill) => {
-          return skill.name.toLowerCase().includes(query.toLowerCase());
-        });
-
-  useEffect(() => {
-    dispatch(findSkills({}));
-  }, [dispatch]);
-
-  const handleSelect = (e) => {
-    setSelectedSkills([...selectedSkills, e]);
-  };
-  const handleDeleteClick = (skill) => {
-    setSelectedSkills(
-      selectedSkills.filter((selected) => selected._id !== skill._id)
-    );
-  };
-
   const skillIsSelected = (skill) => {
     return selectedSkills.some(
       (selectedSkill) => selectedSkill._id === skill._id
     );
   };
 
+  const selectorSkills = skills.filter((skill) => {
+    if (skillIsSelected(skill)) return false;
+    return !query
+      ? true
+      : skill.name.toLowerCase().includes(query.toLowerCase());
+  });
+
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
+  useEffect(() => {
+    dispatch(findSkills({}));
+  }, [dispatch]);
+
+  const handleSelect = (e) => {
+    setSelectedSkills([...selectedSkills, e]);
+    setSkillsCallback(selectedSkills);
+  };
+  const handleDeleteClick = (skill) => {
+    setSelectedSkills(
+      selectedSkills.filter((selected) => selected._id !== skill._id)
+    );
+    setSkillsCallback(selectedSkills);
+  };
+
   return (
     <div>
       <Combobox as="div" value={selectedSkills} onChange={handleSelect}>
         <Combobox.Label className="block text-sm font-medium text-gray-700">
-          Assigned to
+          Skills
         </Combobox.Label>
         <div className="relative mt-1 mb-4">
           <Combobox.Input
@@ -80,10 +84,9 @@ export default function SkillSelector() {
             />
           </Combobox.Button>
 
-          {approvedSkills.length > 0 && (
+          {selectorSkills.length > 0 && (
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {approvedSkills.map((skill, index) => {
-                if (skillIsSelected(skill)) return null;
+              {selectorSkills.map((skill, index) => {
                 return (
                   <Combobox.Option
                     key={index}

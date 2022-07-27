@@ -1,8 +1,9 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import SkillSelector from "../../components/skill/SkillSelector";
 
 function Projects() {
+  const [skills, setSkills] = useState([]);
   return (
     <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       {/* How to apply column */}
@@ -10,7 +11,10 @@ function Projects() {
 
       {/* Main column */}
       <main className="col-span-3">
-        <SkillSelector />
+        {skills.map((skill, index) => (
+          <span key={index}>{skill.name}</span>
+        ))}
+        <SkillSelector setSkillsCallback={setSkills} />
       </main>
 
       {/* How to apply column */}
