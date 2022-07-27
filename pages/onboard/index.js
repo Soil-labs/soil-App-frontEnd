@@ -11,10 +11,11 @@ function Projects() {
 
       {/* Main column */}
       <main className="col-span-3">
-        {skills.map((skill, index) => (
+        {/* demo parent data from SkillSelector */}
+        {/* {skills.map((skill, index) => (
           <span key={index}>{skill.name}</span>
-        ))}
-        <SkillSelector setSkillsCallback={setSkills} />
+        ))} */}
+        <SkillSelector setSkillsCallback={setSkills} showSelected={true} />
       </main>
 
       {/* How to apply column */}
