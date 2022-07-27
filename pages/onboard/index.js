@@ -4,7 +4,7 @@ import SkillSelector from "../../components/skill/SkillSelector";
 
 function Projects() {
   return (
-    <Fragment>
+    <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       {/* How to apply column */}
       <section className="col-span-1"></section>
 
@@ -15,7 +15,7 @@ function Projects() {
 
       {/* How to apply column */}
       <section className="col-span-1"></section>
-    </Fragment>
+    </div>
   );
 }
 
