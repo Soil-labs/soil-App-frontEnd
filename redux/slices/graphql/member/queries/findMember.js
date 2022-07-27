@@ -1,4 +1,4 @@
-export default function getMemberQuery(params) {
+export default function findMemberQuery(params) {
   return {
     data: {
       query: `query{
@@ -29,9 +29,15 @@ export default function getMemberQuery(params) {
               title
               team {
                 memberInfo{
+                  _id
                   discordName
+                  discordAvatar
                 }
                 phase
+              }
+              dates{
+                kickOff
+                complition
               }
             }
           }`

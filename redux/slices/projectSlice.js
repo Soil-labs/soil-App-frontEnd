@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import changeTeamMember_Phase_ProjectMutation from "./graphql/project/mutations/changeTeamMember_Phase_Project";
 import approveTweetMutation from "./graphql/project/mutations/approveTweet";
 import findProjectQuery from "./graphql/project/queries/findProject";
 import { jsonToString } from "../tools/transformations";
@@ -60,6 +61,20 @@ export const updateProject = createAsyncThunk(
   }
 );
 
+export const changeTeamMember_Phase_Project = createAsyncThunk(
+  "changeTeamMember_Phase_Project",
+  async (params) => {
+    console.log("changeTeamMember_Phase_Project = ");
+    const response = await apiClient(
+      changeTeamMember_Phase_ProjectMutation(params)
+    );
+
+    console.log("response.data.data = ", response.data.data);
+
+    return response.data.data.changeTeamMember_Phase_Project;
+  }
+);
+
 export const approveTweet = createAsyncThunk("approveTweet", async (params) => {
   const state = store.getState();
   const currentTweet = state.projectInspect.tweets.find((tweet) => {
@@ -98,6 +113,20 @@ export const projectSlice = createSlice({
       state.tweets = payload.tweets;
       state.budget = payload.budget;
     },
+    [changeTeamMember_Phase_Project.pending]: (state) => {
+      state.loading = true;
+    },
+    [changeTeamMember_Phase_Project.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      console.log("changeTeamMember_Phase_Project = ", payload);
+
+      state.isDataAvailable = true;
+      state.loading = false;
+      state._id = payload._id;
+      state.title = payload.title;
+      state.team = payload.team;
+    },
     [approveTweet.pending]: (state) => {
       state.loading = true;
     },
@@ -107,6 +136,7 @@ export const projectSlice = createSlice({
       state.tweets = payload.tweets;
     },
     [findProject.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [findProject.fulfilled]: (state, { payload }) => {

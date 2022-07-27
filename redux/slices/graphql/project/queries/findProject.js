@@ -54,13 +54,36 @@ export default function findProjectQuery(params) {
             }
 
             ${
-              params.returnDates
-                ? `dates{
+              params.team
+                ? `team {
+                  memberInfo{
+                    _id
+                    discordName
+                    discordAvatar
+                    attributes{
+                      Director
+                      Motivator
+                      Inspirer
+                      Helper
+                      Supporter
+                      Coordinator
+                      Observer
+                      Reformer
+                    }
+                  }
+                  phase
+                }`
+                : ``
+            }
+
+              ${
+                params.returnDates
+                  ? `dates{
                 kickOff
                 complition
             }`
-                : ``
-            }
+                  : ``
+              }
 
               ${
                 params.returnBudget
