@@ -8,55 +8,27 @@ import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
 import apiClient from "./api/axios";
 //Redux
+const express = require("express");
+const app = express()
 
-const getData = () => {
-  return () => {
-    apiClient({
-      data: {
-        query: `query{
-          characters(page: 1){
-            info{
-              count
-              pages
-            }
-            results{
-              name
-              id
-              location{
-                id
-                name
-              }
-              origin{
-                id
-                name
-              }
-              episode{
-                id
-                episode
-                air_date
-              }
-              image
-            }
-          }
-        }`,
-      },
-    })
-      .then((res) => {
-        console.log(res.data.data.characters);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-};
+const session = require('express-session')
+const passport = require('passport')
 
+app.use(session({
+    secret: 'keyboard cat',
+    cookie:{
+        maxAge: 1000 * 60 * 60 * 24 * 1 // 1 Day
+    },
+    saveUninitialized: false
+  
+})) 
 
 
 export default function Home() {
   return (
     <>
+    <p>gm</p>
       <Navbar />
-      <button onClick={getData()}>Press me</button>
       <HeroSection />
       <Features />
       <Stats />
