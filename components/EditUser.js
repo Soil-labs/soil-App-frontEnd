@@ -32,7 +32,6 @@ export default function EditUser({ user = {}, setUserCallback }) {
 
   const setUserInfoCallback = useCallback(
     (item) => {
-      console.log(item);
       if (setUserCallback) setUserCallback({ ...user, ...item });
     },
     [setUserCallback, user]
