@@ -67,11 +67,11 @@ function StepsForOnboardComponent(props) {
                             onClick={(event) =>
                               handleClickStepTitles(event, key)
                             }
-                            className="px-4 py-2 mt-4 ml-16 shadow-xl w-fit rounded-2xl text-[10px]"
+                            className="px-4 py-2 mt-4 ml-16 shadow-xl w-fit bg-blue-200 rounded-2xl text-[10px]"
                           >
                             <p>{stepTitles[key].title}</p>
                           </div>
-                        </div>
+                        </div> 
                       </div>
                     );
                   })}
@@ -86,7 +86,7 @@ function StepsForOnboardComponent(props) {
                       >
                         <div
                           className={classNames(
-                            colorSwitch ? "bg-white" : "bg-[#234F23]",
+                            colorSwitch ? "bg-white" : "bg-blue-700",
                             "px-16 py-2 mt-6 ml-4 text-gray-400 shadow-lg w-fit rounded-2xl"
                           )}
                         >
