@@ -3,6 +3,7 @@ import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
 
 function StepsForOnboardComponent(props) {
   const [title, setTitle] = useState();
+  const [colorSwitch, setColorSwitch] = useState(true);
 
   const [steps, setSteps] = useState([
     { title: "Step 1" },
@@ -13,22 +14,23 @@ function StepsForOnboardComponent(props) {
 
   const [stepTitles, setStepTiles] = useState([
     { title: "JOIN CHANNEL", id: "", color: "234123" },
-    { title: "MINT NFT", id: "", color: "111111"  },
-    { title: "WARM WELCOME", id: "", color: "333333"  },
-    { title: "CREATE DEWORK", id: "", color: "ab2321"  },
-    { title: "CREATE DEWORK ", id: "", color: "ab2321"  },
-    { title: "BUILD A SMART CONTRACT", id: "", color: "ab2321"  },
-    { title: "SIGN TRANSACTION", id: "", color: "940323"  },
-    { title: "MESSAGE CANDIDATE", id: "", color: "940323"  },
-    { title: "CLOSE APPLICATION", id: "", color: "940323"  },
-    { title: "DISPATCH TOKEN", id: "", color: "940323"  },
-    { title: "SCHEDULE A KICK OFF MEETING", id: "", color: "940323"  },
+    { title: "MINT NFT", id: "", color: "111111" },
+    { title: "WARM WELCOME", id: "", color: "333333" },
+    { title: "CREATE DEWORK", id: "", color: "ab2321" },
+    { title: "CREATE DEWORK ", id: "", color: "ab2321" },
+    { title: "BUILD A SMART CONTRACT", id: "", color: "ab2321" },
+    { title: "SIGN TRANSACTION", id: "", color: "" },
+    { title: "MESSAGE CANDIDATE", id: "", color: "234123" },
+    { title: "CLOSE APPLICATION", id: "", color: "234123" },
+    { title: "DISPATCH TOKEN", id: "", color: "234123" },
+    { title: "SCHEDULE A KICK OFF MEETING", id: "", color: "234123" },
   ]);
 
   const handleClickStepTitles = (event, key) => {
     let selectedTitle = stepTitles[key].title;
     setTitle(selectedTitle);
     console.log("Title", title);
+    setColorSwitch(false);
   };
 
   const handleClickStep = (e, key) => {
@@ -36,10 +38,11 @@ function StepsForOnboardComponent(props) {
     newArr[key].title = title;
     setSteps(newArr);
     console.log("steps", steps);
+    setColorSwitch(true);
   };
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(" ");
   }
 
   return (
@@ -68,8 +71,8 @@ function StepsForOnboardComponent(props) {
                               handleClickStepTitles(event, key)
                             }
                             className={classNames(
-                              true ? `bg-[#E2DDFF]` : 'bg-[#234F23]',
-                              'px-4 py-2 mt-4 ml-16 shadow-xl w-fit rounded-2xl text-[10px]'
+                              false ? "bg-[#E2DDFF]" : "bg-[#234F23]",
+                              "px-4 py-2 mt-4 ml-16 shadow-xl w-fit rounded-2xl text-[10px]"
                             )}
                             // className="px-4 py-2 mt-4 ml-16 shadow-xl bg-[#E2DDFF] w-fit rounded-2xl text-[10px]"
                             // className="px-4 py-2 mt-4 ml-16 shadow-xl bg-[#E2DDFF] w-fit rounded-2xl text-[10px]"
@@ -141,17 +144,13 @@ function StepsForOnboardComponent(props) {
                         key={key}
                         onClick={(event) => handleClickStep(event, key)}
                       >
-                        <div className="px-16 py-2 mt-6 ml-4 text-gray-400 shadow-lg w-fit rounded-2xl">
-                          {/* Step {key + 1} */}
-                          {/* {steps[key].title} */}
-                          <>
-                            {steps.title === "" ? (
-                              // "Step (key + 1)"
-                            <div>Hi</div>
-                            ) : (
-                              steps[key].title
-                            )}
-                          </>
+                        <div
+                          className={classNames(
+                            colorSwitch ? "bg-white" : "bg-[#234F23]",
+                            "px-16 py-2 mt-6 ml-4 text-gray-400 shadow-lg w-fit rounded-2xl"
+                          )}
+                        >
+                          {steps[key].title}
                         </div>
                       </div>
                     );
