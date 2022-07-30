@@ -16,9 +16,6 @@ function MyApp({ Component, pageProps: {session, ...pageProps} }) {
     <SessionProvider session={session}>
       <Provider store={store}>{getLayout(<Component {...pageProps} />)}</Provider>
     </SessionProvider>
-    // <SessionProvider session={session}>
-    //   <Component {...pageProps} />
-    // </SessionProvider>
   );
 }
 
