@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import addNewMemberMutation from "./graphql/member/mutations/addNewMember";
+import addFavoriteProjectMutation from "./graphql/member/mutations/addFavoriteProject";
 import findMemberQuery from "./graphql/member/queries/findMember";
 
 const initialState = {
@@ -9,6 +10,7 @@ const initialState = {
   discordAvatar: "",
   _id: "",
   discordName: "",
+  discordAvatar: "",
   bio: "",
   skills: [],
   projects: [],
@@ -25,6 +27,14 @@ export const findMember = createAsyncThunk("findMember", async (params) => {
 
   return response.data.data.findMember;
 });
+export const addFavoriteProject = createAsyncThunk(
+  "addFavoriteProject",
+  async (params) => {
+    const response = await apiClient(addFavoriteProjectMutation(params));
+
+    return response.data.data.addFavoriteProject;
+  }
+);
 
 export const memberSlice = createSlice({
   name: "member",
@@ -43,6 +53,7 @@ export const memberSlice = createSlice({
       state._id = payload._id;
       state.discordAvatar = payload.discordAvatar;
       state.discordName = payload.discordName;
+      state.discordAvatar = payload.discordAvatar;
       state.discordID = payload._id;
       state.bio = payload.bio;
       state.skills = payload.skills;
@@ -60,11 +71,22 @@ export const memberSlice = createSlice({
 
       state._id = payload._id;
       state.discordName = payload.discordName;
+      state.discordAvatar = payload.discordAvatar;
       state.discordID = payload._id;
       state.bio = payload.bio;
       state.skills = payload.skills;
       state.projects = payload.projects;
       state.network = payload.network;
+    },
+    [addFavoriteProject.pending]: (state) => {
+      state.isDataAvailable = false;
+      state.loading = true;
+    },
+    [addFavoriteProject.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+      state.loading = false;
+      state.isDataAvailable = true;
+      state.projects = payload.projects;
     },
   },
 });
