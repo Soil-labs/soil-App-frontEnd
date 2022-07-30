@@ -47,6 +47,14 @@ const SignUp = ({ id }) => {
     skills: ["Machine Learning", "Figma", "Frontend"],
   });
 
+  const [learning, setLearning] = useState([]);
+
+  const [junior, setJunior] = useState([]);
+
+  const [midLevel, setMidLevel] = useState([]);
+
+  const [senior, setSenior] = useState([]);
+
   const [links, setLinks] = useState([
     {
       id: "1",
@@ -150,7 +158,18 @@ const SignUp = ({ id }) => {
     } else if (page === 3) {
       return <Thoughts formData={formData} setFormData={setFormData} />;
     } else if (page === 4) {
-      return <Skill />;
+      return (
+        <Skill
+          learning={learning}
+          setLearning={setLearning}
+          junior={junior}
+          setJunior={setJunior}
+          midLevel={midLevel}
+          setMidLevel={setMidLevel}
+          senior={senior}
+          setSenior={setSenior}
+        />
+      );
     } else if (page === 5) {
       return (
         <Final formData={formData} links={links} experience={experience} />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SkillsInjector from "../SkillsInjector";
 
 const SkillTab = ({ tag, onClick }) => {
   const colors = ["#268A02", "#53D4F0", "#FF72BE", "#ECF047", "#8296FF"];
@@ -17,33 +18,57 @@ const SkillTab = ({ tag, onClick }) => {
   );
 };
 
-const SkillDropper = ({ heading, children }) => {
+const SkillDropper = ({ heading, children, onAdd }) => {
   return (
     <div className="bg-white h-[10rem] w-[24rem] rounded-lg">
-      <p className="uppercase font-semibold text-lg text-center">{heading}</p>
+      <p
+        className="uppercase font-semibold text-lg text-center"
+        onClick={onAdd}
+      >
+        {heading}
+      </p>
       <div className="flex flex-wrap gap-2 p-2">{children}</div>
     </div>
   );
 };
 
-const Skill = () => {
-  const [learning, setLearning] = useState([
-    "Machine learning",
-    "Tailwindcss",
-    "React",
-    "Nodejs",
-  ]);
+const Skill = ({
+  learning,
+  setLearning,
+  junior,
+  setJunior,
+  midLevel,
+  setMidLevel,
+  senior,
+  setSenior,
+}) => {
+  const [skills, setSkills] = useState([]);
 
-  const [junior, setJunior] = useState(["HTML", "CSS", "JavaScript"]);
-
-  const [midLevel, setMidLevel] = useState(["Python", "C++", "C"]);
-
-  const [senior, setSenior] = useState(["Java", "Go", "Rust"]);
+  const [highlightedSkill, setHighlightedSkill] = useState(null);
+  const [selected, setSelected] = useState(false);
+  const [skillbeenAdded, setSkillbeenAdded] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
+      <SkillsInjector
+        setSkillsCallback={setSkills}
+        setHighLightedSkill={setHighlightedSkill}
+        showSelected={true}
+        selected={selected}
+        setSelected={setSelected}
+        skillbeenAdded={skillbeenAdded}
+      />
       <div className="flex justify-between">
-        <SkillDropper heading="Learning">
+        <SkillDropper
+          heading="Learning"
+          onAdd={() => {
+            if (highlightedSkill !== null) {
+              setLearning([...learning, highlightedSkill]);
+              setSkillbeenAdded(true);
+              setSelected(false);
+            }
+          }}
+        >
           {learning.map((l, index) => (
             <SkillTab
               key={index}
@@ -54,7 +79,15 @@ const Skill = () => {
             />
           ))}
         </SkillDropper>
-        <SkillDropper heading="Junior">
+        <SkillDropper
+          heading="Junior"
+          onAdd={() => {
+            if (highlightedSkill !== null) {
+              setJunior([...junior, highlightedSkill]);
+              setSelected(false);
+            }
+          }}
+        >
           {junior.map((l, index) => (
             <SkillTab
               key={index}
@@ -67,7 +100,15 @@ const Skill = () => {
         </SkillDropper>
       </div>
       <div className="flex justify-between">
-        <SkillDropper heading="mid level">
+        <SkillDropper
+          heading="mid level"
+          onAdd={() => {
+            if (highlightedSkill !== null) {
+              setMidLevel([...midLevel, highlightedSkill]);
+              setSelected(false);
+            }
+          }}
+        >
           {midLevel.map((l, index) => (
             <SkillTab
               key={index}
@@ -78,7 +119,15 @@ const Skill = () => {
             />
           ))}
         </SkillDropper>
-        <SkillDropper heading="Senior">
+        <SkillDropper
+          heading="Senior"
+          onAdd={() => {
+            if (highlightedSkill !== null) {
+              setSenior([...senior, highlightedSkill]);
+              setSelected(false);
+            }
+          }}
+        >
           {senior.map((l, index) => (
             <SkillTab
               key={index}
