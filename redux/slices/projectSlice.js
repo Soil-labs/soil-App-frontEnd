@@ -31,6 +31,7 @@ export const updateProject = createAsyncThunk(
     if (params.budget) {
       params.budget = jsonToString(params.budget);
     }
+    console.log("params.budget",params.budget)
     if (params.role) {
       params.role = jsonToString(params.role);
     }
@@ -40,19 +41,20 @@ export const updateProject = createAsyncThunk(
     if (params.team) {
       params.team = jsonToString(params.team);
     }
-    if (params.budget) {
-      params.budget = jsonToString(params.budget);
-    }
     if (params.dates) {
       params.dates = jsonToString(params.dates);
     }
     if (params.collaborationLinks) {
       params.collaborationLinks = jsonToString(params.team);
     }
-
+  console.log("params",params)
     const response = await apiClient(updateProjectMutation(params));
 
+    console.log("response.data.data.updateProject", response.data.data.updateProject)
+    console.log("response.data.data", response.data.data)
+    console.log("response.data", response.data)
     return response.data.data.updateProject;
+    
   }
 );
 
@@ -71,9 +73,12 @@ export const projectSlice = createSlice({
       state.loading = false;
       state._id = payload._id;
       state.title = payload.title;
+      // console.log("title", payload.title)
       state.description = payload.description;
+      // console.log("description", payload.description)
       state.role = payload.role;
       state.budget = payload.budget;
+      // console.log("budget", payload)
     },
     [findProject.pending]: (state) => {
       state.loading = true;

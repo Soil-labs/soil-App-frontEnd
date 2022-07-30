@@ -2,7 +2,7 @@ import FormComponent from "../../components/TypeFormLikePage/FormComponent";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { findMember } from "../../redux/slices/memberSlice";
-import { createNewProject, findProject } from "../../redux/slices/projectSlice";
+import { updateProject, findProject } from "../../redux/slices/projectSlice";
 import { findAllProjects } from "../../redux/slices/projectsSlice";
 import { findSkill, findAllSkillNames } from "../../redux/slices/skillSlice";
 import { findSkills } from "../../redux/slices/skillsSlice";
@@ -16,8 +16,8 @@ import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvCompone
 import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
 
 function Form() {
+  // const [phase, setPhase] = useState(0);
   const [phase, setPhase] = useState(0);
-  // const [phase, setPhase] = useState(2);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -32,22 +32,24 @@ function Form() {
     },
     {
       title: "BUDGET APPLICATION",
-      totalBudget: "",
-      kickoffDate: "",
-      wrapUpDate: "",
-      notesAndJustification: "",
+      budget: "",
+      // kickoffDate: "",
+      // wrapUpDate: "",
+      // notesAndJustification: "",
     },
   ]);
 
   const changePhase = (phaseNow) => {
     if (questions.length - 1 > phaseNow) {
       setPhase((phaseNow += 1));
-    } else {
       submitReply();
-    }
+    } 
+    submitReply();
+  
   };
 
   const skills = useSelector((state) => state.skillsInspect.skillsInfo);
+  const _id = useSelector((state) => state.projectInspect._id);
 
 
   const dispatch = useDispatch();
@@ -59,15 +61,33 @@ function Form() {
   };
 
   const submitReply = () => {
-    const field = {
+
+    
+    const params = {
+      _id: _id,
       title: questions[0].reply,
       description: questions[1].reply,
-      totalBudget: questions[2].totalBudget,
-      kickoffDate: questions[2].kickoffDate,
-      wrapUpDate: questions[2].wrapUpDate,
+      budget:  {
+        totalBudget: questions[2].budget.toString(),
+        token: "",
+        perHour: "",
+      },
+      dates: {
+        kickOff: questions[2].kickoffDate,
+        complition: questions[2].wrapUpDate,
+      },
+      returnBudget: true, 
+      // kickoffDate: questions[2].kickoffDate,
+      // wrapUpDate: questions[2].wrapUpDate,
       // notesAndJustification: questions[2].notesAndJustification,
     };
-    dispatch(createNewProject(field));
+
+    console.log("questions", questions)
+    console.log("params from index.....",params)
+    console.log("params.budget from index",params.budget)
+    console.log("budget form index questions", questions[2].budget)
+    console.log("params.budget.totalBudget from index", params.budget.totalBudget)
+    dispatch(updateProject(params));
   };
 
   //Testing\\
@@ -122,7 +142,7 @@ function Form() {
 
   return (
     <>
-      {/* {phase <= 1 ? (
+      {phase <= 1 ? (
         <FormComponent
           handleChange={handleChange}
           changePhase={changePhase}
@@ -138,7 +158,7 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
-      )} */}
+      )}
 
       {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
@@ -146,7 +166,7 @@ function Form() {
       skills = {skills}
        /> */}
       {/* <ColabEnvComponent/> */}
-      <StepsForOnboardComponent/>
+      {/* <StepsForOnboardComponent/> */}
     </>
   );
 }

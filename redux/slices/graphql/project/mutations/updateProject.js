@@ -25,6 +25,7 @@ export default function updateProjectMutation(params) {
 					title
 					description
 					
+					
 					${
             params.returnTeam
               ? `team{

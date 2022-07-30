@@ -65,9 +65,9 @@ function RoleComponent(props) {
     let newArr_AllSkills = [...skills_all];
     newArr_AllSkills.push(newArr[key]);
     setSkills_all(newArr_AllSkills);
-    console.log("Skills_all from removeSkill  ", skills_all);
+    // console.log("Skills_all from removeSkill  ", skills_all);
     newArr.splice(key, 1);
-    console.log("newArr from removeSkill", newArr);
+    // console.log("newArr from removeSkill", newArr);
     setSkills(newArr);
   };
 

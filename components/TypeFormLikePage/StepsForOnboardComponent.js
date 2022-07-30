@@ -18,12 +18,9 @@ function StepsForOnboardComponent(props) {
     { title: "WARM WELCOME", id: "", color: "333333" },
     { title: "CREATE DEWORK", id: "", color: "ab2321" },
     { title: "CREATE DEWORK ", id: "", color: "ab2321" },
-    { title: "BUILD A SMART CONTRACT", id: "", color: "ab2321" },
     { title: "SIGN TRANSACTION", id: "", color: "" },
     { title: "MESSAGE CANDIDATE", id: "", color: "234123" },
-    { title: "CLOSE APPLICATION", id: "", color: "234123" },
-    { title: "DISPATCH TOKEN", id: "", color: "234123" },
-    { title: "SCHEDULE A KICK OFF MEETING", id: "", color: "234123" },
+    
   ]);
 
   const handleClickStepTitles = (event, key) => {
@@ -54,9 +51,9 @@ function StepsForOnboardComponent(props) {
             <div className="w-[590px] h-[70px] bg-white mt-20 text-4xl shadow-md rounded-2xl flex items-center justify-center">
               <p className="">STEPS DURING THE ONBOARDING</p>
             </div>
-            <div className="   grid grid-col-3 w-[590px] h-[437px] bg-white rounded-2xl mt-10 text-xs">
+            <div className=" w-[590px] h-[437px] bg-white rounded-2xl mt-10 text-xs">
               {/* <div className="flex"> */}
-              <div>
+              <div className="flex ">
                 <div>
                   {/* Step Titles */}
                   {stepTitles.map((step, key) => {

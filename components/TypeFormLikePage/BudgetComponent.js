@@ -32,9 +32,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  value={props.questions.totalBudget}
+                  value={props.questions.budget}
                   onChange={(e) =>
-                    props.handleChange(e, props.phase, "totalBudget")
+                    props.handleChange(e, props.phase, "budget")
                   }
                   
                   type="number"

@@ -55,8 +55,6 @@ function ScopeRolesComponent(props) {
         },
       ]);
     }
-
-    console.log("roleList - handleAddInput = ", roleList);
   };
 
   useEffect(() => {
