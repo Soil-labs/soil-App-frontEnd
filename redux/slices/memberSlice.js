@@ -6,7 +6,7 @@ import findMemberQuery from "./graphql/member/queries/findMember";
 const initialState = {
   loading: true,
   isDataAvailable: false,
-
+  discordAvatar: "",
   _id: "",
   discordName: "",
   bio: "",
@@ -41,6 +41,7 @@ export const memberSlice = createSlice({
       state.isDataAvailable = true;
 
       state._id = payload._id;
+      state.discordAvatar = payload.discordAvatar;
       state.discordName = payload.discordName;
       state.discordID = payload._id;
       state.bio = payload.bio;
