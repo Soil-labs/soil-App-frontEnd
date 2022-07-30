@@ -52,6 +52,7 @@ const Skill = ({
     <div className="flex flex-col gap-4">
       <SkillsInjector
         setSkillsCallback={setSkills}
+        allSkills={skills}
         setHighLightedSkill={setHighlightedSkill}
         showSelected={true}
         selected={selected}
@@ -64,7 +65,11 @@ const Skill = ({
           onAdd={() => {
             if (highlightedSkill !== null) {
               setLearning([...learning, highlightedSkill]);
-              setSkillbeenAdded(true);
+              setSkills(
+                skills.filter(
+                  (selected) => selected._id !== highlightedSkill._id
+                )
+              );
               setSelected(false);
             }
           }}
@@ -72,9 +77,10 @@ const Skill = ({
           {learning.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l}
+              tag={l.name}
               onClick={() => {
                 setLearning(learning.filter((_, i) => i !== index));
+                setSkills([...skills, l]);
               }}
             />
           ))}
@@ -84,6 +90,11 @@ const Skill = ({
           onAdd={() => {
             if (highlightedSkill !== null) {
               setJunior([...junior, highlightedSkill]);
+              setSkills(
+                skills.filter(
+                  (selected) => selected._id !== highlightedSkill._id
+                )
+              );
               setSelected(false);
             }
           }}
@@ -91,9 +102,10 @@ const Skill = ({
           {junior.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l}
+              tag={l.name}
               onClick={() => {
                 setJunior(junior.filter((_, i) => i !== index));
+                setSkills([...skills, l]);
               }}
             />
           ))}
@@ -105,6 +117,11 @@ const Skill = ({
           onAdd={() => {
             if (highlightedSkill !== null) {
               setMidLevel([...midLevel, highlightedSkill]);
+              setSkills(
+                skills.filter(
+                  (selected) => selected._id !== highlightedSkill._id
+                )
+              );
               setSelected(false);
             }
           }}
@@ -112,9 +129,10 @@ const Skill = ({
           {midLevel.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l}
+              tag={l.name}
               onClick={() => {
                 setMidLevel(midLevel.filter((_, i) => i !== index));
+                setSkills([...skills, l]);
               }}
             />
           ))}
@@ -124,6 +142,11 @@ const Skill = ({
           onAdd={() => {
             if (highlightedSkill !== null) {
               setSenior([...senior, highlightedSkill]);
+              setSkills(
+                skills.filter(
+                  (selected) => selected._id !== highlightedSkill._id
+                )
+              );
               setSelected(false);
             }
           }}
@@ -131,9 +154,10 @@ const Skill = ({
           {senior.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l}
+              tag={l.name}
               onClick={() => {
                 setSenior(senior.filter((_, i) => i !== index));
+                setSkills([...skills, l]);
               }}
             />
           ))}

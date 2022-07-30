@@ -29,6 +29,7 @@ export default function SkillSelector({
   selected,
   setSelected,
   skillbeenAdded,
+  allSkills,
 }) {
   const [query, setQuery] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -154,7 +155,7 @@ export default function SkillSelector({
       <div className="hidden bg-[#c2f5e9] bg-[#d1f7c4] bg-[#ffeab6] bg-[#fee2d5] bg-[#ffdce5] bg-[#ffdaf6] bg-[#ede2fe] bg-[#cfdfff]"></div>
       {showSelected && (
         <section>
-          {selectedSkills.map((skill, index) => (
+          {allSkills.map((skill, index) => (
             <div
               className={`inline-block mr-2 rounded-full ${
                 select === index
@@ -171,7 +172,7 @@ export default function SkillSelector({
                   onClick={() => {
                     setSelect(index);
                     setSelected(true);
-                    setHighlightSkill(skill.name);
+                    setHighlightSkill(skill);
                   }}
                 >
                   {skill.name}
