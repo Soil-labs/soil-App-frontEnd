@@ -15,7 +15,7 @@ const GeneralGreenFrom = (props) => {
 
         <div className="w-9/12 mt-40 ml-6 space-y-6 ">
           <div className="flex items-center space-x-6 ">
-            <BsTwitter className="text-3xl"/>
+            <BsTwitter className="text-3xl" />
             <div className="relative mt-1 shadow-xl rounded-2xl">
               {/* Input link */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -25,8 +25,11 @@ const GeneralGreenFrom = (props) => {
                 />
               </div>
               <input
-                // onChange={(e) => handleChange(e, i)}
                 type="text"
+                value={props.questions.link_1}
+                onChange={(e) => props.handleChange(e, props.phase, "link_1")}
+                name="name"
+                id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />
@@ -34,7 +37,7 @@ const GeneralGreenFrom = (props) => {
           </div>
 
           <div className="flex items-center space-x-6">
-            <BsGithub className="text-3xl"/>
+            <BsGithub className="text-3xl" />
             <div className="relative mt-1 shadow-xl rounded-2xl">
               {/* Input link */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -46,13 +49,17 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
+                value={props.questions.link_2}
+                onChange={(e) => props.handleChange(e, props.phase, "link_2")}
+                name="name"
+                id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <FaDiscord className="text-3xl"/>
+            <FaDiscord className="text-3xl" />
             <div className="relative mt-1 shadow-xl rounded-2xl">
               {/* Input link */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -64,13 +71,17 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
+                value={props.questions.link_3}
+                onChange={(e) => props.handleChange(e, props.phase, "link_3")}
+                name="name"
+                id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <SiNotion className="text-3xl"/>
+            <SiNotion className="text-3xl" />
             <div className="relative mt-1 shadow-xl rounded-2xl">
               {/* Input link */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -82,13 +93,17 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
+                value={props.questions.link_4}
+                onChange={(e) => props.handleChange(e, props.phase, "link_4")}
+                name="name"
+                id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />
             </div>
           </div>
           <div className="flex items-center space-x-6">
-            <BsTelegram className="text-3xl"/>
+            <BsTelegram className="text-3xl" />
             <div className="relative mt-1 shadow-xl rounded-2xl">
               {/* Input link */}
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -100,6 +115,10 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
+                value={props.questions.link_5}
+                  onChange={(e) => props.handleChange(e, props.phase, "link_5")}
+                  name="name"
+                  id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />

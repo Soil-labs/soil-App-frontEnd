@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
+import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
+
 import React from "react";
 import { useEffect } from "react";
 
@@ -41,6 +43,8 @@ const ProjectBoard = ({
   budget,
   kickOffDate,
   endDate,
+  changePhase,
+  phase,
 }) => {
   useEffect(() => {
     console.log(
@@ -208,6 +212,13 @@ const ProjectBoard = ({
             })}
         </div>
       </div>
+      <button
+          onClick={() => {
+            changePhase(phase);
+          }}
+        >
+          <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
+        </button>
     </div>
   );
 };

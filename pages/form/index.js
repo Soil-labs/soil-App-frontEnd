@@ -14,6 +14,7 @@ import GeneralGreenFromComponent from "../../components/GenralComponents/General
 import RoleComponent from "../../components/TypeFormLikePage/RoleComponent";
 import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvComponent";
 import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
+import ProjectBoard from "../../components/ProjectComponent";
 
 function Form() {
   // const [phase, setPhase] = useState(0);
@@ -37,20 +38,29 @@ function Form() {
       // wrapUpDate: "",
       // notesAndJustification: "",
     },
+    {
+      link_1: "",
+      link_2: "",
+      link_3: "",
+      link_4: "",
+      link_5: "",
+    },
   ]);
 
   const changePhase = (phaseNow) => {
-    if (questions.length - 1 > phaseNow) {
+    // if (questions.length - 1 > phaseNow) {
+    if (phaseNow <= 4) {
       setPhase((phaseNow += 1));
       submitReply();
-    } 
-    submitReply();
-  
+    }
+    // submitReply();
   };
 
   const skills = useSelector((state) => state.skillsInspect.skillsInfo);
   const _id = useSelector((state) => state.projectInspect._id);
-
+  const title = useSelector((state) => state.projectInspect.title);
+  const description = useSelector((state) => state.projectInspect.description);
+  const budget = useSelector((state) => state.projectInspect.budget.totalBudget);
 
   const dispatch = useDispatch();
 
@@ -58,47 +68,76 @@ function Form() {
     let newArr = [...questions];
     newArr[phaseNow][changeField] = e.target.value;
     setQuestions(newArr);
+    console.log("questions", questions);
   };
 
   const submitReply = () => {
-
-    
     const params = {
       _id: _id,
       title: questions[0].reply,
       description: questions[1].reply,
-      budget:  {
+      budget: {
         totalBudget: questions[2].budget.toString(),
         token: "",
         perHour: "",
       },
-      dates: {
-        kickOff: questions[2].kickoffDate,
-        complition: questions[2].wrapUpDate,
-      },
-      returnBudget: true, 
+      // dates: {
+      //   kickOff: questions[2].kickoffDate,
+      //   complition: questions[2].wrapUpDate,
+      // },
+      
       // kickoffDate: questions[2].kickoffDate,
       // wrapUpDate: questions[2].wrapUpDate,
       // notesAndJustification: questions[2].notesAndJustification,
+      collaborationLinks: [
+        {
+          title: "Twitter",
+          link: questions[3].link_1,
+        },
+        {
+          title: "GitHub",
+          link: questions[3].link_2,
+        },
+        {
+          title: "Discord",
+          link: questions[3].link_3,
+        },
+        {
+          title: "Notion",
+          link: questions[3].link_4,
+        },
+        {
+          title: "Telegram",
+          link: questions[3].link_5,
+        },
+        
+      ],
+      returnBudget: true,
+      // returnDates: true,
+      returnCollaborationLinks: true,
     };
 
-    console.log("questions", questions)
-    console.log("params from index.....",params)
-    console.log("params.budget from index",params.budget)
-    console.log("budget form index questions", questions[2].budget)
-    console.log("params.budget.totalBudget from index", params.budget.totalBudget)
+    console.log("questions", questions);
+    console.log("params from index.....", params);
+    console.log("params.budget from index", params.budget);
+    console.log("params.budget from index", params.budget);
+    console.log("collaborationLinks", params.collaborationLinks);
+    console.log(
+      "params.budget.totalBudget from index",
+      params.budget.totalBudget
+    );
     dispatch(updateProject(params));
   };
 
   //Testing\\
 
-  useEffect(() => {
-    const params = {
-      returnMembers: false,
-    }
-    
-    dispatch(findSkills(params));
-  }, []);
+  // useEffect(() => {
+  //   const params = {
+  //     returnMembers: false,
+  //   }
+
+  //   dispatch(findSkills(params));
+  // }, []);
 
   // useEffect(() => {
   //   const lookForProject = () => {
@@ -150,7 +189,7 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
-      ) : (
+      ) : phase == 2 ? (
         <GreenBudgetForm
           handleChange={handleChange}
           changePhase={changePhase}
@@ -158,6 +197,30 @@ function Form() {
           phase={phase}
           submitReply={submitReply}
         />
+      ) : phase == 3 ? (
+        <ColabEnvComponent
+          handleChange={handleChange}
+          questions={questions[phase]}
+          changePhase={changePhase}
+          phase={phase}
+        />
+      ) : phase == 4 ? (
+        <StepsForOnboardComponent
+          handleChange={handleChange}
+          changePhase={changePhase}
+          phase={phase}
+        />
+      ) : phase == 5 ? (
+        <ProjectBoard
+          handleChange={handleChange}
+          changePhase={changePhase}
+          phase={phase}
+          projectTitle={title}
+          description={description}
+          budget={budget}
+        />
+      ) : (
+        phase
       )}
 
       {/* <ScopeRolesComponent/> */}
