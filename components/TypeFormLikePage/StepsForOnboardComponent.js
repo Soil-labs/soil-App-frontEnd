@@ -1,9 +1,24 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProject } from "../../redux/slices/projectSlice";
 import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
 
 function StepsForOnboardComponent(props) {
   const [title, setTitle] = useState();
   const [colorSwitch, setColorSwitch] = useState(true);
+  
+  const dispatch = useDispatch();
+
+  const handleChangePhase = () => {
+    const params = {
+    _id: props._id,
+    stepsJoinProject: steps
+    }
+    dispatch(updateProject(params));
+    console.log("params from Steps child", params)
+    props.changePhase(props.phase);
+  };
+  
 
   const [steps, setSteps] = useState([
     { title: "Step 1" },
@@ -13,14 +28,13 @@ function StepsForOnboardComponent(props) {
   ]);
 
   const [stepTitles, setStepTiles] = useState([
-    { title: "JOIN CHANNEL", id: "", color: "234123" },
-    { title: "MINT NFT", id: "", color: "111111" },
-    { title: "WARM WELCOME", id: "", color: "333333" },
-    { title: "CREATE DEWORK", id: "", color: "ab2321" },
-    { title: "CREATE DEWORK ", id: "", color: "ab2321" },
-    { title: "SIGN TRANSACTION", id: "", color: "" },
-    { title: "MESSAGE CANDIDATE", id: "", color: "234123" },
-    
+    { title: "JOIN CHANNEL" },
+    { title: "MINT NFT" },
+    { title: "WARM WELCOME" },
+    { title: "CREATE DEWORK" },
+    { title: "CREATE DEWORK " },
+    { title: "SIGN TRANSACTION" },
+    { title: "MESSAGE CANDIDATE" },
   ]);
 
   const handleClickStepTitles = (event, key) => {
@@ -68,7 +82,7 @@ function StepsForOnboardComponent(props) {
                           >
                             <p>{stepTitles[key].title}</p>
                           </div>
-                        </div> 
+                        </div>
                       </div>
                     );
                   })}
@@ -97,7 +111,7 @@ function StepsForOnboardComponent(props) {
             </div>
             <button
               onClick={() => {
-                props.changePhase(props.phase);
+                handleChangePhase();
               }}
             >
               <ChevronDoubleDownIcon className="w-10 h-10 mt-40 font-light text-black stroke-1" />

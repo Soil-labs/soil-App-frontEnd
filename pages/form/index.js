@@ -20,7 +20,7 @@ import DescpitionComponent from "../../components/TypeFormLikePage/descpitionCom
 
 function Form() {
   // const [phase, setPhase] = useState(0);
-  const [phase, setPhase] = useState(3);
+  const [phase, setPhase] = useState(4);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",
@@ -259,7 +259,7 @@ function Form() {
           phase={phase}
           projectTitle={title}
           description={description}
-          budget={budget}
+          // budget={budget}
         />
       ) : phase == 6 ? (
         <YouDidItComponet />

@@ -18,12 +18,14 @@ export default function updateProjectMutation(params) {
 					
 					${params.budget ? `budget: ${params.budget}` : ``}
 					${params.dates ? `dates: ${params.dates}` : ``}
+					${params.stepsJoinProject ? `stepsJoinProject: ${params.stepsJoinProject}` : ``}
 	
 			
 				}){
 					_id
 					title
 					description
+					stepsJoinProject
 					
 					
 					${

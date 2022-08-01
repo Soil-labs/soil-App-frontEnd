@@ -45,7 +45,7 @@ const GeneralGreenFrom = (props) => {
       returnCollaborationLinks: true,
     };
     console.log("params from colab child", params);
-    // dispatch(updateProject(params));
+    dispatch(updateProject(params));
     props.changePhase(props.phase);
   };
   return (
