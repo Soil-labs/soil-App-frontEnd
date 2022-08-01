@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import { findMembers } from "../../redux/slices/usersInspectSlice";
@@ -16,6 +17,7 @@ function Projects() {
   const [currentUserIndex, setCurrentUserIndex] = useState(null);
   const [savedUsers, setSavedUsers] = useState([]);
   const [saveError, setSaveError] = useState(false);
+  const router = useRouter();
 
   // const memberIsSelected = (member) => {
   //   const selectedMembers = [...users, ...savedUsers];
@@ -36,6 +38,18 @@ function Projects() {
     const params = {};
     dispatch(findMembers(params));
   }, [dispatch]);
+
+  useLayoutEffect(() => {
+    if (!router.query.id || !members || !members.length) return;
+    let idsQuery = router.query.id;
+    let _ids = [];
+    console.log(idsQuery);
+    if (idsQuery?.length === 1) _ids = [idsQuery];
+    if (idsQuery?.length >= 1) _ids = idsQuery;
+    setUsers(
+      members.filter((member) => idsQuery.some((id) => member._id == id))
+    );
+  }, [router.query.id, members]);
 
   const setUserCallback = useCallback(
     (item) => {
