@@ -1,25 +1,28 @@
-import { useState } from "react";
+import { useLayoutEffect, useState, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { findMembers } from "../../redux/slices/usersInspectSlice";
+import { updateUser } from "../../redux/slices/userInspectSlice";
 import Layout from "../../components/layout/Layout";
 import Avatar from "../../components/Avatar";
 import EditUser from "../../components/EditUser";
-
-const mockData = {
-  users: [
-    {
-      discordName: "Milo",
-      discordAvatar: "https://placeimg.com/480/480/nature",
-    },
-    {
-      discordName: "Sbelka",
-      discordAvatar: "https://placeimg.com/480/480/nature",
-    },
-  ],
-};
+import UserSelector from "../../components/UserSelector";
+import Button from "../../components/Button";
 
 function Projects() {
-  const [users, setUsers] = useState(mockData.users);
+  const dispatch = useDispatch();
+  const members = useSelector((state) => state.usersInspect.members);
+  const [users, setUsers] = useState([]);
   const [currentUserIndex, setCurrentUserIndex] = useState(null);
   const [savedUsers, setSavedUsers] = useState([]);
+  const [saveError, setSaveError] = useState(false);
+
+  // const memberIsSelected = (member) => {
+  //   const selectedMembers = [...users, ...savedUsers];
+  //   return selectedMembers.some(
+  //     (selectedMember) => selectedMember._id === member._id
+  //   );
+  // };
 
   const handleEditUser = (userData) => {
     const updatedUsers = users.map((user, index) => {
@@ -29,7 +32,34 @@ function Projects() {
     setUsers(updatedUsers);
   };
 
-  const handleSaveUser = () => {
+  useLayoutEffect(() => {
+    const params = {};
+    dispatch(findMembers(params));
+  }, [dispatch]);
+
+  const setUserCallback = useCallback(
+    (item) => {
+      setUsers([...users, item.user]);
+    },
+    [users]
+  );
+
+  const handleSaveUser = async () => {
+    const currUser = users[currentUserIndex];
+    const params = {
+      _id: currUser._id,
+      discordName: currUser.discordName,
+      interest: currUser.interest,
+      timeZone: currUser.timeZone,
+      hoursPerWeek: currUser.hoursPerWeek,
+      skills: currUser.skills,
+    };
+    const { type } = await dispatch(updateUser(params));
+    console.log(type);
+    if (type.includes("rejected")) {
+      setSaveError(true);
+      return;
+    }
     setSavedUsers([...savedUsers, users[currentUserIndex]]);
     setUsers(users.filter((user, index) => index !== currentUserIndex));
     setCurrentUserIndex(null);
@@ -40,10 +70,21 @@ function Projects() {
     setCurrentUserIndex(null);
   };
 
+  useEffect(() => {
+    if (saveError) setTimeout(() => setSaveError(false), 5000);
+  }, [saveError]);
+
   return (
     <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       {/* How to apply column */}
+
       <section className="col-span-1">
+        <UserSelector
+          setDataCallback={setUserCallback}
+          name="user"
+          options={members}
+          placeholder="Search user"
+        />
         {users.map((user, index) => (
           <div
             key={index}
@@ -51,6 +92,7 @@ function Projects() {
               console.log(index);
               setCurrentUserIndex(index);
             }}
+            className="flex items-center p-1 rounded-lg hover:bg-white cursor-pointer"
           >
             <Avatar src={user.discordAvatar} />
             <span>{user.discordName}</span>
@@ -61,15 +103,26 @@ function Projects() {
       {/* Main column */}
       <main className="col-span-3">
         {currentUserIndex !== null && (
-          <>
-            <h3>FILL OUT NEW USER PROFILE</h3>
-            <EditUser
-              user={users[currentUserIndex]}
-              setUserCallback={handleEditUser}
-            />
-            <button onClick={handleSaveUser}>Save</button>
-            <button onClick={handleDeleteUser}>Delete</button>
-          </>
+          <div className="relative w-full bg-white p-3 rounded-xl">
+            <>
+              {saveError && (
+                <h4 className="p-2 text-white bg-red-500 rounded-lg mb-2">
+                  User could not be saved
+                </h4>
+              )}
+              <h3 className="text-center">FILL OUT NEW USER PROFILE</h3>
+              <EditUser
+                user={users[currentUserIndex]}
+                setUserCallback={handleEditUser}
+              />
+              <div onClick={handleSaveUser} className="inline-block">
+                <Button>Save</Button>
+              </div>
+              <div onClick={handleDeleteUser} className="inline-block">
+                <Button>Delete</Button>
+              </div>
+            </>
+          </div>
         )}
       </main>
 
@@ -82,13 +135,14 @@ function Projects() {
               console.log(index);
               setCurrentUserIndex(index);
             }}
+            className="flex items-center p-1"
           >
             <Avatar src={user.discordAvatar} />
             <span>{user.discordName}</span>
           </div>
         ))}
       </section>
-      <p>{JSON.stringify(users[currentUserIndex])}</p>
+      {/* <p>{JSON.stringify(savedUsers)}</p> */}
     </div>
   );
 }

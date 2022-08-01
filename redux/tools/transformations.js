@@ -58,7 +58,7 @@ export function jsonToString(jsonT) {
       // jsonString = jsonString.slice(0, -1);
       jsonString += "},";
     }
-    jsonString = jsonString.slice(0, -1);
+    // jsonString = jsonString.slice(0, -1); //@TODO eloi removed this line make sure everything is still working
     jsonString += "]";
   } else if (getType(jsonT) === "object") {
     jsonString = "{\n";
