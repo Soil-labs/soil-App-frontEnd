@@ -100,7 +100,7 @@ function StepsForOnboardComponent(props) {
                 props.changePhase(props.phase);
               }}
             >
-              <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
+              <ChevronDoubleDownIcon className="w-10 h-10 mt-40 font-light text-black stroke-1" />
             </button>
           </div>
         </div>

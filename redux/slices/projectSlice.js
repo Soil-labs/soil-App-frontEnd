@@ -47,12 +47,10 @@ export const updateProject = createAsyncThunk(
     if (params.collaborationLinks) {
       params.collaborationLinks = jsonToString(params.team);
     }
-  console.log("params",params)
+    console.log("params from slice",params)
     const response = await apiClient(updateProjectMutation(params));
 
     console.log("response.data.data.updateProject", response.data.data.updateProject)
-    console.log("response.data.data", response.data.data)
-    console.log("response.data", response.data)
     return response.data.data.updateProject;
     
   }

@@ -1,4 +1,7 @@
 import React from "react";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProject } from "../../redux/slices/projectSlice";
 import {
   CurrencyDollarIcon,
   TrendingUpIcon,
@@ -7,6 +10,29 @@ import {
 } from "@heroicons/react/solid";
 
 const GreenBudgetForm = (props) => {
+  const [budget, setBudget] = useState("")
+
+   const dispatch = useDispatch();
+
+  const handleChangePhase = () => {
+    const params = {
+      _id: props._id,
+      budget: {
+        totalBudget: budget.toString(),
+        token: "",
+        perHour: "",
+        returnBudget: true,
+      },
+      dates: {
+        kickOff: '',
+        complition: '',
+        returnDates: true,
+      },
+    };
+    console.log("params from budget child", params)
+    dispatch(updateProject(params));
+    props.changePhase(props.phase);}
+
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">
@@ -32,10 +58,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  value={props.questions.budget}
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "budget")
-                  }
+                  onChange={(e) => {
+                    setBudget(e.target.value);
+                  }}
                   
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
@@ -132,7 +157,7 @@ const GreenBudgetForm = (props) => {
         </div>
         <button
           onClick={() => {
-            props.changePhase(props.phase);
+            handleChangePhase();
           }}
         >
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />

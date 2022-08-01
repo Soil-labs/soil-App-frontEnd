@@ -15,6 +15,8 @@ import RoleComponent from "../../components/TypeFormLikePage/RoleComponent";
 import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvComponent";
 import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
 import ProjectBoard from "../../components/ProjectComponent";
+import YouDidItComponet from "../../components/TypeFormLikePage/YouDidItComponet";
+import DescpitionComponent from "../../components/TypeFormLikePage/descpitionComponent";
 
 function Form() {
   // const [phase, setPhase] = useState(0);
@@ -49,9 +51,9 @@ function Form() {
 
   const changePhase = (phaseNow) => {
     // if (questions.length - 1 > phaseNow) {
-    if (phaseNow <= 4) {
+    if (phaseNow <= 5) {
       setPhase((phaseNow += 1));
-      submitReply();
+      // submitReply();
     }
     // submitReply();
   };
@@ -60,73 +62,101 @@ function Form() {
   const _id = useSelector((state) => state.projectInspect._id);
   const title = useSelector((state) => state.projectInspect.title);
   const description = useSelector((state) => state.projectInspect.description);
-  const budget = useSelector((state) => state.projectInspect.budget.totalBudget);
+  // const budget = useSelector(
+  //   (state) => state.projectInspect.budget.totalBudget
+  // );
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChange = (e, phaseNow, changeField) => {
     let newArr = [...questions];
     newArr[phaseNow][changeField] = e.target.value;
     setQuestions(newArr);
-    console.log("questions", questions);
+    // console.log("questions", questions);
   };
 
   const submitReply = () => {
-    const params = {
-      _id: _id,
-      title: questions[0].reply,
-      description: questions[1].reply,
-      budget: {
-        totalBudget: questions[2].budget.toString(),
-        token: "",
-        perHour: "",
+    const params = [
+      { _id: _id, title: questions[0].reply },
+      { _id: _id, description: questions[1].reply },
+      {
+        _id: _id,
+        budget: {
+          totalBudget: questions[2].budget.toString(),
+          token: "",
+          perHour: "",
+          returnBudget: true,
+        },
+        dates: {
+          kickOff: questions[2].kickoffDate,
+          complition: questions[2].wrapUpDate,
+          returnDates: true,
+        },
       },
-      // dates: {
-      //   kickOff: questions[2].kickoffDate,
-      //   complition: questions[2].wrapUpDate,
+
+      // {
+      //   _id: _id,
+      //   kickoffDate: questions[2].kickoffDate,
+      //   wrapUpDate: questions[2].wrapUpDate,
+      //   notesAndJustification: questions[2].notesAndJustification,
       // },
-      
-      // kickoffDate: questions[2].kickoffDate,
-      // wrapUpDate: questions[2].wrapUpDate,
-      // notesAndJustification: questions[2].notesAndJustification,
-      collaborationLinks: [
-        {
-          title: "Twitter",
-          link: questions[3].link_1,
-        },
-        {
-          title: "GitHub",
-          link: questions[3].link_2,
-        },
-        {
-          title: "Discord",
-          link: questions[3].link_3,
-        },
-        {
-          title: "Notion",
-          link: questions[3].link_4,
-        },
-        {
-          title: "Telegram",
-          link: questions[3].link_5,
-        },
-        
-      ],
-      returnBudget: true,
-      // returnDates: true,
-      returnCollaborationLinks: true,
-    };
+      {
+        _id: _id,
+        collaborationLinks: [
+          {
+            title: "Twitter",
+            link: questions[3].link_1,
+          },
+          {
+            title: "GitHub",
+            link: questions[3].link_2,
+          },
+          {
+            title: "Discord",
+            link: questions[3].link_3,
+          },
+          {
+            title: "Notion",
+            link: questions[3].link_4,
+          },
+          {
+            title: "Telegram",
+            link: questions[3].link_5,
+          },
+        ],
+        returnCollaborationLinks: true,
+      },
+    ];
+
+    // you can remove this :)
+    // const sm ={
+    //   twitter: questions[3].link_1,
+    //   GitHub: questions[3].link_2,
+    //   Discord: questions[3].link_3,
+    //   Notion: questions[3].link_4,
+    //   Telegram: questions[3].link_5,
+    // }
+
+    // const _params = {
+    //   collaborationLinks:[
+    //     {
+    //       title: "Twitter",
+    //       link:sm.twitter
+    //     }
+    //   ]
+    // }
 
     console.log("questions", questions);
     console.log("params from index.....", params);
-    console.log("params.budget from index", params.budget);
-    console.log("params.budget from index", params.budget);
-    console.log("collaborationLinks", params.collaborationLinks);
-    console.log(
-      "params.budget.totalBudget from index",
-      params.budget.totalBudget
-    );
-    dispatch(updateProject(params));
+    console.log("params from index.....", params[phase]);
+    // console.log("params.budget from index", params.budget);
+    // console.log("params.budget from index", params.budget);
+    // console.log("collaborationLinks", params.collaborationLinks);
+    // console.log(
+    //   "params.budget.totalBudget from index",
+    //   params.budget.totalBudget
+    // );
+    // dispatch(updateProject(params[phase]));
   };
 
   //Testing\\
@@ -181,13 +211,24 @@ function Form() {
 
   return (
     <>
-      {phase <= 1 ? (
+      {phase == 0 ? (
         <FormComponent
+          fieldTitle="What’s the tilte of the new project?"
           handleChange={handleChange}
           changePhase={changePhase}
           questions={questions[phase]}
           phase={phase}
-          submitReply={submitReply}
+          // submitReply={submitReply}
+        />
+      ) : phase == 1 ? (
+        <DescpitionComponent
+          fieldTitle="Description of the new project?"
+          handleChange={handleChange}
+          changePhase={changePhase}
+          questions={questions[phase]}
+          phase={phase}
+          // submitReply={submitReply}
+          _id = {_id}
         />
       ) : phase == 2 ? (
         <GreenBudgetForm
@@ -196,6 +237,7 @@ function Form() {
           questions={questions[phase]}
           phase={phase}
           submitReply={submitReply}
+          _id = {_id}
         />
       ) : phase == 3 ? (
         <ColabEnvComponent
@@ -219,6 +261,8 @@ function Form() {
           description={description}
           budget={budget}
         />
+      ) : phase == 6 ? (
+        <YouDidItComponet />
       ) : (
         phase
       )}

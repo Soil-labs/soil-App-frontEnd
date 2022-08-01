@@ -3,18 +3,19 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 
-export default function FormComponent(props) {
-
-  const [title, setTitle] = useState("");
+export default function DescpitionComponent(props) {
+//   const _id = useSelector((state) => state.projectInspect._id);
+  const [desciption, setDesciption] = useState("");
 
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
-      title: title,
-    };
-    console.log("params from Form child", params)
+    _id: props._id,
+    desciption: desciption
+    }
     dispatch(updateProject(params));
+    console.log("params from Descpition child", params)
     props.changePhase(props.phase);
   };
   return (
@@ -45,7 +46,7 @@ export default function FormComponent(props) {
                 <input
                   // value={title}
                   onChange={(e) => {
-                    setTitle(e.target.value);
+                    setDesciption(e.target.value);
                   }}
                   type="text"
                   name="name"
