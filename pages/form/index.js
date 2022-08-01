@@ -20,7 +20,7 @@ import DescpitionComponent from "../../components/TypeFormLikePage/descpitionCom
 
 function Form() {
   // const [phase, setPhase] = useState(0);
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(3);
   const [questions, setQuestions] = useState([
     {
       title: "What’s the tilte of the new project?",

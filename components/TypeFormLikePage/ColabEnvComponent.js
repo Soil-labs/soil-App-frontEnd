@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
@@ -8,55 +7,45 @@ import { FaDiscord } from "react-icons/fa";
 import { SiNotion } from "react-icons/si";
 
 const GeneralGreenFrom = (props) => {
-
   const dispatch = useDispatch();
 
-  const [colabLinks, setColabLinks] = useState()
-
-
-  /* _id: _id,
-        collaborationLinks: [
-          {
-            title: "Twitter",
-            link: questions[3].link_1,
-          },
-          {
-            title: "GitHub",
-            link: questions[3].link_2,
-          },
-          {
-            title: "Discord",
-            link: questions[3].link_3,
-          },
-          {
-            title: "Notion",
-            link: questions[3].link_4,
-          },
-          {
-            title: "Telegram",
-            link: questions[3].link_5,
-          },
-        ],
-        returnCollaborationLinks: true,
-      }, */
+  const [colabLinks, setColabLinks] = useState({
+    twitter: "",
+    github: "",
+    discord: "",
+    notion: "",
+    telegram: "",
+  });
 
   const handleChangePhase = () => {
     const params = {
       _id: props._id,
-      budget: {
-        totalBudget: budget.toString(),
-        token: "",
-        perHour: "",
-      },
-      returnBudget: true,
-      dates: {
-        kickOff: kickOff,
-        complition: complition,
-      },
-      returnDates: true,
+      collaborationLinks: [
+        {
+          title: "Twitter",
+          link: colabLinks.twitter,
+        },
+        {
+          title: "GitHub",
+          link: colabLinks.github,
+        },
+        {
+          title: "Discord",
+          link: colabLinks.discord,
+        },
+        {
+          title: "Notion",
+          link: colabLinks.notion,
+        },
+        {
+          title: "Telegram",
+          link: colabLinks.telegram,
+        },
+      ],
+      returnCollaborationLinks: true,
     };
-    console.log("params from budget child", params);
-    dispatch(updateProject(params));
+    console.log("params from colab child", params);
+    // dispatch(updateProject(params));
     props.changePhase(props.phase);
   };
   return (
@@ -80,8 +69,12 @@ const GeneralGreenFrom = (props) => {
               </div>
               <input
                 type="text"
-                value={props.questions.link_1}
-                onChange={(e) => props.handleChange(e, props.phase, "link_1")}
+                onChange={(e) => {
+                  const links = { ...colabLinks };
+                  links.twitter = e.target.value;
+                  setColabLinks(links);
+                  console.log(colabLinks);
+                }}
                 name="name"
                 id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
@@ -103,8 +96,12 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
-                value={props.questions.link_2}
-                onChange={(e) => props.handleChange(e, props.phase, "link_2")}
+                onChange={(e) => {
+                  const links = { ...colabLinks };
+                  links.github = e.target.value;
+                  setColabLinks(links);
+                  console.log(colabLinks);
+                }}
                 name="name"
                 id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
@@ -125,8 +122,12 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
-                value={props.questions.link_3}
-                onChange={(e) => props.handleChange(e, props.phase, "link_3")}
+                onChange={(e) => {
+                  const links = { ...colabLinks };
+                  links.discord = e.target.value;
+                  setColabLinks(links);
+                  console.log(colabLinks);
+                }}
                 name="name"
                 id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
@@ -147,8 +148,12 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
-                value={props.questions.link_4}
-                onChange={(e) => props.handleChange(e, props.phase, "link_4")}
+                onChange={(e) => {
+                  const links = { ...colabLinks };
+                  links.notion = e.target.value;
+                  setColabLinks(links);
+                  console.log(colabLinks);
+                }}
                 name="name"
                 id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
@@ -169,10 +174,14 @@ const GeneralGreenFrom = (props) => {
               <input
                 // onChange={(e) => handleChange(e, i)}
                 type="text"
-                value={props.questions.link_5}
-                  onChange={(e) => props.handleChange(e, props.phase, "link_5")}
-                  name="name"
-                  id="name"
+                onChange={(e) => {
+                  const links = { ...colabLinks };
+                  links.telegram = e.target.value;
+                  setColabLinks(links);
+                  console.log(colabLinks);
+                }}
+                name="name"
+                id="name"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-[370px] h-[30px]
                        pl-8 sm:text-sm border-gray-300  rounded-3xl"
               />
@@ -182,7 +191,7 @@ const GeneralGreenFrom = (props) => {
 
         <button
           onClick={() => {
-            props.changePhase(props.phase);
+            handleChangePhase();
           }}
         >
           <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 mt-60" />
