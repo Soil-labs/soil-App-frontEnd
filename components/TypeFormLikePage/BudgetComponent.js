@@ -21,13 +21,13 @@ const GreenBudgetForm = (props) => {
         totalBudget: budget.toString(),
         token: "",
         perHour: "",
-        returnBudget: true,
       },
+      returnBudget: true,
       dates: {
         kickOff: '',
         complition: '',
-        returnDates: true,
       },
+      returnDates: true,
     };
     console.log("params from budget child", params)
     dispatch(updateProject(params));

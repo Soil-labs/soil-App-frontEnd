@@ -5,14 +5,14 @@ import { updateProject } from "../../redux/slices/projectSlice";
 
 export default function DescpitionComponent(props) {
 //   const _id = useSelector((state) => state.projectInspect._id);
-  const [desciption, setDesciption] = useState("");
+  const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
     _id: props._id,
-    desciption: desciption
+    description: description
     }
     dispatch(updateProject(params));
     console.log("params from Descpition child", params)
@@ -46,7 +46,7 @@ export default function DescpitionComponent(props) {
                 <input
                   // value={title}
                   onChange={(e) => {
-                    setDesciption(e.target.value);
+                    setDescription(e.target.value);
                   }}
                   type="text"
                   name="name"
