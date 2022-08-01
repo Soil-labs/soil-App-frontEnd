@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 import {
   CurrencyDollarIcon,
@@ -10,9 +10,11 @@ import {
 } from "@heroicons/react/solid";
 
 const GreenBudgetForm = (props) => {
-  const [budget, setBudget] = useState("")
+  const [budget, setBudget] = useState("");
+  const [kickOff, setKickOff] = useState("");
+  const [complition, setCompletion] = useState("");
 
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
@@ -24,14 +26,15 @@ const GreenBudgetForm = (props) => {
       },
       returnBudget: true,
       dates: {
-        kickOff: '',
-        complition: '',
+        kickOff: kickOff,
+        complition: complition,
       },
       returnDates: true,
     };
-    console.log("params from budget child", params)
+    console.log("params from budget child", params);
     dispatch(updateProject(params));
-    props.changePhase(props.phase);}
+    props.changePhase(props.phase);
+  };
 
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
@@ -61,7 +64,6 @@ const GreenBudgetForm = (props) => {
                   onChange={(e) => {
                     setBudget(e.target.value);
                   }}
-                  
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -83,9 +85,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "kickoffDate")
-                  }
+                  onChange={(e) => {
+                    setKickOff(e.target.value);
+                  }}
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
                        pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -107,9 +109,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "wrapUpDate")
-                  }
+                  onChange={(e) => {
+                    setCompletion(e.target.value);
+                  }}
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
      pl-10 sm:text-sm border-gray-300 rounded-2xl"

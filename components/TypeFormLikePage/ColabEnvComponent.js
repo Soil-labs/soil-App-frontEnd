@@ -1,10 +1,64 @@
-import React from "react";
+
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProject } from "../../redux/slices/projectSlice";
 import { ChevronDoubleDownIcon, LinkIcon } from "@heroicons/react/solid";
 import { BsTwitter, BsTelegram, BsGithub } from "react-icons/bs";
 import { FaDiscord } from "react-icons/fa";
 import { SiNotion } from "react-icons/si";
 
 const GeneralGreenFrom = (props) => {
+
+  const dispatch = useDispatch();
+
+  const [colabLinks, setColabLinks] = useState()
+
+
+  /* _id: _id,
+        collaborationLinks: [
+          {
+            title: "Twitter",
+            link: questions[3].link_1,
+          },
+          {
+            title: "GitHub",
+            link: questions[3].link_2,
+          },
+          {
+            title: "Discord",
+            link: questions[3].link_3,
+          },
+          {
+            title: "Notion",
+            link: questions[3].link_4,
+          },
+          {
+            title: "Telegram",
+            link: questions[3].link_5,
+          },
+        ],
+        returnCollaborationLinks: true,
+      }, */
+
+  const handleChangePhase = () => {
+    const params = {
+      _id: props._id,
+      budget: {
+        totalBudget: budget.toString(),
+        token: "",
+        perHour: "",
+      },
+      returnBudget: true,
+      dates: {
+        kickOff: kickOff,
+        complition: complition,
+      },
+      returnDates: true,
+    };
+    console.log("params from budget child", params);
+    dispatch(updateProject(params));
+    props.changePhase(props.phase);
+  };
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">

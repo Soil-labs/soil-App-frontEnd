@@ -77,6 +77,7 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.budget = payload.budget;
       // console.log("budget", payload)
+      state.dates = payload.dates;
     },
     [findProject.pending]: (state) => {
       state.loading = true;
