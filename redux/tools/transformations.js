@@ -68,3 +68,50 @@ export function jsonToString(jsonT) {
 
   return jsonString;
 }
+
+export function jsonToStringWithEnums(jsonT, _enums = []) {
+  let jsonString;
+
+  if (Array.isArray(jsonT)) {
+    jsonString = "[";
+    for (var i = 0; i < jsonT.length; i++) {
+      jsonString += "{";
+      jsonString += subJsonToString(jsonT[i]);
+
+      // jsonString = jsonString.slice(0, -1);
+      jsonString += "},";
+    }
+    jsonString = jsonString.slice(0, -1);
+    jsonString += "]";
+  } else if (getType(jsonT) === "object") {
+    jsonString = "{\n";
+    jsonString += subJsonToString(jsonT);
+    jsonString += "}";
+  }
+
+  console.log("jsonString = ", jsonString);
+  _enums.forEach((_enum) => {
+    jsonString = jsonString
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum)
+      .replace(`"${_enum}"`, _enum);
+  });
+  // jsonString = jsonString.replace(`"${_enum}"`, _enum);
+  console.log("jsonString = ", jsonString);
+
+  return jsonString;
+}

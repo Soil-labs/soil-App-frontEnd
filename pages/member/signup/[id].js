@@ -8,8 +8,9 @@ import {
   Info,
   Thoughts,
   Skill,
+  Credits,
 } from "../../../components/UserSignUpComponents";
-import { findMember } from "../../../redux/slices/memberSlice";
+import { findMember, updateMember } from "../../../redux/slices/memberSlice";
 
 const SignUp = ({ id }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,40 @@ const SignUp = ({ id }) => {
     dispatch(findMember(params));
   }, [id, dispatch]);
 
+  const onSubmit = async () => {
+    const params = {
+      _id: formData.id,
+      bio: formData.description,
+      hoursPerWeek: formData.hours,
+      timeZone: formData.timeZone,
+      skills: formData.skills.map((skill) => {
+        return { id: skill.skillInfo._id, level: skill.level };
+      }),
+      enums: ["learning", "junior", "mid", "senior"],
+      links: links.map((link) => {
+        return { name: link.name, url: link.value };
+      }),
+      previusProjects: experience.map((exp) => {
+        return {
+          title: exp.title,
+          description: exp.discription,
+          positionName: exp.positionName,
+          startDate: exp.startDate,
+          endDate: exp.endDate,
+        };
+      }),
+      content: {
+        mostProud: formData.proudProject,
+        showCaseAbility: formData.pieceOfWork,
+      },
+      returnSkills: true,
+      returnSocialLink: true,
+    };
+    console.log("params====", params);
+    dispatch(updateMember(params));
+    setPage((currPage) => currPage + 1);
+  };
+
   useEffect(() => {
     if (member.loading === false) {
       setFormData({
@@ -34,17 +69,18 @@ const SignUp = ({ id }) => {
   }, [member]);
 
   const [formData, setFormData] = useState({
+    id: id,
     discordName: "",
     avatar: "",
     description: "",
-    hours: "",
+    hours: 0,
     weeks: "",
     timeZone: "",
     links: [],
     experience: [],
     proudProject: "",
     pieceOfWork: "",
-    skills: ["Machine Learning", "Figma", "Frontend"],
+    skills: [],
   });
 
   const [learning, setLearning] = useState([]);
@@ -59,25 +95,27 @@ const SignUp = ({ id }) => {
     {
       id: "1",
       value: "",
+      name: "twitter",
       icon: "/twitter.png",
     },
     {
       id: "2",
       value: "",
+      name: "github",
       icon: "/github.png",
     },
-    { id: "3", value: "", icon: "/discord.png" },
+    { id: "3", value: "", name: "discord", icon: "/discord.png" },
   ]);
 
   const [experience, setExperience] = useState([
     {
       id: generate(),
-      position: "",
-      company: "",
-      workLink: "",
+      positionName: "",
+      title: "",
+      link: "",
       profileLink: "",
       contract: "",
-      roleDiscription: "",
+      discription: "",
       startDate: null,
       endDate: null,
       isDone: false,
@@ -87,7 +125,10 @@ const SignUp = ({ id }) => {
   const [page, setPage] = useState(0);
 
   const addLinks = () => {
-    setLinks([...links, { id: generate(), value: "", icon: "" }]);
+    setLinks([
+      ...links,
+      { id: generate(), name: "extra", value: "", icon: "" },
+    ]);
   };
 
   const addExperience = () => {
@@ -95,12 +136,12 @@ const SignUp = ({ id }) => {
       ...experience,
       {
         id: generate(),
-        position: "",
-        company: "",
-        workLink: "",
+        positionName: "",
+        title: "",
+        link: "",
         profileLink: "",
         contract: "",
-        roleDiscription: "",
+        discription: "",
         startDate: null,
         endDate: null,
         isDone: false,
@@ -108,31 +149,9 @@ const SignUp = ({ id }) => {
     ]);
   };
 
-  // useEffect(() => {
-  //   experience.map((e) => {
-  //     if (e.isDone) {
-  //       if (e.id !== formData.experience.find((x) => x.id)) {
-  //         setFormData((currentFormData) =>
-  //           produce(currentFormData, (x) => {
-  //             x.experience.push(e);
-  //           })
-  //         );
-  //         console.log("can be pused if id did not exist");
-  //       } else {
-  //         console.log("cannot be pushed if id did exist");
-  //       }
-  //     } else {
-  //       console.log("cannot be pushed if done");
-  //     }
-  //   });
-  // }, [experience, formData.experience]);
-
-  // useEffect(() => {
-  //   console.log(
-  //     "formData: ",
-  //     experience[0].id === formData.experience.find((x) => x.id)
-  //   );
-  // }, [experience, formData.experience]);
+  useEffect(() => {
+    formData.skills = [...learning, ...junior, ...midLevel, ...senior];
+  }, [junior, midLevel, senior, learning, formData]);
 
   function formPage() {
     if (page === 0) {
@@ -174,6 +193,8 @@ const SignUp = ({ id }) => {
       return (
         <Final formData={formData} links={links} experience={experience} />
       );
+    } else if (page === 6) {
+      return <Credits />;
     }
   }
 
@@ -183,20 +204,22 @@ const SignUp = ({ id }) => {
         <div
           className={`h-full ${
             page === 0
-              ? "w-[20%]"
+              ? "w-[16.66%]"
               : page == 1
-              ? "w-[40%]"
+              ? "w-[33.32%]"
               : page == 2
-              ? "w-[60%]"
+              ? "w-[49.98%]"
               : page == 3
-              ? "w-[80%]"
+              ? "w-[66.64%]"
+              : page == 4
+              ? "w-[83.3%]"
               : "w-[100%]"
           } bg-green-800`}
         ></div>
       </div>
       <div>{formPage()}</div>
       <div className="flex justify-center items-center">
-        {page >= 1 && (
+        {page >= 1 && page <= 5 && (
           <button
             className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
             onClick={() => setPage((currPage) => currPage - 1)}
@@ -215,7 +238,7 @@ const SignUp = ({ id }) => {
         {page == 5 && (
           <button
             className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-            onClick={() => {}}
+            onClick={() => onSubmit()}
           >
             Submit
           </button>

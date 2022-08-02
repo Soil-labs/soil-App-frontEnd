@@ -2,6 +2,21 @@ import { linkClasses } from "@mui/material";
 import React from "react";
 
 const Final = ({ formData, links, experience }) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   return (
     <div className="flex justify-between">
       <div className="flex flex-col justify-center items-start gap-5">
@@ -38,7 +53,7 @@ const Final = ({ formData, links, experience }) => {
                 key={index}
                 className="bg-pink-400 rounded-full px-2 w-max font-medium"
               >
-                {s}
+                {s.skillInfo.name}
               </p>
             ))}
           </div>
@@ -65,12 +80,20 @@ const Final = ({ formData, links, experience }) => {
                   className="bg-white px-10 py-3 flex flex-col justify-center items-center rounded-lg"
                 >
                   <h1 className="text-xl font-semibold uppercase">
-                    {e.position}
+                    {e.positionName}
                   </h1>
                   <p className="text-gray-400">
-                    {e.company}-{e.contract}
+                    {e.title}-{e.contract}
                   </p>
-                  <p className="text-gray-400 text-sm">Oct 2021 - Present</p>
+                  <p className="text-gray-400 text-sm">
+                    {`${new Date(e.startDate).getUTCFullYear()} ${
+                      months[new Date(e.startDate).getUTCMonth() + 1]
+                    }`}{" "}
+                    -{" "}
+                    {`${new Date(e.endDate).getUTCFullYear()} ${
+                      months[new Date(e.endDate).getUTCMonth() + 1]
+                    }`}
+                  </p>
                 </div>
               );
             }

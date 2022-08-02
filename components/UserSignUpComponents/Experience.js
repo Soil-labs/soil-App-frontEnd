@@ -183,19 +183,19 @@ const Experience = ({ experience, setExperience, addExperience }) => {
       {experience.map((e, index) => (
         <div key={e.id}>
           <ExperienceTab
-            position={e.position}
+            position={e.positionName}
             setPosition={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].position = e.target.value;
+                  x[index].positionName = e.target.value;
                 })
               )
             }
-            company={e.company}
+            company={e.title}
             setCompany={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].company = e.target.value;
+                  x[index].title = e.target.value;
                 })
               )
             }
@@ -215,19 +215,19 @@ const Experience = ({ experience, setExperience, addExperience }) => {
                 })
               )
             }
-            roleDiscription={e.roleDiscription}
+            roleDiscription={e.discription}
             setRoleDiscription={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].roleDiscription = e.target.value;
+                  x[index].discription = e.target.value;
                 })
               )
             }
-            workLink={e.workLink}
+            workLink={e.link}
             setWorkLink={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].workLink = e.target.value;
+                  x[index].link = e.target.value;
                 })
               )
             }

@@ -35,10 +35,10 @@ const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
             <option value="" disabled selected>
               HOURS
             </option>
-            <option value="10 hrs">10 hrs</option>
-            <option value="20 hrs">20 hrs</option>
-            <option value="30 hrs">30 hrs</option>
-            <option value="40 hrs">40 hrs</option>
+            <option value={10}>10 hrs</option>
+            <option value={20}>20 hrs</option>
+            <option value={30}>30 hrs</option>
+            <option value={40}>40 hrs</option>
           </select>
           <select
             name="weeks"

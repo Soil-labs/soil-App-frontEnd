@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SkillsInjector from "../SkillsInjector";
 
-const SkillTab = ({ tag, onClick }) => {
-  const colors = ["#268A02", "#53D4F0", "#FF72BE", "#ECF047", "#8296FF"];
+const SkillTab = ({ tag, onClick, backgroundColor }) => {
   return (
     <div
       className="px-2 w-max rounded-full flex gap-2 justify-center items-center"
       style={{
-        backgroundColor: `${colors[Math.floor(Math.random() * colors.length)]}`,
+        backgroundColor: backgroundColor,
       }}
     >
       {tag}
@@ -18,11 +17,13 @@ const SkillTab = ({ tag, onClick }) => {
   );
 };
 
-const SkillDropper = ({ heading, children, onAdd }) => {
+const SkillDropper = ({ heading, children, onAdd, selected }) => {
   return (
     <div className="bg-white h-[10rem] w-[24rem] rounded-lg">
       <p
-        className="uppercase font-semibold text-lg text-center"
+        className={`uppercase font-semibold text-lg text-center ${
+          selected && "border-blue-600 border-[2px] rounded-md cursor-pointer"
+        }`}
         onClick={onAdd}
       >
         {heading}
@@ -44,9 +45,22 @@ const Skill = ({
 }) => {
   const [skills, setSkills] = useState([]);
 
+  const skillEnum = {
+    learning: "learning",
+    junior: "junior",
+    mid: "mid",
+    senior: "senior",
+  };
+
+  useEffect(() => {
+    console.log("skills", skills);
+  }, [skills]);
+
   const [highlightedSkill, setHighlightedSkill] = useState(null);
   const [selected, setSelected] = useState(false);
   const [skillbeenAdded, setSkillbeenAdded] = useState(false);
+
+  const colors = ["#268A02", "#53D4F0", "#FF72BE", "#ECF047", "#8296FF"];
 
   return (
     <div className="flex flex-col gap-4">
@@ -62,9 +76,13 @@ const Skill = ({
       <div className="flex justify-between">
         <SkillDropper
           heading="Learning"
+          selected={highlightedSkill !== null}
           onAdd={() => {
             if (highlightedSkill !== null) {
-              setLearning([...learning, highlightedSkill]);
+              setLearning([
+                ...learning,
+                { skillInfo: highlightedSkill, level: skillEnum.learning },
+              ]);
               setSkills(
                 skills.filter(
                   (selected) => selected._id !== highlightedSkill._id
@@ -77,19 +95,26 @@ const Skill = ({
           {learning.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l.name}
+              tag={l.skillInfo.name}
+              backgroundColor={
+                colors[Math.floor(Math.random() * colors.length)]
+              }
               onClick={() => {
                 setLearning(learning.filter((_, i) => i !== index));
-                setSkills([...skills, l]);
+                setSkills([...skills, l.skillInfo]);
               }}
             />
           ))}
         </SkillDropper>
         <SkillDropper
           heading="Junior"
+          selected={highlightedSkill !== null}
           onAdd={() => {
             if (highlightedSkill !== null) {
-              setJunior([...junior, highlightedSkill]);
+              setJunior([
+                ...junior,
+                { skillInfo: highlightedSkill, level: skillEnum.junior },
+              ]);
               setSkills(
                 skills.filter(
                   (selected) => selected._id !== highlightedSkill._id
@@ -102,10 +127,13 @@ const Skill = ({
           {junior.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l.name}
+              tag={l.skillInfo.name}
+              backgroundColor={
+                colors[Math.floor(Math.random() * colors.length)]
+              }
               onClick={() => {
                 setJunior(junior.filter((_, i) => i !== index));
-                setSkills([...skills, l]);
+                setSkills([...skills, l.skillInfo]);
               }}
             />
           ))}
@@ -114,9 +142,13 @@ const Skill = ({
       <div className="flex justify-between">
         <SkillDropper
           heading="mid level"
+          selected={highlightedSkill !== null}
           onAdd={() => {
             if (highlightedSkill !== null) {
-              setMidLevel([...midLevel, highlightedSkill]);
+              setMidLevel([
+                ...midLevel,
+                { skillInfo: highlightedSkill, level: skillEnum.mid },
+              ]);
               setSkills(
                 skills.filter(
                   (selected) => selected._id !== highlightedSkill._id
@@ -129,19 +161,26 @@ const Skill = ({
           {midLevel.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l.name}
+              backgroundColor={
+                colors[Math.floor(Math.random() * colors.length)]
+              }
+              tag={l.skillInfo.name}
               onClick={() => {
                 setMidLevel(midLevel.filter((_, i) => i !== index));
-                setSkills([...skills, l]);
+                setSkills([...skills, l.skillInfo]);
               }}
             />
           ))}
         </SkillDropper>
         <SkillDropper
           heading="Senior"
+          selected={highlightedSkill !== null}
           onAdd={() => {
             if (highlightedSkill !== null) {
-              setSenior([...senior, highlightedSkill]);
+              setSenior([
+                ...senior,
+                { skillInfo: highlightedSkill, level: skillEnum.senior },
+              ]);
               setSkills(
                 skills.filter(
                   (selected) => selected._id !== highlightedSkill._id
@@ -154,10 +193,13 @@ const Skill = ({
           {senior.map((l, index) => (
             <SkillTab
               key={index}
-              tag={l.name}
+              backgroundColor={
+                colors[Math.floor(Math.random() * colors.length)]
+              }
+              tag={l.skillInfo.name}
               onClick={() => {
                 setSenior(senior.filter((_, i) => i !== index));
-                setSkills([...skills, l]);
+                setSkills([...skills, l.skillInfo]);
               }}
             />
           ))}

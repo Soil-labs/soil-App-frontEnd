@@ -10,7 +10,7 @@ const Info = ({ formData, setFormData }) => {
           <input
             type="text"
             className="border-b-2 border-l-transparent border-t-transparent border-r-transparent border-[#505050] border-dotted focus:outline-0"
-            defaultValue={formData.discordName}
+            value={formData.discordName}
           />
         </div>
         <div className="h-20 w-20 bg-gray-600 rounded-full overflow-hidden flex justify-center items-center relative">

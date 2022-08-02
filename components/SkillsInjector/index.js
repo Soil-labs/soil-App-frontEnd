@@ -166,9 +166,7 @@ export default function SkillSelector({
             >
               <div className="w-full h-full px-3 flex items-center justify-between">
                 <span
-                  className={`mr-2 mb-px ${
-                    select === index ? "cursor-pointer" : "cursor-none"
-                  }`}
+                  className={`mr-2 mb-px cursor-pointer`}
                   onClick={() => {
                     setSelect(index);
                     setSelected(true);
