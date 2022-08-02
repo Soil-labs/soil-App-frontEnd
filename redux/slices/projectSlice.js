@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
 import findProjectQuery from "./graphql/project/queries/findProject";
-import { jsonToString } from "../tools/transformations";
+import { jsonToString,arrayToString } from "../tools/transformations";
 
 const initialState = {
   isDataAvailable: false,
@@ -50,8 +50,10 @@ export const updateProject = createAsyncThunk(
       params.collaborationLinks = jsonToString(params.collaborationLinks);
     }
     if (params.stepsJoinProject) {
-      params.stepsJoinProject = jsonToString(params.stepsJoinProject);
+      params.stepsJoinProject = arrayToString(params.stepsJoinProject);
     }
+
+
     console.log("params from slice",params)
     const response = await apiClient(updateProjectMutation(params));
 

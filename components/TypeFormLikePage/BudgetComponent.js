@@ -30,6 +30,8 @@ const GreenBudgetForm = (props) => {
         complition: complition,
       },
       returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
     };
     console.log("params from budget child", params);
     dispatch(updateProject(params));

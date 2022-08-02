@@ -10,16 +10,16 @@ function StepsForOnboardComponent(props) {
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
-    let arr
-    const finalArray = steps.map(function (obj) {
-      let arr = obj.title;
-    });
+    const titles = steps.map((obj) => obj.title);
     // const stepsArr = Object.values(steps)
     // console.log("Object.values(steps)",Object.keys(steps))
-    console.log("arr",arr)
+    console.log("titles",titles)
     const params = {
     _id: props._id,
-    stepsJoinProject: arr
+    stepsJoinProject: titles,
+    returnDates: true,
+    returnBudget: true,
+    returnCollaborationLinks: true,
     }
     dispatch(updateProject(params));
     console.log("params from Steps child", params)

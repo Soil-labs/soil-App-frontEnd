@@ -4,18 +4,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 
 export default function DescpitionComponent(props) {
-//   const _id = useSelector((state) => state.projectInspect._id);
+  //   const _id = useSelector((state) => state.projectInspect._id);
   const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
-    _id: props._id,
-    description: description
-    }
+      _id: props._id,
+      description: description,
+      returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
+    };
     dispatch(updateProject(params));
-    console.log("params from Descpition child", params)
+    console.log("params from Descpition child", params);
     props.changePhase(props.phase);
   };
   return (

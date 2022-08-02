@@ -1,28 +1,28 @@
-// export function arrayToString(arrayT) {
+export function arrayToString(arrayT) {
 
-//     console.log("change sd = " )
-//     if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
+    console.log("change sd = " )
+    if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
 
-//         let stringResult = "[";
+        let stringResult = "[";
 
-//         arrayT.forEach((a,idx) => {
-//             if (idx === arrayT.length - 1) {
-//                 stringResult += `"${a}"`;
-//             } else {
-//                 stringResult += `"${a}",`;
-//             }
-//         })
+        arrayT.forEach((a,idx) => {
+            if (idx === arrayT.length - 1) {
+                stringResult += `"${a}"`;
+            } else {
+                stringResult += `"${a}",`;
+            }
+        })
 
-//         stringResult += "]";
+        stringResult += "]";
 
-//         console.log("stringResult = " , stringResult)
+        console.log("stringResult = " , stringResult)
 
-//         return stringResult
-//     } else {
-//         return arrayT
-//     }
+        return stringResult
+    } else {
+        return arrayT
+    }
 
-// }
+}
 
 function subJsonToString(jsonT) {
   let stringResult = "";

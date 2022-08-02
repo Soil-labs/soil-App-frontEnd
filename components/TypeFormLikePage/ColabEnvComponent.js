@@ -42,6 +42,8 @@ const GeneralGreenFrom = (props) => {
           link: colabLinks.telegram,
         },
       ],
+      returnDates: true,
+      returnBudget: true,
       returnCollaborationLinks: true,
     };
     console.log("params from colab child", params);

@@ -12,10 +12,15 @@ export default function FormComponent(props) {
   const handleChangePhase = () => {
     const params = {
       title: title,
+      returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
     };
+
     console.log("params from Form child", params)
     dispatch(updateProject(params));
     props.changePhase(props.phase);
+    
   };
   return (
     <div className=" h-screen w-screen m-auto content-center ">
