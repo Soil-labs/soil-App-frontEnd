@@ -22,7 +22,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function SkillSelector({ setSkillsCallback, showSelected }) {
+export default function SkillSelector({
+  setSkillsCallback,
+  showSelected,
+  value = [],
+}) {
   const [query, setQuery] = useState("");
   const [selectedSkills, setSelectedSkills] = useState([]);
   const dispatch = useDispatch();
@@ -35,6 +39,7 @@ export default function SkillSelector({ setSkillsCallback, showSelected }) {
   );
 
   const skillIsSelected = (skill) => {
+    if (!selectedSkills) return false;
     return selectedSkills.some(
       (selectedSkill) => selectedSkill._id === skill._id
     );
@@ -64,6 +69,12 @@ export default function SkillSelector({ setSkillsCallback, showSelected }) {
       selectedSkills.filter((selected) => selected._id !== skill._id)
     );
   };
+
+  useEffect(() => {
+    if (JSON.stringify(value) != JSON.stringify(selectedSkills)) {
+      setSelectedSkills(value);
+    }
+  }, [value]);
 
   return (
     <div>
@@ -134,23 +145,24 @@ export default function SkillSelector({ setSkillsCallback, showSelected }) {
       <div className="hidden bg-[#c2f5e9] bg-[#d1f7c4] bg-[#ffeab6] bg-[#fee2d5] bg-[#ffdce5] bg-[#ffdaf6] bg-[#ede2fe] bg-[#cfdfff]"></div>
       {showSelected && (
         <section>
-          {selectedSkills.map((skill, index) => (
-            <div
-              className={`inline-block mr-2 rounded-full bg-[${
-                colors[index % colors.length]
-              }]`}
-              key={index}
-            >
-              <div className="w-full h-full px-3 flex items-center justify-between">
-                <span className="mr-2 mb-px">{skill.name}</span>
-                <XIcon
-                  className="inline-block h-4 w-4 text-slate-600 hover:text-slate-400 cursor-pointer"
-                  aria-hidden="true"
-                  onClick={() => handleDeleteClick(skill)}
-                />
+          {selectedSkills &&
+            selectedSkills.map((skill, index) => (
+              <div
+                className={`inline-block mr-2 mb-1 rounded-full bg-[${
+                  colors[index % colors.length]
+                }]`}
+                key={index}
+              >
+                <div className="w-full h-full px-3 flex items-center justify-between">
+                  <span className="mr-2 mb-px">{skill.name}</span>
+                  <XIcon
+                    className="inline-block h-4 w-4 text-slate-600 hover:text-slate-400 cursor-pointer"
+                    aria-hidden="true"
+                    onClick={() => handleDeleteClick(skill)}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </section>
       )}
     </div>

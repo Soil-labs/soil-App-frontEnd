@@ -1,4 +1,4 @@
-import { Fragment, useState, useCallback, useEffect } from "react";
+import { Fragment, useState, useCallback, useEffect, useRef } from "react";
 import SkillSelector from "./skill/SkillSelector";
 import Selector from "./Selector";
 import Avatar from "./Avatar";
@@ -46,6 +46,11 @@ export default function EditUser({ user = {}, setUserCallback }) {
     setUserInfoCallback({ skills });
   }, [skills]);
 
+  const hoursRef = useRef(null);
+  useEffect(() => {
+    if (hoursRef.current) hoursRef.current.value = user.hoursPerWeek;
+  }, [hoursRef, user.hoursPerWeek]);
+
   return (
     <>
       <div className="flex items-center p-1 mb-2">
@@ -54,7 +59,11 @@ export default function EditUser({ user = {}, setUserCallback }) {
       </div>
       <section className="grid grid-cols-2">
         <div className="col-span-1 pr-2">
-          <SkillSelector setSkillsCallback={setSkills} showSelected={true} />
+          <SkillSelector
+            setSkillsCallback={setSkills}
+            value={user.skills}
+            showSelected={true}
+          />
         </div>
         <div className="col-span-1 pl-2">
           <div className="w-full">
@@ -63,6 +72,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
                 setDataCallback={setUserInfoCallback}
                 name="timeZone"
                 options={timezones}
+                value={user.timeZone}
                 placeholder="timezone"
               />
             </div>
@@ -79,6 +89,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
             <span>Hours per week:</span>
             <input
               type="number"
+              ref={hoursRef}
               onChange={(e) => {
                 setUserInfoCallback({
                   hoursPerWeek: Number(e.target.value),
@@ -90,6 +101,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
           <div className="w-full">
             <Textarea
               name="interest"
+              value={user.interest}
               setDataCallback={setUserInfoCallback}
               placeholder="Interests"
               title="Interests:"
@@ -105,6 +117,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
           title="Message:"
         /> */}
       </div>
+      {JSON.stringify(user)}
     </>
   );
 }

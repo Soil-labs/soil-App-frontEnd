@@ -12,6 +12,7 @@ export default function Selector({
   name,
   options,
   setDataCallback,
+  value,
   placeholder = "",
 }) {
   const [query, setQuery] = useState("");
@@ -33,6 +34,10 @@ export default function Selector({
     },
     [setDataCallback, name]
   );
+
+  useEffect(() => {
+    if (value != selectedItem) setSelectedItem(value);
+  }, [value]);
 
   return (
     <div>
