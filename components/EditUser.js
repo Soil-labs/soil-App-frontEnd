@@ -89,6 +89,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
             <span>Hours per week:</span>
             <input
               type="number"
+              min="0"
               ref={hoursRef}
               onChange={(e) => {
                 setUserInfoCallback({
