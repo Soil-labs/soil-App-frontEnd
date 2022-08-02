@@ -42,13 +42,14 @@ function Projects() {
   useLayoutEffect(() => {
     if (!router.query.id || !members || !members.length) return;
     let idsQuery = router.query.id;
-    let _ids = [];
-    console.log(idsQuery);
-    if (idsQuery?.length === 1) _ids = [idsQuery];
-    if (idsQuery?.length >= 1) _ids = idsQuery;
-    setUsers(
-      members.filter((member) => idsQuery.some((id) => member._id == id))
-    );
+    if (idsQuery && typeof idsQuery === "string") {
+      setUsers(members.filter((member) => member._id === idsQuery));
+    }
+    if (idsQuery.length > 1 && typeof idsQuery === "object") {
+      setUsers(
+        members.filter((member) => idsQuery.some((id) => member._id == id))
+      );
+    }
   }, [router.query.id, members]);
 
   const setUserCallback = useCallback(
