@@ -1,4 +1,10 @@
-import { useLayoutEffect, useState, useCallback, useEffect } from "react";
+import {
+  useLayoutEffect,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +20,7 @@ function Projects() {
   const dispatch = useDispatch();
   const members = useSelector((state) => state.usersInspect.members);
   const [users, setUsers] = useState([]);
+  const [usersLoaded, setUsersLoaded] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(null);
   const [savedUsers, setSavedUsers] = useState([]);
   const [saveError, setSaveError] = useState(false);
@@ -34,7 +41,7 @@ function Projects() {
     setUsers(updatedUsers);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const params = {};
     dispatch(findMembers(params));
     const interval = setInterval(() => {
@@ -43,8 +50,9 @@ function Projects() {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  useLayoutEffect(() => {
+  useMemo(() => {
     if (!router.query.id || !members || !members.length) return;
+    if (usersLoaded) return;
     let idsQuery = router.query.id;
     if (idsQuery && typeof idsQuery === "string") {
       setUsers(members.filter((member) => member._id === idsQuery));
@@ -54,7 +62,8 @@ function Projects() {
         members.filter((member) => idsQuery.some((id) => member._id == id))
       );
     }
-  }, [router.query.id, members]);
+    setUsersLoaded(true);
+  }, [JSON.stringify(members), router.query.id]);
 
   const setUserCallback = useCallback(
     (item) => {
@@ -74,7 +83,6 @@ function Projects() {
       skills: currUser.skills,
     };
     const { type } = await dispatch(updateUser(params));
-    console.log(type);
     if (type.includes("rejected")) {
       setSaveError(true);
       return;
