@@ -79,13 +79,16 @@ export default function updateProjectMutation(params) {
 					${
             params.returnTweets
               ? `tweets{
-								content
-								author{
-									_id
-									discordName
-								}
-								registeredAt
-							}`
+					_id
+					content
+					author{
+						_id
+						discordName
+						discordAvatar
+					}
+					approved
+					registeredAt
+				}`
               : ``
           }
 					${
