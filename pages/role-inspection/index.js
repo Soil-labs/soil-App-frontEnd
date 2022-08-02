@@ -186,22 +186,19 @@ function RoleInspection() {
     // const selectedUser = useSelector(selectMemberInfo);
     const selectedUser = useSelector((state) => state.userInspect);
 
-    console.log("selectedUser = ", selectedUser);
-
     // const selectedUserLoading = useSelector(selectLoadingMember);
     const selectedUserLoading = useSelector((state) => state.loading);
     const [selectedUserId, setSelectedUserId] = useState(undefined);
 
     useEffect(() => {
         (async () => {
-            const id = "62ca8b6f536e11000427f065"; // TODO: make dynamic later
+            const id = "62e74587d4d7c00004c1ce88"; // TODO: make dynamic later
             const params = {
-                _id: "62ca8b6f536e11000427f065",
+                _id: id,
 
                 returnMembers: true,
             };
             await dispatch(findMembers_withSkill(params));
-            // const membersInfo = await dispatch(findMembers_withSkillux(id)).unwrap();
         })();
     }, []);
 
@@ -215,13 +212,12 @@ function RoleInspection() {
                     returnProjects: true,
                     returnNetwork: true,
                 };
-
-                console.log("change = ", params);
                 const memberInfo = await dispatch(inpsectUser(params));
-                console.log(selectedUser);
             })();
         }
     }, [selectedUserId]);
+
+    console.log(selectedUser);
 
     return (
         <>
@@ -263,7 +259,11 @@ function RoleInspection() {
                                                     <>
                                                         {members &&
                                                             members.map(
-                                                                (member) => {
+                                                                ({
+                                                                    matchPercentage,
+                                                                    member,
+                                                                    commonSkills,
+                                                                }) => {
                                                                     return (
                                                                         <li
                                                                             key={
@@ -286,7 +286,7 @@ function RoleInspection() {
                                                                                         alt=""
                                                                                     />
                                                                                 </div>
-                                                                                <div className="flex-1 min-w-0">
+                                                                                <div className="flex-1 flex flex-col space-y-2 min-w-0">
                                                                                     <a
                                                                                         href="#"
                                                                                         className="focus:outline-none"
@@ -300,14 +300,26 @@ function RoleInspection() {
                                                                                             {`@${member.discordName}`}
                                                                                         </p>
                                                                                     </a>
+                                                                                    <ul>
+                                                                                        {commonSkills.map(
+                                                                                            (
+                                                                                                skill
+                                                                                            ) => {
+                                                                                                return (
+                                                                                                    <li className="bg-soilGreen-20 rounded-md inline p-2">
+                                                                                                        {
+                                                                                                            skill.name
+                                                                                                        }
+                                                                                                    </li>
+                                                                                                );
+                                                                                            }
+                                                                                        )}
+                                                                                    </ul>
                                                                                 </div>
+
                                                                                 <div>
                                                                                     <h2 className="text-transparent text-2xl bg-gradient-to-r from-[#004AD9] to-[#D900A9] bg-clip-text font-semibold">
-                                                                                        {Math.floor(
-                                                                                            Math.random() *
-                                                                                                100
-                                                                                        )}{" "}
-                                                                                        %
+                                                                                        {`${matchPercentage}%`}
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -462,7 +474,7 @@ function RoleInspection() {
                                                     {currentTab ==
                                                         "GENERAL" && (
                                                         <section className="flex max-w-[671px] h-screen p-4 space-y-4 flex-col bg-soilGreen-20 overflow-y-scroll">
-                                                            <div className="flex w-full items-center">
+                                                            <div className="flex space-x-2 w-full items-center">
                                                                 <div className="flex">
                                                                     <img
                                                                         className="h-24 w-24 rounded-full"
@@ -496,7 +508,7 @@ function RoleInspection() {
                                                                             Shortlist
                                                                         </span>
                                                                     </button>
-                                                                    <button
+                                                                    {/* <button
                                                                         type="button"
                                                                         className="inline-flex justify-center px-4 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                                                                     >
@@ -507,7 +519,7 @@ function RoleInspection() {
                                                                         <span>
                                                                             Remove
                                                                         </span>
-                                                                    </button>
+                                                                    </button> */}
                                                                 </div>
                                                             </div>
                                                             <div className="flex items-center space-x-8">
@@ -552,7 +564,9 @@ function RoleInspection() {
                                                                                     >
                                                                                         <span>
                                                                                             {
-                                                                                                skill.name
+                                                                                                skill
+                                                                                                    .skillInfo
+                                                                                                    .name
                                                                                             }
                                                                                         </span>
                                                                                     </div>
@@ -563,11 +577,11 @@ function RoleInspection() {
                                                                 </div>
                                                                 <div className="p-4">
                                                                     <div className="flex flex-col space-y-2">
-                                                                        <div className="flex space-x-2 text-white text-[45px]">
+                                                                        <div className="flex space-x-2 text-black text-[35px]">
                                                                             <FiTwitter />
                                                                             <FiLinkedin />
                                                                         </div>
-                                                                        <div className="flex space-x-2 text-white text-[45px]">
+                                                                        <div className="flex space-x-2 text-black text-[35px]">
                                                                             <FaDiscord />
                                                                             <FiGithub />
                                                                         </div>
@@ -577,9 +591,8 @@ function RoleInspection() {
                                                                     <div className="px-4 py-2 justify-center items-center space-x-2 w-48 flex bg-white text-soilGreen-50 rounded-lg">
                                                                         <BellIcon className="h-6 w-6" />
                                                                         <h3 className="text-lg">
-                                                                            07
-                                                                            Jan
-                                                                            2022
+                                                                            {selectedUser &&
+                                                                                selectedUser.registeredAt}
                                                                         </h3>
                                                                     </div>
                                                                     <div className="px-4 py-2 justify-center items-center space-x-2 w-48 flex bg-white text-soilGreen-50 rounded-lg">
@@ -592,7 +605,8 @@ function RoleInspection() {
                                                                     <div className="px-4 py-2 justify-center items-center space-x-2 w-48 flex bg-white text-soilGreen-50 rounded-lg">
                                                                         <ChartPieIcon className="h-6 w-6" />
                                                                         <h3 className="text-lg">
-                                                                            10
+                                                                            {selectedUser &&
+                                                                                selectedUser.hoursPerWeek}
                                                                             hrs/week
                                                                         </h3>
                                                                     </div>
@@ -627,31 +641,42 @@ function RoleInspection() {
                                                                 </div>
                                                             </div>
                                                             <div className="flex w-full items-center">
-                                                                <div className="px-8 py-4 w-full bg-white rounded-md">
-                                                                    <div className="flex">
-                                                                        <h2 className="flex-1 uppercase">
-                                                                            Project
-                                                                            Manager
-                                                                        </h2>
-                                                                        <PencilIcon className="h-6 w-6" />
-                                                                    </div>
-                                                                    <div className="flex flex-col">
-                                                                        <h3>
-                                                                            Sabre
-                                                                            Corporation
-                                                                            -
-                                                                            Fulltime
-                                                                        </h3>
-                                                                        <h3>
-                                                                            Oct
-                                                                            2021
-                                                                            -
-                                                                            Present
-                                                                            (9
-                                                                            mos)
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
+                                                                {selectedUser &&
+                                                                    selectedUser.previusProjects.map(
+                                                                        (
+                                                                            project
+                                                                        ) => {
+                                                                            return (
+                                                                                <div className="px-8 py-4 w-full bg-white rounded-md">
+                                                                                    <div className="flex">
+                                                                                        <h2 className="flex-1 uppercase">
+                                                                                            {
+                                                                                                project.role
+                                                                                            }
+                                                                                        </h2>
+                                                                                        <PencilIcon className="h-6 w-6" />
+                                                                                    </div>
+                                                                                    <div className="flex flex-col">
+                                                                                        <h3>
+                                                                                            {
+                                                                                                project
+                                                                                                    .info
+                                                                                                    .title
+                                                                                            }
+                                                                                        </h3>
+                                                                                        <h3>
+                                                                                            Oct
+                                                                                            2021
+                                                                                            -
+                                                                                            Present
+                                                                                            (9
+                                                                                            mos)
+                                                                                        </h3>
+                                                                                    </div>
+                                                                                </div>
+                                                                            );
+                                                                        }
+                                                                    )}
                                                             </div>
                                                             <div className="flex w-full flex-wrap space-y-2">
                                                                 <div className="flex flex-col space-y-2 px-4 py-2 rounded-md bg-white">
@@ -1067,11 +1092,6 @@ function RoleInspection() {
                                                 </div>
                                             </div>
                                         </ul>
-                                        <div className="flex justify-center w-full">
-                                            <button className="inline-flex uppercase justify-center px-4 py-2 border border-soilGreen-20 shadow-sm text-sm font-medium rounded-md text-white bg-soilGreen-50 hover:bg-soilGreen-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-soilGreen-50 ">
-                                                Notify Candidates
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                                 {/* End right column area */}

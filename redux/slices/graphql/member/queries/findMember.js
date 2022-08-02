@@ -1,7 +1,7 @@
 export default function findMemberQuery(params) {
-  return {
-    data: {
-      query: `query{
+    return {
+        data: {
+            query: `query{
         findMember(fields: {
           _id: "${params._id}"
         }){
@@ -9,19 +9,34 @@ export default function findMemberQuery(params) {
           discordName
           discordAvatar
           bio
+          registeredAt
+          hoursPerWeek
+
+          previusProjects {
+            title
+            description
+            positionName
+            link
+            startDate
+            endDate
+          }
 
           
           ${
-            params.returnSkills
-              ? `skills{
-            name
+              params.returnSkills
+                  ? `skills{
+            skillInfo {
+              _id
+              name
+              
+            }
           }`
-              : ``
+                  : ``
           }
 
           ${
-            params.returnProjects
-              ? `projects {
+              params.returnProjects
+                  ? `projects {
             champion
             favorite
             info {
@@ -41,19 +56,19 @@ export default function findMemberQuery(params) {
               }
             }
           }`
-              : ``
+                  : ``
           }
 
           ${
-            params.returnNetwork
-              ? `network {
+              params.returnNetwork
+                  ? `network {
             discordName
           }`
-              : ``
+                  : ``
           }
           
       }
     }`,
-    },
-  };
+        },
+    };
 }
