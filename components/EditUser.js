@@ -85,7 +85,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
             placeholder="week/month"
             />
           </div> */}
-          <div className="w-full inline-block pl-1">
+          <div className="w-full inline-block">
             <span>Hours per week:</span>
             <input
               type="number"
