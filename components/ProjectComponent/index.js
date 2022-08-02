@@ -1,5 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
+import { ChevronDoubleDownIcon, LinkIcon } from "@heroicons/react/solid";
+import { BsTwitter, BsTelegram, BsGithub } from "react-icons/bs";
+import { FaDiscord } from "react-icons/fa";
+import { SiNotion } from "react-icons/si";
+
 import React from "react";
 import { useEffect } from "react";
 
@@ -28,6 +33,16 @@ const Info = ({ text, icon }) => {
   );
 };
 
+const SocialLink = ({ link, children }) => {
+  return (
+    <div>
+      <a href={link} target="_blank" rel="noreferrer">
+        {children}
+      </a>
+    </div>
+  );
+};
+
 const ProjectBoard = ({
   projectTitle,
   championName,
@@ -39,14 +54,13 @@ const ProjectBoard = ({
   obPriority,
   devRoles,
   budget,
-  kickOffDate,
-  endDate,
+  dates,
+  stepsJoinProject,
+  changePhase,
+  phase,
 }) => {
   useEffect(() => {
-    console.log(
-      "kickoffDate: ",
-      new Date(parseInt(kickOffDate) * 1000).toDateString()
-    );
+    console.log("links in ProjectComponent", links);
   }, []);
 
   const skillss = [
@@ -158,7 +172,31 @@ const ProjectBoard = ({
                 className="absolute right-5 top-6 cursor-pointer"
                 alt=""
               />
-              Links
+              {links[0].link !== "" && (
+                <SocialLink link={links[0].link}>
+                  <BsTwitter />
+                </SocialLink>
+              )}
+              {links[1].link !== "" && (
+                <SocialLink link={links[1].link}>
+                  <BsGithub />
+                </SocialLink>
+              )}
+              {links[2].link !== "" && (
+                <SocialLink link={links[2].link}>
+                  <FaDiscord />
+                </SocialLink>
+              )}
+              {links[3].link !== "" && (
+                <SocialLink link={links[3].link}>
+                  <SiNotion />
+                </SocialLink>
+              )}
+              {links[4].link !== "" && (
+                <SocialLink link={links[4].link}>
+                  <BsTelegram />
+                </SocialLink>
+              )}
             </div>
           </div>
         </div>
@@ -171,7 +209,7 @@ const ProjectBoard = ({
           <h1 className="font-medium">ONBOARDING PRIORITY</h1>
           <p className="text-xs text-[#929292]">From most to least important</p>
           <div className="flex flex-col gap-5 mt-5">
-            {onboardingPriority.map((priority, index) => (
+            {stepsJoinProject.map((priority, index) => (
               <div
                 style={{
                   backgroundColor: `${
@@ -192,12 +230,12 @@ const ProjectBoard = ({
 
             <Info
               icon={"/kickOffIcon.png"}
-              text={new Date(parseInt(kickOffDate) * 1000).toDateString()}
+              text={new Date(parseInt(dates.kickOff)).toDateString()}
             />
 
             <Info
               icon={"/wrapUpIcon.png"}
-              text={new Date(parseInt(endDate) * 1000).toDateString()}
+              text={new Date(parseInt(dates.complition)).toDateString()}
             />
           </div>
           {devRoles &&
@@ -208,6 +246,13 @@ const ProjectBoard = ({
             })}
         </div>
       </div>
+      <button
+        onClick={() => {
+          changePhase(phase);
+        }}
+      >
+        <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
+      </button>
     </div>
   );
 };

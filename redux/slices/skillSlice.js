@@ -10,6 +10,7 @@ const initialState = {
   _id: "",
   name: "",
   members: [],
+  nameOfSkills: [],
 };
 
 export const findSkill = createAsyncThunk("findSkill", async (params) => {
@@ -46,4 +47,6 @@ export const skillSlice = createSlice({
 });
 
 // export const {} = counterSlice.actions;
+export const skillNames = (state) => state.nameOfSkills
+
 export default skillSlice.reducer;
