@@ -16,7 +16,7 @@ ChartJS.register(
   LineElement,
   Filler,
   Tooltip,
-  Legend
+  Legend,
 );
 
 import placeholder_avatar from "./placeholder_avatar.png";
@@ -40,7 +40,7 @@ const Chart = ({ members }) => {
     return {
       label: memberInfo.discordName,
       data: Object.keys(memberInfo.attributes).map(
-        (key) => memberInfo.attributes[key]
+        (key) => memberInfo.attributes[key],
       ),
       fill: true,
       backgroundColor: colors[i],

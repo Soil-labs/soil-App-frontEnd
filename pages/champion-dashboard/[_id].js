@@ -43,7 +43,7 @@ const Project = () => {
                   "px-6 py-3",
                   currentTab === ENGAGED_TAB
                     ? "bg-transparant"
-                    : "bg-[#8dc22066]"
+                    : "bg-[#8dc22066]",
                 )}
                 onClick={() => setCurrentTab(ENGAGED_TAB)}
               >
@@ -54,7 +54,7 @@ const Project = () => {
                   "px-6 py-3",
                   currentTab === SHORTLISTED_TAB
                     ? "bg-transparant"
-                    : "bg-[#8dc22066]"
+                    : "bg-[#8dc22066]",
                 )}
                 onClick={() => setCurrentTab(SHORTLISTED_TAB)}
               >
@@ -65,7 +65,7 @@ const Project = () => {
                   "px-6 py-3",
                   currentTab === COMMITTED_TAB
                     ? "bg-transparant"
-                    : "bg-[#8dc22066]"
+                    : "bg-[#8dc22066]",
                 )}
                 onClick={() => setCurrentTab(COMMITTED_TAB)}
               >
@@ -80,7 +80,7 @@ const Project = () => {
             {currentTab === SHORTLISTED_TAB && (
               <Shortlisted
                 members={team.filter(
-                  (member) => member.phase === "shortlisted"
+                  (member) => member.phase === "shortlisted",
                 )}
               />
             )}

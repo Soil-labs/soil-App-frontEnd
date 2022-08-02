@@ -112,7 +112,7 @@ function ProjectDetail() {
                             <span className="text-slate-700 text-xs font-bold mr-1">
                               {project.dates?.kickOff &&
                                 new Date(
-                                  project.dates?.kickOff * 1000
+                                  project.dates?.kickOff * 1000,
                                 ).toLocaleDateString()}
                             </span>
                           </p>
@@ -123,7 +123,7 @@ function ProjectDetail() {
                             <span className="text-slate-700 text-xs font-bold mr-1">
                               {project.dates?.complition &&
                                 new Date(
-                                  project.dates?.complition * 1000
+                                  project.dates?.complition * 1000,
                                 ).toLocaleDateString()}
                             </span>
                           </p>

@@ -45,7 +45,7 @@ const ProjectBoard = ({
   useEffect(() => {
     console.log(
       "kickoffDate: ",
-      new Date(parseInt(kickOffDate) * 1000).toDateString()
+      new Date(parseInt(kickOffDate) * 1000).toDateString(),
     );
   }, []);
 

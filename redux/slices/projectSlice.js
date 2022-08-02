@@ -58,7 +58,7 @@ export const updateProject = createAsyncThunk(
     const response = await apiClient(updateProjectMutation(params));
 
     return response.data.data.updateProject;
-  }
+  },
 );
 
 export const changeTeamMember_Phase_Project = createAsyncThunk(
@@ -66,13 +66,13 @@ export const changeTeamMember_Phase_Project = createAsyncThunk(
   async (params) => {
     console.log("changeTeamMember_Phase_Project = ");
     const response = await apiClient(
-      changeTeamMember_Phase_ProjectMutation(params)
+      changeTeamMember_Phase_ProjectMutation(params),
     );
 
     console.log("response.data.data = ", response.data.data);
 
     return response.data.data.changeTeamMember_Phase_Project;
-  }
+  },
 );
 
 export const approveTweet = createAsyncThunk("approveTweet", async (params) => {

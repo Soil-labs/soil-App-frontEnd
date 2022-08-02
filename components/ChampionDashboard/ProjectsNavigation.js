@@ -18,7 +18,7 @@ const DaysLeft = ({ isCurrentPage }) => {
       <div
         className={classNames(
           "px-3 py-1 ",
-          isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
+          isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]",
         )}
         style={{ width: `${(daysLeft / totalDays) * 100}%` }}
       >
@@ -45,7 +45,7 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
           "flex gap-4 px-3 py-4 text-sm font-medium border-2 border-[#8dc220a5] rounded-2xl",
           isCurrentPage
             ? "bg-[#8dc2204c] text-gray-900"
-            : "text-gray-600 hover:bg-gray-50"
+            : "text-gray-600 hover:bg-gray-50",
         )}
         aria-current={isCurrentPage}
       >
@@ -61,7 +61,7 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
             <div
               className={classNames(
                 "px-3 py-1 rounded-full shadow-lg flex justify-between",
-                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
+                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]",
               )}
             >
               <span>shortlisted:</span>
@@ -70,7 +70,7 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
             <div
               className={classNames(
                 "px-3 py-1 rounded-full shadow-lg flex justify-between",
-                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
+                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]",
               )}
             >
               <span>engaged:</span>

@@ -28,7 +28,7 @@ export const addSkillToMember = createAsyncThunk(
     const response = await apiClient(addSkillToMemberMutation(params));
 
     return response.data.data.addSkillToMember;
-  }
+  },
 );
 
 export const userInspectSlice = createSlice({
