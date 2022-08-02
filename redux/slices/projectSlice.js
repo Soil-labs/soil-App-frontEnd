@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
 import findProjectQuery from "./graphql/project/queries/findProject";
-import { jsonToString,arrayToString } from "../tools/transformations";
+import { jsonToString, arrayToString } from "../tools/transformations";
 
 const initialState = {
   isDataAvailable: false,
@@ -33,7 +33,7 @@ export const updateProject = createAsyncThunk(
     if (params.budget) {
       params.budget = jsonToString(params.budget);
     }
-    console.log("params.budget",params.budget)
+    console.log("params.budget", params.budget);
     if (params.role) {
       params.role = jsonToString(params.role);
     }
@@ -53,13 +53,14 @@ export const updateProject = createAsyncThunk(
       params.stepsJoinProject = arrayToString(params.stepsJoinProject);
     }
 
-
-    console.log("params from slice",params)
+    console.log("params from slice", params);
     const response = await apiClient(updateProjectMutation(params));
 
-    console.log("response.data.data.updateProject", response.data.data.updateProject)
+    console.log(
+      "response.data.data.updateProject",
+      response.data.data.updateProject
+    );
     return response.data.data.updateProject;
-    
   }
 );
 

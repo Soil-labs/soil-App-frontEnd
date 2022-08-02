@@ -39,9 +39,7 @@ export default function DescpitionComponent(props) {
               <h1 className="  text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl  xl:text-4xl">
                 <span className="block xl:inline">{props.fieldTitle}</span>{" "}
               </h1>
-              <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                {props.questions.description}
-              </p>
+              <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl"></p>
             </div>
             {/* Input Field */}
             <div className="mt-20">

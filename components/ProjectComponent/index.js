@@ -5,7 +5,6 @@ import { BsTwitter, BsTelegram, BsGithub } from "react-icons/bs";
 import { FaDiscord } from "react-icons/fa";
 import { SiNotion } from "react-icons/si";
 
-
 import React from "react";
 import { useEffect } from "react";
 
@@ -34,15 +33,15 @@ const Info = ({ text, icon }) => {
   );
 };
 
-const SocialLink = ({link, children}) => {
+const SocialLink = ({ link, children }) => {
   return (
     <div>
       <a href={link} target="_blank" rel="noreferrer">
         {children}
       </a>
     </div>
-  )
-}
+  );
+};
 
 const ProjectBoard = ({
   projectTitle,
@@ -61,8 +60,7 @@ const ProjectBoard = ({
   phase,
 }) => {
   useEffect(() => {
-    console.log( "links in ProjectComponent" , links
-    );
+    console.log("links in ProjectComponent", links);
   }, []);
 
   const skillss = [
@@ -174,11 +172,31 @@ const ProjectBoard = ({
                 className="absolute right-5 top-6 cursor-pointer"
                 alt=""
               />
-              {links[0].link !== "" && <SocialLink link={links[0].link}><BsTwitter /></SocialLink>}
-              {links[1].link !== "" && <SocialLink link={links[1].link}><BsGithub /></SocialLink>}
-              {links[2].link !== "" && <SocialLink link={links[2].link}><FaDiscord /></SocialLink>}
-              {links[3].link !== "" && <SocialLink link={links[3].link}><SiNotion /></SocialLink>}
-              {links[4].link !== "" && <SocialLink link={links[4].link}><BsTelegram /></SocialLink>}
+              {links[0].link !== "" && (
+                <SocialLink link={links[0].link}>
+                  <BsTwitter />
+                </SocialLink>
+              )}
+              {links[1].link !== "" && (
+                <SocialLink link={links[1].link}>
+                  <BsGithub />
+                </SocialLink>
+              )}
+              {links[2].link !== "" && (
+                <SocialLink link={links[2].link}>
+                  <FaDiscord />
+                </SocialLink>
+              )}
+              {links[3].link !== "" && (
+                <SocialLink link={links[3].link}>
+                  <SiNotion />
+                </SocialLink>
+              )}
+              {links[4].link !== "" && (
+                <SocialLink link={links[4].link}>
+                  <BsTelegram />
+                </SocialLink>
+              )}
             </div>
           </div>
         </div>
@@ -229,12 +247,12 @@ const ProjectBoard = ({
         </div>
       </div>
       <button
-          onClick={() => {
-            changePhase(phase);
-          }}
-        >
-          <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
-        </button>
+        onClick={() => {
+          changePhase(phase);
+        }}
+      >
+        <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
+      </button>
     </div>
   );
 };

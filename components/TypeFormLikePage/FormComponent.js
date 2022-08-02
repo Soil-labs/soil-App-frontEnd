@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 
 export default function FormComponent(props) {
-
   const [title, setTitle] = useState("");
 
   const dispatch = useDispatch();
@@ -17,10 +16,9 @@ export default function FormComponent(props) {
       returnCollaborationLinks: true,
     };
 
-    console.log("params from Form child", params)
+    console.log("params from Form child", params);
     dispatch(updateProject(params));
     props.changePhase(props.phase);
-    
   };
   return (
     <div className=" h-screen w-screen m-auto content-center ">
@@ -41,7 +39,7 @@ export default function FormComponent(props) {
                 <span className="block xl:inline">{props.fieldTitle}</span>{" "}
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                {props.questions.description}
+                {/* {props.questions.description} */}
               </p>
             </div>
             {/* Input Field */}

@@ -6,27 +6,26 @@ import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
 function StepsForOnboardComponent(props) {
   const [title, setTitle] = useState();
   const [colorSwitch, setColorSwitch] = useState(true);
-  
+
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const titles = steps.map((obj) => obj.title);
     // const stepsArr = Object.values(steps)
     // console.log("Object.values(steps)",Object.keys(steps))
-    console.log("titles",titles)
+    console.log("titles", titles);
     const params = {
-    _id: props._id,
-    stepsJoinProject: titles,
-    returnDates: true,
-    returnBudget: true,
-    returnCollaborationLinks: true,
-    }
+      _id: props._id,
+      stepsJoinProject: titles,
+      returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
+    };
     dispatch(updateProject(params));
-    console.log("params from Steps child", params)
+    console.log("params from Steps child", params);
     props.changePhase(props.phase);
-    console.log("steps.title",steps)
+    console.log("steps.title", steps);
   };
-  
 
   const [steps, setSteps] = useState([
     { title: "Step 1" },
