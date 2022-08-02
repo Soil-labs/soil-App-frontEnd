@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import findMembersQuery from "./graphql/member/queries/findMembers";
 import findSkill from "./graphql/skill/queries/findSkill";
-import { arrayToString } from "../tools/transformations";
+import { jsonToString } from "../tools/transformations";
 
 const initialState = {
   loading: true,
@@ -23,7 +23,7 @@ export const findMembers = createAsyncThunk("findMembers", async (params) => {
   if (params._id) {
     params = {
       ...params,
-      _id: arrayToString(params._id),
+      _id: jsonToString(params._id),
     };
   }
 
