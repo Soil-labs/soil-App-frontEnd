@@ -37,6 +37,10 @@ function Projects() {
   useLayoutEffect(() => {
     const params = {};
     dispatch(findMembers(params));
+    const interval = setInterval(() => {
+      dispatch(findMembers(params));
+    }, 10000);
+    return () => clearInterval(interval);
   }, [dispatch]);
 
   useLayoutEffect(() => {
