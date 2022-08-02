@@ -40,18 +40,18 @@ export const findProjects_fromMember = createAsyncThunk(
 
     console.log(
       "response.data.data.findProjects = ",
-      response.data.data.findMember
+      response.data.data.findMember,
     );
 
     if (params.onlyChampions) {
       response.data.data.findMember.projects =
         response.data.data.findMember.projects.filter(
-          (project) => project.champion == true
+          (project) => project.champion == true,
         );
     }
 
     return response.data.data.findMember;
-  }
+  },
 );
 
 export const findProjects_RecommendedToUser = createAsyncThunk(
@@ -60,16 +60,16 @@ export const findProjects_RecommendedToUser = createAsyncThunk(
     console.log("params = ", params);
 
     const response = await apiClient(
-      findProjects_RecommendedToUserQuery(params)
+      findProjects_RecommendedToUserQuery(params),
     );
 
     console.log(
       "response.data.data.findProjects_RecommendedToUser = ",
-      response.data.data.findProjects_RecommendedToUser
+      response.data.data.findProjects_RecommendedToUser,
     );
 
     return response.data.data.findProjects_RecommendedToUser;
-  }
+  },
 );
 
 export const projectsSlice = createSlice({
@@ -115,7 +115,7 @@ export const projectsSlice = createSlice({
       const projects = payload.map((project) => {
         const projectWithPercentage = project.projectData;
         projectWithPercentage.matchPercentage = Math.round(
-          project.matchPercentage
+          project.matchPercentage,
         );
         return projectWithPercentage;
       });

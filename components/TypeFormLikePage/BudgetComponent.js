@@ -36,7 +36,6 @@ const GreenBudgetForm = (props) => {
                   onChange={(e) =>
                     props.handleChange(e, props.phase, "totalBudget")
                   }
-                  
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"

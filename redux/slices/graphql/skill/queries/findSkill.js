@@ -3,18 +3,21 @@ export default function findSkillQuery(params) {
     data: {
       query: `query{
         findSkill(fields: {
-          ${params._id?`_id: "${params._id}"`:``}
+          ${params._id ? `_id: "${params._id}"` : ``}
         }){
           _id
           name
 
-          ${params.returnMembers?
-          `members {
+          ${
+            params.returnMembers
+              ? `members {
             _id
             discordName
             discordAvatar
             discriminator
-          }`:``}
+          }`
+              : ``
+          }
 
       }
     }`,

@@ -63,7 +63,7 @@ const TeamMemberCard = ({ member }) => {
           onClick={handleAcceptClick}
           className={classNames(
             "rounded-full text-white px-3 py-1 ",
-            loading ? "bg-gray-700" : "bg-[#8dc220a5]"
+            loading ? "bg-gray-700" : "bg-[#8dc220a5]",
           )}
           disabled={loading}
         >

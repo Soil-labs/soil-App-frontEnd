@@ -16,7 +16,7 @@ export const findMembers_withSkill = createAsyncThunk(
     const response = await apiClient(findSkill(params));
 
     return response.data.data.findSkill;
-  }
+  },
 );
 
 export const findMembers = createAsyncThunk("findMembers", async (params) => {

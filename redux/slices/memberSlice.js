@@ -33,7 +33,7 @@ export const addFavoriteProject = createAsyncThunk(
     const response = await apiClient(addFavoriteProjectMutation(params));
 
     return response.data.data.addFavoriteProject;
-  }
+  },
 );
 
 export const memberSlice = createSlice({

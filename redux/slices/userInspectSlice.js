@@ -30,7 +30,7 @@ export const addSkillToMember = createAsyncThunk(
     const response = await apiClient(addSkillToMemberMutation(params));
 
     return response.data.data.addSkillToMember;
-  }
+  },
 );
 
 export const updateUser = createAsyncThunk("updateUser", async (params) => {

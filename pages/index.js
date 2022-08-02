@@ -50,8 +50,6 @@ const getData = () => {
   };
 };
 
-
-
 export default function Home() {
   return (
     <>

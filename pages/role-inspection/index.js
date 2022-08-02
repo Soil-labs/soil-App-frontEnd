@@ -697,7 +697,7 @@ function RoleInspection() {
                                                 <span>{skill.name}</span>
                                               </div>
                                             );
-                                          }
+                                          },
                                         )}
                                       </div>
                                       {/* <div className="flex flex-wrap gap-2 justify-start items-center">

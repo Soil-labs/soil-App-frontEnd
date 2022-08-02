@@ -14,7 +14,7 @@ export const ChampionDashboardLayout = ({ children }) => {
       findProjects_fromMember({
         _id: "995604464469803048",
         returnDates: true,
-      })
+      }),
     );
   }, [dispatch, projectsInspect]);
 
