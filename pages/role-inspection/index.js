@@ -45,7 +45,7 @@ import {
   findMember,
   selectLoadingMember,
   selectMemberInfo,
-  inpsectUser_red,
+  inpsectUser,
 } from "../../redux/slices/userInspectSlice";
 import CoverImageShimmer from "../../components/Shimmers/CoverImageShimmer";
 import ProfilePictureShimmer from "../../components/Shimmers/ProfilePictureShimmer";
@@ -414,7 +414,7 @@ function RoleInspection() {
         };
 
         console.log("change = ", params);
-        const memberInfo = await dispatch(inpsectUser_red(params));
+        const memberInfo = await dispatch(inpsectUser(params));
         console.log(selectedUser);
       })();
     }
