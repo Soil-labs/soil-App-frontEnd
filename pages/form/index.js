@@ -9,7 +9,7 @@ import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvCompone
 import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
 import ProjectBoard from "../../components/ProjectComponent";
 import YouDidItComponet from "../../components/TypeFormLikePage/YouDidItComponet";
-import DescpitionComponent from "../../components/TypeFormLikePage/descpitionComponent";
+import DescpitionComponent from "../../components/TypeFormLikePage/DescpitionComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -51,11 +51,7 @@ function Form() {
       ) : phase == 2 ? (
         <GreenBudgetForm changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 3 ? (
-        <ColabEnvComponent
-          changePhase={changePhase}
-          phase={phase}
-          _id={_id}
-        />
+        <ColabEnvComponent changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 4 ? (
         <StepsForOnboardComponent
           changePhase={changePhase}
