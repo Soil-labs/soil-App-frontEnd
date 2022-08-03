@@ -1,4 +1,10 @@
-import { useLayoutEffect, useState, useCallback, useEffect } from "react";
+import {
+  useLayoutEffect,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +20,8 @@ function Projects() {
   const dispatch = useDispatch();
   const members = useSelector((state) => state.usersInspect.members);
   const [users, setUsers] = useState([]);
+  const [usersLoaded, setUsersLoaded] = useState(false);
+  const [submiting, setSubmiting] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(null);
   const [savedUsers, setSavedUsers] = useState([]);
   const [saveError, setSaveError] = useState(false);
@@ -34,7 +42,7 @@ function Projects() {
     setUsers(updatedUsers);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const params = {};
     dispatch(findMembers(params));
     const interval = setInterval(() => {
@@ -43,8 +51,10 @@ function Projects() {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  useLayoutEffect(() => {
+  useMemo(() => {
     if (!router.query.id || !members || !members.length) return;
+    if (usersLoaded) return;
+    if (usersLoaded) return;
     let idsQuery = router.query.id;
     if (idsQuery && typeof idsQuery === "string") {
       setUsers(members.filter((member) => member._id === idsQuery));
@@ -54,7 +64,8 @@ function Projects() {
         members.filter((member) => idsQuery.some((id) => member._id == id))
       );
     }
-  }, [router.query.id, members]);
+    setUsersLoaded(true);
+  }, [JSON.stringify(members), router.query.id]);
 
   const setUserCallback = useCallback(
     (item) => {
@@ -64,6 +75,7 @@ function Projects() {
   );
 
   const handleSaveUser = async () => {
+    if (submiting) return;
     const currUser = users[currentUserIndex];
     const params = {
       _id: currUser._id,
@@ -73,8 +85,10 @@ function Projects() {
       hoursPerWeek: currUser.hoursPerWeek,
       skills: currUser.skills,
     };
+    setSubmiting(true);
     const { type } = await dispatch(updateUser(params));
-    console.log(type);
+    setSubmiting(false);
+
     if (type.includes("rejected")) {
       setSaveError(true);
       return;
@@ -85,6 +99,7 @@ function Projects() {
   };
 
   const handleDeleteUser = () => {
+    if (submiting) return;
     setUsers(users.filter((user, index) => index !== currentUserIndex));
     setCurrentUserIndex(null);
   };
@@ -96,13 +111,13 @@ function Projects() {
   return (
     <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       {/* How to apply column */}
-
       <section className="col-span-1">
         <UserSelector
           setDataCallback={setUserCallback}
           name="user"
           options={members}
           placeholder="Search user"
+          users={users}
         />
         {users.map((user, index) => (
           <div
@@ -131,14 +146,15 @@ function Projects() {
               )}
               <h3 className="text-center">FILL OUT NEW USER PROFILE</h3>
               <EditUser
+                key={users[currentUserIndex]}
                 user={users[currentUserIndex]}
                 setUserCallback={handleEditUser}
               />
               <div onClick={handleSaveUser} className="inline-block">
-                <Button>Save</Button>
+                <Button disabled={submiting}>Save</Button>
               </div>
               <div onClick={handleDeleteUser} className="inline-block">
-                <Button>Delete</Button>
+                <Button disabled={submiting}>Delete</Button>
               </div>
             </>
           </div>
@@ -161,7 +177,7 @@ function Projects() {
           </div>
         ))}
       </section>
-      {/* <p>{JSON.stringify(savedUsers)}</p> */}
+      {/* <p>{JSON.stringify(JSON.stringify(users))}</p> */}
     </div>
   );
 }
