@@ -110,6 +110,7 @@ function Projects() {
           name="user"
           options={members}
           placeholder="Search user"
+          users={users}
         />
         {users.map((user, index) => (
           <div
