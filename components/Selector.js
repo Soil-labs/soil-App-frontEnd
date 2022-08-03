@@ -12,6 +12,7 @@ export default function Selector({
   name,
   options,
   setDataCallback,
+  value,
   placeholder = "",
 }) {
   const [query, setQuery] = useState("");
@@ -34,21 +35,27 @@ export default function Selector({
     [setDataCallback, name]
   );
 
+  useEffect(() => {
+    if (value != selectedItem) setSelectedItem(value);
+  }, [value]);
+
   return (
     <div>
       <Combobox as="div" value={selectedItem} onChange={handleSelect}>
         <div className="relative mt-1 mb-4">
-          <Combobox.Input
-            className="w-full rounded-full border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            onChange={(event) => setQuery(event.target.value)}
-            displayValue={(item) => item}
-            placeholder={placeholder}
-          />
-          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-            <SelectorIcon
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
+          <Combobox.Button className="w-full rounded-full border border-gray-300 bg-white shadow-sm sm:text-sm">
+            <Combobox.Input
+              className="w-full border-none rounded-full py-2 pl-3 pr-10 sm:text-sm bg-transparent focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              onChange={(event) => setQuery(event.target.value)}
+              displayValue={(item) => item}
+              placeholder={placeholder}
             />
+            <div className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+              <SelectorIcon
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
+              />
+            </div>
           </Combobox.Button>
 
           {selectorData.length > 0 && (
