@@ -117,7 +117,7 @@ function Projects() {
           name="user"
           options={members}
           placeholder="Search user"
-          users={users}
+          selectedUsers={[...users, ...savedUsers]}
         />
         {users.map((user, index) => (
           <div

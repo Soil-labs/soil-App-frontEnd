@@ -12,12 +12,12 @@ export default function UserSelector({
   options,
   setDataCallback,
   placeholder = "",
-  users,
+  selectedUsers,
 }) {
   const [query, setQuery] = useState("");
 
   const isDataSelected = (item) => {
-    return users.some((user) => user._id === item._id);
+    return selectedUsers.some((user) => user._id === item._id);
   };
 
   const selectorData = options?.filter((item) => {
