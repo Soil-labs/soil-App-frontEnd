@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
+    "@mui/lab": "^5.0.0-alpha.91",
+    "@mui/material": "^5.9.1",
+    "@mui/x-date-pickers": "^5.0.0-beta.2",
     "@reduxjs/toolkit": "^1.8.2",
     "@tailwindcss/forms": "^0.5.2",
     "axios": "^0.27.2",
+    "date-fns": "^2.29.1",
+    "immer": "^9.0.15",
     "chart.js": "^3.8.2",
     "next": "12.1.6",
     "react": "18.2.0",
@@ -24,6 +31,7 @@
     "react-select": "^5.4.0",
     "react-svg-radar-chart": "^1.4.0",
     "redux": "^4.2.0",
+    "shortid": "^2.2.16",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
