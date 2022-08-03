@@ -104,7 +104,6 @@ function Projects() {
   return (
     <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       {/* How to apply column */}
-
       <section className="col-span-1">
         <UserSelector
           setDataCallback={setUserCallback}
@@ -139,6 +138,7 @@ function Projects() {
               )}
               <h3 className="text-center">FILL OUT NEW USER PROFILE</h3>
               <EditUser
+                key={users[currentUserIndex]}
                 user={users[currentUserIndex]}
                 setUserCallback={handleEditUser}
               />
@@ -169,7 +169,7 @@ function Projects() {
           </div>
         ))}
       </section>
-      {/* <p>{JSON.stringify(savedUsers)}</p> */}
+      {/* <p>{JSON.stringify(JSON.stringify(users))}</p> */}
     </div>
   );
 }

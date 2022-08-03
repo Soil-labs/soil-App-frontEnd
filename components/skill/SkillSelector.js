@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { useState } from "react";
+import { useState, useLayoutEffect, useMemo } from "react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Combobox } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,12 +56,9 @@ export default function SkillSelector({
     dispatch(findSkills({}));
   }, [dispatch]);
 
-  useEffect(() => {
-    setSkillsCallback(selectedSkills);
-  }, [selectedSkills, setSkillsCallback]);
-
-  const handleSelect = (skill) => {
-    setSelectedSkills([...selectedSkills, skill]);
+  const handleSelect = async (skill) => {
+    await setSelectedSkills([...selectedSkills, skill]);
+    await setSkillsCallback([...selectedSkills, skill]);
   };
 
   const handleDeleteClick = (skill) => {
@@ -74,11 +71,11 @@ export default function SkillSelector({
     if (JSON.stringify(value) != JSON.stringify(selectedSkills)) {
       setSelectedSkills(value);
     }
-  }, [value]);
+  }, []);
 
   return (
     <div>
-      <Combobox as="div" value={selectedSkills} onChange={handleSelect}>
+      <Combobox as="div" onChange={handleSelect}>
         {/* <Combobox.Label className="block text-sm font-medium text-gray-700">
           Skills
         </Combobox.Label> */}

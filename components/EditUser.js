@@ -32,8 +32,8 @@ const timezones = [
   "UTC+12",
 ];
 
-export default function EditUser({ user = {}, setUserCallback }) {
-  const [skills, setSkills] = useState([]);
+export default function EditUser({ user = { skills: [] }, setUserCallback }) {
+  const [skills, setSkills] = useState(user.skills);
 
   const setUserInfoCallback = useCallback(
     (item) => {
@@ -60,6 +60,7 @@ export default function EditUser({ user = {}, setUserCallback }) {
       <section className="grid grid-cols-2">
         <div className="col-span-1 pr-2">
           <SkillSelector
+            key={user._id}
             setSkillsCallback={setSkills}
             value={user.skills}
             showSelected={true}
