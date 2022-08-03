@@ -1,28 +1,25 @@
-// export function arrayToString(arrayT) {
+export function arrayToString(arrayT) {
+  console.log("change sd = ");
+  if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
+    let stringResult = "[";
 
-//     console.log("change sd = " )
-//     if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
+    arrayT.forEach((a, idx) => {
+      if (idx === arrayT.length - 1) {
+        stringResult += `"${a}"`;
+      } else {
+        stringResult += `"${a}",`;
+      }
+    });
 
-//         let stringResult = "[";
+    stringResult += "]";
 
-//         arrayT.forEach((a,idx) => {
-//             if (idx === arrayT.length - 1) {
-//                 stringResult += `"${a}"`;
-//             } else {
-//                 stringResult += `"${a}",`;
-//             }
-//         })
+    console.log("stringResult = ", stringResult);
 
-//         stringResult += "]";
-
-//         console.log("stringResult = " , stringResult)
-
-//         return stringResult
-//     } else {
-//         return arrayT
-//     }
-
-// }
+    return stringResult;
+  } else {
+    return arrayT;
+  }
+}
 
 function subJsonToString(jsonT) {
   let stringResult = "";
@@ -58,7 +55,7 @@ export function jsonToString(jsonT) {
       // jsonString = jsonString.slice(0, -1);
       jsonString += "},";
     }
-    jsonString = jsonString.slice(0, -1);
+    // jsonString = jsonString.slice(0, -1); //@TODO eloi removed this line make sure everything is still working
     jsonString += "]";
   } else if (getType(jsonT) === "object") {
     jsonString = "{\n";

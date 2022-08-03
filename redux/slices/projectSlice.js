@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import updateProjectMutation from "./graphql/project/mutations/updateProject";
+import changeTeamMember_Phase_ProjectMutation from "./graphql/project/mutations/changeTeamMember_Phase_Project";
 import approveTweetMutation from "./graphql/project/mutations/approveTweet";
 import findProjectQuery from "./graphql/project/queries/findProject";
-import { jsonToString } from "../tools/transformations";
+import { jsonToString, arrayToString } from "../tools/transformations";
 import { store } from "../store";
 
 const initialState = {
@@ -15,6 +16,8 @@ const initialState = {
   description: "",
   budget: {},
   dates: {},
+  steps: {},
+  links: {},
   role: [],
   champion: {},
   team: [],
@@ -35,6 +38,7 @@ export const updateProject = createAsyncThunk(
     if (params.budget) {
       params.budget = jsonToString(params.budget);
     }
+    console.log("params.budget", params.budget);
     if (params.role) {
       params.role = jsonToString(params.role);
     }
@@ -44,19 +48,38 @@ export const updateProject = createAsyncThunk(
     if (params.team) {
       params.team = jsonToString(params.team);
     }
-    if (params.budget) {
-      params.budget = jsonToString(params.budget);
-    }
     if (params.dates) {
       params.dates = jsonToString(params.dates);
     }
     if (params.collaborationLinks) {
-      params.collaborationLinks = jsonToString(params.team);
+      params.collaborationLinks = jsonToString(params.collaborationLinks);
+    }
+    if (params.stepsJoinProject) {
+      params.stepsJoinProject = arrayToString(params.stepsJoinProject);
     }
 
+    console.log("params from slice", params);
     const response = await apiClient(updateProjectMutation(params));
 
+    console.log(
+      "response.data.data.updateProject",
+      response.data.data.updateProject
+    );
     return response.data.data.updateProject;
+  }
+);
+
+export const changeTeamMember_Phase_Project = createAsyncThunk(
+  "changeTeamMember_Phase_Project",
+  async (params) => {
+    console.log("changeTeamMember_Phase_Project = ");
+    const response = await apiClient(
+      changeTeamMember_Phase_ProjectMutation(params)
+    );
+
+    console.log("response.data.data = ", response.data.data);
+
+    return response.data.data.changeTeamMember_Phase_Project;
   }
 );
 
@@ -65,7 +88,11 @@ export const approveTweet = createAsyncThunk("approveTweet", async (params) => {
   const currentTweet = state.projectInspect.tweets.find((tweet) => {
     return params.tweetID === tweet._id;
   });
-  if (state.member._id !== currentTweet.author._id) return;
+  if (
+    state.member._id !== currentTweet.author._id &&
+    state.member._id !== state.projectInspect.champion._id
+  )
+    return;
   const response = await apiClient(approveTweetMutation(params));
 
   return response.data.data.approveTweet;
@@ -93,6 +120,23 @@ export const projectSlice = createSlice({
       state.role = payload.role;
       state.tweets = payload.tweets;
       state.budget = payload.budget;
+      state.dates = payload.dates;
+      state.steps = payload.stepsJoinProject;
+      state.links = payload.collaborationLinks;
+    },
+    [changeTeamMember_Phase_Project.pending]: (state) => {
+      state.loading = true;
+    },
+    [changeTeamMember_Phase_Project.fulfilled]: (state, { payload }) => {
+      if (!payload) return;
+
+      console.log("changeTeamMember_Phase_Project = ", payload);
+
+      state.isDataAvailable = true;
+      state.loading = false;
+      state._id = payload._id;
+      state.title = payload.title;
+      state.team = payload.team;
     },
     [approveTweet.pending]: (state) => {
       state.loading = true;
@@ -103,6 +147,7 @@ export const projectSlice = createSlice({
       state.tweets = payload.tweets;
     },
     [findProject.pending]: (state) => {
+      state.isDataAvailable = false;
       state.loading = true;
     },
     [findProject.fulfilled]: (state, { payload }) => {
