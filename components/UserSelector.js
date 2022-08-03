@@ -37,13 +37,13 @@ export default function Selector({
 
   return (
     <div>
-      <Combobox as="div" value={selectedItem} onChange={handleSelect}>
+      <Combobox as="div" onChange={handleSelect}>
         <div className="relative mt-1 mb-4">
           <Combobox.Button className="w-full rounded-full border border-gray-300 bg-white shadow-sm sm:text-sm">
             <Combobox.Input
               className="w-full border-none rounded-full py-2 pl-3 pr-10 sm:text-sm bg-transparent focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               onChange={(event) => setQuery(event.target.value)}
-              displayValue={(item) => item.discordName}
+              displayValue={(item) => item?.discordName}
               placeholder={placeholder}
             />
             <div className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
