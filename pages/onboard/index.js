@@ -21,6 +21,7 @@ function Projects() {
   const members = useSelector((state) => state.usersInspect.members);
   const [users, setUsers] = useState([]);
   const [usersLoaded, setUsersLoaded] = useState(false);
+  const [submiting, setSubmiting] = useState(false);
   const [currentUserIndex, setCurrentUserIndex] = useState(null);
   const [savedUsers, setSavedUsers] = useState([]);
   const [saveError, setSaveError] = useState(false);
@@ -53,6 +54,7 @@ function Projects() {
   useMemo(() => {
     if (!router.query.id || !members || !members.length) return;
     if (usersLoaded) return;
+    if (usersLoaded) return;
     let idsQuery = router.query.id;
     if (idsQuery && typeof idsQuery === "string") {
       setUsers(members.filter((member) => member._id === idsQuery));
@@ -73,6 +75,7 @@ function Projects() {
   );
 
   const handleSaveUser = async () => {
+    if (submiting) return;
     const currUser = users[currentUserIndex];
     const params = {
       _id: currUser._id,
@@ -82,7 +85,10 @@ function Projects() {
       hoursPerWeek: currUser.hoursPerWeek,
       skills: currUser.skills,
     };
+    setSubmiting(true);
     const { type } = await dispatch(updateUser(params));
+    setSubmiting(false);
+
     if (type.includes("rejected")) {
       setSaveError(true);
       return;
@@ -93,6 +99,7 @@ function Projects() {
   };
 
   const handleDeleteUser = () => {
+    if (submiting) return;
     setUsers(users.filter((user, index) => index !== currentUserIndex));
     setCurrentUserIndex(null);
   };
@@ -144,10 +151,10 @@ function Projects() {
                 setUserCallback={handleEditUser}
               />
               <div onClick={handleSaveUser} className="inline-block">
-                <Button>Save</Button>
+                <Button disabled={submiting}>Save</Button>
               </div>
               <div onClick={handleDeleteUser} className="inline-block">
-                <Button>Delete</Button>
+                <Button disabled={submiting}>Delete</Button>
               </div>
             </>
           </div>
