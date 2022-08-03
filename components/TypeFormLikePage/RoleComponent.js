@@ -8,7 +8,7 @@ import DropdownHoursComponent from "../DropdownHoursComponent";
 import DropdownPerComponent from "../DropdownPerComponent";
 // import ComboBoxSkillsComponent from "../ComboBoxSkillsComponent";
 import DropdownTokenComponent from "../DropdownTokenComponent";
-import ReactSelectComponent from "../reactSelectComponent";
+import ReactSelectComponent from "../ReactSelectComponent";
 
 function RoleComponent(props) {
   //these are the skills that are chosen
@@ -31,9 +31,7 @@ function RoleComponent(props) {
     console.log("skills_all = ", skills_all);
   }, [props.skills]);
 
-  const handleChange_onComboBox= (selectedOption) => {
-  
-
+  const handleChange_onComboBox = (selectedOption) => {
     console.log(
       "selectedOption._id + selectedOption.name",
       selectedOption._id,
