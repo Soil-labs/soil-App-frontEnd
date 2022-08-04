@@ -14,7 +14,7 @@ function ProjectSelectRoles() {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(null);
   const [savedRoles, setSavedRoles] = useState([]);
 
-  const setRoleCallback = useCallback((item) => {
+  const setInputRoleCallback = useCallback((item) => {
     setInputRole(item);
   }, []);
 
@@ -28,6 +28,15 @@ function ProjectSelectRoles() {
       await setCurrentRoleIndex(null);
     },
     [pendingRoles, currentRoleIndex, savedRoles]
+  );
+
+  const setRoleCallback = useCallback(
+    async (item) => {
+      const newPendingRoles = [...pendingRoles];
+      newPendingRoles[currentRoleIndex] = item;
+      setPendingRoles(newPendingRoles);
+    },
+    [pendingRoles, currentRoleIndex]
   );
 
   const handleAddRole = (e) => {
@@ -61,7 +70,7 @@ function ProjectSelectRoles() {
               key={inputRole}
               name="title"
               options={roles}
-              setDataCallback={setRoleCallback}
+              setDataCallback={setInputRoleCallback}
               value={inputRole}
             />
           )}
@@ -75,6 +84,7 @@ function ProjectSelectRoles() {
           <RoleDataForm
             role={pendingRoles[currentRoleIndex]}
             key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
+            setRoleCallback={setRoleCallback}
             saveRoleCallback={saveRoleCallback}
           />
         )}
