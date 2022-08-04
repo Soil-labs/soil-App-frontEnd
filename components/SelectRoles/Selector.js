@@ -19,14 +19,14 @@ export default function Selector({
   const [selectedItem, setSelectedItem] = useState("");
 
   const isDataSelected = (item) => {
-    return item.name === selectedItem.name;
+    return item.title === selectedItem.title;
   };
 
   const selectorData = options?.filter((item) => {
     if (isDataSelected(item)) return false;
     return !query
       ? true
-      : item.name.toLowerCase().includes(query.toLowerCase());
+      : item.title.toLowerCase().includes(query.toLowerCase());
   });
 
   const handleSelect = useCallback(
@@ -51,7 +51,7 @@ export default function Selector({
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(item) => {
                 console.log("------", item);
-                return item?.name;
+                return item?.title;
               }}
               placeholder={placeholder}
             />
@@ -85,7 +85,7 @@ export default function Selector({
                             selected && "font-semibold"
                           )}
                         >
-                          {item.name}
+                          {item.title}
                         </span>
 
                         {selected && (

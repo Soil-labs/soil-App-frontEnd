@@ -1,18 +1,14 @@
 import Layout from "../../../components/layout/Layout";
 import RoleCard from "../../../components/SelectRoles/RoleCard";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useLayoutEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Selector from "../../../components/SelectRoles/Selector";
 import RoleDataForm from "../../../components/SelectRoles/RoleDataForm";
-
-const mockData = {
-  roles: [
-    { name: "FrontEnd Developer", _id: "1" },
-    { name: "Blockchain Developer", _id: "2" },
-  ],
-};
+import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
 
 function ProjectSelectRoles() {
-  const [roles, setRoles] = useState(mockData.roles);
+  const dispatch = useDispatch();
+  const roles = useSelector((state) => state.roleTemplates.roleTemplates);
   const [pendingRoles, setPendingRoles] = useState([]);
   const [inputRole, setInputRole] = useState({});
   const [currentRoleIndex, setCurrentRoleIndex] = useState(null);
@@ -39,6 +35,13 @@ function ProjectSelectRoles() {
     setInputRole({});
   };
 
+  useLayoutEffect(() => {
+    const params = {
+      fields: {},
+    };
+    dispatch(findRoleTemplates(params));
+  }, [dispatch]);
+
   return (
     <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
       <div className="col-span-1">
@@ -53,13 +56,15 @@ function ProjectSelectRoles() {
               <RoleCard role={role} />
             </div>
           ))}
-          <Selector
-            key={inputRole}
-            name="name"
-            options={roles}
-            setDataCallback={setRoleCallback}
-            value={inputRole}
-          />
+          {roles.length && (
+            <Selector
+              key={inputRole}
+              name="title"
+              options={roles}
+              setDataCallback={setRoleCallback}
+              value={inputRole}
+            />
+          )}
           <button disabled={!inputRole._id} onClick={handleAddRole}>
             Add
           </button>

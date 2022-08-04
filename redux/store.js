@@ -7,6 +7,7 @@ import skillReducer from "./slices/skillSlice";
 import skillsReducer from "./slices/skillsSlice";
 import userInspectReducer from "./slices/userInspectSlice";
 import usersInspectReducer from "./slices/usersInspectSlice";
+import roleTemplatesReducer from "./slices/roleTemplatesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +20,7 @@ export const store = configureStore({
 
     skillInspect: skillReducer,
     skillsInspect: skillsReducer,
+
+    roleTemplates: roleTemplatesReducer,
   },
 });
