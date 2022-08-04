@@ -32,7 +32,6 @@ function ProjectSelectRoles() {
       <div className="col-span-1">
         <h3>SCOPE YOUR ROLES</h3>
         <div>
-          {JSON.stringify(pendingRoles)}
           {pendingRoles.map((role, index) => (
             <div key={index} onClick={() => setCurrentRoleIndex(index)}>
               <RoleCard role={role} />
@@ -56,6 +55,8 @@ function ProjectSelectRoles() {
           />
         )}
       </div>
+      <div className="col-span-1"></div>
+      <p>{JSON.stringify(pendingRoles)}</p>
     </div>
   );
 }
