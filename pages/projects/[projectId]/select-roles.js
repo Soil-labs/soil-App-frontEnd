@@ -16,11 +16,23 @@ function ProjectSelectRoles() {
   const [pendingRoles, setPendingRoles] = useState([]);
   const [inputRole, setInputRole] = useState({});
   const [currentRoleIndex, setCurrentRoleIndex] = useState(null);
+  const [savedRoles, setSavedRoles] = useState([]);
 
   const setRoleCallback = useCallback((item) => {
-    console.log(item);
     setInputRole(item);
   }, []);
+
+  const saveRoleCallback = useCallback(
+    async (item) => {
+      await setSavedRoles([...savedRoles, item]);
+      const newPendingRoles = pendingRoles.filter(
+        (role, index) => index !== currentRoleIndex
+      );
+      await setPendingRoles(newPendingRoles);
+      await setCurrentRoleIndex(null);
+    },
+    [pendingRoles, currentRoleIndex, savedRoles]
+  );
 
   const handleAddRole = (e) => {
     setPendingRoles([...pendingRoles, inputRole]);
@@ -33,7 +45,11 @@ function ProjectSelectRoles() {
         <h3>SCOPE YOUR ROLES</h3>
         <div>
           {pendingRoles.map((role, index) => (
-            <div key={index} onClick={() => setCurrentRoleIndex(index)}>
+            <div
+              key={index}
+              onClick={() => setCurrentRoleIndex(index)}
+              className="cursor-pointer"
+            >
               <RoleCard role={role} />
             </div>
           ))}
@@ -44,18 +60,21 @@ function ProjectSelectRoles() {
             setDataCallback={setRoleCallback}
             value={inputRole}
           />
-          <button onClick={handleAddRole}>Add</button>
+          <button disabled={!inputRole._id} onClick={handleAddRole}>
+            Add
+          </button>
         </div>
       </div>
       <div className="col-span-3">
-        {currentRoleIndex >= 0 && (
+        {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
           <RoleDataForm
             role={pendingRoles[currentRoleIndex]}
-            key={pendingRoles[currentRoleIndex]._id}
+            key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
+            saveRoleCallback={saveRoleCallback}
           />
         )}
       </div>
-      <div className="col-span-1"></div>
+      <div className="col-span-1">{JSON.stringify(savedRoles)}</div>
       <p>{JSON.stringify(pendingRoles)}</p>
     </div>
   );
