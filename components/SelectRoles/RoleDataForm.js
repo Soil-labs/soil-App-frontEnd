@@ -1,5 +1,8 @@
-import SkillSelector from "../skill/SkillSelector";
 import { useCallback } from "react";
+import SkillSelector from "../skill/SkillSelector";
+import Selector from "../Selector";
+
+const periods = ["month", "week"];
 
 export default function RoleDataForm({
   role,
@@ -33,6 +36,29 @@ export default function RoleDataForm({
             value={role.skills}
             showSelected={true}
           />
+          <div className="w-1/2 inline-block">
+            <input
+              type="number"
+              min="0"
+              onChange={(e) => {
+                setRoleCallback({
+                  ...role,
+                  hours: Number(e.target.value),
+                });
+              }}
+              className="block w-1/2 mr-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
+            ></input>
+          </div>
+          <div className="w-1/2 inline-block pl-1">
+            <Selector
+              setDataCallback={({ period }) => {
+                setRoleCallback({ ...role, period: period });
+              }}
+              name="period"
+              options={periods}
+              placeholder="week/month"
+            />
+          </div>
         </div>
       </section>
       <button
