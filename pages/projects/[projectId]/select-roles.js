@@ -89,8 +89,12 @@ function ProjectSelectRoles() {
           />
         )}
       </div>
-      <div className="col-span-1">{JSON.stringify(savedRoles)}</div>
-      <p>{JSON.stringify(pendingRoles)}</p>
+      <div className="col-span-1">
+        {savedRoles.map((role, index) => (
+          <RoleCard role={role} key={index} />
+        ))}
+      </div>
+      {/* <p>{JSON.stringify(pendingRoles)}</p> */}
     </div>
   );
 }
