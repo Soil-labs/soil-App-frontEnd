@@ -37,7 +37,9 @@ function ProjectSelectRoles() {
         return {
           ...role,
           skills: role.skills.map((skill) => {
-            return { _id: skill._id, level: skill.level };
+            return skill.level
+              ? { _id: skill._id, level: skill.level }
+              : { _id: skill._id };
           }),
         };
       }),
@@ -110,7 +112,7 @@ function ProjectSelectRoles() {
           <RoleCard role={role} key={index} />
         ))}
       </div>
-      <p>{JSON.stringify(pendingRoles)}</p>
+      {/* <p>{JSON.stringify(pendingRoles)}</p> */}
     </div>
   );
 }

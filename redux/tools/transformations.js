@@ -46,8 +46,6 @@ function subJsonToString(jsonT) {
     }
   }
 
-  debugger;
-
   return stringResult;
 }
 
