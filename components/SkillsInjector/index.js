@@ -1,11 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Combobox } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { findSkills } from "../../redux/slices/skillsSlice";
 import { XIcon } from "@heroicons/react/outline";
+import { SkillPasserContext } from "../../Contexts/SkillPasserContext";
 
 const colors = [
   "#c2f5e9",
@@ -25,16 +25,23 @@ function classNames(...classes) {
 export default function SkillSelector({
   setSkillsCallback,
   showSelected,
-  setHighLightedSkill,
   selected,
   setSelected,
-  skillbeenAdded,
   allSkills,
 }) {
   const [query, setQuery] = useState("");
-  const [selectedSkills, setSelectedSkills] = useState([]);
   const [select, setSelect] = useState(false);
-  const [highlightSkill, setHighlightSkill] = useState(null);
+
+  const {
+    choosenSkills,
+    setChoosenSkills,
+    highlightedSkill,
+    setHighlightedSkill,
+  } = useContext(SkillPasserContext);
+
+  useEffect(() => {
+    console.log("selected skill", choosenSkills);
+  }, [choosenSkills]);
 
   const dispatch = useDispatch();
 
@@ -46,7 +53,7 @@ export default function SkillSelector({
   );
 
   const skillIsSelected = (skill) => {
-    return selectedSkills.some(
+    return choosenSkills.some(
       (selectedSkill) => selectedSkill._id === skill._id
     );
   };
@@ -61,7 +68,7 @@ export default function SkillSelector({
   useEffect(() => {
     if (selected === false) {
       setSelect(false);
-      setHighlightSkill(null);
+      setHighlightedSkill(null);
     }
   }, [selected]);
 
@@ -69,27 +76,27 @@ export default function SkillSelector({
     dispatch(findSkills({}));
   }, [dispatch]);
 
-  useEffect(() => {
-    setSkillsCallback(selectedSkills);
-  }, [selectedSkills, setSkillsCallback]);
+  // useEffect(() => {
+  //   setSkillsCallback(choosenSkills);
+  // }, [choosenSkills, setSkillsCallback]);
 
   useEffect(() => {
-    setHighLightedSkill(highlightSkill);
-  });
+    setHighlightedSkill(highlightedSkill);
+  }, [highlightedSkill]);
 
   const handleSelect = (skill) => {
-    setSelectedSkills([...selectedSkills, skill]);
+    setChoosenSkills([...choosenSkills, skill]);
   };
 
   const handleDeleteClick = (skill) => {
-    setSelectedSkills(
-      selectedSkills.filter((selected) => selected._id !== skill._id)
+    setChoosenSkills(
+      choosenSkills.filter((selected) => selected._id !== skill._id)
     );
   };
 
   return (
     <div>
-      <Combobox as="div" value={selectedSkills} onChange={handleSelect}>
+      <Combobox as="div" value={choosenSkills} onChange={handleSelect}>
         <Combobox.Label className="block text-sm font-medium text-gray-700">
           Skills
         </Combobox.Label>
@@ -155,7 +162,7 @@ export default function SkillSelector({
       <div className="hidden bg-[#c2f5e9] bg-[#d1f7c4] bg-[#ffeab6] bg-[#fee2d5] bg-[#ffdce5] bg-[#ffdaf6] bg-[#ede2fe] bg-[#cfdfff]"></div>
       {showSelected && (
         <section>
-          {allSkills.map((skill, index) => (
+          {choosenSkills.map((skill, index) => (
             <div
               className={`inline-block mr-2 rounded-full ${
                 select === index
@@ -170,7 +177,7 @@ export default function SkillSelector({
                   onClick={() => {
                     setSelect(index);
                     setSelected(true);
-                    setHighlightSkill(skill);
+                    setHighlightedSkill(skill);
                   }}
                 >
                   {skill.name}

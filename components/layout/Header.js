@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
+import { Login } from "./Login";
 import WhatIsSoil from "./WhatIsSoil";
 
 export default function Header() {
@@ -17,6 +18,7 @@ export default function Header() {
             </span>
           </a>
         </Link>
+        <Login />
         <WhatIsSoil />
         <BurgerMenu />
       </nav>
