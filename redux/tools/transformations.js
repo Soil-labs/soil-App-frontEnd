@@ -24,7 +24,18 @@ export function arrayToString(arrayT) {
 function subJsonToString(jsonT) {
   let stringResult = "";
   for (var key in jsonT) {
-    if (getType(jsonT[key]) === "object") {
+    if (Array.isArray(jsonT[key])) {
+      stringResult += `${key}: [\n`;
+      for (var i = 0; i < jsonT[key].length; i++) {
+        stringResult += "{";
+        stringResult += subJsonToString(jsonT[key][i]);
+
+        // stringResult = stringResult.slice(0, -1);
+        stringResult += "},";
+      }
+      // stringResult = stringResult.slice(0, -1); //@TODO eloi removed this line make sure everything is still working
+      stringResult += "]";
+    } else if (getType(jsonT[key]) === "object") {
       stringResult += `${key}: {\n`;
       stringResult += subJsonToString(jsonT[key]);
       stringResult += `},`;

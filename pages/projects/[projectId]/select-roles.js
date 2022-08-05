@@ -1,11 +1,11 @@
 import Layout from "../../../components/layout/Layout";
 import RoleCard from "../../../components/SelectRoles/RoleCard";
-import { useState, useCallback, useLayoutEffect } from "react";
+import { useState, useCallback, useLayoutEffect, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Selector from "../../../components/SelectRoles/Selector";
 import RoleDataForm from "../../../components/SelectRoles/RoleDataForm";
 import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
-
+import { updateProject } from "../../../redux/slices/projectSlice";
 function ProjectSelectRoles() {
   const dispatch = useDispatch();
   const roles = useSelector((state) => state.roleTemplates.roleTemplates);
@@ -29,6 +29,22 @@ function ProjectSelectRoles() {
     },
     [pendingRoles, currentRoleIndex, savedRoles]
   );
+
+  useEffect(() => {
+    if (!savedRoles.length) return;
+    const params = {
+      role: savedRoles.map((role) => {
+        return {
+          ...role,
+          skills: role.skills.map((skill) => {
+            return { _id: skill._id, level: skill.level };
+          }),
+        };
+      }),
+      returnRole: true,
+    };
+    dispatch(updateProject(params));
+  }, [savedRoles]);
 
   const setRoleCallback = useCallback(
     async (item) => {

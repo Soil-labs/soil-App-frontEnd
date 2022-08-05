@@ -48,7 +48,7 @@ export default function updateProjectMutation(params) {
 								title
 								description
 								skills{
-									skill{
+									skillData{
 										_id
 										name
 									}
