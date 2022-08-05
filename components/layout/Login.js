@@ -11,7 +11,7 @@ export const Login = () => {
         onClick={() => signOut()}
         className="ml-auto border border-gray-200 bg-soilGreen-10 hover:bg-soilGreen-20 rounded-full pl-4 px-6 h-8 inline-flex items-center justify-center cursor-pointer shadow-[0px_2px_14px_rgba(0,74,217,0.09)]"
       >
-        <span>{user?.id}</span>
+        <span>{user?.name}</span>
       </div>
     );
   }

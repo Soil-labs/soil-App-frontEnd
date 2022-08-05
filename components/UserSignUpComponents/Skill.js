@@ -75,11 +75,10 @@ const Skill = ({
         }}
       >
         <SkillsInjector
-          // setSkillsCallback={setChoosenSkills}
-          // allSkills={choosenSkills}
           showSelected={true}
           selected={selected}
           setSelected={setSelected}
+          skillsWithLevel={[...learning, ...junior, ...midLevel, ...senior]}
         />
         <div className="flex justify-between">
           <SkillDropper

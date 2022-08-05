@@ -23,11 +23,10 @@ function classNames(...classes) {
 }
 
 export default function SkillSelector({
-  setSkillsCallback,
   showSelected,
   selected,
   setSelected,
-  allSkills,
+  skillsWithLevel,
 }) {
   const [query, setQuery] = useState("");
   const [select, setSelect] = useState(false);
@@ -53,8 +52,10 @@ export default function SkillSelector({
   );
 
   const skillIsSelected = (skill) => {
-    return choosenSkills.some(
-      (selectedSkill) => selectedSkill._id === skill._id
+    return [...choosenSkills, ...skillsWithLevel].some(
+      (selectedSkill) =>
+        selectedSkill._id === skill._id ||
+        selectedSkill.skillInfo?._id === skill._id
     );
   };
 
@@ -75,10 +76,6 @@ export default function SkillSelector({
   useEffect(() => {
     dispatch(findSkills({}));
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   setSkillsCallback(choosenSkills);
-  // }, [choosenSkills, setSkillsCallback]);
 
   useEffect(() => {
     setHighlightedSkill(highlightedSkill);

@@ -10,7 +10,11 @@ import {
   Skill,
   Credits,
 } from "../../../components/UserSignUpComponents";
-import { findMember, updateMember } from "../../../redux/slices/memberSlice";
+import {
+  findMember,
+  updateMember,
+  addMemberData,
+} from "../../../redux/slices/memberSlice";
 import Layout from "../../../components/layout/Layout";
 import { useSession } from "next-auth/react";
 
@@ -19,18 +23,30 @@ const SignUp = ({ id }) => {
 
   const { data: session } = useSession();
 
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        addMemberData({
+          _id: session.user.id,
+          discordName: session.user.name,
+          discordAvatar: session.user.image,
+        })
+      );
+    }
+  }, [session]);
+
   const member = useSelector((state) => state.member);
 
-  useEffect(() => {
-    let params = {
-      _id: id,
-    };
-    dispatch(findMember(params));
-  }, [id, dispatch]);
+  // useEffect(() => {
+  //   let params = {
+  //     _id: id,
+  //   };
+  //   dispatch(findMember(params));
+  // }, [id, dispatch]);
 
   const onSubmit = async () => {
     const params = {
-      _id: formData.id,
+      _id: session.user.id,
       bio: formData.description,
       hoursPerWeek: formData.hours,
       timeZone: formData.timeZone,
@@ -62,16 +78,6 @@ const SignUp = ({ id }) => {
     setPage((currPage) => currPage + 1);
   };
 
-  useEffect(() => {
-    if (member.loading === false) {
-      setFormData({
-        ...formData,
-        discordName: member.discordName,
-        avatar: member.discordAvatar,
-      });
-    }
-  }, [member]);
-
   const [formData, setFormData] = useState({
     id: id,
     discordName: "",
@@ -86,6 +92,14 @@ const SignUp = ({ id }) => {
     pieceOfWork: "",
     skills: [],
   });
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      discordName: member.discordName,
+      avatar: member.discordAvatar,
+    });
+  }, [member]);
 
   const [learning, setLearning] = useState([]);
 
