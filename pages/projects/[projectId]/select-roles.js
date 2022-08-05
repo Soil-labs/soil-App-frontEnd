@@ -69,13 +69,13 @@ function ProjectSelectRoles() {
             <Selector
               key={inputRole}
               name="title"
-              options={roles}
+              options={[...roles, { title: "New Role" }]}
               setDataCallback={setInputRoleCallback}
               value={inputRole}
             />
           )}
-          <button disabled={!inputRole._id} onClick={handleAddRole}>
-            Add
+          <button disabled={!inputRole.title} onClick={handleAddRole}>
+            Add Role
           </button>
         </div>
       </div>
