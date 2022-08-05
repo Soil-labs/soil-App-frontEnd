@@ -45,21 +45,23 @@ export default function RoleDataForm({
               setRoleCallback({ ...role, description: e.target.value })
             }
           />
-          <div className="w-1/2 inline-block pr-2">
+          <div className="w-full inline-block pr-2">
             <input
               type="number"
-              min="0"
+              min={0}
               placeholder="Hours"
               onChange={(e) => {
                 setRoleCallback({
                   ...role,
-                  hours: Number(e.target.value),
+                  hoursPerWeek: Number(e.target.value),
                 });
               }}
-              className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
+              className="inline-block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
             ></input>
+            <span className="ml-2">hours/week</span>
           </div>
-          <div className="w-1/2 inline-block pl-1">
+          {/* MVP not able to select if week or months */}
+          {/* <div className="w-1/2 inline-block pl-1">
             <Selector
               setDataCallback={({ period }) => {
                 setRoleCallback({ ...role, period: period });
@@ -68,7 +70,7 @@ export default function RoleDataForm({
               options={periods}
               placeholder="week/month"
             />
-          </div>
+          </div> */}
           {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
         </div>
 

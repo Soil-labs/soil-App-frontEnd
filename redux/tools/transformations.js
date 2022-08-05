@@ -39,10 +39,14 @@ function subJsonToString(jsonT) {
       stringResult += `${key}: {\n`;
       stringResult += subJsonToString(jsonT[key]);
       stringResult += `},`;
+    } else if (getType(jsonT[key]) === "number") {
+      stringResult += `${key}:${jsonT[key]}\n`;
     } else {
       stringResult += `${key}:"${jsonT[key]}"\n`;
     }
   }
+
+  debugger;
 
   return stringResult;
 }
@@ -50,6 +54,7 @@ function subJsonToString(jsonT) {
 function getType(p) {
   if (Array.isArray(p)) return "array";
   else if (typeof p == "string") return "string";
+  else if (typeof p == "number") return "number";
   else if (p != null && typeof p == "object") return "object";
   else return "other";
 }
@@ -99,24 +104,7 @@ export function jsonToStringWithEnums(jsonT, _enums = []) {
 
   console.log("jsonString = ", jsonString);
   _enums.forEach((_enum) => {
-    jsonString = jsonString
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum)
-      .replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
   });
   // jsonString = jsonString.replace(`"${_enum}"`, _enum);
   console.log("jsonString = ", jsonString);
