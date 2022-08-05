@@ -26,7 +26,7 @@ export default function RoleDataForm({
         name="title"
         defaultValue={role.title != "New Role" ? role.title : ""}
         placeholder={role.title === "New Role" ? role.title : "Role Title"}
-        className="py-2 px-4 block w-1/2 mx-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full mb-4 border border-gray-300"
+        className="py-2 px-4 block w-1/2 mx-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-full mb-4 border border-gray-300"
         onChange={(e) => {
           setRoleCallback({
             ...role,
