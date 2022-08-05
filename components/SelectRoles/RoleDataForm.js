@@ -1,8 +1,9 @@
 import { useCallback } from "react";
 import SkillSelector from "../skill/SkillSelector";
 import Selector from "../Selector";
+import SalaryRange from "./SalaryRange";
 
-const periods = ["month", "week"];
+const periods = ["week", "month"];
 
 export default function RoleDataForm({
   role,
@@ -11,6 +12,10 @@ export default function RoleDataForm({
 }) {
   const setSkillsCallback = useCallback(async (item) => {
     setRoleCallback({ ...role, skills: item });
+  }, []);
+
+  const setRoleDataCallback = useCallback(async (item) => {
+    setRoleCallback({ ...role, salaryRange: item });
   }, []);
 
   return (
@@ -27,6 +32,7 @@ export default function RoleDataForm({
               setRoleCallback({ ...role, description: e.target.value })
             }
           />
+          <SalaryRange setRoleDataCallback={setRoleDataCallback} />
         </div>
 
         <div className="col-span-1 pl-2">
