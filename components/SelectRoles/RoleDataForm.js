@@ -32,7 +32,7 @@ export default function RoleDataForm({
               setRoleCallback({ ...role, description: e.target.value })
             }
           />
-          <SalaryRange setRoleDataCallback={setRoleDataCallback} />
+          {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
         </div>
 
         <div className="col-span-1 pl-2">
