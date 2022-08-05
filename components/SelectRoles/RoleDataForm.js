@@ -19,32 +19,32 @@ export default function RoleDataForm({
   // }, []);
 
   return (
-    <div>
-      <h3>here goes the form</h3>
-      <input
+    <div className="bg-white relative rounded-md border-[2px] border-green-500 flex flex-col justify-center items-center gap-10 p-10">
+      {/* <input
         type="text"
         name="title"
-        defaultValue={role.title != "New Role" ? role.title : ""}
+        Value={role.title != "New Role" ? role.title : ""}
         placeholder={role.title === "New Role" ? role.title : "Role Title"}
         className="py-2 px-4 block w-1/2 mx-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-full mb-4 border border-gray-300"
-        onChange={(e) => {
-          setRoleCallback({
-            ...role,
-            title: e.target.value,
-          });
-        }}
-      />
+      /> */}
+      <p className="bg-yellow-200 rounded-full text-xl font-semibold uppercase w-max px-4 py-1">
+        {role.title ? role.title : "Your role"}
+      </p>
       <section className="grid grid-cols-2">
-        <div className="col-span-1 pr-2">
-          <textarea
-            defaultValue={role.description}
-            placeholder="Description"
-            rows={4}
-            className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
-            onChange={(e) =>
-              setRoleCallback({ ...role, description: e.target.value })
-            }
-          />
+        <div className="col-span-1 pr-2 ">
+          <div className="shadow-md rounded-lg p-2 mb-3">
+            <p className="font-semibold">Candidate Description</p>
+            <textarea
+              defaultValue={role.description}
+              placeholder="Description"
+              rows={4}
+              className="py-3 border-none block w-full focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
+              onChange={(e) =>
+                setRoleCallback({ ...role, description: e.target.value })
+              }
+            />
+          </div>
+
           <div className="w-full inline-block pr-2">
             <input
               type="number"
@@ -56,7 +56,7 @@ export default function RoleDataForm({
                   hoursPerWeek: Number(e.target.value),
                 });
               }}
-              className="inline-block w-1/3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
+              className="inline-block border-none w-1/3 shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
             ></input>
             <span className="ml-2">hours/week</span>
           </div>
@@ -89,8 +89,9 @@ export default function RoleDataForm({
         onClick={() => {
           saveRoleCallback(role);
         }}
+        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5"
       >
-        Save Role
+        &#10004; COMPLETE
       </button>
     </div>
   );
