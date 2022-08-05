@@ -78,7 +78,7 @@ export default function SkillSelectorLevel({
   }, []);
 
   useEffect(() => {
-    const newSkillsMapped = [
+    const selectedSkillsLevelMapped = [
       ...(selectedSkillsLevel["learning"]
         ? selectedSkillsLevel["learning"].map((skill) => {
             return {
@@ -113,8 +113,18 @@ export default function SkillSelectorLevel({
         : []),
     ];
 
+    const newSkillsMapped = [
+      ...selectedSkillsLevelMapped,
+      ...selectedSkills.filter(
+        (skill) =>
+          !selectedSkillsLevelMapped.some(
+            (skillLevel) => skillLevel.name === skill.name
+          )
+      ),
+    ];
+
     setSkillsCallback(newSkillsMapped);
-  }, [selectedSkillsLevel]);
+  }, [selectedSkillsLevel, selectedSkills]);
 
   return (
     <div>
