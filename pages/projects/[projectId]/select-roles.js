@@ -119,7 +119,7 @@ function ProjectSelectRoles() {
           )} */}
           <button
             className="bg-green-400 rounded-sm font-bold px-2 py-1"
-            disabled={!inputRole.title}
+            enable={!inputRole.title}
             onClick={handleAddRole}
           >
             Add Role
