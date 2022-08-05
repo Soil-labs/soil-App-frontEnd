@@ -5,10 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Selector from "../../../components/SelectRoles/Selector";
 import RoleDataForm from "../../../components/SelectRoles/RoleDataForm";
 import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
-import { updateProject } from "../../../redux/slices/projectSlice";
+import { findProject, updateProject } from "../../../redux/slices/projectSlice";
+import { useRouter } from "next/router";
 function ProjectSelectRoles() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const roles = useSelector((state) => state.roleTemplates.roleTemplates);
+  const project = useSelector((state) => state.projectInspect);
   const [pendingRoles, setPendingRoles] = useState([]);
   const [inputRole, setInputRole] = useState({});
   const [currentRoleIndex, setCurrentRoleIndex] = useState(null);
@@ -63,11 +66,23 @@ function ProjectSelectRoles() {
   };
 
   useLayoutEffect(() => {
-    const params = {
+    let params = {
       fields: {},
     };
     dispatch(findRoleTemplates(params));
-  }, [dispatch]);
+    if (router.query.projectId) {
+      params = {
+        _id: router.query.projectId,
+        returnRole: true,
+      };
+      dispatch(findProject(params));
+    }
+  }, [dispatch, router.query.projectId]);
+
+  useEffect(() => {
+    if (!project?.role?.length) return;
+    setSavedRoles(project.role);
+  }, [project]);
 
   useEffect(() => {
     console.log("pendingRoles", pendingRoles);
