@@ -1,5 +1,6 @@
-import { useCallback } from "react";
-import SkillSelector from "../skill/SkillSelector";
+import { useCallback, useState } from "react";
+import Skill from "../UserSignUpComponents/Skill";
+import SkillSelectorLevel from "../skill/SkillSelectorLevel";
 import Selector from "../Selector";
 import SalaryRange from "./SalaryRange";
 
@@ -27,32 +28,23 @@ export default function RoleDataForm({
           <textarea
             defaultValue={role.description}
             rows={4}
-            className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md"
+            className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
             onChange={(e) =>
               setRoleCallback({ ...role, description: e.target.value })
             }
           />
-          {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
-        </div>
-
-        <div className="col-span-1 pl-2">
-          <SkillSelector
-            key={role._id}
-            setSkillsCallback={setSkillsCallback}
-            value={role.skills}
-            showSelected={true}
-          />
-          <div className="w-1/2 inline-block">
+          <div className="w-1/2 inline-block pr-2">
             <input
               type="number"
               min="0"
+              placeholder="Hours"
               onChange={(e) => {
                 setRoleCallback({
                   ...role,
                   hours: Number(e.target.value),
                 });
               }}
-              className="block w-1/2 mr-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
+              className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
             ></input>
           </div>
           <div className="w-1/2 inline-block pl-1">
@@ -65,6 +57,17 @@ export default function RoleDataForm({
               placeholder="week/month"
             />
           </div>
+          {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
+        </div>
+
+        <div className="col-span-1 pl-2">
+          <SkillSelectorLevel
+            key={role._id}
+            setSkillsCallback={setSkillsCallback}
+            value={role.skills}
+            showSelected={true}
+            skillLevelPicker={true}
+          />
         </div>
       </section>
       <button
