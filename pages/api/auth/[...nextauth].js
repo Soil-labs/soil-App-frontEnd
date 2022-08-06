@@ -18,9 +18,11 @@ export default NextAuth({
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      secret: process.env.NEXT_PUBLIC_SECRET,
       //   authorization: {params: {scope: scopes}},
     }),
   ],
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     session: async ({ session, token }) => {
       if (session?.user) {
