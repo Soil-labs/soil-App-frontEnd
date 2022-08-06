@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import SkillSelectorLevel from "../skill/SkillSelectorLevel";
 import Selector from "../Selector";
 import SalaryRange from "./SalaryRange";
+import { CheckIcon } from "@heroicons/react/solid";
 
 const periods = ["week", "month"];
 
@@ -20,16 +21,17 @@ export default function RoleDataForm({
 
   return (
     <div className="bg-white relative rounded-md border-[2px] border-green-500 flex flex-col justify-center items-center gap-10 p-10">
-      {/* <input
+      <input
         type="text"
         name="title"
         Value={role.title != "New Role" ? role.title : ""}
         placeholder={role.title === "New Role" ? role.title : "Role Title"}
         className="py-2 px-4 block w-1/2 mx-auto shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-full mb-4 border border-gray-300"
-      /> */}
-      <p className="bg-yellow-200 rounded-full text-xl font-semibold uppercase w-max px-4 py-1">
+        onChange={(e) => setRoleCallback({ ...role, title: e.target.value })}
+      />
+      {/* <p className="bg-yellow-200 rounded-full text-xl font-semibold uppercase w-max px-4 py-1">
         {role.title ? role.title : "Your role"}
-      </p>
+      </p> */}
       <section className="grid grid-cols-2">
         <div className="col-span-1 pr-2 ">
           <div className="shadow-md rounded-lg p-2 mb-3">
@@ -91,7 +93,7 @@ export default function RoleDataForm({
         }}
         className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5"
       >
-        &#10004; COMPLETE
+        <CheckIcon width={20} className="inline -mt-1" /> COMPLETE
       </button>
     </div>
   );

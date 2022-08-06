@@ -16,6 +16,8 @@ function ProjectSelectRoles() {
   const [inputRole, setInputRole] = useState({});
   const [currentRoleIndex, setCurrentRoleIndex] = useState(null);
   const [savedRoles, setSavedRoles] = useState([]);
+  const [submiting, setSubmiting] = useState(false);
+  const [saveError, setSaveError] = useState(false);
 
   const setInputRoleCallback = useCallback((item) => {
     setInputRole(item);
@@ -23,7 +25,34 @@ function ProjectSelectRoles() {
 
   const saveRoleCallback = useCallback(
     async (item) => {
-      await setSavedRoles([...savedRoles, item]);
+      if (submiting) return;
+      item._id = null;
+      const params = {
+        _id: project._id,
+        role: [...savedRoles, item].map((role) => {
+          return {
+            ...role,
+            skills: role.skills.map((skill) => {
+              return skill.level
+                ? { _id: skill._id, level: skill.level }
+                : { _id: skill._id };
+            }),
+          };
+        }),
+        returnRole: true,
+      };
+
+      setSubmiting(true);
+      const { type } = await dispatch(updateProject(params));
+      setSubmiting(false);
+
+      console.log(type);
+      if (type.includes("rejected")) {
+        setSaveError(true);
+        return;
+      }
+
+      // await setSavedRoles([...savedRoles, item]);
       const newPendingRoles = pendingRoles.filter(
         (role, index) => index !== currentRoleIndex
       );
@@ -32,24 +61,6 @@ function ProjectSelectRoles() {
     },
     [pendingRoles, currentRoleIndex, savedRoles]
   );
-
-  useEffect(() => {
-    if (!savedRoles.length) return;
-    const params = {
-      role: savedRoles.map((role) => {
-        return {
-          ...role,
-          skills: role.skills.map((skill) => {
-            return skill.level
-              ? { _id: skill._id, level: skill.level }
-              : { _id: skill._id };
-          }),
-        };
-      }),
-      returnRole: true,
-    };
-    dispatch(updateProject(params));
-  }, [savedRoles]);
 
   const setRoleCallback = useCallback(
     async (item) => {
@@ -85,13 +96,18 @@ function ProjectSelectRoles() {
   }, [project]);
 
   useEffect(() => {
-    console.log("pendingRoles", pendingRoles);
-  }, []);
+    if (saveError) setTimeout(() => setSaveError(false), 5000);
+  }, [saveError]);
 
   return (
     // <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
     <div className="grid grid-cols-5 gap-3">
       <div className="col-span-1 pt-12">
+        {saveError && (
+          <h4 className="p-2 text-white bg-red-500 rounded-lg mb-2">
+            User could not be saved
+          </h4>
+        )}
         <h3 className="text-lg mb-3 font-semibold">SCOPE YOUR ROLES</h3>
         <div className="">
           {pendingRoles.map((role, index) => (
@@ -144,7 +160,7 @@ function ProjectSelectRoles() {
           <RoleCard role={role} key={index} />
         ))}
       </div>
-      {/* <p>{JSON.stringify(pendingRoles)}</p> */}
+      <p>{JSON.stringify(pendingRoles)}</p>
     </div>
   );
 }

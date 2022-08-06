@@ -13,7 +13,7 @@ export default function RoleCard({
 
   return (
     <div
-      className={`relative px-3 py-4 mb-3 ${
+      className={`relative px-3 py-5 mb-3 ${
         currentRoleIndex === index && highlighter
           ? "border-[2px] border-green-500"
           : ""
@@ -23,10 +23,10 @@ export default function RoleCard({
         <img src="/coder.png" className="h-full w-full" alt="" />
       </div>
 
-      {/* <p>
+      <p className="ml-10">
         {role?.title && role.title !== "New Role" ? role.title : "New Role"}
-      </p> */}
-      <div className="ml-10">
+      </p>
+      {/* <div className="ml-10">
         <input
           placeholder="start typing here"
           className="rounded-full shadow-md text-left pl-3 py-1 w-full"
@@ -37,7 +37,7 @@ export default function RoleCard({
             });
           }}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

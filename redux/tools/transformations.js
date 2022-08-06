@@ -41,6 +41,8 @@ function subJsonToString(jsonT) {
       stringResult += `},`;
     } else if (getType(jsonT[key]) === "number") {
       stringResult += `${key}:${jsonT[key]}\n`;
+    } else if (jsonT[key] === null || jsonT[key] === undefined) {
+      // do nothing
     } else {
       stringResult += `${key}:"${jsonT[key]}"\n`;
     }
