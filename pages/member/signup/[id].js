@@ -37,12 +37,12 @@ const SignUp = ({ id }) => {
 
   const member = useSelector((state) => state.member);
 
-  // useEffect(() => {
-  //   let params = {
-  //     _id: id,
-  //   };
-  //   dispatch(findMember(params));
-  // }, [id, dispatch]);
+  useEffect(() => {
+    let params = {
+      _id: id,
+    };
+    dispatch(findMember(params));
+  }, [id, dispatch]);
 
   const onSubmit = async () => {
     const params = {
@@ -74,7 +74,11 @@ const SignUp = ({ id }) => {
       returnSocialLink: true,
     };
     console.log("params====", params);
-    dispatch(updateMember(params));
+    if (member.isDataAvailable) {
+      dispatch(updateMember(params));
+    } else {
+      dispatch(addNewMember(params));
+    }
     setPage((currPage) => currPage + 1);
   };
 
