@@ -1,25 +1,25 @@
 // import Profile from "../../components/ProfileComponent";
-import { getMember } from "../../redux/slices/memberSlice";
+import { getMember } from "../../../redux/slices/memberSlice";
 
 import {
   findMembers,
   findMembers_withSkill,
-} from "../../redux/slices/usersInspectSlice";
-import { updateProject, findProject } from "../../redux/slices/projectSlice";
+} from "../../../redux/slices/usersInspectSlice";
+import { updateProject, findProject } from "../../../redux/slices/projectSlice";
 import {
   findProjects,
   findProjects_fromMember,
-} from "../../redux/slices/projectsSlice";
-import { createSkill, findSkill } from "../../redux/slices/skillSlice";
-import { findSkills } from "../../redux/slices/skillsSlice";
-import { findMember } from "../../redux/slices/memberSlice";
-import { addNewMember } from "../../redux/slices/memberSlice";
-import { addSkillToMember } from "../../redux/slices/userInspectSlice";
+} from "../../../redux/slices/projectsSlice";
+import { createSkill, findSkill } from "../../../redux/slices/skillSlice";
+import { findSkills } from "../../../redux/slices/skillsSlice";
+import { findMember } from "../../../redux/slices/memberSlice";
+import { addNewMember } from "../../../redux/slices/memberSlice";
+import { addSkillToMember } from "../../../redux/slices/userInspectSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Profile from "../../components/ProfileComponent";
+import Profile from "../../../components/ProfileComponent";
 
-import { inpsectUser } from "../../redux/slices/userInspectSlice";
+import { inpsectUser } from "../../../redux/slices/userInspectSlice";
 
 function MemberPage({ id }) {
   const [skills, setSkills] = useState([]);
