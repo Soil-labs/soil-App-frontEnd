@@ -151,6 +151,7 @@ function ProjectSelectRoles() {
             key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
             setRoleCallback={setRoleCallback}
             saveRoleCallback={saveRoleCallback}
+            submiting={submiting}
           />
         )}
       </div>

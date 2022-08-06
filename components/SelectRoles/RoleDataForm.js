@@ -10,6 +10,7 @@ export default function RoleDataForm({
   role,
   saveRoleCallback,
   setRoleCallback,
+  submiting
 }) {
   const setSkillsCallback = useCallback(async (item) => {
     setRoleCallback({ ...role, skills: item });
@@ -87,13 +88,13 @@ export default function RoleDataForm({
         </div>
       </section>
       <button
-        disabled={false}
+        disabled={submiting}
         onClick={() => {
           saveRoleCallback(role);
         }}
-        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5"
+        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400"
       >
-        <CheckIcon width={20} className="inline -mt-1" /> COMPLETE
+        <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" /> COMPLETE
       </button>
     </div>
   );
