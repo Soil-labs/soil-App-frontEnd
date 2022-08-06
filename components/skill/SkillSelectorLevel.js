@@ -205,7 +205,7 @@ export default function SkillSelectorLevel({
                     colors[index % colors.length]
                   }]`,
                   selectedSkillLevel?._id === skill._id
-                    ? "border-2 border-soilGreen-70"
+                    ? "border-2 border-green-500"
                     : ""
                 )}
                 key={index}
