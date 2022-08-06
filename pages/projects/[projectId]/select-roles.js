@@ -90,25 +90,27 @@ function ProjectSelectRoles() {
 
   return (
     // <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
-    <div className="flex justify-between items-center">
-      <div className="flex gap-10 flex-col justify-center items-center">
-        <h3 className="text-2xl font-semibold">SCOPE YOUR ROLES</h3>
-        <div className="flex gap-5 flex-col justify-center items-center">
+    <div className="grid grid-cols-5 gap-3">
+      <div className="col-span-1 pt-12">
+        <h3 className="text-lg mb-3 font-semibold">SCOPE YOUR ROLES</h3>
+        <div className="">
           {pendingRoles.map((role, index) => (
             <div
               key={index}
               onClick={() => setCurrentRoleIndex(index)}
-              className={`cursor-pointer`}
+              className="cursor-pointer"
             >
               <RoleCard
                 setRoleCallback={setRoleCallback}
                 currentRoleIndex={currentRoleIndex}
                 index={index}
                 highlighter={true}
+                role={role}
               />
             </div>
           ))}
-          {/* {roles.length && (
+          {/* this was added because I was not able to add a role without it. Will refactor it later */}
+          {!!roles.length && (
             <Selector
               key={inputRole}
               name="title"
@@ -116,7 +118,7 @@ function ProjectSelectRoles() {
               setDataCallback={setInputRoleCallback}
               value={inputRole}
             />
-          )} */}
+          )}
           <button
             className="bg-green-400 rounded-sm font-bold px-2 py-1"
             disabled={!inputRole.title}
@@ -136,8 +138,8 @@ function ProjectSelectRoles() {
           />
         )}
       </div>
-      <div className="col-span-1">
-        <h3 className="text-2xl font-semibold">COMPLETED PROFILES</h3>
+      <div className="col-span-1 pt-12">
+        <h3 className="text-lg mb-3 font-semibold">COMPLETED PROFILES</h3>
         {savedRoles.map((role, index) => (
           <RoleCard role={role} key={index} />
         ))}
