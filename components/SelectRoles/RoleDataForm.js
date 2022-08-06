@@ -10,7 +10,9 @@ export default function RoleDataForm({
   role,
   saveRoleCallback,
   setRoleCallback,
-  submiting
+  submiting,
+  skillSelected,
+  setSkillSelected,
 }) {
   const setSkillsCallback = useCallback(async (item) => {
     setRoleCallback({ ...role, skills: item });
@@ -84,6 +86,8 @@ export default function RoleDataForm({
             value={role.skills}
             showSelected={true}
             skillLevelPicker={true}
+            skillSelected={skillSelected}
+            setSkillSelected={setSkillSelected}
           />
         </div>
       </section>
@@ -94,7 +98,8 @@ export default function RoleDataForm({
         }}
         className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400"
       >
-        <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" /> COMPLETE
+        <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" />{" "}
+        COMPLETE
       </button>
     </div>
   );

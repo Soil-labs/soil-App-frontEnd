@@ -18,6 +18,7 @@ function ProjectSelectRoles() {
   const [savedRoles, setSavedRoles] = useState([]);
   const [submiting, setSubmiting] = useState(false);
   const [saveError, setSaveError] = useState(false);
+  const [skillSelected, setSkillSelected] = useState(false);
 
   const setInputRoleCallback = useCallback((item) => {
     setInputRole(item);
@@ -152,6 +153,8 @@ function ProjectSelectRoles() {
             setRoleCallback={setRoleCallback}
             saveRoleCallback={saveRoleCallback}
             submiting={submiting}
+            skillSelected={skillSelected}
+            setSkillSelected={setSkillSelected}
           />
         )}
       </div>

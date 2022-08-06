@@ -21,6 +21,9 @@ export default function SkillLevel({
   selectedSkill,
   selectedSkillsLevel,
   setSelectedSkillsLevel,
+  skillSelected,
+  setSkillSelected,
+  
 }) {
   const handleSelectSkillLevel = (level) => {
     if (!selectedSkill) return;
@@ -37,6 +40,8 @@ export default function SkillLevel({
         ? [...selectedSkillsLevel[level], selectedSkill]
         : [selectedSkill],
     });
+    setSkillSelected(false)
+    console.log("skillSelected frp,",skillSelected)
   };
 
   const handleDeleteClick = (level, skill) => {
@@ -61,7 +66,10 @@ export default function SkillLevel({
           <span className="absolute left-4 top-1">{level.toUpperCase()}</span>
           <div
             key={index}
-            className="border border-slate-200 rounded-lg h-[120px] bg-white pb-1 pt-6 px-2"
+          className={classNames(
+            skillSelected ? "border-2 border-green-500" : "border border-slate-200",
+            "rounded-lg h-[120px] bg-white pb-1 pt-6 px-2"
+          )}
           >
             <div className="overflow-y-auto h-full">
               {selectedSkillsLevel[level] &&

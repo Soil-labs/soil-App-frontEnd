@@ -26,6 +26,8 @@ function classNames(...classes) {
 export default function SkillSelectorLevel({
   setSkillsCallback,
   showSelected,
+  skillSelected,
+  setSkillSelected,
   value = [],
 }) {
   const [query, setQuery] = useState("");
@@ -62,6 +64,13 @@ export default function SkillSelectorLevel({
   const handleSelect = async (skill) => {
     await setSelectedSkills([...selectedSkills, skill]);
     // await setSkillsCallback([...selectedSkills, skill]);
+  };
+
+  const hadleSelectSkill = (skill) => {
+    setSelectedSkillLevel(skill);
+    console.log("selectedSkillLevel from skill selector",selectedSkillLevel)
+    setSkillSelected(true)
+    console.log("skillSelected from Selector",skillSelected)
   };
 
   const handleDeleteClick = (skill) => {
@@ -212,7 +221,8 @@ export default function SkillSelectorLevel({
               >
                 <div
                   className="w-full h-full px-3 flex items-center justify-between"
-                  onClick={() => setSelectedSkillLevel(skill)}
+                  // onClick={() => setSelectedSkillLevel(skill)}
+                  onClick={() => hadleSelectSkill(skill)}
                 >
                   <span className="mr-2 mb-px">{skill.name}</span>
                   <XIcon
@@ -233,6 +243,8 @@ export default function SkillSelectorLevel({
         selectedSkill={selectedSkillLevel}
         selectedSkillsLevel={selectedSkillsLevel}
         setSelectedSkillsLevel={setSelectedSkillsLevel}
+        skillSelected={skillSelected}
+        setSkillSelected={setSkillSelected}
       />
     </div>
   );
