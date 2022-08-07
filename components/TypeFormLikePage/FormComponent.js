@@ -22,7 +22,6 @@ export default function FormComponent(props) {
   };
   return (
     <div className=" h-screen w-screen m-auto content-center ">
-      <p> The phase is {props.phase}</p>
       <main className="lg:relative lg:flex lg:justify-center  ">
         {/* Secondary image */}
         <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
