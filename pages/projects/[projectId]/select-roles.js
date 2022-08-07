@@ -2,12 +2,14 @@ import Layout from "../../../components/layout/Layout";
 import RoleCard from "../../../components/SelectRoles/RoleCard";
 import { useState, useCallback, useLayoutEffect, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
+
 import Selector from "../../../components/SelectRoles/Selector";
 import RoleDataForm from "../../../components/SelectRoles/RoleDataForm";
 import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
 import { findProject, updateProject } from "../../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
-function ProjectSelectRoles() {
+function ProjectSelectRoles(props) {
   const dispatch = useDispatch();
   const router = useRouter();
   const roles = useSelector((state) => state.roleTemplates.roleTemplates);
@@ -24,7 +26,9 @@ function ProjectSelectRoles() {
     setInputRole(item);
   }, []);
 
+  console.log("saved roles", savedRoles)
   const saveRoleCallback = useCallback(
+
     async (item) => {
       if (submiting) return;
       item._id = null;
@@ -41,13 +45,16 @@ function ProjectSelectRoles() {
           };
         }),
         returnRole: true,
+        returnDates: true,
+        returnBudget: true,
+        returnCollaborationLinks: true,
       };
 
       setSubmiting(true);
       const { type } = await dispatch(updateProject(params));
       setSubmiting(false);
 
-      console.log(type);
+      console.log("saved roles", savedRoles);
       if (type.includes("rejected")) {
         setSaveError(true);
         return;
@@ -71,6 +78,9 @@ function ProjectSelectRoles() {
     },
     [pendingRoles, currentRoleIndex]
   );
+  const handleChangePhase = () => {
+    props.changePhase(props.phase);
+  };
 
   const handleAddRole = (e) => {
     setPendingRoles([...pendingRoles, inputRole]);
@@ -101,71 +111,83 @@ function ProjectSelectRoles() {
   }, [saveError]);
 
   return (
-    // <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5">
-    <div className="grid grid-cols-5 gap-3">
-      <div className="col-span-1 pt-12">
-        {saveError && (
-          <h4 className="p-2 text-white bg-red-500 rounded-lg mb-2">
-            User could not be saved
-          </h4>
-        )}
-        <h3 className="text-lg mb-3 font-semibold">SCOPE YOUR ROLES</h3>
-        <div className="">
-          {pendingRoles.map((role, index) => (
-            <div
-              key={index}
-              onClick={() => setCurrentRoleIndex(index)}
-              className="cursor-pointer"
-            >
-              <RoleCard
-                setRoleCallback={setRoleCallback}
-                currentRoleIndex={currentRoleIndex}
-                index={index}
-                highlighter={true}
-                role={role}
+    <>
+      {/* <div className="grid grid-cols-1 gap-y-3 md:gap-x-3 md:grid-cols-5"> */}
+      <div className="grid grid-cols-5 gap-3">
+        <div className="col-span-1 pt-12">
+          {saveError && (
+            <h4 className="p-2 text-white bg-red-500 rounded-lg mb-2">
+              User could not be saved
+            </h4>
+          )}
+          <h3 className="text-lg mb-3 font-semibold">SCOPE YOUR ROLES</h3>
+          <div className="">
+            {pendingRoles.map((role, index) => (
+              <div
+                key={index}
+                onClick={() => setCurrentRoleIndex(index)}
+                className="cursor-pointer"
+              >
+                <RoleCard
+                  setRoleCallback={setRoleCallback}
+                  currentRoleIndex={currentRoleIndex}
+                  index={index}
+                  highlighter={true}
+                  role={role}
+                />
+              </div>
+            ))}
+            {/* this was added because I was not able to add a role without it. Will refactor it later */}
+            {!!roles.length && (
+              <Selector
+                key={inputRole}
+                name="title"
+                options={[...roles, { title: "New Role" }]}
+                setDataCallback={setInputRoleCallback}
+                value={inputRole}
               />
-            </div>
-          ))}
-          {/* this was added because I was not able to add a role without it. Will refactor it later */}
-          {!!roles.length && (
-            <Selector
-              key={inputRole}
-              name="title"
-              options={[...roles, { title: "New Role" }]}
-              setDataCallback={setInputRoleCallback}
-              value={inputRole}
+            )}
+            <button
+              className="bg-green-400 rounded-sm font-bold px-2 py-1"
+              disabled={!inputRole.title}
+              onClick={handleAddRole}
+            >
+              Add Role
+            </button>
+          </div>
+        </div>
+        <div className="col-span-3">
+          {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
+            <RoleDataForm
+              role={pendingRoles[currentRoleIndex]}
+              key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
+              setRoleCallback={setRoleCallback}
+              saveRoleCallback={saveRoleCallback}
+              submiting={submiting}
+              skillSelected={skillSelected}
+              setSkillSelected={setSkillSelected}
             />
           )}
-          <button
-            className="bg-green-400 rounded-sm font-bold px-2 py-1"
-            disabled={!inputRole.title}
-            onClick={handleAddRole}
-          >
-            Add Role
-          </button>
         </div>
+        <div className="col-span-1 pt-12">
+          <h3 className="text-lg mb-3 font-semibold">COMPLETED PROFILES</h3>
+          {savedRoles.map((role, index) => (
+            <RoleCard role={role} key={index} />
+          ))}
+        </div>
+        {/* <p>{JSON.stringify(pendingRoles)}</p> */}
+        <button
+      className=" mt-10 ml-[650px]"
+        onClick={() => {
+          handleChangePhase();
+        }}
+      >
+        <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 " />
+      </button>
       </div>
-      <div className="col-span-3">
-        {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
-          <RoleDataForm
-            role={pendingRoles[currentRoleIndex]}
-            key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
-            setRoleCallback={setRoleCallback}
-            saveRoleCallback={saveRoleCallback}
-            submiting={submiting}
-            skillSelected={skillSelected}
-            setSkillSelected={setSkillSelected}
-          />
-        )}
-      </div>
-      <div className="col-span-1 pt-12">
-        <h3 className="text-lg mb-3 font-semibold">COMPLETED PROFILES</h3>
-        {savedRoles.map((role, index) => (
-          <RoleCard role={role} key={index} />
-        ))}
-      </div>
-      <p>{JSON.stringify(pendingRoles)}</p>
-    </div>
+
+      
+    </>
   );
 }
 
