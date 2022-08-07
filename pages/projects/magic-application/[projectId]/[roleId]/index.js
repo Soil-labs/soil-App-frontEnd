@@ -1,10 +1,11 @@
 import Image from "next/image";
-import HowToApply from "../../components/HowToApply";
-import Layout from "../../components/layout/Layout";
-import placeholder_avatar from "../../components/ChampionDashboard/placeholder_avatar.png";
-import soil_logo from "../../components/soil_logo.png";
-import { classNames } from "../../util";
+import HowToApply from "../../../../../components/HowToApply";
+import Layout from "../../../../../components/layout/Layout";
+import placeholder_avatar from "../../../../../components/ChampionDashboard/placeholder_avatar.png";
+import soil_logo from "../../../../../components/soil_logo.png";
+import { classNames } from "../../../../../util";
 import { ChevronRightIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 const mockData = {
   howToApply: {
@@ -52,6 +53,15 @@ const SkillTag = ({ children, variant }) => {
 };
 
 export const MagicApplication = () => {
+  const {
+    query: { projectId, roleId },
+  } = useRouter();
+
+  // dispatch matchProjectToUser query
+
+  console.log("magic app!!!");
+  console.log({ projectId });
+  console.log({ roleId });
   return (
     <div className="min-h-full">
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
