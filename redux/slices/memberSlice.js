@@ -70,7 +70,13 @@ export const updateMember = createAsyncThunk("updateMember", async (params) => {
 export const memberSlice = createSlice({
   name: "member",
   initialState,
-  reducers: {},
+  reducers: {
+    addMemberData: (state, action) => {
+      state._id = action.payload._id;
+      state.discordName = action.payload.discordName;
+      state.discordAvatar = action.payload.discordAvatar;
+    },
+  },
   extraReducers: {
     [updateMember.pending]: (state) => {
       state.loading = true;
@@ -147,5 +153,7 @@ export const memberSlice = createSlice({
     },
   },
 });
+
+export const { addMemberData } = memberSlice.actions;
 
 export default memberSlice.reducer;

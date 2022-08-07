@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 import { produce } from "immer";
 
 export const ExperienceTab = ({
@@ -123,22 +120,10 @@ export const ExperienceTab = ({
             ></textarea>
           </div>
           <div>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <div className="flex flex-col">
-                <DatePicker
-                  label="Start Date"
-                  value={startDate}
-                  onChange={setStartDate}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                <DatePicker
-                  label="End Date"
-                  value={endDate}
-                  onChange={setEndDate}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </div>
-            </LocalizationProvider>
+            <div className="flex flex-col">
+              <input type="date" onChange={setStartDate} />
+              <input type="date" onChange={setEndDate} />
+            </div>
           </div>
         </div>
       ) : (
@@ -232,18 +217,22 @@ const Experience = ({ experience, setExperience, addExperience }) => {
               )
             }
             startDate={e.startDate}
-            setStartDate={(newValue) =>
+            setStartDate={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].startDate = Math.floor(new Date(newValue).getTime());
+                  x[index].startDate = Math.floor(
+                    new Date(e.target.value).getTime()
+                  );
                 })
               )
             }
             endDate={e.endDate}
-            setEndDate={(newValue) =>
+            setEndDate={(e) =>
               setExperience((currentExperience) =>
                 produce(currentExperience, (x) => {
-                  x[index].endDate = Math.floor(new Date(newValue).getTime());
+                  x[index].endDate = Math.floor(
+                    new Date(e.target.value).getTime()
+                  );
                 })
               )
             }

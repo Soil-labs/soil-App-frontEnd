@@ -8,7 +8,7 @@ import Stats from "../components/Stats";
 import Testimonials from "../components/Testimonials";
 import apiClient from "./api/axios";
 //Redux
-
+ 
 const getData = () => {
   return () => {
     apiClient({
