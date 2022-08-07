@@ -1,7 +1,12 @@
 import { ChevronRightIcon } from "@heroicons/react/solid";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import projectSlice from "../redux/slices/projectSlice";
 
 export default function RoleCard({ role }) {
+  const {
+    query: { projectId },
+  } = useRouter();
   return (
     <div className="relative px-2 mb-2 drop-shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
       <div className="w-48 bg-white p-4 border border-b-0 rounded-t-md border-gray-200">
@@ -45,10 +50,11 @@ export default function RoleCard({ role }) {
         </div>
       </div>
       <div className="w-48 bg-slate-100 hover:bg-slate-200 border border-t-0 rounded-b-md border-gray-200">
-        <p className="text-center text-xs py-2 text-slate-800 hover:text-slate-600 cursor-pointer flex justify-center">
-          <span>Apply Now</span>
-          <ChevronRightIcon width={16} className="ml-1 -mr-1" />
-        </p>
+        <Link href={`/projects/magic-application/${projectId}/${role._id}`}>
+          <a className="text-xs flex justify-center py-2 text-slate-800 hover:text-slate-600 cursor-pointer">
+            Apply Now <ChevronRightIcon width={16} className="ml-1 -mr-1" />
+          </a>
+        </Link>
       </div>
     </div>
   );
