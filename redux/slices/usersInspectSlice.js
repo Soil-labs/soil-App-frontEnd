@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import findMembersQuery from "./graphql/member/queries/findMembers";
 import findSkill from "./graphql/skill/queries/findSkill";
-import { arrayToString } from "../tools/transformations";
 import matchMembersToSkills from "./graphql/member/queries/matchMembersToSkills";
+import { jsonToString } from "../tools/transformations";
 
 const initialState = {
     loading: true,
@@ -15,7 +15,9 @@ const initialState = {
 export const findMembers_withSkill = createAsyncThunk(
     "findMembers_withSkill",
     async (params) => {
+        console.log("response1");
         const response = await apiClient(matchMembersToSkills(params));
+        console.log("Response", response);
         return response.data.data.matchMembersToSkills;
     }
 );
@@ -24,10 +26,12 @@ export const findMembers = createAsyncThunk("findMembers", async (params) => {
     if (params._id) {
         params = {
             ...params,
-            _id: arrayToString(params._id),
+            _id: jsonToString(params._id),
         };
     }
+
     const response = await apiClient(findMembersQuery(params));
+
     return response.data.data.findMembers;
 });
 
@@ -41,7 +45,6 @@ export const inspectUsers = createSlice({
         },
         [findMembers_withSkill.fulfilled]: (state, { payload }) => {
             if (!payload) return;
-
             state.loading = false;
             state.isDataAvailable = true;
             state.members = payload;

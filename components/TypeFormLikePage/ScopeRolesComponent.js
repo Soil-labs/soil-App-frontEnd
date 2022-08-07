@@ -1,40 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronDoubleDownIcon,
   UserIcon,
   PlusSmIcon as PlusSmIconSolid,
 } from "@heroicons/react/solid";
+import RoleComponent from "./RoleComponent";
+import { findSkills } from "../../redux/slices/skillsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 function ScopeRolesComponent(props) {
-  // const [roleList, setRoleList] = useState([
-  //   {
-  //     name: "hhhh",
-  //     availbitly: "",
-  //     description: "",
-  //     skills: "",
-  //   },
-  //   {
-  //     name: "",
-  //     availbitly: "",
-  //     description: "",
-  //     skills: "",
-  //   },
-  // ]);
   const [roleList, setRoleList] = useState([
     {
-      name: "",
+      _id: "",
+      title: "",
+      description: "",
+      skills: [
+        
+      ],
     },
     {
-      name: "",
+      _id: "",
+      title: "",
+      description: "",
+      skills: [
+        
+      ],
     },
   ]);
+
+  const skills = useSelector((state) => state.skillsInspect.skillsInfo);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e, index) => {
     const { value } = e.target;
 
     const list = [...roleList];
 
-    list[index].name = value;
+    list[index].title = value;
     setRoleList(list);
   };
 
@@ -43,18 +46,24 @@ function ScopeRolesComponent(props) {
       setRoleList([
         ...roleList,
         {
-          name: "",
-          // availbitly: "",
-          // description: "",
-          // skills: "",
+          _id: "",
+          title: "",
+          description: "",
+          skills: [
+            
+          ],
         },
       ]);
     }
-
-    console.log("roleList - handleAddInput = ", roleList);
   };
 
-  // console.log("roleList = " , roleList)
+  useEffect(() => {
+    const params = {
+      returnMembers: false,
+    };
+
+    dispatch(findSkills(params));
+  }, []);
 
   return (
     <>
@@ -84,9 +93,14 @@ function ScopeRolesComponent(props) {
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-[303px] h-[60px]
                        pl-16 sm:text-sm border-gray-300  rounded-3xl"
                         placeholder="TYPE THE DESIRED ROLE"
-                        value={item.name}
+                        value={item.title}
                         name="name"
                       />
+                      <div className="hidden">
+                        <RoleComponent skills={skills} 
+                        roleList={roleList}
+                        />
+                      </div>
                     </div>
                   );
                 })}

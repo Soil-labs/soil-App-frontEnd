@@ -1,4 +1,7 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProject } from "../../redux/slices/projectSlice";
 import {
   CurrencyDollarIcon,
   TrendingUpIcon,
@@ -7,6 +10,34 @@ import {
 } from "@heroicons/react/solid";
 
 const GreenBudgetForm = (props) => {
+  const [budget, setBudget] = useState("");
+  const [kickOff, setKickOff] = useState("");
+  const [complition, setCompletion] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleChangePhase = () => {
+    const params = {
+      _id: props._id,
+      budget: {
+        totalBudget: budget.toString(),
+        token: "",
+        perHour: "",
+      },
+      returnBudget: true,
+      dates: {
+        kickOff: kickOff,
+        complition: complition,
+      },
+      returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
+    };
+    console.log("params from budget child", params);
+    dispatch(updateProject(params));
+    props.changePhase(props.phase);
+  };
+
   return (
     <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
       <div className="flex flex-col items-center">
@@ -32,11 +63,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  value={props.questions.totalBudget}
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "totalBudget")
-                  }
-                  
+                  onChange={(e) => {
+                    setBudget(e.target.value);
+                  }}
                   type="number"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
         pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -58,9 +87,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "kickoffDate")
-                  }
+                  onChange={(e) => {
+                    setKickOff(e.target.value);
+                  }}
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
                        pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -82,9 +111,9 @@ const GreenBudgetForm = (props) => {
                   />
                 </div>
                 <input
-                  onChange={(e) =>
-                    props.handleChange(e, props.phase, "wrapUpDate")
-                  }
+                  onChange={(e) => {
+                    setCompletion(e.target.value);
+                  }}
                   type="date"
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-48
      pl-10 sm:text-sm border-gray-300 rounded-2xl"
@@ -132,7 +161,7 @@ const GreenBudgetForm = (props) => {
         </div>
         <button
           onClick={() => {
-            props.changePhase(props.phase);
+            handleChangePhase();
           }}
         >
           <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />

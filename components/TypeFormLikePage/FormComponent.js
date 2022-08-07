@@ -1,9 +1,27 @@
 /* This example requires Tailwind CSS v2.0+ */
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProject } from "../../redux/slices/projectSlice";
 
 export default function FormComponent(props) {
+  const [title, setTitle] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleChangePhase = () => {
+    const params = {
+      title: title,
+      returnDates: true,
+      returnBudget: true,
+      returnCollaborationLinks: true,
+    };
+
+    console.log("params from Form child", params);
+    dispatch(updateProject(params));
+    props.changePhase(props.phase);
+  };
   return (
     <div className=" h-screen w-screen m-auto content-center ">
-      <p> The phase is {props.phase}</p>
       <main className="lg:relative lg:flex lg:justify-center  ">
         {/* Secondary image */}
         <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
@@ -17,18 +35,20 @@ export default function FormComponent(props) {
           <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16 ">
             <div>
               <h1 className="  text-4xl font-extrabold text-gray-900 sm:text-5xl md:text-6xl  xl:text-4xl">
-                <span className="block xl:inline">{props.questions.title}</span>{" "}
+                <span className="block xl:inline">{props.fieldTitle}</span>{" "}
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                {props.questions.description}
+                {/* {props.questions.description} */}
               </p>
             </div>
             {/* Input Field */}
             <div className="mt-20">
               <div className="mt-1 border-b border-black focus-within:border-indigo-600">
                 <input
-                  value={props.questions.reply}
-                  onChange={(e) => props.handleChange(e, props.phase, "reply")}
+                  // value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                   type="text"
                   name="name"
                   id="name"
@@ -38,7 +58,7 @@ export default function FormComponent(props) {
               {/* Button */}
               <button
                 onClick={() => {
-                  props.changePhase(props.phase);
+                  handleChangePhase();
                 }}
                 type="button"
                 className=" mt-2 inline-flex mt- items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

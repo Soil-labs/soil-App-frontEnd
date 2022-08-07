@@ -1,36 +1,48 @@
-// export function arrayToString(arrayT) {
+export function arrayToString(arrayT) {
+  console.log("change sd = ");
+  if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
+    let stringResult = "[";
 
-//     console.log("change sd = " )
-//     if (arrayT && Array.isArray(arrayT) && arrayT.length > 0) {
+    arrayT.forEach((a, idx) => {
+      if (idx === arrayT.length - 1) {
+        stringResult += `"${a}"`;
+      } else {
+        stringResult += `"${a}",`;
+      }
+    });
 
-//         let stringResult = "[";
+    stringResult += "]";
 
-//         arrayT.forEach((a,idx) => {
-//             if (idx === arrayT.length - 1) {
-//                 stringResult += `"${a}"`;
-//             } else {
-//                 stringResult += `"${a}",`;
-//             }
-//         })
+    console.log("stringResult = ", stringResult);
 
-//         stringResult += "]";
-
-//         console.log("stringResult = " , stringResult)
-
-//         return stringResult
-//     } else {
-//         return arrayT
-//     }
-
-// }
+    return stringResult;
+  } else {
+    return arrayT;
+  }
+}
 
 function subJsonToString(jsonT) {
   let stringResult = "";
   for (var key in jsonT) {
-    if (getType(jsonT[key]) === "object") {
+    if (Array.isArray(jsonT[key])) {
+      stringResult += `${key}: [\n`;
+      for (var i = 0; i < jsonT[key].length; i++) {
+        stringResult += "{";
+        stringResult += subJsonToString(jsonT[key][i]);
+
+        // stringResult = stringResult.slice(0, -1);
+        stringResult += "},";
+      }
+      // stringResult = stringResult.slice(0, -1); //@TODO eloi removed this line make sure everything is still working
+      stringResult += "]";
+    } else if (getType(jsonT[key]) === "object") {
       stringResult += `${key}: {\n`;
       stringResult += subJsonToString(jsonT[key]);
       stringResult += `},`;
+    } else if (getType(jsonT[key]) === "number") {
+      stringResult += `${key}:${jsonT[key]}\n`;
+    } else if (jsonT[key] === null || jsonT[key] === undefined) {
+      // do nothing
     } else {
       stringResult += `${key}:"${jsonT[key]}"\n`;
     }
@@ -42,11 +54,35 @@ function subJsonToString(jsonT) {
 function getType(p) {
   if (Array.isArray(p)) return "array";
   else if (typeof p == "string") return "string";
+  else if (typeof p == "number") return "number";
   else if (p != null && typeof p == "object") return "object";
   else return "other";
 }
 
 export function jsonToString(jsonT) {
+  let jsonString;
+
+  if (Array.isArray(jsonT)) {
+    jsonString = "[";
+    for (var i = 0; i < jsonT.length; i++) {
+      jsonString += "{";
+      jsonString += subJsonToString(jsonT[i]);
+
+      // jsonString = jsonString.slice(0, -1);
+      jsonString += "},";
+    }
+    // jsonString = jsonString.slice(0, -1); //@TODO eloi removed this line make sure everything is still working
+    jsonString += "]";
+  } else if (getType(jsonT) === "object") {
+    jsonString = "{\n";
+    jsonString += subJsonToString(jsonT);
+    jsonString += "}";
+  }
+
+  return jsonString;
+}
+
+export function jsonToStringWithEnums(jsonT, _enums = []) {
   let jsonString;
 
   if (Array.isArray(jsonT)) {
@@ -65,6 +101,13 @@ export function jsonToString(jsonT) {
     jsonString += subJsonToString(jsonT);
     jsonString += "}";
   }
+
+  console.log("jsonString = ", jsonString);
+  _enums.forEach((_enum) => {
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+  });
+  // jsonString = jsonString.replace(`"${_enum}"`, _enum);
+  console.log("jsonString = ", jsonString);
 
   return jsonString;
 }

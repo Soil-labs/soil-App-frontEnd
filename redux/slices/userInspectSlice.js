@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../../pages/api/axios";
 import findMemberQuery from "./graphql/member/queries/findMember";
+import updateUserMutation from "./graphql/userInspect/mutations/updateUser";
+import { jsonToString } from "../tools/transformations";
 
 const initialState = {
     loading: true,
@@ -33,6 +35,20 @@ export const addSkillToMember = createAsyncThunk(
         return response.data.data.addSkillToMember;
     }
 );
+
+export const updateUser = createAsyncThunk("updateUser", async (params) => {
+  if (params.skills) {
+    params.skills = jsonToString(
+      params.skills.map((skill) => {
+        return {
+          id: skill._id,
+        };
+      })
+    );
+  }
+  const response = await apiClient(updateUserMutation(params));
+  return response.data.data.updateUser;
+});
 
 export const userInspectSlice = createSlice({
     name: "userInspect",
