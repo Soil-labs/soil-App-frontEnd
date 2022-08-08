@@ -23,6 +23,13 @@ function Form() {
     }
   };
 
+  const changePhaseBack = (phaseNow) => {
+    console.log("phaseNow", phaseNow)
+    if (phaseNow >= 0) {
+      setPhase((phaseNow -= 1));
+    }
+  }
+
   const skills = useSelector((state) => state.skillsInspect.skillsInfo);
   const _id = useSelector((state) => state.projectInspect._id);
   const title = useSelector((state) => state.projectInspect.title);
@@ -49,6 +56,7 @@ function Form() {
         <DescriptionComponent
           fieldTitle="Description of the new project?"
           changePhase={changePhase}
+          changePhaseBack={changePhaseBack}
           phase={phase}
           _id={_id}
         />

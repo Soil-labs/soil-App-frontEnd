@@ -20,7 +20,7 @@ const DescriptionComponent = (props) => {
     };
 
     console.log("params from Form child", params);
-    dispatch(updateProject(params));
+    // dispatch(updateProject(params));
     props.changePhase(props.phase);
   };
   

@@ -20,9 +20,14 @@ const DescriptionComponent = (props) => {
       returnBudget: true,
       returnCollaborationLinks: true,
     };
-    dispatch(updateProject(params));
+    // dispatch(updateProject(params));
     console.log("params from Descpition child", params);
     props.changePhase(props.phase);
+  };
+
+  
+  const handleChangePhaseBack = () => {
+        props.changePhaseBack(props.phase);
   };
   
   return (
@@ -50,7 +55,9 @@ const DescriptionComponent = (props) => {
             </div>
           </div>
         </MainWhiteContainerLayout>
-        <PreviousButton/>
+        <PreviousButton
+        handleChangePhaseBack={handleChangePhaseBack}
+        />
         <NextButton
         handleChangePhase={handleChangePhase}
         />
