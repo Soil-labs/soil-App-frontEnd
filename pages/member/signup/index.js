@@ -156,11 +156,16 @@ const Signup = () => {
       profileLink: "",
       contract: "",
       discription: "",
-      startDate: null,
-      endDate: null,
+      startDate: "",
+      endDate: "",
       isDone: false,
     },
   ]);
+
+  useEffect(() => {
+    console.log("start date tyoe====", typeof experience[0].startDate);
+    console.log("start date====", experience[0].startDate);
+  }, [experience]);
 
   const [page, setPage] = useState(0);
 
@@ -182,8 +187,8 @@ const Signup = () => {
         profileLink: "",
         contract: "",
         discription: "",
-        startDate: null,
-        endDate: null,
+        startDate: "",
+        endDate: "",
         isDone: false,
       },
     ]);
