@@ -20,7 +20,7 @@ const DescriptionComponent = (props) => {
       returnBudget: true,
       returnCollaborationLinks: true,
     };
-    // dispatch(updateProject(params));
+    dispatch(updateProject(params));
     console.log("params from Descpition child", params);
     props.changePhase(props.phase);
   };
