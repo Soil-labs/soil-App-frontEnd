@@ -13,7 +13,7 @@ import DescpitionComponent from "../../components/TypeFormLikePage/DescpitionCom
 import ProjectSelectRoles from "../projects/[projectId]/select-roles";
 
 function Form() {
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(0);  
 
   const changePhase = (phaseNow) => {
     if (phaseNow <= 6) {
