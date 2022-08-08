@@ -38,7 +38,7 @@ export const updateUser = createAsyncThunk("updateUser", async (params) => {
     params.skills = jsonToString(
       params.skills.map((skill) => {
         return {
-          id: skill._id,
+          id: skill.skillInfo._id,
         };
       })
     );

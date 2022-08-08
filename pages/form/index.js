@@ -15,7 +15,7 @@ import MainWhiteContainerLayout from "../../components/layout/MainWhiteContainer
 import TitleComponent from "../../components/TypeFormLikePage/TitleComponent";
 
 function Form() {
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(0);  
 
   const changePhase = (phaseNow) => {
     if (phaseNow <= 6) {

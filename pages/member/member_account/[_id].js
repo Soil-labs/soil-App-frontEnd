@@ -20,10 +20,12 @@ import { useEffect, useState } from "react";
 import Profile from "../../../components/ProfileComponent";
 
 import { inpsectUser } from "../../../redux/slices/userInspectSlice";
+import ProgressBar from "../../../components/layout/ProgressBar";
 
 function MemberPage({ id }) {
   const [skills, setSkills] = useState([]);
   const [bio, setBio] = useState([]);
+  const [buttonState, setButtonState] = useState(1);
 
   const member = useSelector((state) => state.member);
   const dispatch = useDispatch();
@@ -57,7 +59,20 @@ function MemberPage({ id }) {
   }, [member.skills]);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
+      <ProgressBar numberofSteps={6} currentStep={buttonState} />
+      <button
+        disabled={buttonState === 6}
+        onClick={() => setButtonState(buttonState + 1)}
+      >
+        next
+      </button>
+      <button
+        disabled={buttonState < 2}
+        onClick={() => setButtonState(buttonState - 1)}
+      >
+        previous
+      </button>
       <Profile
         id={member.discordName}
         bio={member.bio}
