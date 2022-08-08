@@ -11,7 +11,7 @@ import ProjectBoard from "../../components/ProjectComponent";
 import YouDidItComponet from "../../components/TypeFormLikePage/YouDidItComponet";
 import DescriptionComponent from "../../components/TypeFormLikePage/DescpitionComponent";
 import ProjectSelectRoles from "../projects/[projectId]/select-roles";
-import MainWhiteContainerLayout from "../../components/layout/MainWhiteContainerLayout";
+import MainWhiteContainerLayout from "../../components/layout/FlowLayout";
 import TitleComponent from "../../components/TypeFormLikePage/TitleComponent";
 
 function Form() {

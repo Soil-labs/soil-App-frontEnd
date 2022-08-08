@@ -16,7 +16,7 @@ const Steps = ({ i, isActive }) => {
   );
 };
 
-const ProgressBar = ({ numberofSteps, currentStep }) => {
+const ProgressBar = ({ numberofSteps = 6, currentStep }) => {
   return (
     <div className="flex">
       <div

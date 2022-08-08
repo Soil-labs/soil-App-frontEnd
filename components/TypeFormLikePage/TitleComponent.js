@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateProject } from "../../redux/slices/projectSlice";import Layout from "../layout/Layout";
-import MainWhiteContainerLayout from "../layout/MainWhiteContainerLayout";
+import { updateProject } from "../../redux/slices/projectSlice";
+import Layout from "../layout/Layout";
+import FlowLayout from "../layout/FlowLayout";
+import ProgressBar from "../layout/ProgressBar";
 import NextButton from "../NextButton";
 import PreviousButton from "../previousButton";
 
 const DescriptionComponent = (props) => {
-
   const [title, setTitle] = useState("");
 
   const dispatch = useDispatch();
@@ -20,20 +21,21 @@ const DescriptionComponent = (props) => {
     };
 
     console.log("params from Form child", params);
-    dispatch(updateProject(params));
+    // dispatch(updateProject(params));
     props.changePhase(props.phase);
   };
-  
+
   return (
     <>
       {/* Background */}
       <div className="bg-soilGray-200 h-screen w-screen">
-        <MainWhiteContainerLayout>
-
-         <div className="text-center space-y-[19px] mb-[96px]">
-          <p className="text-[26px]">NAME YOUR PROJECT</p>
-          <p className="text-[16px]">Great titles are short & descriptive, you can use emojis too!</p>
-         </div>
+        <FlowLayout currentStep={props.phase + 1} >
+          <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
+            <p className="text-[26px]">NAME YOUR PROJECT</p>
+            <p className="text-[16px]">
+              Great titles are short & descriptive, you can use emojis too!
+            </p>
+          </div>
 
           <div>
             <label
@@ -42,11 +44,11 @@ const DescriptionComponent = (props) => {
             >
               Title of your project
             </label>
-            <div className="mt-1">
+            <div className="mt-1 ">
               <input
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
                 type="text"
                 name="title"
                 id="title"
@@ -54,10 +56,10 @@ const DescriptionComponent = (props) => {
               />
             </div>
           </div>
-        </MainWhiteContainerLayout>
-        <NextButton
-        handleChangePhase={handleChangePhase}
-        />
+          <div className="mt-[34rem] ml-[40px] flex justify-end">
+            <NextButton handleChangePhase={handleChangePhase} />
+          </div>
+        </FlowLayout>
       </div>
     </>
   );
