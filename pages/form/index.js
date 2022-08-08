@@ -9,8 +9,10 @@ import ColabEnvComponent from "../../components/TypeFormLikePage/ColabEnvCompone
 import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsForOnboardComponent";
 import ProjectBoard from "../../components/ProjectComponent";
 import YouDidItComponet from "../../components/TypeFormLikePage/YouDidItComponet";
-import DescpitionComponent from "../../components/TypeFormLikePage/DescpitionComponent";
+import DescriptionComponent from "../../components/TypeFormLikePage/DescpitionComponent";
 import ProjectSelectRoles from "../projects/[projectId]/select-roles";
+import MainWhiteContainerLayout from "../../components/layout/MainWhiteContainerLayout";
+import TitleComponent from "../../components/TypeFormLikePage/TitleComponent";
 
 function Form() {
   const [phase, setPhase] = useState(0);
@@ -34,19 +36,20 @@ function Form() {
 
   return (
     <>
+      {/* <TitleComponent changePhase={changePhase} phase={phase} /> */}
       {phase == 0 ? (
-        <FormComponent
-          fieldTitle="What’s the tilte of the new project?"
-          changePhase={changePhase}
-          phase={phase}
-          // submitReply={submitReply}
-        />
+        // <FormComponent
+        //   fieldTitle="What’s the tilte of the new project?"
+        //   changePhase={changePhase}
+        //   phase={phase}
+        //   // submitReply={submitReply}
+        // />
+        <TitleComponent changePhase={changePhase} phase={phase} />
       ) : phase == 1 ? (
-        <DescpitionComponent
+        <DescriptionComponent
           fieldTitle="Description of the new project?"
           changePhase={changePhase}
           phase={phase}
-          // submitReply={submitReply}
           _id={_id}
         />
       ) : phase == 2 ? (

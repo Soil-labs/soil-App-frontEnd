@@ -1,27 +1,26 @@
-
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateProject } from "../../redux/slices/projectSlice";
+import { updateProject } from "../../redux/slices/projectSlice";import Layout from "../layout/Layout";
 import MainWhiteContainerLayout from "../layout/MainWhiteContainerLayout";
 import NextButton from "../NextButton";
 import PreviousButton from "../previousButton";
 
 const DescriptionComponent = (props) => {
 
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
 
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
-      _id: props._id,
-      description: description,
+      title: title,
       returnDates: true,
       returnBudget: true,
       returnCollaborationLinks: true,
     };
+
+    console.log("params from Form child", params);
     dispatch(updateProject(params));
-    console.log("params from Descpition child", params);
     props.changePhase(props.phase);
   };
   
@@ -32,25 +31,30 @@ const DescriptionComponent = (props) => {
         <MainWhiteContainerLayout>
 
          <div className="text-center space-y-[19px] mb-[96px]">
-          <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>
-          <p className="text-[16px]">few key sentences on what is the goal, mission, vision of this project </p>
+          <p className="text-[26px]">NAME YOUR PROJECT</p>
+          <p className="text-[16px]">Great titles are short & descriptive, you can use emojis too!</p>
          </div>
 
           <div>
-            <div className="ml-[25px]">
-              <textarea
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Title of your project
+            </label>
+            <div className="mt-1">
+              <input
               onChange={(e) => {
-                setDescription(e.target.value);
+                setTitle(e.target.value);
               }}
                 type="text"
                 name="title"
                 id="title"
-                className="shadow-sm block h-[407px] w-[620px] sm:text-sm border-gray-300 rounded-md pt-[25px] pl-[48px] text-[16px]"
+                className="shadow-sm  block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
           </div>
         </MainWhiteContainerLayout>
-        <PreviousButton/>
         <NextButton
         handleChangePhase={handleChangePhase}
         />
