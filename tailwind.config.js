@@ -23,6 +23,7 @@ module.exports = {
         gradientBlue: "#D900A9",
         gradientViolet: "#004AD9",
       },
+      opacity: ['disabled'],
     },
   },
   plugins: [require("@tailwindcss/forms")],
