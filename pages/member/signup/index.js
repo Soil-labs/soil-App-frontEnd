@@ -295,7 +295,7 @@ const Signup = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full bg-green-400 h-20">
+        <div className="w-full h-20">
           <Login />
         </div>
       )}
