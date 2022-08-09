@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMemberData, findMember } from "../../redux/slices/memberSlice";
+import {
+  addMemberData,
+  findMember,
+  addNewMember,
+} from "../../redux/slices/memberSlice";
 
 export const Login = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state.member);
+  const member = useSelector((state) => state.member);
 
   useEffect(() => {
     if (session) {
@@ -22,14 +26,30 @@ export const Login = () => {
   }, [session]);
 
   useEffect(() => {
-    if(session){
+    if (session) {
       const params = {
         _id: session.user.id,
-      }
-      dispatch(findMember(params))
-      console.log("isdataAvailable",state.member.isDataAvailable)
+      };
+      dispatch(findMember(params));
+      console.log("isdataAvailable", member.isDataAvailable);
     }
-  },[session])
+  }, [session]);
+
+  useEffect(() => {
+    if (member.loading === false) {
+      if (member.isDataAvailable) {
+        return;
+      } else {
+        dispatch(
+          addNewMember({
+            _id: id,
+            discordName: session.user.name,
+            discordAvatar: session.user.image,
+          })
+        );
+      }
+    }
+  }, [member]);
 
   if (session) {
     const { user } = session;
