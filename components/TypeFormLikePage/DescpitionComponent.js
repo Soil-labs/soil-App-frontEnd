@@ -20,7 +20,7 @@ const DescriptionComponent = (props) => {
       returnBudget: true,
       returnCollaborationLinks: true,
     };
-    // dispatch(updateProject(params));
+    dispatch(updateProject(params));
     console.log("params from Descpition child", params);
     props.changePhase(props.phase);
   };
@@ -33,7 +33,7 @@ const DescriptionComponent = (props) => {
     <>
       {/* Background */}
       <div className="bg-soilGray-200 h-screen w-screen">
-        <FlowLayout currentStep={props.phase + 1}>
+        <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
           <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
             <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>
             <p className="text-[16px]">
@@ -56,8 +56,8 @@ const DescriptionComponent = (props) => {
             </div>
           </div>
           <div className="flex justify-between mt-[199px]">
-            <PreviousButton handleChangePhaseBack={handleChangePhaseBack} />
-            <NextButton handleChangePhase={handleChangePhase} />
+            {/* <PreviousButton handleChangePhaseBack={handleChangePhaseBack} />
+            <NextButton handleChangePhase={handleChangePhase} /> */}
           </div>
         </FlowLayout>
       </div>

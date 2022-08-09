@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useDispatch } from "react-redux";
-import { addMemberData } from "../../redux/slices/memberSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addMemberData, findMember } from "../../redux/slices/memberSlice";
 
 export const Login = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
 
+  const state = useSelector((state) => state.member);
+
   useEffect(() => {
-    console.log("this runss");
     if (session) {
       dispatch(
         addMemberData({
@@ -20,12 +21,22 @@ export const Login = () => {
     }
   }, [session]);
 
+  useEffect(() => {
+    if(session){
+      const params = {
+        _id: session.user.id,
+      }
+      dispatch(findMember(params))
+      console.log("isdataAvailable",state.member.isDataAvailable)
+    }
+  },[session])
+
   if (session) {
     const { user } = session;
     return (
       <div
         onClick={() => signOut()}
-        className="border-[2px] gap-2 bg-green-500 w-max flex justify-start items-center h-10 rounded-full hover:bg-green-200 cursor-pointer font-Inter font-bold text-lg"
+        className="border-[2px] gap-2 bg-soilGreen-10 w-max flex justify-start items-center h-[45px] rounded-full hover:bg-soilGreen-20 cursor-pointer font-Inter font-semibold text-xl"
       >
         <div className="h-full rounded-full overflow-hidden">
           <img
@@ -42,7 +53,7 @@ export const Login = () => {
   return (
     <div
       onClick={() => signIn("discord")}
-      className="border-[2px] border-green-500 w-max flex h-10 px-5 justify-center items-center rounded-full hover:bg-green-200 cursor-pointer font-Inter font-bold text-lg"
+      className="border-[2px] border-soilGreen-20 w-max flex h-[45px] px-5 justify-center items-center rounded-full hover:bg-green-200 cursor-pointer font-Inter font-semibold text-xl"
     >
       <span>Login</span>
     </div>

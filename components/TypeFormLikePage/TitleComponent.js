@@ -21,15 +21,15 @@ const DescriptionComponent = (props) => {
     };
 
     console.log("params from Form child", params);
-    // dispatch(updateProject(params));
+    dispatch(updateProject(params));
     props.changePhase(props.phase);
   };
 
   return (
     <>
       {/* Background */}
-      <div className="bg-soilGray-200 h-screen w-screen">
-        <FlowLayout currentStep={props.phase + 1} >
+      <div className="bg-soilGray-200 h-screen w-full">
+        <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} >
           <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
             <p className="text-[26px]">NAME YOUR PROJECT</p>
             <p className="text-[16px]">
@@ -52,13 +52,13 @@ const DescriptionComponent = (props) => {
                 type="text"
                 name="title"
                 id="title"
-                className="shadow-sm  block w-full sm:text-sm border-gray-300 rounded-md"
+                className="shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
               />
             </div>
           </div>
-          <div className="mt-[34rem] ml-[40px] flex justify-end">
+          {/* <div className="mt-[34rem] ml-[40px] flex justify-end">
             <NextButton handleChangePhase={handleChangePhase} />
-          </div>
+          </div> */}
         </FlowLayout>
       </div>
     </>

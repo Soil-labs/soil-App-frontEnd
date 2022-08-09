@@ -9,7 +9,7 @@ const HeaderNew = () => {
     /* navbar */
     <nav className="bg-white ">
       {/*margin: auto(centers the div withn the nav)   */}
-      <div className="w-screen mx-auto h-[86px] px-20 ">
+      <div className="w-full mx-auto h-[86px] px-20 ">
         <div className="flex justify-between h-[86px] items-center ">
           <div className="flex space-x-4">
             {/* logo */}
@@ -22,18 +22,17 @@ const HeaderNew = () => {
           </div>
 
           {/* secondary nav */}
-          <div className=" hidden md:flex items-center space-x-1">
+          <div className=" hidden md:flex items-center ">
             <Link href="#">
-              <div className="ml-auto mr-4 bg-soilGreen-10  hover:bg-soilGreen-20 rounded-full pl-4 pr-6 h-8 inline-flex items-center justify-center cursor-pointer ">
-                <span className="text-[24px] font-Inter"> What is Soil?</span>
+              <div className="ml-auto mr-4 rounded-full pl-4 pr-6 h-8 inline-flex items-center justify-center cursor-pointer ">
+                <span className="text-[24px] font-Inter"> What is Eden?</span>
               </div>
             </Link>
             <div className="flex items-center space-x-8">
               <div className="flex items-center">
-              <p className=" font-Inter text-[24px]">Menu</p>
-              <BurgerMenuNew className="ml-10" />
+                <p className=" font-Inter text-[24px]">Menu</p>
+                <BurgerMenuNew className="ml-10" />
               </div>
-             
               <Login />
             </div>
           </div>

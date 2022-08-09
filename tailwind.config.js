@@ -12,15 +12,15 @@ module.exports = {
         onion: "url('/public/vercel.svg')",
       },
       colors: {
-        // soilGreen: {
-        //   10: "#F0F7E9",
-        //   20: "#E1EFD3",
-        //   50: "#ACCEA0",
-        //   70: "#6BAF22",
-        //   100: "#268A02",
-        // },
+        soilGreen: {
+          10: "#78EECB",
+          20: "#74FA6D",
+          50: "#ACCEA0",
+          70: "#6BAF22",
+          100: "#268A02",
+        },
         darkBlackGreen:"#071B08",
-        soilGreen: "#74FA6D",
+        // soilGreen: "#74FA6D",
         soilGray:{
           200: "#F3F3F3"
         },

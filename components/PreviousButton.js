@@ -1,10 +1,10 @@
 import React from "react";
 import { ArrowSmLeftIcon } from "@heroicons/react/Outline";
 
-const PreviousButton = ({ handleChangePhaseBack }) => {
+const PreviousButton = ({ handleChangePhaseBack, className }) => {
   return (
     <button
-      className="w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen rounded-[6px]"
+      className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px] ${className}`}
       onClick={() => {
         handleChangePhaseBack();
       }}
