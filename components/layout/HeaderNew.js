@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import BurgerMenu from "./BurgerMenu";
 import BurgerMenuNew from "./BurgerMenuNew";
+import { Login } from "./Login";
 
 const HeaderNew = () => {
   return (
@@ -30,6 +31,7 @@ const HeaderNew = () => {
             <div className="flex items-center">
               <p className="font-bold">Menu</p>
               <BurgerMenuNew />
+              <Login/>
             </div>
           </div>
 
