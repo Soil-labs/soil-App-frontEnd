@@ -131,7 +131,7 @@ function ProjectSelectRoles() {
             <Selector
               key={inputRole}
               name="title"
-              options={[...roles, { title: "New Role" }]}
+              options={[{ title: "New Role" }, ...roles]}
               setDataCallback={setInputRoleCallback}
               value={inputRole}
             />
