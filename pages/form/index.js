@@ -13,6 +13,7 @@ import DescriptionComponent from "../../components/TypeFormLikePage/DescpitionCo
 import ProjectSelectRoles from "../projects/[projectId]/select-roles";
 import MainWhiteContainerLayout from "../../components/layout/FlowLayout";
 import TitleComponent from "../../components/TypeFormLikePage/TitleComponent";
+import BudgetComponentNew from "../../components/TypeFormLikePage/BudgetComponentNew";
 
 function Form() {
   const [phase, setPhase] = useState(0);  
@@ -61,7 +62,7 @@ function Form() {
           _id={_id}
         />
       ) : phase == 2 ? (
-        <GreenBudgetForm changePhase={changePhase} phase={phase} _id={_id} />
+        <BudgetComponentNew changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 3 ? (
         <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 4 ? (
@@ -89,7 +90,7 @@ function Form() {
       ) : (
         phase
       )}
-
+      
       {/* <ScopeRolesComponent/> */}
       {/* <GeneralGreenFromComponent/> */}
       {/* <RoleComponent

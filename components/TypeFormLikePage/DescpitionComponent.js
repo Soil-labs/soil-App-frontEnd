@@ -38,7 +38,7 @@ const DescriptionComponent = (props) => {
             <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>
             <p className="text-[16px]">
               few key sentences on what is the goal, mission, vision of this
-              project{" "}
+              project
             </p>
           </div>
 

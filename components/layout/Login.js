@@ -42,7 +42,7 @@ export const Login = () => {
       } else {
         dispatch(
           addNewMember({
-            _id: id,
+            _id: session.user.id,
             discordName: session.user.name,
             discordAvatar: session.user.image,
           })
