@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { generate } from "shortid";
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
+import { generate } from "shortid";
+
+import Layout from "../../../components/layout/Layout";
+import { Login } from "../../../components/layout/Login";
 import {
   Contribution,
   Experience,
@@ -10,23 +14,59 @@ import {
   Skill,
   Credits,
 } from "../../../components/UserSignUpComponents";
-import { findMember, updateMember } from "../../../redux/slices/memberSlice";
+import {
+  findMember,
+  updateMember,
+  addNewMember,
+  addMemberData,
+} from "../../../redux/slices/memberSlice";
 
-const SignUp = ({ id }) => {
+const Signup = () => {
   const dispatch = useDispatch();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        addMemberData({
+          _id: session?.user.id,
+          discordName: session.user.name,
+          discordAvatar: session.user.image,
+        })
+      );
+    } else {
+      return;
+    }
+  }, [session]);
 
   const member = useSelector((state) => state.member);
 
   useEffect(() => {
     let params = {
-      _id: id,
+      _id: session?.user.id,
     };
     dispatch(findMember(params));
-  }, [id, dispatch]);
+  }, [session, dispatch]);
+
+  useEffect(() => {
+    if (member.loading === false) {
+      if (member.isDataAvailable) {
+        return;
+      } else {
+        dispatch(
+          addNewMember({
+            _id: id,
+            discordName: session.user.name,
+            discordAvatar: session.user.image,
+          })
+        );
+      }
+    }
+  }, [member]);
 
   const onSubmit = async () => {
     const params = {
-      _id: formData.id,
+      _id: session.user.id,
       bio: formData.description,
       hoursPerWeek: formData.hours,
       timeZone: formData.timeZone,
@@ -54,22 +94,14 @@ const SignUp = ({ id }) => {
       returnSocialLink: true,
     };
     console.log("params====", params);
+
     dispatch(updateMember(params));
+
     setPage((currPage) => currPage + 1);
   };
 
-  useEffect(() => {
-    if (member.loading === false) {
-      setFormData({
-        ...formData,
-        discordName: member.discordName,
-        avatar: member.discordAvatar,
-      });
-    }
-  }, [member]);
-
   const [formData, setFormData] = useState({
-    id: id,
+    id: member._id,
     discordName: "",
     avatar: "",
     description: "",
@@ -82,6 +114,14 @@ const SignUp = ({ id }) => {
     pieceOfWork: "",
     skills: [],
   });
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      discordName: member.discordName,
+      avatar: member.discordAvatar,
+    });
+  }, [member]);
 
   const [learning, setLearning] = useState([]);
 
@@ -116,11 +156,16 @@ const SignUp = ({ id }) => {
       profileLink: "",
       contract: "",
       discription: "",
-      startDate: null,
-      endDate: null,
+      startDate: "",
+      endDate: "",
       isDone: false,
     },
   ]);
+
+  useEffect(() => {
+    console.log("start date tyoe====", typeof experience[0].startDate);
+    console.log("start date====", experience[0].startDate);
+  }, [experience]);
 
   const [page, setPage] = useState(0);
 
@@ -142,8 +187,8 @@ const SignUp = ({ id }) => {
         profileLink: "",
         contract: "",
         discription: "",
-        startDate: null,
-        endDate: null,
+        startDate: "",
+        endDate: "",
         isDone: false,
       },
     ]);
@@ -199,61 +244,63 @@ const SignUp = ({ id }) => {
   }
 
   return (
-    <div className="bg-[#8DC2204D] px-8 py-4 w-max mx-auto">
-      <div className="w-[50rem] h-[.5rem] bg-white mb-10">
-        <div
-          className={`h-full ${
-            page === 0
-              ? "w-[16.66%]"
-              : page == 1
-              ? "w-[33.32%]"
-              : page == 2
-              ? "w-[49.98%]"
-              : page == 3
-              ? "w-[66.64%]"
-              : page == 4
-              ? "w-[83.3%]"
-              : "w-[100%]"
-          } bg-green-800`}
-        ></div>
-      </div>
-      <div>{formPage()}</div>
-      <div className="flex justify-center items-center">
-        {page >= 1 && page <= 5 && (
-          <button
-            className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-            onClick={() => setPage((currPage) => currPage - 1)}
-          >
-            Previous
-          </button>
-        )}
-        {page <= 4 && (
-          <button
-            className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-            onClick={() => setPage((currPage) => currPage + 1)}
-          >
-            NEXT
-          </button>
-        )}
-        {page == 5 && (
-          <button
-            className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-            onClick={() => onSubmit()}
-          >
-            Submit
-          </button>
-        )}
-      </div>
-    </div>
+    <Layout>
+      {session ? (
+        <div className="bg-[#8DC2204D] px-8 py-4 w-max mx-auto">
+          <div className="w-[50rem] rounded-full h-[.5rem] bg-white mb-10">
+            <div
+              className={`h-full rounded-full ${
+                page === 0
+                  ? "w-[16.66%]"
+                  : page == 1
+                  ? "w-[33.32%]"
+                  : page == 2
+                  ? "w-[49.98%]"
+                  : page == 3
+                  ? "w-[66.64%]"
+                  : page == 4
+                  ? "w-[83.3%]"
+                  : "w-[100%]"
+              } bg-green-800`}
+            ></div>
+          </div>
+          <div>
+            {session ? formPage() : <p>Please, Loggin to continue!!</p>}
+          </div>
+          <div className="flex justify-center items-center">
+            {page >= 1 && page <= 5 && (
+              <button
+                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
+                onClick={() => setPage((currPage) => currPage - 1)}
+              >
+                Previous
+              </button>
+            )}
+            {page <= 4 && (
+              <button
+                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
+                onClick={() => setPage((currPage) => currPage + 1)}
+              >
+                NEXT
+              </button>
+            )}
+            {page == 5 && (
+              <button
+                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
+                onClick={() => onSubmit()}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="w-full bg-green-400 h-20">
+          <Login />
+        </div>
+      )}
+    </Layout>
   );
 };
 
-export const getServerSideProps = (query) => {
-  return {
-    props: {
-      id: query.params.id,
-    },
-  };
-};
-
-export default SignUp;
+export default Signup;

@@ -62,9 +62,11 @@ export default function SkillSelector({
   };
 
   const handleDeleteClick = (skill) => {
-    setSelectedSkills(
-      selectedSkills.filter((selected) => selected._id !== skill._id)
+    const newSelectedSkills = selectedSkills.filter(
+      (selected) => selected._id !== skill._id
     );
+    setSelectedSkills(newSelectedSkills);
+    setSkillsCallback(newSelectedSkills);
   };
 
   useEffect(() => {

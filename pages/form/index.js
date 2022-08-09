@@ -10,12 +10,13 @@ import StepsForOnboardComponent from "../../components/TypeFormLikePage/StepsFor
 import ProjectBoard from "../../components/ProjectComponent";
 import YouDidItComponet from "../../components/TypeFormLikePage/YouDidItComponet";
 import DescpitionComponent from "../../components/TypeFormLikePage/DescpitionComponent";
+import ProjectSelectRoles from "../projects/[projectId]/select-roles";
 
 function Form() {
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(0);  
 
   const changePhase = (phaseNow) => {
-    if (phaseNow <= 5) {
+    if (phaseNow <= 6) {
       setPhase((phaseNow += 1));
     }
   };
@@ -51,14 +52,16 @@ function Form() {
       ) : phase == 2 ? (
         <GreenBudgetForm changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 3 ? (
-        <ColabEnvComponent changePhase={changePhase} phase={phase} _id={_id} />
+        <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
       ) : phase == 4 ? (
+        <ColabEnvComponent changePhase={changePhase} phase={phase} _id={_id} />
+      ) : phase == 5 ? (
         <StepsForOnboardComponent
           changePhase={changePhase}
           phase={phase}
           _id={_id}
         />
-      ) : phase == 5 ? (
+      ) : phase == 6 ? (
         <ProjectBoard
           changePhase={changePhase}
           phase={phase}
@@ -70,7 +73,7 @@ function Form() {
           stepsJoinProject={stepsJoinProject}
           _id={_id}
         />
-      ) : phase == 6 ? (
+      ) : phase == 7 ? (
         <YouDidItComponet />
       ) : (
         phase

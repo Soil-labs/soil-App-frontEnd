@@ -14,9 +14,15 @@ export default function RoleDataForm({
   skillSelected,
   setSkillSelected,
 }) {
+  
+  const roleHandler = (e) => {
+    // debugger;
+    setRoleCallback({ ...role, description: e.target.value })
+  }
+
   const setSkillsCallback = useCallback(async (item) => {
     setRoleCallback({ ...role, skills: item });
-  }, []);
+  }, [role]);
 
   // const setRoleDataCallback = useCallback(async (item) => {
   //   setRoleCallback({ ...role, salaryRange: item });
@@ -44,9 +50,6 @@ export default function RoleDataForm({
               placeholder="Description"
               rows={4}
               className="py-3 border-none block w-full focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
-              onChange={(e) =>
-                setRoleCallback({ ...role, description: e.target.value })
-              }
             />
           </div>
 

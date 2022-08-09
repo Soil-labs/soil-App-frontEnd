@@ -43,7 +43,12 @@ function Projects() {
   };
 
   useEffect(() => {
-    const params = {};
+    const params = {
+      returnSkills: true,
+      returnTimeZone: true,
+      returnHoursPerWeek: true,
+      returnInterest: true,
+    };
     dispatch(findMembers(params));
     const interval = setInterval(() => {
       dispatch(findMembers(params));
@@ -123,7 +128,6 @@ function Projects() {
           <div
             key={index}
             onClick={() => {
-              console.log(index);
               setCurrentUserIndex(index);
             }}
             className="flex items-center p-1 rounded-lg hover:bg-white cursor-pointer"
@@ -167,7 +171,6 @@ function Projects() {
           <div
             key={index}
             onClick={() => {
-              console.log(index);
               setCurrentUserIndex(index);
             }}
             className="flex items-center p-1"
@@ -178,6 +181,7 @@ function Projects() {
         ))}
       </section>
       {/* <p>{JSON.stringify(JSON.stringify(users))}</p> */}
+      {/* <p>{JSON.stringify(JSON.stringify(savedUsers))}</p> */}
     </div>
   );
 }

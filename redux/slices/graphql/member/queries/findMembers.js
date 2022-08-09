@@ -13,7 +13,10 @@ export default function findMembersQuery(params) {
           ${
             params.returnSkills
               ? `skills{
-            name
+            skillInfo{
+              _id
+              name
+            }
           }`
               : ``
           }
@@ -35,6 +38,9 @@ export default function findMembersQuery(params) {
           }`
               : ``
           }
+          ${params.returnTimeZone ? `timeZone` : ``}
+          ${params.returnHoursPerWeek ? `hoursPerWeek` : ``}
+          ${params.returnInterest ? `interest` : ``}
 
       }
     }`,
