@@ -19,6 +19,7 @@ module.exports = {
         //   70: "#6BAF22",
         //   100: "#268A02",
         // },
+        darkBlackGreen:"#071B08",
         soilGreen: "#74FA6D",
         soilGray:{
           200: "#F3F3F3"
