@@ -164,7 +164,7 @@ function ProjectSelectRoles() {
           <RoleCard role={role} key={index} />
         ))}
       </div>
-      <p>{JSON.stringify(pendingRoles)}</p>
+      {/* <p>{JSON.stringify(pendingRoles)}</p> */}
     </div>
   );
 }
