@@ -222,7 +222,7 @@ const Experience = ({ experience, setExperience, addExperience }) => {
                 produce(currentExperience, (x) => {
                   x[index].startDate = Math.floor(
                     new Date(e.target.value).getTime()
-                  );
+                  ).toString();
                 })
               )
             }
@@ -232,7 +232,7 @@ const Experience = ({ experience, setExperience, addExperience }) => {
                 produce(currentExperience, (x) => {
                   x[index].endDate = Math.floor(
                     new Date(e.target.value).getTime()
-                  );
+                  ).toString();
                 })
               )
             }

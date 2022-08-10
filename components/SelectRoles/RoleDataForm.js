@@ -14,9 +14,15 @@ export default function RoleDataForm({
   skillSelected,
   setSkillSelected,
 }) {
+  
+  const roleHandler = (e) => {
+    // debugger;
+    setRoleCallback({ ...role, description: e.target.value })
+  }
+
   const setSkillsCallback = useCallback(async (item) => {
     setRoleCallback({ ...role, skills: item });
-  }, []);
+  }, [role]);
 
   // const setRoleDataCallback = useCallback(async (item) => {
   //   setRoleCallback({ ...role, salaryRange: item });
@@ -44,9 +50,6 @@ export default function RoleDataForm({
               placeholder="Description"
               rows={4}
               className="py-3 border-none block w-full focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
-              onChange={(e) =>
-                setRoleCallback({ ...role, description: e.target.value })
-              }
             />
           </div>
 
@@ -96,7 +99,7 @@ export default function RoleDataForm({
         onClick={() => {
           saveRoleCallback(role);
         }}
-        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400"
+        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400 hover:border-green-500 hover:text-green-500"
       >
         <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" />{" "}
         COMPLETE
