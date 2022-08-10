@@ -105,6 +105,16 @@ export function jsonToStringWithEnums(jsonT, _enums = []) {
   console.log("jsonString = ", jsonString);
   _enums.forEach((_enum) => {
     jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
+    jsonString = jsonString.replace(`"${_enum}"`, _enum);
   });
   // jsonString = jsonString.replace(`"${_enum}"`, _enum);
   console.log("jsonString = ", jsonString);

@@ -1,4 +1,11 @@
-import { Fragment, useState, useCallback, useEffect, useRef } from "react";
+import {
+  Fragment,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+} from "react";
 import SkillSelector from "./skill/SkillSelector";
 import Selector from "./Selector";
 import Avatar from "./Avatar";
@@ -33,11 +40,23 @@ const timezones = [
 ];
 
 export default function EditUser({ user = { skills: [] }, setUserCallback }) {
-  const [skills, setSkills] = useState(user.skills);
+  const [skills, setSkills] = useState(
+    user.skills.map((skill) => {
+      return { _id: skill.skillInfo?._id, name: skill.skillInfo?.name };
+    })
+  );
 
   const setUserInfoCallback = useCallback(
     (item) => {
-      if (setUserCallback) setUserCallback({ ...user, ...item });
+      if (!setUserCallback) return;
+      if (item.skills) {
+        let mappedSkills = item.skills.map((skill) => {
+          return { skillInfo: { _id: skill._id, name: skill.name } };
+        });
+        setUserCallback({ ...user, skills: mappedSkills });
+      } else {
+        setUserCallback({ ...user, ...item });
+      }
     },
     [setUserCallback, user]
   );
@@ -62,7 +81,9 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
           <SkillSelector
             key={user._id}
             setSkillsCallback={setSkills}
-            value={user.skills}
+            value={user.skills.map((skill) => {
+              return { _id: skill.skillInfo?._id, name: skill.skillInfo?.name };
+            })}
             showSelected={true}
           />
         </div>
