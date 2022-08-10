@@ -32,7 +32,7 @@ const DescriptionComponent = (props) => {
   return (
     <>
       {/* Background */}
-      <div className="bg-soilGray-200 h-screen w-screen">
+      <div className="bg-soilGray-200 h-full w-full">
         <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
           <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
             <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>

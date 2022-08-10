@@ -40,7 +40,7 @@ function BudgetComponentNew(props) {
 
   return (
     <>
-      <div className="bg-soilGray-200 h-screen w-screen">
+      <div className="bg-soilGray-200 h-fit w-full">
         <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
           <div className="flex flex-col items-center">
             {/* Title */}
@@ -135,7 +135,7 @@ function BudgetComponentNew(props) {
               </div>
             </div>
             {/* Notes Text Input field */}
-            <div className="w-[590px] mt-8 ">
+            <div className="w-[590px] mt-8 mb-20 ">
               <div>
         
                 <div className="mt-1">
