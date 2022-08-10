@@ -20,33 +20,11 @@ import {
   addNewMember,
   addMemberData,
 } from "../../../redux/slices/memberSlice";
+import HeaderNew from "../../../components/layout/HeaderNew";
 
 const Signup = () => {
-  const dispatch = useDispatch();
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session) {
-      dispatch(
-        addMemberData({
-          _id: session?.user.id,
-          discordName: session.user.name,
-          discordAvatar: session.user.image,
-        })
-      );
-    } else {
-      return;
-    }
-  }, [session]);
-
   const member = useSelector((state) => state.member);
-
-  useEffect(() => {
-    let params = {
-      _id: session?.user.id,
-    };
-    dispatch(findMember(params));
-  }, [session, dispatch]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (member.loading === false) {
@@ -244,7 +222,8 @@ const Signup = () => {
   }
 
   return (
-    <Layout>
+    <>
+      <HeaderNew />
       {session ? (
         <div className="bg-[#8DC2204D] px-8 py-4 w-max mx-auto">
           <div className="w-[50rem] rounded-full h-[.5rem] bg-white mb-10">
@@ -296,10 +275,10 @@ const Signup = () => {
         </div>
       ) : (
         <div className="w-full h-20">
-          <Login />
+          <p>Pleaser Login in to continue...</p>
         </div>
       )}
-    </Layout>
+    </>
   );
 };
 

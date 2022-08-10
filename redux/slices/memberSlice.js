@@ -123,6 +123,7 @@ export const memberSlice = createSlice({
       state.projects = payload.projects;
       state.network = payload.network;
     },
+
     [addNewMember.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;

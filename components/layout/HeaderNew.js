@@ -14,7 +14,7 @@ const HeaderNew = () => {
           <div className="flex space-x-4">
             {/* logo */}
             <div className="group">
-              <img src="Logo.svg"></img>
+              <img src="/Logo.svg"></img>
             </div>
 
             {/* primary nav */}
