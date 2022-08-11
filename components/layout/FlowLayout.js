@@ -1,5 +1,5 @@
 import NextButton from "../NextButton";
-import PreviousButton from "../previousButton";
+import PreviousButton from "../PreviousButton";
 import HeaderNew from "./HeaderNew";
 import ProgressBar from "./ProgressBar";
 import { TempBlankNavbar } from "./TempBlankNavbar";
