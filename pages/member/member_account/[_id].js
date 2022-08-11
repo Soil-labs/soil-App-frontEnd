@@ -21,6 +21,7 @@ import Profile from "../../../components/ProfileComponent";
 
 import { inpsectUser } from "../../../redux/slices/userInspectSlice";
 import ProgressBar from "../../../components/layout/ProgressBar";
+import { Login } from "../../../components/layout/Login";
 
 function MemberPage({ id }) {
   const [skills, setSkills] = useState([]);
@@ -60,19 +61,7 @@ function MemberPage({ id }) {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <ProgressBar numberofSteps={6} currentStep={buttonState} />
-      <button
-        disabled={buttonState === 6}
-        onClick={() => setButtonState(buttonState + 1)}
-      >
-        next
-      </button>
-      <button
-        disabled={buttonState < 2}
-        onClick={() => setButtonState(buttonState - 1)}
-      >
-        previous
-      </button>
+      <Login />
       <Profile
         id={member.discordName}
         bio={member.bio}
