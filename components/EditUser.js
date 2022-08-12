@@ -68,7 +68,7 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
         let mappedSkills = item.skills.map((skill) => {
           return { skillInfo: { _id: skill._id, name: skill.name } };
         });
-        setUserCallback({ ...user, skills: mappedSkills });
+        setUserCallback({ ...user, ...item, skills: mappedSkills });
       } else {
         setUserCallback({ ...user, ...item });
       }
@@ -136,16 +136,26 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
               className="block w-1/2 mr-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
             ></input>
           </div>
-          <div className="w-full">
-            {/* <Textarea
+        </div>
+        <div className="col-span-1 pl-2">
+          {/* <Textarea
               name="interest"
               value={user.interest}
               setDataCallback={setUserInfoCallback}
               placeholder="Interests"
               title="Interests:"
             /> */}
-            <SkillsTextArea options={skillsData} />
-          </div>
+          <p>Interests:</p>
+          <SkillsTextArea
+            key={user._id}
+            options={skillsData}
+            setDataCallback={setUserInfoCallback}
+            value={{
+              interest: user.interest,
+              interestRaw: user.interestRaw,
+              skills: user.skills,
+            }}
+          />
         </div>
       </section>
       <div className="w-1/2 mx-auto mb-4">
@@ -156,7 +166,7 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
           title="Message:"
         /> */}
       </div>
-      {/* {JSON.stringify(user)} */}
+      {JSON.stringify(user)}
     </>
   );
 }
