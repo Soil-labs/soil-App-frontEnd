@@ -62,7 +62,7 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
   };
 
   useEffect(() => {
-    if (currToken?.word && currToken.word[0] === "@") {
+    if (currToken?.word && currToken.word[0] === "#") {
       setQuery(currToken.word.substring(1));
     }
   }, [currToken]);
@@ -79,7 +79,7 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
             option,
           ]);
           return renderToString(
-            <SelectedItem>{"@" + option.name}</SelectedItem>
+            <SelectedItem>{"#" + option.name}</SelectedItem>
           );
         } else {
           return a;
@@ -120,7 +120,7 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
       : value.skills
           .map((skill) =>
             renderToString(
-              <SelectedItem>{"@" + skill.skillInfo.name}</SelectedItem>
+              <SelectedItem>{"#" + skill.skillInfo.name}</SelectedItem>
             )
           )
           .join(" ") + "&nbsp;";
