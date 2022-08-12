@@ -166,7 +166,7 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
           title="Message:"
         /> */}
       </div>
-      {JSON.stringify(user)}
+      {/* {JSON.stringify(user)} */}
     </>
   );
 }

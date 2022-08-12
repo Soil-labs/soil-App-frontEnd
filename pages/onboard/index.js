@@ -180,7 +180,7 @@ function Projects() {
           </div>
         ))}
       </section>
-      <p>{JSON.stringify(JSON.stringify(users))}</p>
+      {/* <p>{JSON.stringify(JSON.stringify(users))}</p> */}
       {/* <p>{JSON.stringify(JSON.stringify(savedUsers))}</p> */}
     </div>
   );
