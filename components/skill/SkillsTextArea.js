@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { renderToString } from "react-dom/server";
 
 function getActiveToken(input, cursorPosition) {
-  const tokenizedQuery = input.split(/[\s\n]/).reduce((acc, word, index) => {
+  const tokenizedQuery = input?.split(/[\s\n]/).reduce((acc, word, index) => {
     const previous = acc[index - 1];
     const start = index === 0 ? index : previous.range[1] + 1;
     const end = start + word.length;
@@ -14,7 +14,7 @@ function getActiveToken(input, cursorPosition) {
     return undefined;
   }
 
-  const activeToken = tokenizedQuery.find(
+  const activeToken = tokenizedQuery?.find(
     ({ range }) => range[0] < cursorPosition && range[1] >= cursorPosition
   );
 
@@ -23,7 +23,7 @@ function getActiveToken(input, cursorPosition) {
 
 function SelectedItem({ children }) {
   return (
-    <span contentEditable="false" className="bg-yellow-200">
+    <span contentEditable="false" className="bg-yellow-200 px-1 rounded-md">
       {children}
     </span>
   );
@@ -56,17 +56,25 @@ export default function SkillsTextArea({ options }) {
       }
     });
     setCurrValue(newValue);
-    inputRef.current.innerHTML = newValue.join(" ") + "&nbsp;";
+    inputRef.current.innerHTML = newValue.join(" ") + " ";
     setCurrToken("");
     setQuery("");
+    inputRef.current.focus();
   };
 
-  const handleKeyDown = (e) => {
-    console.log(document.getSelection().focusOffset);
-    setCurrValue(inputRef.current.innerText);
+  const handleKeyUp = (e) => {
+    console.log(document.getSelection());
+    setCurrValue(inputRef.current.innerHTML);
     setCurrToken(
       getActiveToken(
-        inputRef.current.innerText,
+        document.getSelection().focusNode.data,
+        document.getSelection().focusOffset
+      )
+    );
+    console.log(
+      document.getSelection().focusOffset,
+      getActiveToken(
+        document.getSelection().focusNode.data,
         document.getSelection().focusOffset
       )
     );
@@ -82,7 +90,7 @@ export default function SkillsTextArea({ options }) {
         ref={inputRef}
         contentEditable={true}
         // onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
       ></p>
       {query &&
         options
