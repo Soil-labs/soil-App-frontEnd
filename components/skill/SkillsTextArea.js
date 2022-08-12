@@ -41,13 +41,6 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
       })
     );
   const [selectedItems, setSelectedItems] = useState([]);
-  // const [startSnapshot, setStartSnapshot] = useState("");
-  //   const cursorPosition = inputRef.current?.selectionEnd || 0;
-
-  const handleChange = (e) => {
-    // setCurrValue(e.target.value);
-    // setCurrToken(getActiveToken(e.target.value, cursorPosition));
-  };
 
   const parseSelected = () => {
     const selectedNames = [...inputRef.current.children].map((item) =>
@@ -56,7 +49,6 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
     const selectedOptions = selectedItemsIncludingDeleted.filter((item) =>
       selectedNames.some((name) => name === item.name)
     );
-    console.log(selectedItemsIncludingDeleted, selectedNames, selectedOptions);
 
     setSelectedItems(selectedOptions);
   };
@@ -140,12 +132,11 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
         <p
           ref={inputRef}
           contentEditable={true}
-          // onChange={handleChange}
           onKeyUp={handleKeyUp}
           className="overflow-hidden shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-xl px-2 py-3"
         ></p>
         {query && (
-          <div className="absolute shadow-sm block w-full sm:text-sm border border-gray-300 rounded-xl px-2 py-3 bg-white">
+          <div className="absolute shadow-sm block w-full sm:text-sm border border-gray-300 rounded-xl px-2 py-3 bg-white max-h-32 overflow-y-auto">
             {options
               .filter(
                 (option) =>
