@@ -7,9 +7,12 @@ import {
   useMemo,
 } from "react";
 import SkillSelector from "./skill/SkillSelector";
+import SkillsTextArea from "./skill/SkillsTextArea";
 import Selector from "./Selector";
 import Avatar from "./Avatar";
-import Textarea from "./TextArea";
+import { useDispatch, useSelector } from "react-redux";
+import { findSkills } from "../redux/slices/skillsSlice";
+// import Textarea from "./TextArea";
 
 const timezones = [
   "UTC-12",
@@ -46,6 +49,18 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
     })
   );
 
+  const dispatch = useDispatch();
+
+  const skillsData = useSelector(
+    (state) =>
+      state.skillsInspect.skillsInfo.filter(
+        (skill) => skill.state === "approved"
+      ) || []
+  );
+  useEffect(() => {
+    dispatch(findSkills({}));
+  }, [dispatch]);
+
   const setUserInfoCallback = useCallback(
     (item) => {
       if (!setUserCallback) return;
@@ -77,7 +92,7 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
         <div>{user?.discordName}</div>
       </div>
       <section className="grid grid-cols-2">
-        <div className="col-span-1 pr-2">
+        {/* <div className="col-span-1 pr-2">
           <SkillSelector
             key={user._id}
             setSkillsCallback={setSkills}
@@ -86,7 +101,7 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
             })}
             showSelected={true}
           />
-        </div>
+        </div> */}
         <div className="col-span-1 pl-2">
           <div className="w-full">
             <div className="w-1/2 inline-block">
@@ -122,13 +137,14 @@ export default function EditUser({ user = { skills: [] }, setUserCallback }) {
             ></input>
           </div>
           <div className="w-full">
-            <Textarea
+            {/* <Textarea
               name="interest"
               value={user.interest}
               setDataCallback={setUserInfoCallback}
               placeholder="Interests"
               title="Interests:"
-            />
+            /> */}
+            <SkillsTextArea options={skillsData} />
           </div>
         </div>
       </section>
