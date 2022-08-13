@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { renderToString } from "react-dom/server";
+import { useDispatch } from "react-redux";
+import { createSkill } from "../../redux/slices/skillSlice";
 
 function getActiveToken(input, cursorPosition) {
   const tokenizedQuery = input?.split(/[\s\n]/).reduce((acc, word, index) => {
@@ -21,9 +23,14 @@ function getActiveToken(input, cursorPosition) {
   return activeToken;
 }
 
-function SelectedItem({ children }) {
+function SelectedItem({ children, unapproved = false }) {
   return (
-    <span className="bg-yellow-200 px-1 rounded-md" contentEditable={false}>
+    <span
+      className={`px-1 rounded-md ${
+        unapproved ? "bg-gray-300" : "bg-yellow-200"
+      }`}
+      contentEditable={false}
+    >
       {children}
     </span>
   );
@@ -41,6 +48,7 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
       })
     );
   const [selectedItems, setSelectedItems] = useState([]);
+  const dispatch = useDispatch();
 
   const parseSelected = () => {
     const selectedNames = [...inputRef.current.children].map((item) =>
@@ -82,6 +90,38 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
     setCurrToken("");
     setQuery("");
     // inputRef.current.focus();
+  };
+  const handleSelectOptionNew = async () => {
+    const params = {
+      name: query,
+      state: "waiting",
+    };
+    const res = await dispatch(createSkill(params));
+
+    const newValue = currValue
+      .split("&nbsp;")
+      .join(" ")
+      .split(" ")
+      .map((a) => {
+        if (a === currToken.word) {
+          setSelectedItemsIncludingDeleted([
+            ...selectedItemsIncludingDeleted,
+            res.payload,
+          ]);
+          return renderToString(
+            <SelectedItem unapproved={true}>
+              {"#" + res.payload.name}
+            </SelectedItem>
+          );
+        } else {
+          return a;
+        }
+      });
+    setCurrValue(newValue.join(" "));
+    inputRef.current.innerHTML = newValue.join(" ") + "&nbsp;";
+    setCurrToken("");
+    setQuery("");
+    inputRef.current.focus();
   };
 
   useEffect(() => {
@@ -154,6 +194,12 @@ export default function SkillsTextArea({ options, setDataCallback, value }) {
                   {option.name}
                 </p>
               ))}
+            <p
+              onClick={() => handleSelectOptionNew()}
+              className="cursor-pointer"
+            >
+              Add New Skill
+            </p>
           </div>
         )}
       </div>
