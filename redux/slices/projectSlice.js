@@ -163,7 +163,6 @@ export const projectSlice = createSlice({
     },
     [findProject.fulfilled]: (state, { payload }) => {
       if (!payload) return;
-      console.log({ payload });
       state.isDataAvailable = true;
       state.loading = false;
 
@@ -189,7 +188,6 @@ export const projectSlice = createSlice({
       state.loading = false;
 
       state.title = payload.projectData.title;
-      state.champion = payload.projectData.champion;
       state._id = payload.projectData._id;
       state.matchPercentage = payload.matchPercentage;
       state.skillsMatch = payload.skillsMatch;
