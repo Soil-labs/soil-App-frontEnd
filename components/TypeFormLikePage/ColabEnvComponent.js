@@ -5,6 +5,7 @@ import { ChevronDoubleDownIcon, LinkIcon } from "@heroicons/react/solid";
 import { BsTwitter, BsTelegram, BsGithub } from "react-icons/bs";
 import { FaDiscord } from "react-icons/fa";
 import { SiNotion } from "react-icons/si";
+import FlowLayout from "../layout/FlowLayout";
 
 const GeneralGreenFrom = (props) => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const GeneralGreenFrom = (props) => {
     props.changePhase(props.phase);
   };
   return (
-    <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
+    <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
       <div className="flex flex-col items-center">
         {/* Title */}
         <div className="w-[590px] h-[70px] bg-white mt-20 text-2xl shadow-md rounded-2xl flex items-center justify-center">
@@ -191,21 +192,15 @@ const GeneralGreenFrom = (props) => {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            handleChangePhase();
-          }}
-        >
-          <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 mt-60" />
-        </button>
+        
       </div>
-    </div>
+    </FlowLayout>
   );
 };
 function ColabEnvComponent(props) {
   return (
     <>
-      <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
+      <div className="grid h-screen place-items-center ">
         <GeneralGreenFrom {...props} />
       </div>
     </>

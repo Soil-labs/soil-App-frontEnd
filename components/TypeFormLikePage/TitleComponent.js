@@ -24,7 +24,7 @@ const DescriptionComponent = (props) => {
   return (
     <>
       {/* Background */}
-      <div className="bg-soilGray-200 h-screen w-full">
+      <div className="w-full h-screen bg-soilGray-200">
         <FlowLayout
           currentStep={props.phase + 1}
           handleNextButton={() => handleChangePhase()}
@@ -51,7 +51,7 @@ const DescriptionComponent = (props) => {
                 type="text"
                 name="title"
                 id="title"
-                className="shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
+                className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
               />
             </div>
           </div>

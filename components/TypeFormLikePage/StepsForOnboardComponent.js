@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
+import FlowLayout from "../layout/FlowLayout";
 
 function StepsForOnboardComponent(props) {
   const [title, setTitle] = useState();
@@ -65,13 +66,16 @@ function StepsForOnboardComponent(props) {
 
   return (
     <>
-      <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <div className="w-[679px] h-[896px] bg-soilGreen-50 bg-opacity-80 rounded-2xl">
+      <div className="grid h-screen place-items-center ">
+        <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
           <div className="flex flex-col items-center">
             {/* Title */}
-            <div className="w-[590px] h-[70px] bg-white mt-20 text-4xl shadow-md rounded-2xl flex items-center justify-center">
-              <p className="">STEPS DURING THE ONBOARDING</p>
-            </div>
+            <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
+            <p className="text-[26px]">STEPS TO ONBOARD TO THE PROJECT</p>
+            <p className="text-[16px]">
+            Type steps or drag-and-drop from the existing options
+            </p>
+          </div>
             <div className=" w-[590px] h-[437px] bg-white rounded-2xl mt-10 text-xs">
               {/* <div className="flex"> */}
               <div className="flex ">
@@ -116,15 +120,9 @@ function StepsForOnboardComponent(props) {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => {
-                handleChangePhase();
-              }}
-            >
-              <ChevronDoubleDownIcon className="w-10 h-10 mt-40 font-light text-black stroke-1" />
-            </button>
+           
           </div>
-        </div>
+        </FlowLayout>
       </div>
     </>
   );
