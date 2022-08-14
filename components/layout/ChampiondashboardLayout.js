@@ -12,7 +12,7 @@ export const ChampionDashboardLayout = ({ children }) => {
     if (projectsInspect.isDataAvailable) return;
     dispatch(
       findProjects_fromMember({
-        _id: "995604464469803048",
+        _id: "908392557258604544",
         returnDates: true,
       })
     );

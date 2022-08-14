@@ -72,7 +72,7 @@ export const MagicApplication = () => {
       return;
     }
     const params = {
-      memberID: "908392557258604544",
+      memberID: "812526237074456577",
       projectID: projectId,
       roleID: roleId,
     };
@@ -83,14 +83,15 @@ export const MagicApplication = () => {
   const handleApplyClick = () => {
     let params = {
       projectID: projectId,
-      memberID: "908392557258604544",
+      memberID: "812526237074456577",
       phase: "shortlisted",
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
 
   const project = useSelector((state) => state.projectInspect);
-  console.log({ project });
+  // const championDiscordName = useSelector(state => state.projectsInspect.filter(project => project.))
+
   return (
     <>
       {project && project.skillsDontMatch && project.skillsMatch && (
