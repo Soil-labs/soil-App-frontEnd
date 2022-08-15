@@ -52,10 +52,10 @@ const GeneralGreenFrom = (props) => {
     props.changePhase(props.phase);
   };
   return (
-    <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
-      <div className="flex flex-col items-center">
+    <FlowLayout className currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
+      <div className="flex flex-col items-center mb-40">
         {/* Title */}
-        <div className="w-[590px] h-[70px] bg-white mt-20 text-2xl shadow-md rounded-2xl flex items-center justify-center">
+        <div className="w-[590px] h-[70px]  mt-20 text-2xl  flex items-center justify-center">
           <p className="">SETUP COLLABORATION ENVIRONMENT</p>
         </div>
 
@@ -191,8 +191,6 @@ const GeneralGreenFrom = (props) => {
             </div>
           </div>
         </div>
-
-        
       </div>
     </FlowLayout>
   );
