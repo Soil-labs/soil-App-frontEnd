@@ -9,6 +9,8 @@ import RoleDataForm from "../../../components/SelectRoles/RoleDataForm";
 import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
 import { findProject, updateProject } from "../../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
+import NextButton from "../../../components/NextButton";
+import PreviousButton from "../../../components/previousButton";
 function ProjectSelectRoles(props) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -116,11 +118,11 @@ function ProjectSelectRoles(props) {
       <div className="grid grid-cols-5 gap-3">
         <div className="col-span-1 pt-12">
           {saveError && (
-            <h4 className="p-2 text-white bg-red-500 rounded-lg mb-2">
+            <h4 className="p-2 mb-2 text-white bg-red-500 rounded-lg">
               User could not be saved
             </h4>
           )}
-          <h3 className="text-lg mb-3 font-semibold">SCOPE YOUR ROLES</h3>
+          <h3 className="mb-3 text-lg font-semibold">SCOPE YOUR ROLES</h3>
           <div className="">
             {pendingRoles.map((role, index) => (
               <div
@@ -148,7 +150,7 @@ function ProjectSelectRoles(props) {
               />
             )}
             <button
-              className="bg-green-400 rounded-sm font-bold px-2 py-1"
+              className="px-2 py-1 font-bold bg-green-400 rounded-sm"
               disabled={!inputRole.title}
               onClick={handleAddRole}
             >
@@ -170,20 +172,24 @@ function ProjectSelectRoles(props) {
           )}
         </div>
         <div className="col-span-1 pt-12">
-          <h3 className="text-lg mb-3 font-semibold">COMPLETED PROFILES</h3>
+          <h3 className="mb-3 text-lg font-semibold">COMPLETED PROFILES</h3>
           {savedRoles.map((role, index) => (
             <RoleCard role={role} key={index} />
           ))}
         </div>
         {/* <p>{JSON.stringify(pendingRoles)}</p> */}
-        <button
+        {/* <button
       className=" mt-10 ml-[650px]"
         onClick={() => {
           handleChangePhase();
         }}
       >
         <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 " />
-      </button>
+      </button> */}
+      <PreviousButton/>
+      <NextButton
+      handleChangePhase={handleChangePhase}
+      />
       </div>
 
       

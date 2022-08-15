@@ -7,13 +7,15 @@ import { SiNotion } from "react-icons/si";
 
 import React from "react";
 import { useEffect } from "react";
+import PreviousButton from "../previousButton";
+import NextButton from "../NextButton";
 
 const DevRoles = ({ Role }) => {
   return (
-    <div className="flex flex-col justify-center  items-center gap-1">
+    <div className="flex flex-col items-center justify-center gap-1">
       <img src="/Avatar.png" className="w-[5rem] xl:w-[7rem]" alt="" />
 
-      <p className="px-3 xl:px-5 rounded-full bg-white text-lg shadow-md w-max uppercase">
+      <p className="px-3 text-lg uppercase bg-white rounded-full shadow-md xl:px-5 w-max">
         {Role}
       </p>
     </div>
@@ -22,11 +24,11 @@ const DevRoles = ({ Role }) => {
 
 const Info = ({ text, icon }) => {
   return (
-    <div className="bg-white rounded-full shadow-md overflow-hidden flex">
+    <div className="flex overflow-hidden bg-white rounded-full shadow-md">
       <div className="bg-[#C4C4C4] rounded-tl-full flex justify-center items-center px-2 py-2 rounded-bl-full">
         <img className="w-[1rem]" src={icon} alt="" />
       </div>
-      <p className="font-medium text-end py-1 md:pr-1 xl:pr-2 pl-2 xl:pl-4 w-max">
+      <p className="py-1 pl-2 font-medium text-end md:pr-1 xl:pr-2 xl:pl-4 w-max">
         {text}
       </p>
     </div>
@@ -99,28 +101,34 @@ const ProjectBoard = ({
     "Backend",
   ];
 
+  const handleChangePhase = () => {
+   
+
+  changePhase(phase);
+  };
+
   return (
     <div className="bg-[#ACCEA0] bg-opacity-60 shadow-md flex flex-col gap-20 justify-start py-20 items-center rounded-2xl w-[90%] h-[90%]">
       <div className="project-title px-16 py-2 shadow-md relative bg-white min-w-[30%] text-center rounded-full text-xl font-medium uppercase">
         <img
           src="/Edit.png"
-          className="absolute right-4 top-2/4 -translate-y-2/4 cursor-pointer"
+          className="absolute cursor-pointer right-4 top-2/4 -translate-y-2/4"
           alt=""
         />
         {projectTitle}
       </div>
-      <div className="flex justify-center items-end md:gap-5 xl:gap-10 w-11/12 mx-auto">
-        <div className="profile flex flex-col justify-center items-start gap-6 w-5/12 ">
-          <div className="flex justify-start items-center gap-4">
+      <div className="flex items-end justify-center w-11/12 mx-auto md:gap-5 xl:gap-10">
+        <div className="flex flex-col items-start justify-center w-5/12 gap-6 profile ">
+          <div className="flex items-center justify-start gap-4">
             <div className="profile-img h-[5rem] w-[5rem] rounded-full overflow-hidden">
               <img
                 src={`${avatar ? avatar : "/soil.png"}`}
-                className="h-full w-full"
+                className="w-full h-full"
                 alt="avatar"
               />
             </div>
-            <div className="md:px-10 xl:px-14 bg-white rounded-full flex justify-center shadow-md h-min items-center flex-col">
-              <h1 className="uppercase text-xl font-medium">{championName}</h1>
+            <div className="flex flex-col items-center justify-center bg-white rounded-full shadow-md md:px-10 xl:px-14 h-min">
+              <h1 className="text-xl font-medium uppercase">{championName}</h1>
               <p className="text-[12px] font-medium text-[#828282] -mt-1">
                 Project Champion
               </p>
@@ -132,17 +140,17 @@ const ProjectBoard = ({
           <div className="bg-white relative p-5 w-full shadow-md rounded-xl min-h-[11rem] flex flex-col justify-start items-start gap-5">
             <img
               src="/Edit.png"
-              className="absolute right-5 top-6 cursor-pointer"
+              className="absolute cursor-pointer right-5 top-6"
               alt=""
             />
-            <h2 className="font-semibold text-lg">Project Description</h2>
+            <h2 className="text-lg font-semibold">Project Description</h2>
             <p>{description}</p>
           </div>
-          <div className="flex justify-between gap-4 w-full">
+          <div className="flex justify-between w-full gap-4">
             <div className="bg-white relative p-5 w-7/12 min-h-[10rem] shadow-md rounded-xl flex flex-col justify-start items-center gap-5">
               <img
                 src="/Edit.png"
-                className="absolute right-5 top-6 cursor-pointer"
+                className="absolute cursor-pointer right-5 top-6"
                 alt=""
               />
               <p className="font-medium">TOP SKILLS</p>
@@ -155,7 +163,7 @@ const ProjectBoard = ({
                           colors[Math.floor(Math.random() * colors.length)]
                         }`,
                       }}
-                      className="w-max px-2 rounded-full font-medium"
+                      className="px-2 font-medium rounded-full w-max"
                       key={index}
                     >
                       {skill}
@@ -169,7 +177,7 @@ const ProjectBoard = ({
             <div className="bg-white relative shadow-md p-5 w-4/12 min-h-[10rem] rounded-xl flex flex-col justify-start items-center gap-5">
               <img
                 src="/Edit.png"
-                className="absolute right-5 top-6 cursor-pointer"
+                className="absolute cursor-pointer right-5 top-6"
                 alt=""
               />
               {links[0].link !== "" && (
@@ -203,7 +211,7 @@ const ProjectBoard = ({
         <div className="onboarding-priority relative w-[20%] bg-white shadow-md h-max p-8 rounded-xl text-center">
           <img
             src="/Edit.png"
-            className="absolute right-5 top-4 cursor-pointer"
+            className="absolute cursor-pointer right-5 top-4"
             alt=""
           />
           <h1 className="font-medium">ONBOARDING PRIORITY</h1>
@@ -217,7 +225,7 @@ const ProjectBoard = ({
                   }`,
                 }}
                 key={index}
-                className="py-2 rounded-full uppercase font-medium text-xs text-center shadow-md"
+                className="py-2 text-xs font-medium text-center uppercase rounded-full shadow-md"
               >
                 {priority}
               </div>
@@ -246,13 +254,15 @@ const ProjectBoard = ({
             })}
         </div>
       </div>
-      <button
+      {/* <button
         onClick={() => {
           changePhase(phase);
         }}
       >
-        <ChevronDoubleDownIcon className="h-10 w-10 text-black mt-10 font-light stroke-1" />
-      </button>
+        <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
+      </button> */}
+      <PreviousButton/>
+      <NextButton handleChangePhase={handleChangePhase}/>
     </div>
   );
 };
