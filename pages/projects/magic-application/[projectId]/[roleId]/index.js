@@ -72,7 +72,7 @@ export const MagicApplication = () => {
       return;
     }
     const params = {
-      memberID: "908392557258604544",
+      memberID: "812526237074456577",
       projectID: projectId,
       roleID: roleId,
     };
@@ -83,14 +83,14 @@ export const MagicApplication = () => {
   const handleApplyClick = () => {
     let params = {
       projectID: projectId,
-      memberID: "908392557258604544",
+      memberID: "812526237074456577",
       phase: "shortlisted",
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
 
   const project = useSelector((state) => state.projectInspect);
-  console.log({ project });
+
   return (
     <>
       {project && project.skillsDontMatch && project.skillsMatch && (
@@ -220,14 +220,15 @@ export const MagicApplication = () => {
                     <hr />
                     <h4 className="py-4 text-gray-500 text-lg">🏆 Champion</h4>
                     <div className="flex gap-2 py-4">
-                      <div className="w-8 rounded-full overflow-hidden">
+                      <div className="w-8 rounded-full overflow-hidden relative">
                         <Image
-                          src={placeholder_avatar}
-                          alt="placeholder avatar"
+                          layout="fill"
+                          src={project.champion.discordAvatar}
+                          alt="champion avatar"
                         />
                       </div>
                       <div className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                        mutantape.eth
+                        {project.champion.discordName}
                       </div>
                     </div>
                     <hr />
