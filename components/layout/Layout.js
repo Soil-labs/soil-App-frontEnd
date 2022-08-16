@@ -1,16 +1,16 @@
 import Header from "./Header";
 
 function Layout({ children }) {
-  return (
-    <section className="bg-bgGrey min-h-screen">
-      <div className="w-full max-w-screen-xl mx-auto">
-        <Header />
-        <div className="relative mx-6">
-          <main>{children}</main>
-        </div>
-      </div>
-    </section>
-  );
+    return (
+        <section className="bg-bgGrey w-full flex flex-col h-screen overflow-hidden">
+            <div className="w-full h-full flex flex-col max-w-full items-center px-72">
+                <Header />
+                <div className="relative flex-1">
+                    <main className="h-[100%]">{children}</main>
+                </div>
+            </div>
+        </section>
+    );
 }
 
 export default Layout;
