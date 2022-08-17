@@ -61,6 +61,8 @@ const SkillTag = ({ children, variant }) => {
 export const MagicApplication = () => {
   const dispatch = useDispatch();
 
+  const { projectInspect: project, member } = useSelector((state) => state);
+
   const {
     query: { projectId, roleId },
   } = useRouter();
@@ -72,25 +74,22 @@ export const MagicApplication = () => {
       return;
     }
     const params = {
-      memberID: "812526237074456577",
+      memberID: member._id,
       projectID: projectId,
       roleID: roleId,
     };
     console.log({ params });
     dispatch(match_projectToUser(params));
-  }, [dispatch, projectId, roleId]);
+  }, [dispatch, projectId, roleId, member]);
 
   const handleApplyClick = () => {
     let params = {
       projectID: projectId,
-      memberID: "812526237074456577",
-      phase: "shortlisted",
+      memberID: member._id,
+      phase: "engaged",
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
-
-  const project = useSelector((state) => state.projectInspect);
-
   return (
     <>
       {project && project.skillsDontMatch && project.skillsMatch && (
