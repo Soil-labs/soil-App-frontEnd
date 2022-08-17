@@ -89,7 +89,7 @@ const CommittedTeam = ({ members }) => {
     <div className="p-16">
       {members.length > 0 && (
         <>
-          <div className="w-full pb-12 flex gap-6 justify-center flex-wrap">
+          <div className="w-full flex gap-6 justify-center flex-wrap">
             {members.map(({ memberInfo }, i) => (
               <>
                 <MemberAvatar
@@ -99,17 +99,18 @@ const CommittedTeam = ({ members }) => {
               </>
             ))}
           </div>
+          {/*
           <h3 className="pb-12 text-white font-bold text-2xl text-center">
             OVERALL TEAM COMPOSITION
           </h3>
-          <div className="bg-white rounded-full p-16">
+           <div className="bg-white rounded-full p-16">
             <Chart members={members} />
-          </div>
-          <div className="flex justify-center pt-12">
+          </div> */}
+          {/* <div className="flex justify-center pt-12">
             <button className="py-2 px-4 rounded-lg bg-blue-600 text-white text-xl">
               KICK OFF
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </div>
