@@ -41,12 +41,12 @@ const mockData = {
 
 const tabs = [
   {
-    title: "All projects",
-    fullTitle: "All projects",
-  },
-  {
     title: "Recommended",
     fullTitle: "Recommended",
+  },
+  {
+    title: "All projects",
+    fullTitle: "All projects",
   },
   // {
   //   title: "Favourite",
@@ -67,26 +67,28 @@ function Projects() {
 
   const member = {};
   member._id = useSelector((state) => state.member._id);
-  member.projects = useSelector((state) => state.member.projects);
+  // member.projects = useSelector((state) => state.member.projects);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(Number(tab));
+    if (tab === "0" || tab === "1") setCurrentTab(Number(tab));
+    // if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(Number(tab));
   }, [tab]);
 
   useEffect(() => {
     if (currentTab == 2) {
-      setTabProjects(member.projects.filter((proj) => proj.favorite));
+      // setTabProjects(member.projects.filter((proj) => proj.favorite));
     } else {
       setTabProjects(projects);
     }
-  }, [currentTab, projects, member.projects]);
+  }, [currentTab, projects]);
+  // }, [currentTab, projects, member.projects]);
 
   useEffect(() => {
     let params;
     switch (currentTab) {
-      case 0:
+      case 1:
         params = {
           returnRole: true,
           returnBudget: true,
@@ -94,7 +96,7 @@ function Projects() {
         };
         dispatch(findProjects(params));
         break;
-      case 1:
+      case 0:
         params = {
           memberID: member._id,
           returnRole: true,
