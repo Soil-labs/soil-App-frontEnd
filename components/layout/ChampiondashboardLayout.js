@@ -6,17 +6,18 @@ import { ProjectsNavigation } from "../ChampionDashboard";
 import Layout from "./Layout";
 
 export const ChampionDashboardLayout = ({ children }) => {
-  const { projectsInspect } = useSelector((state) => state);
+  const { projectsInspect, member } = useSelector((state) => state);
   const dispatch = useDispatch();
+
   React.useEffect(() => {
     if (projectsInspect.isDataAvailable) return;
     dispatch(
       findProjects_fromMember({
-        _id: "995604464469803048",
+        _id: member._id,
         returnDates: true,
       })
     );
-  }, [dispatch, projectsInspect]);
+  }, [dispatch, projectsInspect, member]);
 
   return (
     <Layout>

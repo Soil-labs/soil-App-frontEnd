@@ -80,7 +80,7 @@ function ProjectSelectRoles(props) {
     [pendingRoles, currentRoleIndex]
   );
   const handleChangePhase = () => {
-    props.changePhase(props.phase);
+    if (changePhase && props.phase) props.changePhase(props.phase);
   };
 
   const handleAddRole = (e) => {
@@ -143,7 +143,7 @@ function ProjectSelectRoles(props) {
               <Selector
                 key={inputRole}
                 name="title"
-                options={[...roles, { title: "New Role" }]}
+                options={[{ title: "New Role" }, ...roles]}
                 setDataCallback={setInputRoleCallback}
                 value={inputRole}
               />
@@ -177,16 +177,12 @@ function ProjectSelectRoles(props) {
           ))}
         </div>
         {/* <p>{JSON.stringify(pendingRoles)}</p> */}
-        {/* <button
-      className=" mt-10 ml-[650px]"
-        onClick={() => {
-          handleChangePhase();
-        }}
-      >
-        <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 " />
-      </button> */}
-        <PreviousButton />
-        <NextButton handleChangePhase={handleChangePhase} />
+        <button
+          className=" mt-10 ml-[650px]"
+          onClick={() => handleChangePhase()}
+        >
+          <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 " />
+        </button>
       </div>
     </>
   );

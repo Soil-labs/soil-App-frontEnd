@@ -24,7 +24,7 @@ const DescriptionComponent = (props) => {
   return (
     <>
       {/* Background */}
-      <div className="w-full h-screen bg-soilGray-200">
+      <div className="bg-soilGray-200 h-screen w-full">
         {/* <FlowLayout
           currentStep={props.phase + 1}
           handleNextButton={() => handleChangePhase()}

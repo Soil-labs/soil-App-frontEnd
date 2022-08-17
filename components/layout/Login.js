@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,8 +10,7 @@ import {
 export const Login = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
-
-  const member = useSelector((state) => state.member);
+  const [payload, setPayload] = useState();
 
   useEffect(() => {
     if (session) {
@@ -28,28 +27,26 @@ export const Login = () => {
   useEffect(() => {
     if (session) {
       const params = {
-        _id: session.user.id,
+        _id: session?.user.id,
       };
-      dispatch(findMember(params));
-      console.log("isdataAvailable", member.isDataAvailable);
+      dispatch(findMember(params)).then((res) => setPayload(res?.payload));
+      console.log("find Member is running");
     }
-  }, [session]);
+  }, [session, dispatch]);
+
+  const member = useSelector((state) => state.member);
 
   useEffect(() => {
-    if (member.loading === false) {
-      if (member.isDataAvailable) {
-        return;
-      } else {
-        dispatch(
-          addNewMember({
-            _id: session.user.id,
-            discordName: session.user.name,
-            discordAvatar: session.user.image,
-          })
-        );
-      }
+    if (session && payload === null) {
+      dispatch(
+        addNewMember({
+          _id: session?.user.id,
+          discordName: session?.user.name,
+          discordAvatar: session?.user.image,
+        })
+      );
     }
-  }, [member]);
+  }, [payload, session]);
 
   if (session) {
     const { user } = session;

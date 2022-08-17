@@ -35,12 +35,12 @@ function ProjectDetail() {
     <Fragment>
       {project._id && (
         <main className="col-span-4 relative">
-          <div className="col-span-3 bg-white rounded-tl-none rounded-lg md:mb-4 z-50 w-full">
+          <div className="col-span-3 bg-white rounded-lg md:mb-4 z-50 w-full">
             <div className="">
               {!!project && (
                 <div className="bg-white rounded-lg px-3 py-3 mb-4 shadow-[0px_2px_7px_rgba(0,48,142,0.1)]">
                   <div className="w-full flex justify-between mb-2">
-                    <div
+                    {/* <div
                       className="rounded-lg overflow-hidden mr-4 ml-1"
                       style={{
                         width: "80px",
@@ -54,13 +54,12 @@ function ProjectDetail() {
                         height={80}
                         objectFit="cover"
                       />
-                    </div>
-                    <div className="flex flex-col items-end justify-between">
+                    </div> */}
+                    {/* <div className="flex flex-col items-end justify-between">
                       <FavButton />
                       <div className="ml-auto flex justify-center">
-                        {/* this is div is to preload some conditional classes in button */}
+                        ///this is div is to preload some conditional classes in button
                         <div className="hidden bg-amber-400 hover:bg-amber-300"></div>
-                        {/* ------ */}
                         <Link href="#">
                           <a>
                             <Button
@@ -78,7 +77,7 @@ function ProjectDetail() {
                           </a>
                         </Link>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="w-full grid grid-cols-4 gap-y-3">
                     <div className="ml-2 col-span-3">

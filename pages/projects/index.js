@@ -41,17 +41,17 @@ const mockData = {
 
 const tabs = [
   {
-    title: "All projects",
-    fullTitle: "All projects",
-  },
-  {
     title: "Recommended",
     fullTitle: "Recommended",
   },
   {
-    title: "Favourite",
-    fullTitle: "Favourite",
+    title: "All projects",
+    fullTitle: "All projects",
   },
+  // {
+  //   title: "Favourite",
+  //   fullTitle: "Favourite",
+  // },
 ];
 
 function Projects() {
@@ -67,26 +67,28 @@ function Projects() {
 
   const member = {};
   member._id = useSelector((state) => state.member._id);
-  member.projects = useSelector((state) => state.member.projects);
+  // member.projects = useSelector((state) => state.member.projects);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(Number(tab));
+    if (tab === "0" || tab === "1") setCurrentTab(Number(tab));
+    // if (tab === "0" || tab === "1" || tab === "2") setCurrentTab(Number(tab));
   }, [tab]);
 
   useEffect(() => {
     if (currentTab == 2) {
-      setTabProjects(member.projects.filter((proj) => proj.favorite));
+      // setTabProjects(member.projects.filter((proj) => proj.favorite));
     } else {
       setTabProjects(projects);
     }
-  }, [currentTab, projects, member.projects]);
+  }, [currentTab, projects]);
+  // }, [currentTab, projects, member.projects]);
 
   useEffect(() => {
     let params;
     switch (currentTab) {
-      case 0:
+      case 1:
         params = {
           returnRole: true,
           returnBudget: true,
@@ -94,7 +96,7 @@ function Projects() {
         };
         dispatch(findProjects(params));
         break;
-      case 1:
+      case 0:
         params = {
           memberID: member._id,
           returnRole: true,
@@ -217,7 +219,7 @@ function Projects() {
                   key={index}
                   className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
                 >
-                  <div
+                  {/* <div
                     className="rounded-lg overflow-hidden mr-4"
                     style={{
                       width: "80px",
@@ -231,7 +233,7 @@ function Projects() {
                       height={80}
                       objectFit="cover"
                     />
-                  </div>
+                  </div> */}
                   <div className="flex flex-col justify-between">
                     <h3 className="font-bold">{project.title}</h3>
                     {project.matchPercentage && (
@@ -248,12 +250,16 @@ function Projects() {
                     )}
                   </div>
                   <div className="ml-auto flex flex-col justify-center">
-                    <Button hasChevron>Apply Now</Button>
                     <Link href={`/projects/${project._id}`}>
+                      <a>
+                        <Button hasChevron>Apply Now</Button>
+                      </a>
+                    </Link>
+                    {/* <Link href={`/projects/${project._id}`}>
                       <a className="underline mt-2 text-sm text-center text-slate-600 hover:text-slate-400">
                         More info
                       </a>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               ))}
@@ -263,7 +269,7 @@ function Projects() {
 
       {/* How to apply column */}
       <section className="col-span-1">
-        <HowToApply data={mockData.howToApply} />
+        {/* <HowToApply data={mockData.howToApply} /> */}
       </section>
     </Fragment>
   );

@@ -40,7 +40,7 @@ export const ExperienceTab = ({
   ];
 
   return (
-    <div className="relative bg-white rounded-lg p-5">
+    <div className="relative bg-white rounded-lg p-5 drop-shadow-button-shadow">
       <button
         className="bg-blue-700 absolute right-7 top-7 px-2 rounded-lg text-white"
         onClick={() => {
@@ -121,8 +121,12 @@ export const ExperienceTab = ({
           </div>
           <div>
             <div className="flex flex-col">
-              <input type="date" onChange={setStartDate} />
-              <input type="date" onChange={setEndDate} />
+              <input
+                type="date"
+                placeholder="Start Date"
+                onChange={setStartDate}
+              />
+              <input type="date" placeholder="End Date" onChange={setEndDate} />
             </div>
           </div>
         </div>
@@ -164,7 +168,10 @@ export const ExperienceTab = ({
 
 const Experience = ({ experience, setExperience, addExperience }) => {
   return (
-    <div className="w-full flex flex-col gap-10">
+    <div className="w-full justify-start items-center flex flex-col mt-10 gap-10">
+      <h1 className="font-Inter text-2xl font-semibold">
+        SHARE YOUR RELEVANT EXPERIENCES
+      </h1>
       {experience.map((e, index) => (
         <div key={e.id}>
           <ExperienceTab

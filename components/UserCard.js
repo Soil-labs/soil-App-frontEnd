@@ -31,8 +31,8 @@ export default function UserCard({ member }) {
             </div>
           </div>
         </div>
-        <hr className="w-2/3 mx-auto mb-3"></hr>
-        {mockData.projectTypes.map((item, index) => (
+        {/* <hr className="w-2/3 mx-auto mb-3"></hr> */}
+        {/* {mockData.projectTypes.map((item, index) => (
           <div className="ml-1 mb-3 overflow-hidden" key={index}>
             <span className="text-slate-500 text-sm">{item.type}</span>
             <div className="relative col-span-1 bg-white border border-gray-200 rounded-md px-2 py-1 mt-1 shadow-[0px_2px_7px_rgba(0,48,142,0.09)]">
@@ -42,7 +42,7 @@ export default function UserCard({ member }) {
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </section>
   );

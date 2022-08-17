@@ -56,7 +56,7 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
         </div>
         <div className="w-full flex flex-col gap-4">
           <div className="text-xl font-bold">{project.info.title}</div>
-          <DaysLeft isCurrentPage={isCurrentPage} />
+          {/* <DaysLeft isCurrentPage={isCurrentPage} /> */}
           <div className="grid grid-cols-2 gap-1">
             <div
               className={classNames(
@@ -88,6 +88,9 @@ const ProjectsNavigation = () => {
   const { _id } = router.query;
   const { projectsInspect } = useSelector((state) => state);
   const { isDataAvailable, projectsInfo } = projectsInspect;
+
+  const projects = projectsInfo.filter((project) => project.champion === true);
+
   return (
     <nav>
       <div className="flex flex-col gap-8 py-6">
@@ -97,7 +100,7 @@ const ProjectsNavigation = () => {
       <div className="sticky top-4 pb-8 space-y-4">
         {!isDataAvailable && "Fetching projects..."}
         {isDataAvailable &&
-          projectsInfo.map((project, i) => (
+          projects.map((project, i) => (
             <ProjectsNavigationItem
               key={`projects_navigation_item_${i}`}
               project={project}

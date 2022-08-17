@@ -3,8 +3,6 @@ import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { generate } from "shortid";
 
-import Layout from "../../../components/layout/Layout";
-import { Login } from "../../../components/layout/Login";
 import {
   Contribution,
   Experience,
@@ -20,49 +18,13 @@ import {
   addNewMember,
   addMemberData,
 } from "../../../redux/slices/memberSlice";
+import FlowLayout from "../../../components/layout/FlowLayout";
 
 const Signup = () => {
-  const dispatch = useDispatch();
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session) {
-      dispatch(
-        addMemberData({
-          _id: session?.user.id,
-          discordName: session.user.name,
-          discordAvatar: session.user.image,
-        })
-      );
-    } else {
-      return;
-    }
-  }, [session]);
-
   const member = useSelector((state) => state.member);
-
-  useEffect(() => {
-    let params = {
-      _id: session?.user.id,
-    };
-    dispatch(findMember(params));
-  }, [session, dispatch]);
-
-  useEffect(() => {
-    if (member.loading === false) {
-      if (member.isDataAvailable) {
-        return;
-      } else {
-        dispatch(
-          addNewMember({
-            _id: id,
-            discordName: session.user.name,
-            discordAvatar: session.user.image,
-          })
-        );
-      }
-    }
-  }, [member]);
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
+  const [step, setStep] = useState(1);
 
   const onSubmit = async () => {
     const params = {
@@ -244,62 +206,25 @@ const Signup = () => {
   }
 
   return (
-    <Layout>
-      {session ? (
-        <div className="bg-[#8DC2204D] px-8 py-4 w-max mx-auto">
-          <div className="w-[50rem] rounded-full h-[.5rem] bg-white mb-10">
-            <div
-              className={`h-full rounded-full ${
-                page === 0
-                  ? "w-[16.66%]"
-                  : page == 1
-                  ? "w-[33.32%]"
-                  : page == 2
-                  ? "w-[49.98%]"
-                  : page == 3
-                  ? "w-[66.64%]"
-                  : page == 4
-                  ? "w-[83.3%]"
-                  : "w-[100%]"
-              } bg-green-800`}
-            ></div>
-          </div>
-          <div>
-            {session ? formPage() : <p>Please, Loggin to continue!!</p>}
-          </div>
-          <div className="flex justify-center items-center">
-            {page >= 1 && page <= 5 && (
-              <button
-                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-                onClick={() => setPage((currPage) => currPage - 1)}
-              >
-                Previous
-              </button>
-            )}
-            {page <= 4 && (
-              <button
-                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-                onClick={() => setPage((currPage) => currPage + 1)}
-              >
-                NEXT
-              </button>
-            )}
-            {page == 5 && (
-              <button
-                className="bg-[#8DC220A6] mx-auto px-4 py-1 mt-10 rounded-full"
-                onClick={() => onSubmit()}
-              >
-                Submit
-              </button>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="w-full h-20">
-          <Login />
-        </div>
-      )}
-    </Layout>
+    <>
+      <FlowLayout
+        currentStep={step}
+        handleNextButton={() => {
+          if (step < 6) {
+            setStep((currStep) => currStep + 1);
+            setPage((currPage) => currPage + 1);
+          }
+        }}
+        handlePreviousButton={() => {
+          if (step > 1) {
+            setStep((currStep) => currStep - 1);
+            setPage((currPage) => currPage - 1);
+          }
+        }}
+      >
+        {formPage()}
+      </FlowLayout>
+    </>
   );
 };
 

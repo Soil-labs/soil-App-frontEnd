@@ -99,7 +99,7 @@ export default function RoleDataForm({
         onClick={() => {
           saveRoleCallback(role);
         }}
-        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400"
+        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400 hover:border-green-500 hover:text-green-500"
       >
         <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" />{" "}
         COMPLETE
