@@ -34,7 +34,12 @@ const DaysLeft = ({ isCurrentPage }) => {
 
 const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
   const numberEngaged = project.info.team.reduce((acc, member) => {
-    if (member.phase === "engaged" || member.phase === "committed") acc++;
+    if (member.phase === "engaged") acc++;
+    return acc;
+  }, 0);
+
+  const numberCommitted = project.info.team.reduce((acc, member) => {
+    if (member.phase === "committed") acc++;
     return acc;
   }, 0);
 
@@ -64,8 +69,8 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
                 isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
               )}
             >
-              <span>shortlisted:</span>
-              <span>{project.info.team.length}</span>
+              <span>engaged:</span>
+              <span className="">{numberEngaged}</span>
             </div>
             <div
               className={classNames(
@@ -73,8 +78,8 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
                 isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
               )}
             >
-              <span>engaged:</span>
-              <span className="">{numberEngaged}</span>
+              <span>committed:</span>
+              <span>{numberCommitted}</span>
             </div>
           </div>
         </div>
