@@ -48,10 +48,10 @@ const tabs = [
     title: "Recommended",
     fullTitle: "Recommended",
   },
-  {
-    title: "Favourite",
-    fullTitle: "Favourite",
-  },
+  // {
+  //   title: "Favourite",
+  //   fullTitle: "Favourite",
+  // },
 ];
 
 function Projects() {
