@@ -15,10 +15,19 @@ import MainWhiteContainerLayout from "../../components/layout/FlowLayout";
 import TitleComponent from "../../components/TypeFormLikePage/TitleComponent";
 import BudgetComponentNew from "../../components/TypeFormLikePage/BudgetComponentNew";
 
+import Layout from "../../components/layout/Layout";
+import NextButton from "../../components/NextButton";
+import PreviousButton from "../../components/PreviousButton";
+import HeaderNew from "../../components/layout/HeaderNew";
+import ProgressBar from "../../components/layout/ProgressBar";
+import { useSession } from "next-auth/react";
+
 function Form() {
   const [phase, setPhase] = useState(0);
+  const { data: session } = useSession();
 
   const changePhase = (phaseNow) => {
+    console.log("phase", phase);
     if (phaseNow <= 6) {
       setPhase((phaseNow += 1));
     }
@@ -100,27 +109,64 @@ function Form() {
     //   {/* <StepsForOnboardComponent/> */}
     // </>
 
-    <>
-      {phase == 0 ? (
-        <TitleComponent changePhase={changePhase} phase={phase} />
-      ) : phase == 1 ? (
-        <DescriptionComponent
-          fieldTitle="Description of the new project?"
-          changePhase={changePhase}
-          changePhaseBack={changePhaseBack}
-          phase={phase}
-          _id={_id}
-        />
-      ) : phase == 2 ? (
-        <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
-      ) : phase == 3 ? (
-        <YouDidItComponet />
+    // I removed the layout from every page because 1. it was not serving all pourposes & 2. It was re-rendering every time a new page was rendered 3. Miral was using it so I could not change anything
+    // Added grid to keep the same sizings through all the steps and easy positioning side columns
+    <div className="w-full h-full grid grid-cols-4">
+      <div className="col-span-1"></div>
+      {session ? (
+        <div className="col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4">
+          {/* <div className="flex flex-col "> */}
+          <ProgressBar numberofSteps={3} currentStep={phase + 1} />
+
+          {phase == 0 ? (
+            <TitleComponent />
+          ) : phase == 1 ? (
+            <DescriptionComponent
+              fieldTitle="Description of the new project?"
+              changePhase={changePhase}
+              changePhaseBack={changePhaseBack}
+              phase={phase}
+              _id={_id}
+            />
+          ) : phase == 2 ? (
+            <ProjectSelectRoles
+              changePhase={changePhase}
+              phase={phase}
+              _id={_id}
+            />
+          ) : phase == 3 ? (
+            <YouDidItComponet />
+          ) : (
+            phase
+          )}
+          {
+            <div>
+              <NextButton
+                className="absolute bottom-10 right-10"
+                handleChangePhase={() => changePhase(phase)}
+              />
+              {phase > 1 && (
+                <PreviousButton
+                  handleChangePhaseBack={() => changePhaseBack(phase)}
+                  className="absolute bottom-10 left-10"
+                />
+              )}
+            </div>
+          }
+          {/* </div> */}
+        </div>
       ) : (
-        phase
+        <div className="mt-52 w-full text-[30px] font-black flex justify-center items-center">
+          Login to continue...
+        </div>
       )}
-    </>
+    </div>
   );
 }
+
+Form.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
 
 export default Form;
 

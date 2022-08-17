@@ -25,40 +25,40 @@ const DescriptionComponent = (props) => {
     <>
       {/* Background */}
       <div className="w-full h-screen bg-soilGray-200">
-        <FlowLayout
+        {/* <FlowLayout
           currentStep={props.phase + 1}
           handleNextButton={() => handleChangePhase()}
-        >
-          <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
-            <p className="text-[26px]">NAME YOUR PROJECT</p>
-            <p className="text-[16px]">
-              Great titles are short & descriptive, you can use emojis too!
-            </p>
-          </div>
+        > */}
+        <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
+          <p className="text-[26px]">NAME YOUR PROJECT</p>
+          <p className="text-[16px]">
+            Great titles are short & descriptive, you can use emojis too!
+          </p>
+        </div>
 
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Title of your project
-            </label>
-            <div className="mt-1 ">
-              <input
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
-                type="text"
-                name="title"
-                id="title"
-                className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
-              />
-            </div>
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Title of your project
+          </label>
+          <div className="mt-1 ">
+            <input
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              type="text"
+              name="title"
+              id="title"
+              className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+            />
           </div>
-          {/* <div className="mt-[34rem] ml-[40px] flex justify-end">
+        </div>
+        {/* <div className="mt-[34rem] ml-[40px] flex justify-end">
             <NextButton handleChangePhase={handleChangePhase} />
           </div> */}
-        </FlowLayout>
+        {/* </FlowLayout> */}
       </div>
     </>
   );
