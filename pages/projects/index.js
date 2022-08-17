@@ -267,7 +267,7 @@ function Projects() {
 
       {/* How to apply column */}
       <section className="col-span-1">
-        <HowToApply data={mockData.howToApply} />
+        {/* <HowToApply data={mockData.howToApply} /> */}
       </section>
     </Fragment>
   );
