@@ -198,7 +198,7 @@ export const MagicApplication = () => {
                     {project.memberPhaseIsChanging
                       ? "submitting..."
                       : project.memberPhaseIsChanged
-                      ? "Thankyou!"
+                      ? "Thank you!"
                       : "Apply Now"}
                     <ChevronRightIcon width={16} />
                   </button>
