@@ -104,14 +104,22 @@ function Form() {
       {phase == 0 ? (
         <TitleComponent changePhase={changePhase} phase={phase} />
       ) : phase == 1 ? (
-        <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
+        <DescriptionComponent
+        fieldTitle="Description of the new project?"
+        changePhase={changePhase}
+        changePhaseBack={changePhaseBack}
+        phase={phase}
+        _id={_id}
+      />
       ) : phase == 2 ? (
+        <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
+      ) : phase == 3 ? (
         <YouDidItComponet />
       ) : (
         phase
       )}
     </>
-  );
+  );S
 }
 
 export default Form;

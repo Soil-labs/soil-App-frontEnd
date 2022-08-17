@@ -10,10 +10,10 @@ function FlowLayout({ children, currentStep, handleNextButton, handlePreviousBut
   const {data: session} = useSession();
 
   return (
-    <div className="h-full w-full ">
+    <div className="w-full h-full ">
       <HeaderNew />
       {session ? <div className="w-[757px] relative min-h-[85vh] px-[40px] pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg m-auto mt-[35px]">
-        {/* <div className=" flex flex-col"> */}
+        {/* <div className="flex flex-col "> */}
           <ProgressBar
             // numberofSteps={6}
             currentStep={currentStep}
