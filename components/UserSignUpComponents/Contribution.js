@@ -9,7 +9,7 @@ const Link = ({ icons, value, onChange }) => {
       {icons !== "" && <img src={icons} alt="icons" />}
       <input
         type="text"
-        className="rounded-full w-full border-none drop-shadow-button-shadow"
+        className="rounded-full w-full shadow-soilShadow border-none"
         value={value}
         onChange={onChange}
       />
@@ -20,16 +20,16 @@ const Link = ({ icons, value, onChange }) => {
 const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
   return (
     <div className="flex justify-center items-center flex-col gap-10 mt-10">
-      <div className="flex justify-center items-center flex-col gap-5">
-        <h1 className="font-Inter text-2xl font-semibold">
-          WHAT’S YOUR AVAILABILITY?
-        </h1>
+      <div className="flex justify-center items-center flex-col gap-3">
+        <p className="uppercase text-xl font-bold">
+          What&apos;s your availability?
+        </p>
         <div>
           <select
             name="timezone"
             id="timezone"
             placeholder="TIMEZONE"
-            className="rounded-full text-center text-soilGray-300 font-semibold border-none drop-shadow-button-shadow"
+            className="rounded-full border-none shadow-soilShadow text-soilGray-400 text-center"
             value={formData.timeZone}
             onChange={(e) =>
               setFormData({
@@ -53,7 +53,7 @@ const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
           <select
             name="hours"
             id="hours"
-            className="rounded-full text-soilGray-300 font-semibold border-none drop-shadow-button-shadow"
+            className="rounded-full border-none shadow-soilShadow text-soilGray-400"
             value={formData.hours}
             onChange={(e) =>
               setFormData({ ...formData, hours: e.target.value })
@@ -70,7 +70,7 @@ const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
           <select
             name="weeks"
             id="weeks"
-            className="rounded-full text-soilGray-300 font-semibold border-none drop-shadow-button-shadow"
+            className="rounded-full border-none shadow-soilShadow text-soilGray-400"
             value={formData.weeks}
             onChange={(e) =>
               setFormData({ ...formData, weeks: e.target.value })
@@ -86,9 +86,11 @@ const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
           </select>
         </div>
       </div>
-      <div className="text-center">
-        <h1 className="font-Inter text-2xl font-semibold">DROP YOUR SOCIALS</h1>
-        <p>
+      <div>
+        <p className="uppercase text-xl text-center font-bold">
+          Drop your socials
+        </p>
+        <p className="text-sm">
           Adding links is not required, but it significantly boosts your
           discoverability.
         </p>
@@ -109,10 +111,10 @@ const Contribution = ({ formData, setFormData, links, setLinks, addLinks }) => {
           ))}
         </div>
         <button
-          className="bg-soilGray-400 rounded-md p-2 h-10 w-fit self-start mt-10"
+          className="bg-soilGray-500 rounded-md px-2 h-10 w-fit flex justify-center items-center mx-auto mt-10"
           onClick={addLinks}
         >
-          + ADD NEW
+          +ADD NEW
         </button>
       </div>
     </div>

@@ -10,6 +10,9 @@ function FlowLayout({
   currentStep,
   handleNextButton,
   handlePreviousButton,
+  lastPage,
+  lastPageButtonText,
+  handleLastButton,
 }) {
   const { data: session } = useSession();
 
@@ -19,12 +22,12 @@ function FlowLayout({
       {session ? (
         <div className="w-[757px] relative min-h-[85vh] px-[40px] pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg m-auto mt-[35px]">
           {/* <div className=" flex flex-col"> */}
-          <ProgressBar
+          {/* <ProgressBar
             // numberofSteps={6}
             currentStep={currentStep}
-          />
+          /> */}
           {children}
-          {
+          {!lastPage && (
             <div>
               <NextButton
                 className="absolute bottom-10 right-10"
@@ -37,7 +40,19 @@ function FlowLayout({
                 />
               )}
             </div>
-          }
+          )}
+          {lastPage && (
+            <button
+              className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px] absolute bottom-5 left-2/4 -translate-x-2/4`}
+              onClick={() => {
+                handleLastButton();
+              }}
+            >
+              <div className="flex">
+                <span>{lastPageButtonText}</span>
+              </div>
+            </button>
+          )}
           {/* </div> */}
         </div>
       ) : (

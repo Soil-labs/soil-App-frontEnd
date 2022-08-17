@@ -3,39 +3,27 @@ import React from "react";
 
 const Info = ({ formData, setFormData }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-8 mt-10 font-Inter">
-      <h1 className="font-Inter text-2xl font-semibold">
-        FILL OUT YOUR ONBOARDING PROFILE
+    <div className="mt-10 flex justify-center items-center flex-col gap-5 ">
+      <h1 className="uppercase text-[26px] text-center font-Inter font-medium text-bold">
+        Fill out your onboarding profile
       </h1>
-      <div>
-        <div className="w-32 h-32 rounded-full overflow-hidden">
-          <img className="h-full w-full" src={formData.avatar} alt="" />
-        </div>
-        <p className="text-center uppercase mt-4">@{formData.discordName}</p>
+      <div className="w-[6.8rem] overflow-hidden rounded-full">
+        <img className="w-full h-full" src={formData.avatar} alt="" />
       </div>
-      <div>
-        <p className="text-[20px] w-8/12 leading-6 mb-4">
-          What would you like people to know about you? This is your chance to
-          sell yourself!
-        </p>
-        <textarea
-          className="w-full h-full resize-none rounded-lg border-[#AAAAAA]"
-          name=""
-          id=""
-          rows="10"
-          value={formData.description}
-          placeholder="Start typing here"
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        ></textarea>
-      </div>
+      <p className="font-Inter uppercase">@{formData.discordName}</p>
+      <p className="self-start text-[20px] font-Inter">
+        What would you like people to know about you? <br /> This is your chance
+        to sell yourself!
+      </p>
+      <textarea
+        className="w-full h-52 rounded-lg p-5 resize-none"
+        placeholder="Start typing here"
+        onChange={(e) =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+      />
     </div>
   );
 };
-
-{
-  /*  */
-}
 
 export default Info;

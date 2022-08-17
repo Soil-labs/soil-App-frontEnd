@@ -94,21 +94,19 @@ export default function SkillSelector({
   return (
     <div>
       <Combobox as="div" value={choosenSkills} onChange={handleSelect}>
-        <Combobox.Label className="block text-sm font-medium text-gray-700">
-          Skills
-        </Combobox.Label>
         <div className="relative mt-1 mb-4">
-          <Combobox.Input
-            className="w-full rounded-full border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
-            onChange={(event) => setQuery(event.target.value)}
-            displayValue={(skill) => skill?.name}
-          />
-          <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-            <SelectorIcon
-              className="h-5 w-5 text-gray-400"
-              aria-hidden="true"
-            />
-          </Combobox.Button>
+          <div className="flex justify-between items-center">
+            <h1 className="text-lg w-full font-semibold">
+              START TYPING THE SKILL:
+            </h1>
+            <Combobox.Button className="w-full flex items-center rounded-r-md px-2 focus:outline-none">
+              <Combobox.Input
+                className="w-full rounded-full border-none shadow-soilShadow bg-white py-2 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(skill) => skill?.name}
+              />
+            </Combobox.Button>
+          </div>
 
           {selectorSkills.length > 0 && (
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
@@ -158,10 +156,10 @@ export default function SkillSelector({
       {/* bg colors loader */}
       <div className="hidden bg-[#c2f5e9] bg-[#d1f7c4] bg-[#ffeab6] bg-[#fee2d5] bg-[#ffdce5] bg-[#ffdaf6] bg-[#ede2fe] bg-[#cfdfff]"></div>
       {showSelected && (
-        <section>
+        <section className="shadow-soilShadow p-5 rounded-2xl">
           {choosenSkills.map((skill, index) => (
             <div
-              className={`inline-block mr-2 rounded-full ${
+              className={`inline-block mr-2 rounded-full m-1 ${
                 select === index
                   ? "border-blue-500 border-[2px]"
                   : "border-none"
