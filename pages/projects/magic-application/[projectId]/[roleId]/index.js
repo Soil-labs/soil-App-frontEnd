@@ -61,7 +61,7 @@ const SkillTag = ({ children, variant }) => {
 export const MagicApplication = () => {
   const dispatch = useDispatch();
 
-  const { project, member } = useSelector((state) => state);
+  const { projectInspect: project, member } = useSelector((state) => state);
 
   const {
     query: { projectId, roleId },
@@ -90,7 +90,6 @@ export const MagicApplication = () => {
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
-
   return (
     <>
       {project && project.skillsDontMatch && project.skillsMatch && (
