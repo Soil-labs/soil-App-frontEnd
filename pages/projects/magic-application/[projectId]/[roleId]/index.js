@@ -98,7 +98,7 @@ export const MagicApplication = () => {
           <div className="">
             <main className="mx-auto lg:max-w-7xl grid grid-cols-5 gap-x-2">
               <div className="col-span-1">
-                <HowToApply data={mockData.howToApply} />
+                {/* <HowToApply data={mockData.howToApply} /> */}
               </div>
               <section className="col-span-3 border-2 bg-white border-gray-100 rounded-lg p-8">
                 <h2 className="text-2xl pb-6">Magic Application</h2>
@@ -148,13 +148,13 @@ export const MagicApplication = () => {
                       ))}
                     </ul>
                   </section>
-                  <section className="col-span-2 text-gray-500 text-lg flex flex-col gap-2">
+                  {/* <section className="col-span-2 text-gray-500 text-lg flex flex-col gap-2">
                     <div>⌛ ?? Weeks</div>
                     <div>⏰ ?? hrs/week</div>
                     <div>👥 ?? meet/week</div>
-                  </section>
+                  </section> */}
                 </div>
-                <section className="pt-4 ">
+                {/* <section className="pt-4 ">
                   <h4 className="text-lg pb-2 font-bold text-gray-500">
                     What&#39;s Expected
                   </h4>
@@ -168,8 +168,8 @@ export const MagicApplication = () => {
                     technical competenceFamiliarity with Shell scripting, Linux
                     Commands and Linux Operating System.
                   </p>
-                </section>
-                <form className="pt-4">
+                </section> */}
+                {/* <form className="pt-4">
                   <label
                     htmlFor="message"
                     className="block pb-2 text-lg font-bold text-gray-500"
@@ -182,11 +182,11 @@ export const MagicApplication = () => {
                     name="message"
                     className="w-full rounded-xl border-1 border-gray-300 bg-white"
                   />
-                </form>
+                </form> */}
                 <div className="flex justify-center gap-4 py-8">
-                  <button className="px-4 py-2 bg-[#FF8413] rounded-lg text-white">
+                  {/* <button className="px-4 py-2 bg-[#FF8413] rounded-lg text-white">
                     Go Back
-                  </button>
+                  </button> */}
                   <button
                     onClick={handleApplyClick}
                     className="px-4 py-2 bg-[#4164DF] rounded-lg text-white flex gap-2 items-center"
@@ -198,7 +198,7 @@ export const MagicApplication = () => {
                     {project.memberPhaseIsChanging
                       ? "submitting..."
                       : project.memberPhaseIsChanged
-                      ? "Thankyou!"
+                      ? "Thank you!"
                       : "Apply Now"}
                     <ChevronRightIcon width={16} />
                   </button>
