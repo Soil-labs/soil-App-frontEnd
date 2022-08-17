@@ -148,11 +148,11 @@ export const MagicApplication = () => {
                       ))}
                     </ul>
                   </section>
-                  <section className="col-span-2 text-gray-500 text-lg flex flex-col gap-2">
+                  {/* <section className="col-span-2 text-gray-500 text-lg flex flex-col gap-2">
                     <div>⌛ ?? Weeks</div>
                     <div>⏰ ?? hrs/week</div>
                     <div>👥 ?? meet/week</div>
-                  </section>
+                  </section> */}
                 </div>
                 <section className="pt-4 ">
                   <h4 className="text-lg pb-2 font-bold text-gray-500">
