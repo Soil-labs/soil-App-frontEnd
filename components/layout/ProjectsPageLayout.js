@@ -14,6 +14,7 @@ function ProjectsPageLayout({ children }) {
   useEffect(() => {
     const params = {
       _id: member._id,
+
       returnSkills: true,
       returnProjects: true,
       returnNetwork: true,

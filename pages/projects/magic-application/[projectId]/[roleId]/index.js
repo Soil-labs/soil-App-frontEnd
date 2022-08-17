@@ -65,8 +65,6 @@ export const MagicApplication = () => {
     query: { projectId, roleId },
   } = useRouter();
 
-  const { projectInspect: project, member } = useSelector((state) => state);
-
   useEffect(() => {
     if (!projectId || !roleId) {
       console.log(projectId);
@@ -80,7 +78,7 @@ export const MagicApplication = () => {
     };
     console.log({ params });
     dispatch(match_projectToUser(params));
-  }, [dispatch, projectId, roleId, member]);
+  }, [dispatch, projectId, roleId]);
 
   const handleApplyClick = () => {
     let params = {
@@ -221,14 +219,15 @@ export const MagicApplication = () => {
                     <hr />
                     <h4 className="py-4 text-gray-500 text-lg">🏆 Champion</h4>
                     <div className="flex gap-2 py-4">
-                      <div className="w-8 rounded-full overflow-hidden">
+                      <div className="w-8 rounded-full overflow-hidden relative">
                         <Image
-                          src={placeholder_avatar}
-                          alt="placeholder avatar"
+                          layout="fill"
+                          src={project.champion.discordAvatar}
+                          alt="champion avatar"
                         />
                       </div>
                       <div className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
-                        mutantape.eth
+                        {project.champion.discordName}
                       </div>
                     </div>
                     <hr />
