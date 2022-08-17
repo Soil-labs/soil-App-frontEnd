@@ -98,7 +98,7 @@ export const MagicApplication = () => {
           <div className="">
             <main className="mx-auto lg:max-w-7xl grid grid-cols-5 gap-x-2">
               <div className="col-span-1">
-                <HowToApply data={mockData.howToApply} />
+                {/* <HowToApply data={mockData.howToApply} /> */}
               </div>
               <section className="col-span-3 border-2 bg-white border-gray-100 rounded-lg p-8">
                 <h2 className="text-2xl pb-6">Magic Application</h2>
