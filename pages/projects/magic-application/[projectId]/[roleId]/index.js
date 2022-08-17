@@ -154,7 +154,7 @@ export const MagicApplication = () => {
                     <div>👥 ?? meet/week</div>
                   </section> */}
                 </div>
-                <section className="pt-4 ">
+                {/* <section className="pt-4 ">
                   <h4 className="text-lg pb-2 font-bold text-gray-500">
                     What&#39;s Expected
                   </h4>
@@ -168,7 +168,7 @@ export const MagicApplication = () => {
                     technical competenceFamiliarity with Shell scripting, Linux
                     Commands and Linux Operating System.
                   </p>
-                </section>
+                </section> */}
                 <form className="pt-4">
                   <label
                     htmlFor="message"
