@@ -1,15 +1,5 @@
 import React from "react";
 
-import {
-  BellIcon,
-  FireIcon,
-  HomeIcon,
-  MenuIcon,
-  TrendingUpIcon,
-  UserGroupIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-
 import ChampionDashboardLayout from "../../components/layout/ChampiondashboardLayout";
 
 const ChampionDashboard = () => {
