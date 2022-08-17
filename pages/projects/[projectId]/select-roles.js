@@ -10,7 +10,7 @@ import { findRoleTemplates } from "../../../redux/slices/roleTemplatesSlice";
 import { findProject, updateProject } from "../../../redux/slices/projectSlice";
 import { useRouter } from "next/router";
 import NextButton from "../../../components/NextButton";
-import PreviousButton from "../../../components/previousButton";
+import PreviousButton from "../../../components/PreviousButton";
 function ProjectSelectRoles(props) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -28,9 +28,8 @@ function ProjectSelectRoles(props) {
     setInputRole(item);
   }, []);
 
-  console.log("saved roles", savedRoles)
+  console.log("saved roles", savedRoles);
   const saveRoleCallback = useCallback(
-
     async (item) => {
       if (submiting) return;
       item._id = null;
@@ -186,13 +185,9 @@ function ProjectSelectRoles(props) {
       >
         <ChevronDoubleDownIcon className="w-10 h-10 font-light text-black stroke-1 " />
       </button> */}
-      <PreviousButton/>
-      <NextButton
-      handleChangePhase={handleChangePhase}
-      />
+        <PreviousButton />
+        <NextButton handleChangePhase={handleChangePhase} />
       </div>
-
-      
     </>
   );
 }

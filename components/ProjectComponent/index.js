@@ -7,7 +7,7 @@ import { SiNotion } from "react-icons/si";
 
 import React from "react";
 import { useEffect } from "react";
-import PreviousButton from "../previousButton";
+import PreviousButton from "../PreviousButton";
 import NextButton from "../NextButton";
 
 const DevRoles = ({ Role }) => {
@@ -102,9 +102,7 @@ const ProjectBoard = ({
   ];
 
   const handleChangePhase = () => {
-   
-
-  changePhase(phase);
+    changePhase(phase);
   };
 
   return (
@@ -261,8 +259,8 @@ const ProjectBoard = ({
       >
         <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
       </button> */}
-      <PreviousButton/>
-      <NextButton handleChangePhase={handleChangePhase}/>
+      <PreviousButton />
+      <NextButton handleChangePhase={handleChangePhase} />
     </div>
   );
 };
