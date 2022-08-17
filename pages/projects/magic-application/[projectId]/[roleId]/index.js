@@ -169,7 +169,7 @@ export const MagicApplication = () => {
                     Commands and Linux Operating System.
                   </p>
                 </section> */}
-                <form className="pt-4">
+                {/* <form className="pt-4">
                   <label
                     htmlFor="message"
                     className="block pb-2 text-lg font-bold text-gray-500"
@@ -182,7 +182,7 @@ export const MagicApplication = () => {
                     name="message"
                     className="w-full rounded-xl border-1 border-gray-300 bg-white"
                   />
-                </form>
+                </form> */}
                 <div className="flex justify-center gap-4 py-8">
                   <button className="px-4 py-2 bg-[#FF8413] rounded-lg text-white">
                     Go Back
