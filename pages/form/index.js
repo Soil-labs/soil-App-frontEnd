@@ -215,115 +215,117 @@ function Form() {
 
     // I removed the layout from every page because 1. it was not serving all pourposes & 2. It was re-rendering every time a new page was rendered 3. Miral was using it so I could not change anything
     // Added grid to keep the same sizings through all the steps and easy positioning side columns
-    <div className="w-full h-full grid grid-cols-4 gap-3">
-      <div className="col-span-1">
-        {phase == 2 ? (
-          <div className="pt-12">
-            {saveError && (
-              <h4 className="p-2 mb-2 text-white bg-red-500 rounded-lg">
-                User could not be saved
-              </h4>
-            )}
-            <h3 className="mb-3 text-lg font-semibold">SCOPE YOUR ROLES</h3>
-            <div className="">
-              {pendingRoles.map((role, index) => (
-                <div
-                  key={index}
-                  onClick={() => setCurrentRoleIndex(index)}
-                  className="cursor-pointer"
-                >
-                  <RoleCard
-                    setRoleCallback={setRoleCallback}
-                    currentRoleIndex={currentRoleIndex}
-                    index={index}
-                    highlighter={true}
-                    role={role}
+    <div className="w-full h-screen -mt-[100px]">
+      <div className="w-full h-full grid grid-cols-4 gap-3 pt-[100px] pb-[20px]">
+        <div className="col-span-1 h-full overflow-auto">
+          {phase == 2 ? (
+            <div className="pt-12">
+              {saveError && (
+                <h4 className="p-2 mb-2 text-white bg-red-500 rounded-lg">
+                  User could not be saved
+                </h4>
+              )}
+              <h3 className="mb-3 text-lg font-semibold">SCOPE YOUR ROLES</h3>
+              <div className="">
+                {pendingRoles.map((role, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setCurrentRoleIndex(index)}
+                    className="cursor-pointer"
+                  >
+                    <RoleCard
+                      setRoleCallback={setRoleCallback}
+                      currentRoleIndex={currentRoleIndex}
+                      index={index}
+                      highlighter={true}
+                      role={role}
+                    />
+                  </div>
+                ))}
+                {/* this was added because I was not able to add a role without it. Will refactor it later */}
+                {!!roles.length && (
+                  <Selector
+                    key={inputRole}
+                    name="title"
+                    options={[{ title: "New Role" }, ...roles]}
+                    setDataCallback={setInputRoleCallback}
+                    value={inputRole}
                   />
-                </div>
-              ))}
-              {/* this was added because I was not able to add a role without it. Will refactor it later */}
-              {!!roles.length && (
-                <Selector
-                  key={inputRole}
-                  name="title"
-                  options={[{ title: "New Role" }, ...roles]}
-                  setDataCallback={setInputRoleCallback}
-                  value={inputRole}
-                />
-              )}
-              <button
-                className="px-2 py-1 font-bold bg-green-400 rounded-sm"
-                disabled={!inputRole.title}
-                onClick={handleAddRole}
-              >
-                Add Role
-              </button>
+                )}
+                <button
+                  className="px-2 py-1 font-bold bg-green-400 rounded-sm"
+                  disabled={!inputRole.title}
+                  onClick={handleAddRole}
+                >
+                  Add Role
+                </button>
+              </div>
             </div>
-          </div>
-        ) : null}
-      </div>
-      {session ? (
-        <div className="col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4">
-          {/* <div className="flex flex-col "> */}
-          <ProgressBar numberofSteps={3} currentStep={phase + 1} />
+          ) : null}
+        </div>
+        {session ? (
+          <div className="relative col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4 h-full">
+            {/* <div className="flex flex-col "> */}
+            <ProgressBar numberofSteps={3} currentStep={phase + 1} />
 
-          {phase == 0 ? (
-            <TitleComponent />
-          ) : phase == 1 ? (
-            <DescriptionComponent
-              fieldTitle="Description of the new project?"
-              changePhase={changePhase}
-              changePhaseBack={changePhaseBack}
-              phase={phase}
-              _id={_id}
-            />
-          ) : phase == 2 ? (
-            <>
-              {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
-                <RoleDataForm
-                  role={pendingRoles[currentRoleIndex]}
-                  key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
-                  setRoleCallback={setRoleCallback}
-                  saveRoleCallback={saveRoleCallback}
-                  submiting={submiting}
-                  skillSelected={skillSelected}
-                  setSkillSelected={setSkillSelected}
+            {phase == 0 ? (
+              <TitleComponent />
+            ) : phase == 1 ? (
+              <DescriptionComponent
+                fieldTitle="Description of the new project?"
+                changePhase={changePhase}
+                changePhaseBack={changePhaseBack}
+                phase={phase}
+                _id={_id}
+              />
+            ) : phase == 2 ? (
+              <>
+                {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
+                  <RoleDataForm
+                    role={pendingRoles[currentRoleIndex]}
+                    key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
+                    setRoleCallback={setRoleCallback}
+                    saveRoleCallback={saveRoleCallback}
+                    submiting={submiting}
+                    skillSelected={skillSelected}
+                    setSkillSelected={setSkillSelected}
+                  />
+                )}
+              </>
+            ) : phase == 3 ? (
+              <YouDidItComponet />
+            ) : (
+              phase
+            )}
+            <div>
+              <NextButton
+                className="absolute bottom-7 right-7"
+                handleChangePhase={() => changePhase(phase)}
+              />
+              {phase >= 1 && (
+                <PreviousButton
+                  handleChangePhaseBack={() => changePhaseBack(phase)}
+                  className="absolute bottom-7 left-7"
                 />
               )}
-            </>
-          ) : phase == 3 ? (
-            <YouDidItComponet />
-          ) : (
-            phase
-          )}
-          <div>
-            <NextButton
-              className="fixed bottom-10 right-10"
-              handleChangePhase={() => changePhase(phase)}
-            />
-            {phase >= 1 && (
-              <PreviousButton
-                handleChangePhaseBack={() => changePhaseBack(phase)}
-                className="fixed bottom-10 left-10"
-              />
-            )}
+            </div>
+            {/* </div> */}
           </div>
-          {/* </div> */}
-        </div>
-      ) : (
-        <div className="mt-52 w-full text-[30px] font-black flex justify-center items-center">
-          Login to continue...
-        </div>
-      )}
-      <div className="col-span-1">
-        {phase == 2 ? (
-          <div className="pt-12">
-            <h3 className="mb-3 text-lg font-semibold">COMPLETED PROFILES</h3>
-            {savedRoles.map((role, index) => (
-              <RoleCard role={role} key={index} />
-            ))}
+        ) : (
+          <div className="mt-52 w-full text-[30px] font-black flex justify-center items-center">
+            Login to continue...
           </div>
-        ) : null}
+        )}
+        <div className="col-span-1 h-full overflow-auto">
+          {phase == 2 ? (
+            <div className="pt-12">
+              <h3 className="mb-3 text-lg font-semibold">COMPLETED PROFILES</h3>
+              {savedRoles.map((role, index) => (
+                <RoleCard role={role} key={index} />
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );

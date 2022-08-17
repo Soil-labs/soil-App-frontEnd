@@ -24,12 +24,12 @@ const DescriptionComponent = (props) => {
   return (
     <>
       {/* Background */}
-      <div className="bg-soilGray-200 h-screen w-full">
+      <div className="w-full">
         {/* <FlowLayout
           currentStep={props.phase + 1}
           handleNextButton={() => handleChangePhase()}
         > */}
-        <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
+        <div className="text-center space-y-[19px] mb-[62px] mt-[80px]">
           <p className="text-[26px]">NAME YOUR PROJECT</p>
           <p className="text-[16px]">
             Great titles are short & descriptive, you can use emojis too!
@@ -37,13 +37,10 @@ const DescriptionComponent = (props) => {
         </div>
 
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Title of your project
-          </label>
-          <div className="mt-1 ">
+          <div className="mt-1 px-[25px]">
+            <label className="block text-sm font-medium text-gray-700">
+              Title of your project
+            </label>
             <input
               onChange={(e) => {
                 setTitle(e.target.value);
@@ -51,7 +48,7 @@ const DescriptionComponent = (props) => {
               type="text"
               name="title"
               id="title"
-              className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm"
+              className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm mb-[24px]"
             />
           </div>
         </div>
