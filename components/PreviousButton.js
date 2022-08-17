@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowSmLeftIcon } from "@heroicons/react/Outline";
+import { ArrowSmLeftIcon } from "@heroicons/react/outline";
 
 const PreviousButton = ({ handleChangePhaseBack, className }) => {
   return (

@@ -14,6 +14,9 @@ module.exports = {
       backgroundImage: {
         onion: "url('/public/vercel.svg')",
       },
+      dropShadow: {
+        "button-shadow": "0px 1px 15px rgba(0, 0, 0, 0.1)",
+      },
       colors: {
         soilGreen: {
           10: "#78EECB",
@@ -26,8 +29,10 @@ module.exports = {
         // soilGreen: "#74FA6D",
         soilGray: {
           200: "#F3F3F3",
-          400: "#B4B4B4",
           500: "#AAAAAA",
+          300: "#B4B4B4",
+          400: "#BCBCBC",
+          600: "#B4B4B4",
         },
         bgGrey: "#F1F6F7",
         gradientBlue: "#D900A9",

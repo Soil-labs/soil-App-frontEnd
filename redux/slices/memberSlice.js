@@ -120,7 +120,7 @@ export const memberSlice = createSlice({
       state.previusProjects = payload.previusProjects;
       state.content = payload.content;
       state.skills = payload.skills;
-      state.projects = payload.projects;
+      state.projects = payload.projects ? payload.projects : [];
       state.network = payload.network;
     },
 

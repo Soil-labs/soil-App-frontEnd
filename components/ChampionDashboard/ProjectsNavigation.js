@@ -34,7 +34,12 @@ const DaysLeft = ({ isCurrentPage }) => {
 
 const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
   const numberEngaged = project.info.team.reduce((acc, member) => {
-    if (member.phase === "engaged" || member.phase === "committed") acc++;
+    if (member.phase === "engaged") acc++;
+    return acc;
+  }, 0);
+
+  const numberCommitted = project.info.team.reduce((acc, member) => {
+    if (member.phase === "committed") acc++;
     return acc;
   }, 0);
 
@@ -56,17 +61,8 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
         </div>
         <div className="w-full flex flex-col gap-4">
           <div className="text-xl font-bold">{project.info.title}</div>
-          <DaysLeft isCurrentPage={isCurrentPage} />
+          {/* <DaysLeft isCurrentPage={isCurrentPage} /> */}
           <div className="grid grid-cols-2 gap-1">
-            <div
-              className={classNames(
-                "px-3 py-1 rounded-full shadow-lg flex justify-between",
-                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
-              )}
-            >
-              <span>shortlisted:</span>
-              <span>{project.info.team.length}</span>
-            </div>
             <div
               className={classNames(
                 "px-3 py-1 rounded-full shadow-lg flex justify-between",
@@ -75,6 +71,15 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
             >
               <span>engaged:</span>
               <span className="">{numberEngaged}</span>
+            </div>
+            <div
+              className={classNames(
+                "px-3 py-1 rounded-full shadow-lg flex justify-between",
+                isCurrentPage ? "bg-[#8dc220a5]" : "bg-[#8dc22066]"
+              )}
+            >
+              <span>committed:</span>
+              <span>{numberCommitted}</span>
             </div>
           </div>
         </div>
@@ -88,6 +93,9 @@ const ProjectsNavigation = () => {
   const { _id } = router.query;
   const { projectsInspect } = useSelector((state) => state);
   const { isDataAvailable, projectsInfo } = projectsInspect;
+
+  const projects = projectsInfo.filter((project) => project.champion === true);
+
   return (
     <nav>
       <div className="flex flex-col gap-8 py-6">
@@ -97,7 +105,7 @@ const ProjectsNavigation = () => {
       <div className="sticky top-4 pb-8 space-y-4">
         {!isDataAvailable && "Fetching projects..."}
         {isDataAvailable &&
-          projectsInfo.map((project, i) => (
+          projects.map((project, i) => (
             <ProjectsNavigationItem
               key={`projects_navigation_item_${i}`}
               project={project}

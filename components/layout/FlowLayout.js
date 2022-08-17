@@ -1,5 +1,5 @@
 import NextButton from "../NextButton";
-import PreviousButton from "../previousButton";
+import PreviousButton from "../PreviousButton";
 import HeaderNew from "./HeaderNew";
 import ProgressBar from "./ProgressBar";
 import { TempBlankNavbar } from "./TempBlankNavbar";
@@ -17,7 +17,7 @@ function FlowLayout({
   const { data: session } = useSession();
 
   return (
-    <div className="h-full w-full ">
+    <div className="h-full w-full bg-soilGray-200">
       <HeaderNew />
       {session ? (
         <div className="w-[757px] relative min-h-[85vh] px-[40px] pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg m-auto mt-[35px]">

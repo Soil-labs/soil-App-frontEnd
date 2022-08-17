@@ -4,9 +4,6 @@ import { updateProject } from "../../redux/slices/projectSlice";
 import FlowLayout from "../layout/FlowLayout";
 import ProgressBar from "../layout/ProgressBar";
 
-import NextButton from "../NextButton";
-import PreviousButton from "../previousButton";
-
 const DescriptionComponent = (props) => {
   const [description, setDescription] = useState("");
 
@@ -33,7 +30,11 @@ const DescriptionComponent = (props) => {
     <>
       {/* Background */}
       <div className="bg-soilGray-200 h-screen w-screen">
-        <FlowLayout currentStep={props.phase + 1} handleNextButton={() => handleChangePhase()} handlePreviousButton={() => handleChangePhaseBack()}>
+        <FlowLayout
+          currentStep={props.phase + 1}
+          handleNextButton={() => handleChangePhase()}
+          handlePreviousButton={() => handleChangePhaseBack()}
+        >
           <div className="text-center space-y-[19px] mb-[96px] mt-[129px]">
             <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>
             <p className="text-[16px]">

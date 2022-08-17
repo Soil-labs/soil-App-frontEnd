@@ -40,7 +40,7 @@ export const ExperienceTab = ({
   ];
 
   return (
-    <div className="relative bg-white rounded-lg p-5">
+    <div className="relative bg-white rounded-lg p-5 drop-shadow-button-shadow">
       <button
         className="absolute border-soilGray-500 border-[1px] right-7 top-7 px-2 rounded-lg text-soilGray-500"
         onClick={() => {

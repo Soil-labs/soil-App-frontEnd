@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowSmRightIcon } from "@heroicons/react/Outline";
+import { ArrowSmRightIcon } from "@heroicons/react/outline";
 
 const NextButton = ({ handleChangePhase, className }) => {
   return (
@@ -12,7 +12,7 @@ const NextButton = ({ handleChangePhase, className }) => {
       >
         <div className="flex">
           <span>NEXT</span>
-          <ArrowSmRightIcon className="w-6"/>
+          <ArrowSmRightIcon className="w-6" />
         </div>
       </button>
     </div>
