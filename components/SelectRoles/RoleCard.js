@@ -19,11 +19,11 @@ export default function RoleCard({
           : ""
       } bg-white border border-gray-300 rounded-xl mb-21`}
     >
-      <div className="w-[34px] h-[34px] absolute top-4 left-2">
+      {/* <div className="w-[34px] h-[34px] absolute top-4 left-2">
         <img src="/coder.png" className="h-full w-full" alt="" />
-      </div>
+      </div> */}
 
-      <p className="ml-10">
+      <p className="ml-3">
         {role?.title && role.title !== "New Role" ? role.title : "New Role"}
       </p>
       {/* <div className="ml-10">

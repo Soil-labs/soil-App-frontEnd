@@ -14,22 +14,25 @@ export default function RoleDataForm({
   skillSelected,
   setSkillSelected,
 }) {
-  
   const roleHandler = (e) => {
     // debugger;
-    setRoleCallback({ ...role, description: e.target.value })
-  }
+    setRoleCallback({ ...role, description: e.target.value });
+  };
 
-  const setSkillsCallback = useCallback(async (item) => {
-    setRoleCallback({ ...role, skills: item });
-  }, [role]);
+  const setSkillsCallback = useCallback(
+    async (item) => {
+      setRoleCallback({ ...role, skills: item });
+    },
+    [role]
+  );
 
   // const setRoleDataCallback = useCallback(async (item) => {
   //   setRoleCallback({ ...role, salaryRange: item });
   // }, []);
 
   return (
-    <div className="bg-white relative rounded-md border-[2px] border-green-500 flex flex-col justify-center items-center gap-10 p-10">
+    // <div className="bg-white relative rounded-md border-[2px] border-green-500 flex flex-col justify-center items-center gap-10 p-10">
+    <div className="relative mt-[40px]">
       <input
         type="text"
         name="title"
@@ -42,7 +45,7 @@ export default function RoleDataForm({
         {role.title ? role.title : "Your role"}
       </p> */}
       <section className="grid grid-cols-2">
-        <div className="col-span-1 pr-2 ">
+        {/* <div className="col-span-1 pr-2 ">
           <div className="shadow-md rounded-lg p-2 mb-3">
             <p className="font-semibold">Candidate Description</p>
             <textarea
@@ -51,9 +54,9 @@ export default function RoleDataForm({
               rows={4}
               className="py-3 border-none block w-full focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md mb-3"
             />
-          </div>
+          </div> */}
 
-          <div className="w-full inline-block pr-2">
+        {/* <div className="w-full inline-block pr-2">
             <input
               type="number"
               min={0}
@@ -67,9 +70,9 @@ export default function RoleDataForm({
               className="inline-block border-none w-1/3 shadow-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-full"
             ></input>
             <span className="ml-2">hours/week</span>
-          </div>
-          {/* MVP not able to select if week or months */}
-          {/* <div className="w-1/2 inline-block pl-1">
+          </div> */}
+        {/* MVP not able to select if week or months */}
+        {/* <div className="w-1/2 inline-block pl-1">
             <Selector
               setDataCallback={({ period }) => {
                 setRoleCallback({ ...role, period: period });
@@ -79,10 +82,10 @@ export default function RoleDataForm({
               placeholder="week/month"
             />
           </div> */}
-          {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
-        </div>
+        {/* <SalaryRange setRoleDataCallback={setRoleDataCallback} /> */}
+        {/* </div> */}
 
-        <div className="col-span-1 pl-2">
+        <div className="col-span-2 pl-2">
           <SkillSelectorLevel
             key={role._id}
             setSkillsCallback={setSkillsCallback}
@@ -99,11 +102,12 @@ export default function RoleDataForm({
         onClick={() => {
           saveRoleCallback(role);
         }}
-        className="absolute top-5 right-5 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400 hover:border-green-500 hover:text-green-500"
+        className="absolute top-0 -right-6 rounded-md border-[1px] border-black px-2 py-0.5 disabled:border-gray-400 disabled:text-gray-400 hover:border-green-500 hover:text-green-500"
       >
         <CheckIcon width={20} className="inline -mt-1 disabled:bg-gray-400" />{" "}
         COMPLETE
       </button>
     </div>
+    // </div>
   );
 }

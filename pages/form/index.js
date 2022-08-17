@@ -264,7 +264,15 @@ function Form() {
           ) : null}
         </div>
         {session ? (
-          <div className="relative col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4 h-full">
+          <div
+            className={`relative col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4 h-full 
+          ${
+            currentRoleIndex !== null && phase === 2
+              ? "border-[2px] border-green-500"
+              : ""
+          }
+          `}
+          >
             {/* <div className="flex flex-col "> */}
             <ProgressBar numberofSteps={3} currentStep={phase + 1} />
 
@@ -281,15 +289,17 @@ function Form() {
             ) : phase == 2 ? (
               <>
                 {currentRoleIndex >= 0 && pendingRoles[currentRoleIndex] && (
-                  <RoleDataForm
-                    role={pendingRoles[currentRoleIndex]}
-                    key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
-                    setRoleCallback={setRoleCallback}
-                    saveRoleCallback={saveRoleCallback}
-                    submiting={submiting}
-                    skillSelected={skillSelected}
-                    setSkillSelected={setSkillSelected}
-                  />
+                  <div className="h-5/6 overflow-y-scroll scrollbar-hide px-[25px]">
+                    <RoleDataForm
+                      role={pendingRoles[currentRoleIndex]}
+                      key={`${pendingRoles[currentRoleIndex]._id}${currentRoleIndex}`}
+                      setRoleCallback={setRoleCallback}
+                      saveRoleCallback={saveRoleCallback}
+                      submiting={submiting}
+                      skillSelected={skillSelected}
+                      setSkillSelected={setSkillSelected}
+                    />
+                  </div>
                 )}
               </>
             ) : phase == 3 ? (
