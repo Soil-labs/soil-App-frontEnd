@@ -61,6 +61,8 @@ const SkillTag = ({ children, variant }) => {
 export const MagicApplication = () => {
   const dispatch = useDispatch();
 
+  const { project, member } = useSelector((state) => state);
+
   const {
     query: { projectId, roleId },
   } = useRouter();
@@ -78,7 +80,7 @@ export const MagicApplication = () => {
     };
     console.log({ params });
     dispatch(match_projectToUser(params));
-  }, [dispatch, projectId, roleId]);
+  }, [dispatch, projectId, roleId, member]);
 
   const handleApplyClick = () => {
     let params = {
@@ -89,7 +91,6 @@ export const MagicApplication = () => {
     dispatch(changeTeamMember_Phase_Project(params));
   };
 
-  console.log({ project });
   return (
     <>
       {project && project.skillsDontMatch && project.skillsMatch && (
