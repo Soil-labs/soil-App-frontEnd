@@ -13,15 +13,14 @@ function ProjectsPageLayout({ children }) {
 
   useEffect(() => {
     const params = {
-      _id: "908392557258604544",
-
+      _id: member._id,
       returnSkills: true,
       returnProjects: true,
       returnNetwork: true,
     };
 
     dispatch(findMember(params));
-  }, [dispatch]);
+  }, [dispatch, member]);
 
   return (
     <Layout>

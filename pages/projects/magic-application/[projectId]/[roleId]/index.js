@@ -65,6 +65,8 @@ export const MagicApplication = () => {
     query: { projectId, roleId },
   } = useRouter();
 
+  const { projectInspect: project, member } = useSelector((state) => state);
+
   useEffect(() => {
     if (!projectId || !roleId) {
       console.log(projectId);
@@ -72,24 +74,23 @@ export const MagicApplication = () => {
       return;
     }
     const params = {
-      memberID: "908392557258604544",
+      memberID: member._id,
       projectID: projectId,
       roleID: roleId,
     };
     console.log({ params });
     dispatch(match_projectToUser(params));
-  }, [dispatch, projectId, roleId]);
+  }, [dispatch, projectId, roleId, member]);
 
   const handleApplyClick = () => {
     let params = {
       projectID: projectId,
-      memberID: "908392557258604544",
-      phase: "shortlisted",
+      memberID: member._id,
+      phase: "engaged",
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
 
-  const project = useSelector((state) => state.projectInspect);
   console.log({ project });
   return (
     <>
