@@ -16,7 +16,16 @@ const TeamMemberCard = ({ member }) => {
     let params = {
       projectID: _id,
       memberID: member.memberInfo._id,
-      phase: "shortlisted",
+      phase: "committed",
+    };
+    dispatch(changeTeamMember_Phase_Project(params));
+  };
+
+  const handleRejectClick = () => {
+    let params = {
+      projectID: _id,
+      memberID: member.memberInfo._id,
+      phase: "rejected",
     };
     dispatch(changeTeamMember_Phase_Project(params));
   };
@@ -52,11 +61,11 @@ const TeamMemberCard = ({ member }) => {
         </div>
       </div>
       {/* see application button */}
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <button className="rounded-full text-white px-3 py-1 bg-[#8dc220a5]">
           SEE APPLICATION
         </button>
-      </div>
+      </div> */}
       {/* accept button & reject button */}
       <div className="flex flex-col gap-2">
         <button
@@ -67,9 +76,13 @@ const TeamMemberCard = ({ member }) => {
           )}
           disabled={loading}
         >
-          {loading ? "submitting..." : "ACCEPT"}
+          ACCEPT
         </button>
-        <button className="rounded-full text-white px-3 py-1 bg-[#fc502ad8]">
+        <button
+          onClick={handleRejectClick}
+          className="rounded-full text-white px-3 py-1 bg-[#fc502ad8]"
+          disabled={loading}
+        >
           REJECT
         </button>
       </div>
