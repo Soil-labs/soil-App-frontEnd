@@ -56,7 +56,7 @@ const ProjectsNavigationItem = ({ project, isCurrentPage }) => {
         </div>
         <div className="w-full flex flex-col gap-4">
           <div className="text-xl font-bold">{project.info.title}</div>
-          <DaysLeft isCurrentPage={isCurrentPage} />
+          {/* <DaysLeft isCurrentPage={isCurrentPage} /> */}
           <div className="grid grid-cols-2 gap-1">
             <div
               className={classNames(
