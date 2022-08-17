@@ -249,7 +249,9 @@ function Projects() {
                   </div>
                   <div className="ml-auto flex flex-col justify-center">
                     <Link href={`/projects/${project._id}`}>
-                      <Button hasChevron>Apply Now</Button>
+                      <a>
+                        <Button hasChevron>Apply Now</Button>
+                      </a>
                     </Link>
                     {/* <Link href={`/projects/${project._id}`}>
                       <a className="underline mt-2 text-sm text-center text-slate-600 hover:text-slate-400">
