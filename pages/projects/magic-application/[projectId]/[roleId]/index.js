@@ -207,39 +207,45 @@ export const MagicApplication = () => {
               <section className="col-span-1">
                 <div className="bg-white rounded-lg overflow-hidden">
                   <div className="p-4">
-                    <div className="w-24 rounded-md overflow-hidden">
+                    {/* <div className="w-24 rounded-md overflow-hidden">
                       <Image src={soil_logo} alt="soil logo" />
-                    </div>
+                    </div> */}
                     <h3 className="pt-4 pb-2 text-2xl font-bold text-gray-800">
-                      Soil 🌱 Talent Coordination App
+                      {project.title}
                     </h3>
-                    <p className="text-gray-500 py-4">
-                      Find & be found for opportunities across the DAO.
-                    </p>
+                    {project.description && (
+                      <p className="text-gray-500 pb-4">
+                        {project.description}
+                      </p>
+                    )}
                     <hr />
-                    <h4 className="py-4 text-gray-500 text-lg">🏆 Champion</h4>
-                    <div className="flex gap-2 py-4">
-                      <div className="w-8 rounded-full overflow-hidden relative">
-                        <Image
-                          layout="fill"
-                          src={project.champion.discordAvatar}
-                          alt="champion avatar"
-                        />
-                      </div>
+                    <h4 className="mt-4 mb-2 text-gray-500 text-lg">
+                      🏆 Champion
+                    </h4>
+                    <div className="flex gap-2 mb-4">
+                      {project.champion?.discordAvatar && (
+                        <div className="w-8 rounded-full overflow-hidden relative">
+                          <Image
+                            layout="fill"
+                            src={project.champion.discordAvatar}
+                            alt="champion avatar"
+                          />
+                        </div>
+                      )}
                       <div className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
                         {project.champion.discordName}
                       </div>
                     </div>
-                    <hr />
+                    {/* <hr />
                     <p className="text-gray-400 py-4 s">
                       Find & be found for opportunities across the DAO. Find &
                       be found for opportunities across the DAO.
-                    </p>
+                    </p> */}
                   </div>
-                  <div className="bg-[#F1F2FF] text-center py-4 flex justify-center tracking-wide">
+                  {/* <div className="bg-[#F1F2FF] text-center py-4 flex justify-center tracking-wide">
                     See Project Updates
                     <ChevronRightIcon width={16} className="ml-1" />
-                  </div>
+                  </div> */}
                 </div>
               </section>
             </main>

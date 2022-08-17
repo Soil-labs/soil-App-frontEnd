@@ -11,6 +11,12 @@ export default function matchProjectToUser(params) {
                projectData{
                   _id
                 title
+                description
+                champion{
+                  _id
+                  discordName
+                  discordAvatar
+                }
               }
               skillsMatch{
                 _id

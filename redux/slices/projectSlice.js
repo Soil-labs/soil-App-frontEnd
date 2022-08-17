@@ -188,7 +188,9 @@ export const projectSlice = createSlice({
       state.loading = false;
 
       state.title = payload.projectData.title;
+      state.description = payload.projectData.description;
       state._id = payload.projectData._id;
+      state.champion = payload.projectData.champion;
       state.matchPercentage = payload.matchPercentage;
       state.skillsMatch = payload.skillsMatch;
       state.skillsDontMatch = payload.skillsDontMatch;
