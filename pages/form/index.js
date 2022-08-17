@@ -105,6 +105,8 @@ function Form() {
         <TitleComponent changePhase={changePhase} phase={phase} />
       ) : phase == 1 ? (
         <ProjectSelectRoles changePhase={changePhase} phase={phase} _id={_id} />
+      ) : phase == 2 ? (
+        <YouDidItComponet />
       ) : (
         phase
       )}
