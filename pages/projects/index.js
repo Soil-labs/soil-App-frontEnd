@@ -217,7 +217,7 @@ function Projects() {
                   key={index}
                   className="bg-white rounded-lg px-3 py-3 mb-4 flex shadow-[0px_2px_14px_rgba(0,48,142,0.1)]"
                 >
-                  <div
+                  {/* <div
                     className="rounded-lg overflow-hidden mr-4"
                     style={{
                       width: "80px",
@@ -231,7 +231,7 @@ function Projects() {
                       height={80}
                       objectFit="cover"
                     />
-                  </div>
+                  </div> */}
                   <div className="flex flex-col justify-between">
                     <h3 className="font-bold">{project.title}</h3>
                     {project.matchPercentage && (
