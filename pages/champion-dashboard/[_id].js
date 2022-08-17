@@ -37,7 +37,7 @@ const Project = () => {
       <main className="col-span-3">
         {isDataAvailable && (
           <section className="rounded-2xl overflow-hidden bg-[#8dc2204c]">
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-2">
               <button
                 className={classNames(
                   "px-6 py-3",
@@ -49,7 +49,7 @@ const Project = () => {
               >
                 ENGAGED TALENT
               </button>
-              <button
+              {/* <button
                 className={classNames(
                   "px-6 py-3",
                   currentTab === SHORTLISTED_TAB
@@ -59,7 +59,7 @@ const Project = () => {
                 onClick={() => setCurrentTab(SHORTLISTED_TAB)}
               >
                 SHORTLISTED TALENT
-              </button>
+              </button> */}
               <button
                 className={classNames(
                   "px-6 py-3",
@@ -77,13 +77,13 @@ const Project = () => {
                 members={team.filter((member) => member.phase === "engaged")}
               />
             )}
-            {currentTab === SHORTLISTED_TAB && (
+            {/* {currentTab === SHORTLISTED_TAB && (
               <Shortlisted
                 members={team.filter(
                   (member) => member.phase === "shortlisted"
                 )}
               />
-            )}
+            )} */}
             {currentTab === COMMITTED_TAB && (
               <CommittedTeam
                 members={team.filter((member) => member.phase === "committed")}
