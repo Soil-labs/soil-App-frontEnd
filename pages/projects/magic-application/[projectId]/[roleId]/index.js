@@ -184,9 +184,9 @@ export const MagicApplication = () => {
                   />
                 </form> */}
                 <div className="flex justify-center gap-4 py-8">
-                  <button className="px-4 py-2 bg-[#FF8413] rounded-lg text-white">
+                  {/* <button className="px-4 py-2 bg-[#FF8413] rounded-lg text-white">
                     Go Back
-                  </button>
+                  </button> */}
                   <button
                     onClick={handleApplyClick}
                     className="px-4 py-2 bg-[#4164DF] rounded-lg text-white flex gap-2 items-center"
