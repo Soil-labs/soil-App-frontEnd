@@ -18,6 +18,7 @@ const Info = ({ formData, setFormData }) => {
       <textarea
         className="w-full h-52 rounded-lg p-5 resize-none"
         placeholder="Start typing here"
+        value={formData.description}
         onChange={(e) =>
           setFormData({ ...formData, description: e.target.value })
         }
