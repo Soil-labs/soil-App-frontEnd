@@ -328,19 +328,19 @@ function Form() {
               </div>
             ) : (
               <div>
-                <Link href="/">
+                <Link href="/champion-dashboard">
                   <div className="absolute bottom-7 right-7 w-fit">
                     <button
                       className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px]`}
                     >
                       <div className="flex">
-                        <span>FIND TALENT</span>
+                        <span>SEE DASHBOARD</span>
                         <ArrowSmRightIcon className="w-6" />
                       </div>
                     </button>
                   </div>
                 </Link>
-                <Link href="/">
+                {/* <Link href="/">
                   <button
                     className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px] absolute bottom-7 left-7`}
                   >
@@ -349,7 +349,7 @@ function Form() {
                       <span>MAIN PAGE</span>
                     </div>
                   </button>
-                </Link>
+                </Link> */}
               </div>
             )}
             {/* </div> */}
