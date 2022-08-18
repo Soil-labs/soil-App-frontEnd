@@ -26,6 +26,8 @@ import Selector from "../../components/SelectRoles/Selector";
 import { useRouter } from "next/router";
 import { findRoleTemplates } from "../../redux/slices/roleTemplatesSlice";
 import { findProject, updateProject } from "../../redux/slices/projectSlice";
+import { ArrowSmLeftIcon, ArrowSmRightIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 function Form() {
   const [phase, setPhase] = useState(0);
   const { data: session } = useSession();
@@ -265,7 +267,7 @@ function Form() {
         </div>
         {session ? (
           <div
-            className={`relative col-span-2 pt-[60px] pb-[33px] rounded-2xl bg-white shadow-lg px-4 h-full 
+            className={`relative col-span-2 pt-[30px] pb-[30px] rounded-2xl bg-white shadow-lg px-4 h-full 
           ${
             currentRoleIndex !== null && phase === 2
               ? "border-[2px] border-green-500"
@@ -274,7 +276,9 @@ function Form() {
           `}
           >
             {/* <div className="flex flex-col "> */}
-            <ProgressBar numberofSteps={3} currentStep={phase + 1} />
+            {phase < 3 ? (
+              <ProgressBar numberofSteps={3} currentStep={phase + 1} />
+            ) : null}
 
             {phase == 0 ? (
               <TitleComponent />
@@ -307,18 +311,45 @@ function Form() {
             ) : (
               phase
             )}
-            <div>
-              <NextButton
-                className="absolute bottom-7 right-7"
-                handleChangePhase={() => changePhase(phase)}
-              />
-              {phase >= 1 && (
-                <PreviousButton
-                  handleChangePhaseBack={() => changePhaseBack(phase)}
-                  className="absolute bottom-7 left-7"
+            {phase < 3 ? (
+              <div>
+                <NextButton
+                  className="absolute bottom-7 right-7"
+                  handleChangePhase={() => changePhase(phase)}
                 />
-              )}
-            </div>
+                {phase >= 1 && (
+                  <PreviousButton
+                    handleChangePhaseBack={() => changePhaseBack(phase)}
+                    className="absolute bottom-7 left-7"
+                  />
+                )}
+              </div>
+            ) : (
+              <div>
+                <Link href="/">
+                  <div className="absolute bottom-7 right-7 w-fit">
+                    <button
+                      className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px]`}
+                    >
+                      <div className="flex">
+                        <span>FIND TALENT</span>
+                        <ArrowSmRightIcon className="w-6" />
+                      </div>
+                    </button>
+                  </div>
+                </Link>
+                <Link href="/">
+                  <button
+                    className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px] absolute bottom-7 left-7`}
+                  >
+                    <div className="flex space-x-2">
+                      <ArrowSmLeftIcon className="w-6 " />
+                      <span>MAIN PAGE</span>
+                    </div>
+                  </button>
+                </Link>
+              </div>
+            )}
             {/* </div> */}
           </div>
         ) : (

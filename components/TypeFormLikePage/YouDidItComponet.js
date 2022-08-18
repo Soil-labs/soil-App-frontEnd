@@ -17,8 +17,9 @@ const GeneralGreenFrom = (props) => {
 function YouDidItComponet(props) {
   return (
     <>
-      <div className="grid h-screen place-items-center bg-[url('/background.svg')]  ">
-        <GeneralGreenFrom {...props} />
+      <div className="h-full bg-[url('/confetti.png')] bg-contain bg-no-repeat -mt-[30px] -mb-[30px] -mx-4 rounded-2xl flex justify-center items-center">
+        {/* <GeneralGreenFrom {...props} /> */}
+        <p className="text-[32px] font-medium"> YOU DID IT!</p>
       </div>
     </>
   );
