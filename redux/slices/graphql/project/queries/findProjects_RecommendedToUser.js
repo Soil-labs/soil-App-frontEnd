@@ -9,6 +9,7 @@ export default function findProjects_RecommendedToUserQuery(params) {
           matchPercentage
           projectData {
             _id
+            serverID
             title
             description
 
