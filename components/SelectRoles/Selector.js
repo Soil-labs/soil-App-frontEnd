@@ -49,10 +49,7 @@ export default function Selector({
             <Combobox.Input
               className="w-full border-none rounded-full py-2 pl-3 pr-10 sm:text-sm bg-transparent focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               onChange={(event) => setQuery(event.target.value)}
-              displayValue={(item) => {
-                console.log("------", item);
-                return item?.title;
-              }}
+              displayValue={(item) => item?.title}
               placeholder={placeholder}
             />
             <div className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
