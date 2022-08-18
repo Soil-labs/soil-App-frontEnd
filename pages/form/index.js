@@ -281,7 +281,7 @@ function Form() {
             ) : null}
 
             {phase == 0 ? (
-              <TitleComponent />
+              <TitleComponent changePhase={changePhase} phase={phase} />
             ) : phase == 1 ? (
               <DescriptionComponent
                 fieldTitle="Description of the new project?"
@@ -313,10 +313,12 @@ function Form() {
             )}
             {phase < 3 ? (
               <div>
-                <NextButton
-                  className="absolute bottom-7 right-7"
-                  handleChangePhase={() => changePhase(phase)}
-                />
+                {phase == 2 && (
+                  <NextButton
+                    className="absolute bottom-7 right-7"
+                    handleChangePhase={() => changePhase(phase)}
+                  />
+                )}
                 {phase >= 1 && (
                   <PreviousButton
                     handleChangePhaseBack={() => changePhaseBack(phase)}

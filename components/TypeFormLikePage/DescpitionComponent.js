@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 import FlowLayout from "../layout/FlowLayout";
 import ProgressBar from "../layout/ProgressBar";
+import NextButton from "../NextButton";
 
 const DescriptionComponent = (props) => {
   const [description, setDescription] = useState("");
@@ -61,6 +62,10 @@ const DescriptionComponent = (props) => {
             <NextButton handleChangePhase={handleChangePhase} /> */}
         {/* </div> */}
         {/* </FlowLayout> */}
+        <NextButton
+          className="absolute bottom-7 right-7"
+          handleChangePhase={handleChangePhase}
+        />
       </div>
     </>
   );
