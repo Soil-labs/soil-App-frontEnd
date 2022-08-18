@@ -7,6 +7,7 @@ export default function findProjectsQuery(params) {
           ${params._id ? `_id: ${params._id}` : ``}
         }){
           _id
+          serverID
           title
           description
 

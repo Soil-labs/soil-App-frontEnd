@@ -67,6 +67,7 @@ function Projects() {
 
   const member = {};
   member._id = useSelector((state) => state.member._id);
+  member.serverID = useSelector((state) => state.member.serverID);
   // member.projects = useSelector((state) => state.member.projects);
 
   const dispatch = useDispatch();
@@ -80,7 +81,15 @@ function Projects() {
     if (currentTab == 2) {
       // setTabProjects(member.projects.filter((proj) => proj.favorite));
     } else {
-      setTabProjects(projects);
+      if (member.serverID && member.serverID.length > 0) {
+        setTabProjects(
+          projects.filter((proj) =>
+            member.serverID.some((id) =>
+              proj.serverID.some((_id) => _id === id)
+            )
+          )
+        );
+      }
     }
   }, [currentTab, projects]);
   // }, [currentTab, projects, member.projects]);
