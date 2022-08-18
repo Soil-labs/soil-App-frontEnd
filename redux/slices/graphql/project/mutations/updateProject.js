@@ -40,6 +40,14 @@ export default function updateProjectMutation(params) {
 							}`
               : ``
           }
+					${
+            params.returnChampion
+              ? `champion{
+						_id
+						discordName
+					}`
+              : ``
+          }
 
 					${
             params.returnRole

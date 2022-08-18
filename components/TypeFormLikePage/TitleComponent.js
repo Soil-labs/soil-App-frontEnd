@@ -12,8 +12,10 @@ const DescriptionComponent = (props) => {
   const handleChangePhase = () => {
     const params = {
       title: title,
+      champion: props.userId,
       returnDates: true,
       returnBudget: true,
+      returnChampion: true,
       returnCollaborationLinks: true,
     };
 

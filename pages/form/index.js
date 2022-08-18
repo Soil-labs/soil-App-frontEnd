@@ -294,7 +294,11 @@ function Form() {
             ) : null}
 
             {phase == 0 ? (
-              <TitleComponent changePhase={changePhase} phase={phase} />
+              <TitleComponent
+                changePhase={changePhase}
+                phase={phase}
+                userId={session.user.id}
+              />
             ) : phase == 1 ? (
               <DescriptionComponent
                 fieldTitle="Description of the new project?"

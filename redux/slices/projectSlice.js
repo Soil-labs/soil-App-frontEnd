@@ -54,7 +54,7 @@ export const updateProject = createAsyncThunk(
       params.role = jsonToString(params.role);
     }
     if (params.champion) {
-      params.champion = jsonToString(params.champion);
+      params.champion = params.champion;
     }
     if (params.team) {
       params.team = jsonToString(params.team);
