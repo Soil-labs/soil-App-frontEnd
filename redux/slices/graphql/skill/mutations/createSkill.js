@@ -4,6 +4,7 @@ export default function addNewSkillMutation(params) {
       query: `mutation{
 				createSkill(fields:{
 					name: "${params.name}"
+					${params.status ? `status: ${params.status}` : ``}
 				}){
 					_id
 						name
