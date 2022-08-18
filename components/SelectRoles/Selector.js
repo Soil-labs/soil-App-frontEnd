@@ -12,7 +12,7 @@ export default function Selector({
   name,
   options,
   setDataCallback,
-  value,
+  value = {},
   placeholder = "",
 }) {
   const [query, setQuery] = useState("");
