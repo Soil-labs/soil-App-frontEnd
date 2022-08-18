@@ -11,6 +11,7 @@ const initialState = {
   isDataAvailable: false,
   discordAvatar: "",
   _id: "",
+  serverID: [],
   discordName: "",
   discordAvatar: "",
   bio: "",
@@ -109,6 +110,7 @@ export const memberSlice = createSlice({
       state.isDataAvailable = true;
 
       state._id = payload._id;
+      state.serverID = payload.serverID;
       state.discordAvatar = payload.discordAvatar;
       state.discordName = payload.discordName;
       state.discordAvatar = payload.discordAvatar;
@@ -120,9 +122,10 @@ export const memberSlice = createSlice({
       state.previusProjects = payload.previusProjects;
       state.content = payload.content;
       state.skills = payload.skills;
-      state.projects = payload.projects;
+      state.projects = payload.projects ? payload.projects : [];
       state.network = payload.network;
     },
+
     [addNewMember.pending]: (state) => {
       state.isDataAvailable = false;
       state.loading = true;

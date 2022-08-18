@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { findSkills } from "../../redux/slices/skillsSlice";
 import { XIcon } from "@heroicons/react/outline";
 import SkillLevel from "./SkillLevel";
+import { createSkill } from "../../redux/slices/skillSlice";
 
 const colors = [
   "#c2f5e9",
@@ -68,9 +69,9 @@ export default function SkillSelectorLevel({
 
   const hadleSelectSkill = (skill) => {
     setSelectedSkillLevel(skill);
-    console.log("selectedSkillLevel from skill selector",selectedSkillLevel)
-    setSkillSelected(true)
-    console.log("skillSelected from Selector",skillSelected)
+    console.log("selectedSkillLevel from skill selector", selectedSkillLevel);
+    setSkillSelected(true);
+    console.log("skillSelected from Selector", skillSelected);
   };
 
   const handleDeleteClick = (skill) => {
@@ -78,6 +79,16 @@ export default function SkillSelectorLevel({
     setSelectedSkills(
       selectedSkills.filter((selected) => selected._id !== skill._id)
     );
+  };
+
+  const handleAddNewSkill = async () => {
+    const params = {
+      name: query,
+      state: "waiting",
+    };
+    const res = await dispatch(createSkill(params));
+    setSelectedSkills([...selectedSkills, res.payload]);
+    setQuery("");
   };
 
   useEffect(() => {
@@ -157,48 +168,54 @@ export default function SkillSelectorLevel({
             </div>
           </Combobox.Button>
 
-          {selectorSkills.length > 0 && (
-            <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {selectorSkills.map((skill, index) => {
-                return (
-                  <Combobox.Option
-                    key={index}
-                    value={skill}
-                    className={({ active }) =>
-                      classNames(
-                        "relative cursor-default select-none py-2 pl-3 pr-9",
-                        active ? "bg-indigo-600 text-white" : "text-gray-900"
-                      )
-                    }
-                  >
-                    {({ active, selected }) => (
-                      <>
+          <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {selectorSkills.map((skill, index) => {
+              return (
+                <Combobox.Option
+                  key={index}
+                  value={skill}
+                  className={({ active }) =>
+                    classNames(
+                      "relative cursor-default select-none py-2 pl-3 pr-9",
+                      active ? "bg-indigo-600 text-white" : "text-gray-900"
+                    )
+                  }
+                >
+                  {({ active, selected }) => (
+                    <>
+                      <span
+                        className={classNames(
+                          "block truncate",
+                          selected && "font-semibold"
+                        )}
+                      >
+                        {skill.name}
+                      </span>
+
+                      {selected && (
                         <span
                           className={classNames(
-                            "block truncate",
-                            selected && "font-semibold"
+                            "absolute inset-y-0 right-0 flex items-center pr-4",
+                            active ? "text-white" : "text-indigo-600"
                           )}
                         >
-                          {skill.name}
+                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
                         </span>
-
-                        {selected && (
-                          <span
-                            className={classNames(
-                              "absolute inset-y-0 right-0 flex items-center pr-4",
-                              active ? "text-white" : "text-indigo-600"
-                            )}
-                          >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </Combobox.Option>
-                );
-              })}
-            </Combobox.Options>
-          )}
+                      )}
+                    </>
+                  )}
+                </Combobox.Option>
+              );
+            })}
+            <p
+              onClick={() => {
+                handleAddNewSkill();
+              }}
+              className="hover:text-white hover:bg-indigo-600 p-2 cursor-pointer"
+            >
+              Add new skill
+            </p>
+          </Combobox.Options>
         </div>
       </Combobox>
 

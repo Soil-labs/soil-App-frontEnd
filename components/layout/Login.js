@@ -1,17 +1,68 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addMemberData,
+  findMember,
+  addNewMember,
+} from "../../redux/slices/memberSlice";
 
 export const Login = () => {
   const { data: session } = useSession();
+  const dispatch = useDispatch();
+  const [payload, setPayload] = useState();
+
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        addMemberData({
+          _id: session?.user.id,
+          discordName: session.user.name,
+          discordAvatar: session.user.image,
+        })
+      );
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (session) {
+      const params = {
+        _id: session?.user.id,
+      };
+      dispatch(findMember(params)).then((res) => setPayload(res?.payload));
+      console.log("find Member is running");
+    }
+  }, [session, dispatch]);
+
+  const member = useSelector((state) => state.member);
+
+  useEffect(() => {
+    if (session && payload === null) {
+      dispatch(
+        addNewMember({
+          _id: session?.user.id,
+          discordName: session?.user.name,
+          discordAvatar: session?.user.image,
+        })
+      );
+    }
+  }, [payload, session]);
 
   if (session) {
     const { user } = session;
     return (
       <div
         onClick={() => signOut()}
-        className="ml-auto border border-gray-200 bg-soilGreen-10 hover:bg-soilGreen-20 rounded-full pl-4 px-6 h-8 inline-flex items-center justify-center cursor-pointer shadow-[0px_2px_14px_rgba(0,74,217,0.09)]"
+        className="border-[2px] gap-2 bg-soilGreen-10 w-max flex justify-start items-center h-[45px] rounded-full hover:bg-soilGreen-20 cursor-pointer font-Inter font-semibold text-xl"
       >
-        <span>{user?.name}</span>
+        <div className="h-full rounded-full overflow-hidden">
+          <img
+            src={user?.image}
+            className="h-full w-full rounded-md"
+            alt="userImage"
+          />
+        </div>
+        <span className="mr-3">{user?.name}</span>
       </div>
     );
   }
@@ -19,7 +70,7 @@ export const Login = () => {
   return (
     <div
       onClick={() => signIn("discord")}
-      className="ml-auto border border-gray-200 bg-soilGreen-10 hover:bg-soilGreen-20 rounded-full pl-4 px-6 h-8 inline-flex items-center justify-center cursor-pointer shadow-[0px_2px_14px_rgba(0,74,217,0.09)]"
+      className="border-[2px] border-soilGreen-20 w-max flex h-[45px] px-5 justify-center items-center rounded-full hover:bg-green-200 cursor-pointer font-Inter font-semibold text-xl"
     >
       <span>Login</span>
     </div>

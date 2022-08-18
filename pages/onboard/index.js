@@ -26,6 +26,7 @@ function Projects() {
   const [savedUsers, setSavedUsers] = useState([]);
   const [saveError, setSaveError] = useState(false);
   const router = useRouter();
+  const [focus, setFocus] = useState("pending"); //pending or saved
 
   // const memberIsSelected = (member) => {
   //   const selectedMembers = [...users, ...savedUsers];
@@ -35,11 +36,19 @@ function Projects() {
   // };
 
   const handleEditUser = (userData) => {
-    const updatedUsers = users.map((user, index) => {
-      if (currentUserIndex !== index) return user;
-      return userData;
-    });
-    setUsers(updatedUsers);
+    if (focus == "pending") {
+      const updatedUsers = users.map((user, index) => {
+        if (currentUserIndex !== index) return user;
+        return userData;
+      });
+      setUsers(updatedUsers);
+    } else if (focus == "saved") {
+      const updatedUsers = savedUsers.map((user, index) => {
+        if (currentUserIndex !== index) return user;
+        return userData;
+      });
+      setSavedUsers(updatedUsers);
+    }
   };
 
   useEffect(() => {
@@ -81,7 +90,10 @@ function Projects() {
 
   const handleSaveUser = async () => {
     if (submiting) return;
-    const currUser = users[currentUserIndex];
+    const currUser =
+      focus === "pending"
+        ? users[currentUserIndex]
+        : savedUsers[currentUserIndex];
     const params = {
       _id: currUser._id,
       discordName: currUser.discordName,
@@ -98,8 +110,12 @@ function Projects() {
       setSaveError(true);
       return;
     }
-    setSavedUsers([...savedUsers, users[currentUserIndex]]);
-    setUsers(users.filter((user, index) => index !== currentUserIndex));
+
+    if (focus === "pending") {
+      setSavedUsers([...savedUsers, users[currentUserIndex]]);
+      setUsers(users.filter((user, index) => index !== currentUserIndex));
+    }
+
     setCurrentUserIndex(null);
   };
 
@@ -128,6 +144,7 @@ function Projects() {
           <div
             key={index}
             onClick={() => {
+              setFocus("pending");
               setCurrentUserIndex(index);
             }}
             className="flex items-center p-1 rounded-lg hover:bg-white cursor-pointer"
@@ -150,8 +167,16 @@ function Projects() {
               )}
               <h3 className="text-center">FILL OUT NEW USER PROFILE</h3>
               <EditUser
-                key={users[currentUserIndex]}
-                user={users[currentUserIndex]}
+                key={
+                  focus === "pending"
+                    ? users[currentUserIndex]
+                    : savedUsers[currentUserIndex]
+                }
+                user={
+                  focus === "pending"
+                    ? users[currentUserIndex]
+                    : savedUsers[currentUserIndex]
+                }
                 setUserCallback={handleEditUser}
               />
               <div onClick={handleSaveUser} className="inline-block">
@@ -167,13 +192,15 @@ function Projects() {
 
       {/* How to apply column */}
       <section className="col-span-1">
+        <h3 className="mb-2 ml-1 font-bold">SAVED MEMBERS</h3>
         {savedUsers.map((user, index) => (
           <div
             key={index}
             onClick={() => {
+              setFocus("saved");
               setCurrentUserIndex(index);
             }}
-            className="flex items-center p-1"
+            className="flex items-center p-1 rounded-lg hover:bg-white cursor-pointer"
           >
             <Avatar src={user.discordAvatar} />
             <span>{user.discordName}</span>

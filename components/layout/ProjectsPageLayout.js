@@ -1,27 +1,31 @@
 import UserCard from "../UserCard";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { findMember } from "../../redux/slices/memberSlice";
 import Layout from "./Layout";
+import { useSession } from "next-auth/react";
 
 function ProjectsPageLayout({ children }) {
   const member = useSelector((state) => state.member);
+  const { data: session } = useSession();
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const params = {
-      _id: "812526237074456577",
+  useMemo(() => {
+    if (session) {
+      const params = {
+        _id: session.user.id,
 
-      returnSkills: true,
-      returnProjects: true,
-      returnNetwork: true,
-    };
+        returnSkills: true,
+        returnProjects: true,
+        returnNetwork: true,
+      };
 
-    dispatch(findMember(params));
-  }, [dispatch]);
+      dispatch(findMember(params));
+    }
+  }, [session]);
 
   return (
     <Layout>

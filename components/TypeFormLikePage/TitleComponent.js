@@ -2,29 +2,27 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../redux/slices/projectSlice";
 import FlowLayout from "../layout/FlowLayout";
-import ProgressBar from "../layout/ProgressBar";
 import NextButton from "../NextButton";
 
 const DescriptionComponent = (props) => {
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
 
   const dispatch = useDispatch();
 
   const handleChangePhase = () => {
     const params = {
-      _id: props._id,
-      description: description,
+      title: title,
+      champion: props.userId,
+      serverID: props.serverId,
       returnDates: true,
       returnBudget: true,
+      returnChampion: true,
       returnCollaborationLinks: true,
     };
-    dispatch(updateProject(params));
-    console.log("params from Descpition child", params);
-    props.changePhase(props.phase);
-  };
 
-  const handleChangePhaseBack = () => {
-    props.changePhaseBack(props.phase);
+    console.log("params from Form child", params);
+    dispatch(updateProject(params));
+    props.changePhase(props.phase);
   };
 
   return (
@@ -34,36 +32,36 @@ const DescriptionComponent = (props) => {
         {/* <FlowLayout
           currentStep={props.phase + 1}
           handleNextButton={() => handleChangePhase()}
-          handlePreviousButton={() => handleChangePhaseBack()}
         > */}
         <div className="text-center space-y-[19px] mb-[62px] mt-[80px]">
-          <p className="text-[26px]">DESCRIBE YOUR PROJECT</p>
+          <p className="text-[26px]">NAME YOUR PROJECT</p>
           <p className="text-[16px]">
-            few key sentences on what is the goal, mission, vision of this
-            project{" "}
+            Great titles are short & descriptive, you can use emojis too!
           </p>
         </div>
 
         <div>
-          <div className="px-[25px]">
-            <textarea
+          <div className="mt-1 px-[25px]">
+            <label className="block text-sm font-medium text-gray-700">
+              Title of your project
+            </label>
+            <input
               onChange={(e) => {
-                setDescription(e.target.value);
+                setTitle(e.target.value);
               }}
               type="text"
               name="title"
               id="title"
-              className="shadow-sm block w-full h-[140px] sm:text-sm border-gray-300 rounded-md pt-[25px] text-[16px]"
+              className="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm mb-[24px]"
             />
           </div>
         </div>
-        {/* <div className="flex justify-between mt-[199px]"> */}
-        {/* <PreviousButton handleChangePhaseBack={handleChangePhaseBack} />
-            <NextButton handleChangePhase={handleChangePhase} /> */}
-        {/* </div> */}
+        {/* <div className="mt-[34rem] ml-[40px] flex justify-end">
+            <NextButton handleChangePhase={handleChangePhase} />
+          </div> */}
         {/* </FlowLayout> */}
         <NextButton
-          disabled={!description}
+          disabled={!title}
           className="absolute bottom-7 right-7"
           handleChangePhase={handleChangePhase}
         />

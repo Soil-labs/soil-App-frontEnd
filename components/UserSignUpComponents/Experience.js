@@ -40,9 +40,9 @@ export const ExperienceTab = ({
   ];
 
   return (
-    <div className="relative bg-white rounded-lg p-5">
+    <div className="relative bg-white rounded-lg p-5 drop-shadow-button-shadow">
       <button
-        className="bg-blue-700 absolute right-7 top-7 px-2 rounded-lg text-white"
+        className="absolute border-soilGray-500 border-[1px] right-7 top-7 px-2 rounded-lg text-soilGray-500"
         onClick={() => {
           if (
             position !== "" &&
@@ -60,10 +60,10 @@ export const ExperienceTab = ({
         {isDone ? "EDIT" : "DONE"}
       </button>
       {!isDone ? (
-        <div className="flex justify-between items-end">
-          <div className="flex flex-col gap-2">
+        <div className="flex justify-between gap-2 items-end shadow-soilShadow rounded-xl box-border">
+          <div className="flex flex-col gap-1">
             <input
-              className="border-b-2 border-x-0 border-y-0 text-center border-gray-200 focus:outline-dashed"
+              className="border-b-2 text-soilGray-500 border-x-0 pb-0 border-y-0 text-center border-gray-200"
               type="text"
               required
               placeholder="Position*"
@@ -71,7 +71,7 @@ export const ExperienceTab = ({
               onChange={setPosition}
             />
             <input
-              className="border-b-2 border-x-0 text-center border-y-0 border-gray-200"
+              className="border-b-2 text-soilGray-500 border-x-0 pb-0 text-center border-y-0 border-gray-200"
               type="text"
               required
               placeholder="Company/Project*"
@@ -79,21 +79,21 @@ export const ExperienceTab = ({
               onChange={setCompany}
             />
             <input
-              className="border-b-2 border-x-0 text-center border-y-0 border-gray-200"
+              className="border-b-2 text-soilGray-500 border-x-0 pb-0 text-center border-y-0 border-gray-200"
               type="text"
               placeholder="Github, Behance"
               value={workLink}
               onChange={setWorkLink}
             />
             <input
-              className="border-b-2 border-x-0 text-center border-y-0 border-gray-200"
+              className="border-b-2 text-soilGray-500 border-x-0 pb-0 text-center border-y-0 border-gray-200"
               type="text"
               placeholder="Linkedin, Upwork"
               value={profileLink}
               onChange={setProfileLink}
             />
             <select
-              className="border-none text-center border-black"
+              className="border-none text-soilGray-500 text-center border-black"
               name=""
               id=""
               required
@@ -113,16 +113,24 @@ export const ExperienceTab = ({
               name=""
               id=""
               cols="30"
-              rows="8"
-              className="resize-none rounded-lg border-gray-200"
+              rows="7"
+              className="resize-none rounded-2xl border-gray-200"
               value={roleDiscription}
               onChange={setRoleDiscription}
             ></textarea>
           </div>
           <div>
             <div className="flex flex-col">
-              <input type="date" onChange={setStartDate} />
-              <input type="date" onChange={setEndDate} />
+              <input
+                className="border-none w-36 cursor-pointer"
+                type="date"
+                onChange={setStartDate}
+              />
+              <input
+                className="border-none w-36 cursor-pointer"
+                type="date"
+                onChange={setEndDate}
+              />
             </div>
           </div>
         </div>
@@ -165,6 +173,9 @@ export const ExperienceTab = ({
 const Experience = ({ experience, setExperience, addExperience }) => {
   return (
     <div className="w-full flex flex-col gap-10">
+      <h1 className="uppercase text-xl font-bold font-Inter text-center mt-10">
+        SHARE YOUR RELEVANT EXPERIENCES
+      </h1>
       {experience.map((e, index) => (
         <div key={e.id}>
           <ExperienceTab

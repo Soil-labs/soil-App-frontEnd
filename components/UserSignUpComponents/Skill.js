@@ -20,7 +20,7 @@ const SkillTab = ({ tag, onClick, backgroundColor }) => {
 
 const SkillDropper = ({ heading, children, onAdd, selected }) => {
   return (
-    <div className="bg-white h-[10rem] w-[24rem] rounded-lg">
+    <div className="bg-white h-[10rem] w-[20rem] rounded-lg shadow-soilShadow">
       <p
         className={`uppercase font-semibold text-lg text-center ${
           selected && "border-blue-600 border-[2px] rounded-md cursor-pointer"
@@ -64,6 +64,9 @@ const Skill = ({
 
   return (
     <div className="flex flex-col gap-4">
+      <h1 className="uppercase text-xl font-bold font-Inter text-center mt-10">
+        ADD YOUR SKILLS AND SORT THEM BY LEVEL
+      </h1>
       <SkillPasserContext.Provider
         value={{
           choosenSkills,

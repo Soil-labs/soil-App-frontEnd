@@ -34,6 +34,7 @@
     "react-svg-radar-chart": "^1.4.0",
     "redux": "^4.2.0",
     "shortid": "^2.2.16",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
