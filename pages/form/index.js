@@ -69,12 +69,17 @@ function Form() {
   const [submiting, setSubmiting] = useState(false);
   const [saveError, setSaveError] = useState(false);
   const [skillSelected, setSkillSelected] = useState(false);
+  const [selectorVisible, setSelectorVisible] = useState(false);
 
-  const setInputRoleCallback = useCallback((item) => {
-    setInputRole(item);
-  }, []);
+  const setInputRoleCallback = useCallback(
+    (item) => {
+      // setInputRole(item);
+      setPendingRoles([...pendingRoles, item]);
+      setSelectorVisible(false);
+    },
+    [pendingRoles]
+  );
 
-  console.log("saved roles", savedRoles);
   const saveRoleCallback = useCallback(
     async (item) => {
       if (submiting) return;
@@ -101,7 +106,6 @@ function Form() {
       const { type } = await dispatch(updateProject(params));
       setSubmiting(false);
 
-      console.log("saved roles", savedRoles);
       if (type.includes("rejected")) {
         setSaveError(true);
         return;
@@ -125,13 +129,17 @@ function Form() {
     },
     [pendingRoles, currentRoleIndex]
   );
+
   const handleChangePhase = () => {
     if (changePhase && props.phase) props.changePhase(props.phase);
   };
 
-  const handleAddRole = (e) => {
-    setPendingRoles([...pendingRoles, inputRole]);
-    setInputRole({});
+  // const handleAddRole = (e) => {
+  //   setPendingRoles([...pendingRoles, inputRole]);
+  //   setInputRole({});
+  // };
+  const handleAdd = () => {
+    setSelectorVisible(true);
   };
 
   useLayoutEffect(() => {
@@ -219,7 +227,7 @@ function Form() {
     // Added grid to keep the same sizings through all the steps and easy positioning side columns
     <div className="w-full h-screen -mt-[100px]">
       <div className="w-full h-full grid grid-cols-4 gap-3 pt-[100px] pb-[20px]">
-        <div className="col-span-1 h-full overflow-auto">
+        <div className="col-span-1 h-full overflow-auto scrollbar-hide">
           {phase == 2 ? (
             <div className="pt-12">
               {saveError && (
@@ -245,22 +253,27 @@ function Form() {
                   </div>
                 ))}
                 {/* this was added because I was not able to add a role without it. Will refactor it later */}
-                {!!roles.length && (
+                {!!roles.length && selectorVisible && (
                   <Selector
-                    key={inputRole}
+                    key={JSON.stringify(inputRole) + pendingRoles.length}
                     name="title"
                     options={[{ title: "New Role" }, ...roles]}
                     setDataCallback={setInputRoleCallback}
-                    value={inputRole}
+                    // value={inputRole}
                   />
                 )}
-                <button
-                  className="px-2 py-1 font-bold bg-green-400 rounded-sm"
-                  disabled={!inputRole.title}
-                  onClick={handleAddRole}
-                >
-                  Add Role
-                </button>
+                {!selectorVisible && (
+                  <p className="text-center mt-2">
+                    <button
+                      className="px-2 py-1 font-medium bg-soilGreen-20 rounded-[6px] mx-auto"
+                      // disabled={!inputRole.title}
+                      // onClick={handleAddRole}
+                      onClick={handleAdd}
+                    >
+                      Add Role
+                    </button>
+                  </p>
+                )}
               </div>
             </div>
           ) : null}
@@ -315,6 +328,7 @@ function Form() {
               <div>
                 {phase == 2 && (
                   <NextButton
+                    disabled={savedRoles.length === 0}
                     className="absolute bottom-7 right-7"
                     handleChangePhase={() => changePhase(phase)}
                   />
@@ -328,19 +342,19 @@ function Form() {
               </div>
             ) : (
               <div>
-                <Link href="/">
+                <Link href="/champion-dashboard">
                   <div className="absolute bottom-7 right-7 w-fit">
                     <button
                       className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px]`}
                     >
                       <div className="flex">
-                        <span>FIND TALENT</span>
+                        <span>SEE DASHBOARD</span>
                         <ArrowSmRightIcon className="w-6" />
                       </div>
                     </button>
                   </div>
                 </Link>
-                <Link href="/">
+                {/* <Link href="/">
                   <button
                     className={`w-[132px], h-[40px] py-[10py] px-[11px] bg-soilGreen-20 rounded-[6px] absolute bottom-7 left-7`}
                   >
@@ -349,7 +363,7 @@ function Form() {
                       <span>MAIN PAGE</span>
                     </div>
                   </button>
-                </Link>
+                </Link> */}
               </div>
             )}
             {/* </div> */}

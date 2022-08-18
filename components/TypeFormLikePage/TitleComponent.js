@@ -58,6 +58,7 @@ const DescriptionComponent = (props) => {
           </div> */}
         {/* </FlowLayout> */}
         <NextButton
+          disabled={!title}
           className="absolute bottom-7 right-7"
           handleChangePhase={handleChangePhase}
         />
