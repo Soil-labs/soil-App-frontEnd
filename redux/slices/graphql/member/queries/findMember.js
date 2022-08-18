@@ -6,6 +6,7 @@ export default function findMemberQuery(params) {
           _id: "${params._id}"
         }){
           _id
+          serverID
           discordName
           discordAvatar
           bio
@@ -14,7 +15,10 @@ export default function findMemberQuery(params) {
           ${
             params.returnSkills
               ? `skills{
-            name
+                skillInfo{
+                  _id
+                  name
+                }
           }`
               : ``
           }

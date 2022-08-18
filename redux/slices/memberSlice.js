@@ -11,6 +11,7 @@ const initialState = {
   isDataAvailable: false,
   discordAvatar: "",
   _id: "",
+  serverID: [],
   discordName: "",
   discordAvatar: "",
   bio: "",
@@ -109,6 +110,7 @@ export const memberSlice = createSlice({
       state.isDataAvailable = true;
 
       state._id = payload._id;
+      state.serverID = payload.serverID;
       state.discordAvatar = payload.discordAvatar;
       state.discordName = payload.discordName;
       state.discordAvatar = payload.discordAvatar;
