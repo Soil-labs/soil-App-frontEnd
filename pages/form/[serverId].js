@@ -298,6 +298,7 @@ function Form() {
                 changePhase={changePhase}
                 phase={phase}
                 userId={session.user.id}
+                serverId={router.query.serverId}
               />
             ) : phase == 1 ? (
               <DescriptionComponent

@@ -12,6 +12,7 @@ const initialState = {
   isDataAvailable: false,
   loading: true,
   _id: "",
+  serverID: "",
   title: "",
   description: "",
   budget: {},
@@ -123,6 +124,7 @@ export const projectSlice = createSlice({
       state.isDataAvailable = true;
       state.loading = false;
       state._id = payload._id;
+      state.serverID = payload.serverID;
       state.title = payload.title;
       state.description = payload.description;
       state.dates = payload.dates;
@@ -167,6 +169,7 @@ export const projectSlice = createSlice({
       state.loading = false;
 
       state._id = payload._id;
+      state.serverID = payload.serverID;
       state.title = payload.title;
       state.description = payload.description;
       state.dates = payload.dates;

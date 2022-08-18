@@ -4,6 +4,7 @@ export default function updateProjectMutation(params) {
       query: `mutation{
 				updateProject(fields:{
 					${params._id ? `_id: "${params._id}"` : ``}
+					${params.serverID ? `serverID: "${params.serverID}"` : ``}
 					${params.title ? `title: "${params.title}"` : ``}
 					${params.description ? `description: "${params.description}"` : ``}
 					${params.champion ? `champion: "${params.champion}"` : ``}
@@ -23,6 +24,7 @@ export default function updateProjectMutation(params) {
 			
 				}){
 					_id
+					serverID
 					title
 					description
 					stepsJoinProject

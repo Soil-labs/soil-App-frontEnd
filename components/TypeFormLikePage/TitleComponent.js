@@ -13,6 +13,7 @@ const DescriptionComponent = (props) => {
     const params = {
       title: title,
       champion: props.userId,
+      serverID: props.serverId,
       returnDates: true,
       returnBudget: true,
       returnChampion: true,
