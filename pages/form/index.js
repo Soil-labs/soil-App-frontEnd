@@ -315,6 +315,7 @@ function Form() {
               <div>
                 {phase == 2 && (
                   <NextButton
+                    disabled={savedRoles.length === 0}
                     className="absolute bottom-7 right-7"
                     handleChangePhase={() => changePhase(phase)}
                   />
