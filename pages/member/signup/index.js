@@ -52,7 +52,7 @@ const Signup = () => {
       //   showCaseAbility: formData.pieceOfWork,
       // },
       returnSkills: true,
-      // returnSocialLink: true,
+      returnSocialLink: true,
     };
     console.log("params====", params);
 
@@ -82,6 +82,8 @@ const Signup = () => {
       ...formData,
       discordName: member.discordName,
       avatar: member.discordAvatar,
+      description: member.bio,
+      skills: member.skills,
     });
   }, [member]);
 
