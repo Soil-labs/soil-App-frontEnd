@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import {
-  ChevronDoubleDownIcon,
   UserIcon,
   PlusSmIcon as PlusSmIconSolid,
 } from "@heroicons/react/solid";
 import RoleComponent from "./RoleComponent";
 import { findSkills } from "../../redux/slices/skillsSlice";
 import { useSelector, useDispatch } from "react-redux";
+import NextButton from "../NextButton";
 
 function ScopeRolesComponent(props) {
   const [roleList, setRoleList] = useState([
@@ -114,13 +114,14 @@ function ScopeRolesComponent(props) {
               </div>
             </div>
 
-            <button
+            {/* <button
               onClick={() => {
                 props.changePhase(props.phase);
               }}
             >
               <ChevronDoubleDownIcon className="w-10 h-10 mt-10 font-light text-black stroke-1" />
-            </button>
+            </button> */}
+            <NextButton handleChangePhase={handleChangePhase}/>
           </div>
 
           {/* <pre>{JSON.stringify(roleList, null, 2)}</pre> */}
