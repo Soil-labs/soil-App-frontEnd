@@ -67,6 +67,8 @@ export const MagicApplication = () => {
     query: { projectId, roleId },
   } = useRouter();
 
+  const { title: roleTitle } = project.role.find((role) => role._id === roleId);
+
   useEffect(() => {
     if (!projectId || !roleId) {
       console.log(projectId);
@@ -108,7 +110,7 @@ export const MagicApplication = () => {
                   </div>
                   <div className="p-2">
                     <h3 className="pb-2 text-lg font-bold text-gray-800">
-                      Backend Developer @ {project.title}
+                      {roleTitle}
                     </h3>
                     <span className="font-bold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-gradientViolet to-gradientBlue">
                       {project.matchPercentage}%
