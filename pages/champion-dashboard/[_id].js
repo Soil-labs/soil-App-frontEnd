@@ -29,13 +29,13 @@ const Project = () => {
   }, [dispatch, _id]);
 
   const {
-    projectInspect: { isDataAvailable, team },
+    projectInspect: { team },
   } = useSelector((state) => state);
 
   return (
     <>
       <main className="col-span-3">
-        {isDataAvailable && (
+        {team && (
           <section className="rounded-2xl overflow-hidden bg-[#8dc2204c]">
             <div className="grid grid-cols-2">
               <button
