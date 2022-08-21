@@ -67,7 +67,10 @@ export const MagicApplication = () => {
     query: { projectId, roleId },
   } = useRouter();
 
-  const { title: roleTitle } = project.role.find((role) => role._id === roleId);
+  const roleTitle =
+    project.role && roleId
+      ? project.role.find((role) => role._id === roleId).title
+      : "";
 
   useEffect(() => {
     if (!projectId || !roleId) {
